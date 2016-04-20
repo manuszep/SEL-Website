@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Service</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ service.id }}</td>
+            </tr>
+            <tr>
+                <th>Uid</th>
+                <td>{{ service.uid }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ service.title }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ service.body }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ service.type }}</td>
+            </tr>
+            <tr>
+                <th>Domain</th>
+                <td>{{ service.domain }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ service.category.title }}</td>
+            </tr>
+            <tr>
+                <th>Promote</th>
+                <td>{% if service.promote %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td><img width="300" src="/{{ service.getWebPath }}" /></td>
+            </tr>
+            <tr>
+                <th>Expires_at</th>
+                <td>{% if service.expiresat %}{{ service.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('service_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('service_edit', { 'id': service.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

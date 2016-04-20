@@ -1,0 +1,22 @@
+/****************************************************************************
+    FAST - Fast Application Styling Tools
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Imports
+ **/
+@import 'modules/FAST-Util';
+@import 'modules/FAST-Global-Config';
+@import 'modules/FAST-Global-Config-Color';
+
+@import 'modules/FAST-Global-Normalize';
+
+$FAST-Global-flexbox: true !global;
+
+@include FAST-Global-Normalize();

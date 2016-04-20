@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Adresse email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Dernière connexion</th>
+                <td>{% if user.lastLogin %}{{ user.lastLogin|date("d/m/Y H:i:s") }}{% else %}Jamais connecté{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Bloqué</th>
+                <td>{% if user.locked %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Noeuds</th>
+                <td>{{ user.balance }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{% if user.phone and user.mobile %}
+                    <ul>
+                        {% if user.phone %}
+                        <li>{{ user.phone }}</li>
+                        {% endif %}
+
+                        {% if user.mobile %}
+                            <li>{{ user.mobile }}</li>
+                        {% endif %}
+                    </ul>{% else %}Aucun{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user.address|nl2br }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('user_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
+        </li>
+    </ul>
+{% endblock %}

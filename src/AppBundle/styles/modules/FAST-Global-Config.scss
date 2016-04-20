@@ -1,0 +1,26 @@
+/****************************************************************************
+    FAST - Global Config
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$FAST-font-size: 100% !default;
+$FAST-width: FAST-rem-calc(1200) !default;
+$FAST-lineheight: 1.5 !default;
+
+$FAST-body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif !default;
+$FAST-body-antialiased: true !default;
+
+$FAST-Global-margin: 1rem !default;
+$FAST-Global-padding: 1rem !default;
+
+$FAST-Global-weight-normal: normal !default;
+$FAST-Global-weight-bold: bold !default;
+
+$FAST-Global-radius: 2px !default;
+
+$FAST-Global-flexbox: false !default;
+
+$FAST-Global-transition-time: .3s !default;
+

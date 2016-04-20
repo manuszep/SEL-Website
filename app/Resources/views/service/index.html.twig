@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Service list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Uid</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Type</th>
+                <th>Domain</th>
+                <th>Category_id</th>
+                <th>Promote</th>
+                <th>Picture</th>
+                <th>Expires_at</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td><a href="{{ path('service_show', { 'id': service.id }) }}">{{ service.id }}</a></td>
+                <td>{{ service.uid }}</td>
+                <td>{{ service.title }}</td>
+                <td>{{ service.body }}</td>
+                <td>{{ service.type }}</td>
+                <td>{{ service.domain }}</td>
+                <td>{{ service.categoryid }}</td>
+                <td>{% if service.promote %}Yes{% else %}No{% endif %}</td>
+                <td>{{ service.picture }}</td>
+                <td>{% if service.expiresat %}{{ service.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if service.createdat %}{{ service.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if service.updatedat %}{{ service.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('service_show', { 'id': service.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('service_edit', { 'id': service.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('service_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

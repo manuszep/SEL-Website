@@ -1,0 +1,68 @@
+fos_user_security_login:
+    path:      /connexion
+    defaults:  { _controller: FOSUserBundle:Security:login }
+    methods:  [GET, POST]
+fos_user_security_check:
+    path:      /connexion_verification
+    defaults:  { _controller: FOSUserBundle:Security:check }
+    methods:  [POST]
+fos_user_security_logout:
+    path:      /deconnexion
+    defaults:  { _controller: FOSUserBundle:Security:logout }
+    methods:  [GET]
+
+fos_user_profile_show:
+    path: /profil
+    defaults: { _controller: FOSUserBundle:Profile:show }
+    methods: [GET]
+fos_user_profile_edit:
+    path: /profil/modifier
+    defaults: { _controller: FOSUserBundle:Profile:edit }
+    methods: [GET, POST]
+
+fos_user_registration_confirm:
+    path: /inscription/confirmation/{token}
+    defaults: { _controller: FOSUserBundle:Registration:confirm }
+    methods: [GET]
+fos_user_registration_confirmed:
+    path: /inscription/confirme
+    defaults: { _controller: FOSUserBundle:Registration:confirmed }
+    methods: [GET]
+
+fos_user_resetting_request:
+    path: /reinitialisation
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+    methods: [GET]
+fos_user_resetting_send_email:
+    path: /reinitialisation/email
+    defaults: { _controller: FOSUserBundle:Resetting:sendEmail }
+    methods: [POST]
+fos_user_resetting_check_email:
+    path: /reinitialisation/verification
+    defaults: { _controller: FOSUserBundle:Resetting:checkEmail }
+    methods: [GET]
+fos_user_resetting_reset:
+    path: /reinitialisation/reinitialisation/{token}
+    defaults: { _controller: FOSUserBundle:Resetting:reset }
+    methods: [GET, POST]
+
+fos_user_change_password:
+    path: /changement-mot-de-passe
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+    methods: [GET, POST]
+
+default:
+    resource: "@AppBundle/Controller/DefaultController.php"
+    type:     annotation
+service:
+    resource: "@AppBundle/Controller/ServiceController.php"
+    type:     annotation
+user:
+    resource: "@AppBundle/Controller/UserController.php"
+    type:     annotation
+category:
+    resource: "@AppBundle/Controller/CategoryController.php"
+    type:     annotation
+page:
+    resource: "@AppBundle/Controller/PageController.php"
+    type:     annotation

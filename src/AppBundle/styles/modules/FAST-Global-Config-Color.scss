@@ -1,0 +1,52 @@
+/****************************************************************************
+    FAST - Global Config Color
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$FAST-Color-palette: (
+        primary: #103184,
+        secondary: #1375BF,
+        neutral: #bbbbbb,
+        success: #7a9f34,
+        warning: #ffae00,
+        alert: #E62426,
+) !default;
+
+@if not map-has-key($FAST-Color-palette, primary) {
+    @error 'In $FAST-Color-palette, you must have a color named "primary".';
+}
+
+$FAST-Color-xxlight-gray: #f5f5f5 !default;
+$FAST-Color-xlight-gray: #e5e5e5 !default;
+$FAST-Color-light-gray: #d6d6d6 !default;
+$FAST-Color-medium-gray: #b0b0b0 !default;
+$FAST-Color-dark-gray: #6f6f6f !default;
+$FAST-Color-black: #0a0a0a !default;
+$FAST-Color-white: #fefefe !default;
+
+$FAST-Color-black-xxl: rgba(0,0,0,.05) !default;
+$FAST-Color-black-xl: rgba(0,0,0,.12) !default;
+$FAST-Color-black-l: rgba(0,0,0,.18) !default;
+$FAST-Color-black-m: rgba(0,0,0,.35) !default;
+$FAST-Color-black-d: rgba(0,0,0,.6) !default;
+$FAST-Color-black-xd: rgba(0,0,0,.9) !default;
+
+$FAST-Color-white-xxl: rgba(255,255,255,.9) !default;
+$FAST-Color-white-xl: rgba(255,255,255,.85) !default;
+$FAST-Color-white-l: rgba(255,255,255,.8) !default;
+$FAST-Color-white-m: rgba(255,255,255,.65) !default;
+$FAST-Color-white-d: rgba(255,255,255,.44) !default;
+
+$FAST-Color-Type-Dark: rgba(0,0,0,.8);
+$FAST-Color-Type-Light: rgba(255,255,255,.9);
+
+$FAST-Color-body-background: #f2f5f7 !default;
+$FAST-Color-body-font: $FAST-Color-Type-Dark !default;
+
+$FAST-Color-primary: map-get($FAST-Color-palette, primary);
+$FAST-Color-secondary: map-get($FAST-Color-palette, secondary);
+$FAST-Color-success: map-get($FAST-Color-palette, success);
+$FAST-Color-warning: map-get($FAST-Color-palette, warning);
+$FAST-Color-alert: map-get($FAST-Color-palette, alert);
