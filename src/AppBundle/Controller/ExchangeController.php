@@ -44,13 +44,24 @@ class ExchangeController extends Controller
         $exchange = new Exchange();
         $form = $this->createForm('AppBundle\Form\ExchangeType', $exchange);
         $form->handleRequest($request);
+        $error = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($exchange);
-            $em->flush();
+            if ($exchange->getCreditUser()->getId() == $exchange->getDebitUser()->getId()) {
+                $this->addFlash(
+                    'error',
+                    'Le donneur et le receveur doivent être des utilisateurs différents.'
+                );
+                $error = true;
+            }
+            
+            if (!$error) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($exchange);
+                $em->flush();
 
-            return $this->redirectToRoute('exchange_show', array('id' => $exchange->getId()));
+                return $this->redirectToRoute('exchange_show', array('id' => $exchange->getId()));
+            }
         }
 
         return $this->render('exchange/new.html.twig', array(

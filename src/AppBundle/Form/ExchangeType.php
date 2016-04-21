@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ExchangeType extends AbstractType
 {
@@ -27,7 +28,9 @@ class ExchangeType extends AbstractType
                 'choice_label' => 'username',
                 'placeholder' => 'Membre qui donne des noeuds'
             ))
-            ->add('message')
+            ->add('message', TextareaType::class, array(
+                'required' => false
+            ))
             ->add('amount', IntegerType::class, array(
                 'scale' => 2,
                 'attr' => array(

@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Exchange
  *
  * @ORM\Table(name="exchange")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ExchangeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Exchange
 {
@@ -62,6 +64,22 @@ class Exchange
      * @ORM\Column(name="du_balance", type="float")
      */
     private $duBalance;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
 
     /**
@@ -217,5 +235,28 @@ class Exchange
     {
         return $this->duBalance;
     }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    // TODO: Add create, delete and update listeners to apply changes on the concerned users
+    // TODO: Check if $cu_balance and $du_balance are necessary because if an exchange is deleted, every older exchanges must be updated.
 }
 
