@@ -1,3 +1,7 @@
+app_exchange:
+    resource: "@AppBundle/Controller/ExchangeController.php"
+    type:     annotation
+
 fos_user_security_login:
     path:      /connexion
     defaults:  { _controller: FOSUserBundle:Security:login }
