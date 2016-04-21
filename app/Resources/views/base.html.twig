@@ -9,17 +9,31 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li>Le SEL
+                <ul>
+                    <li><a href="/le-sel-athois">Le SEL Athois</a></li>
+                    <li><a href="/articles">La vie du SEL</a></li>
+                    <li><a href="/agenda">Agenda</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="{{ path('user_index') }}">Liste des membres</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ path('service_index') }}">Services</a></li>
+            <li><a href="/faq">Questions fréquentes</a></li>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
+                <li>Connecté en tant que <a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
+                    <ul>
+                        <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li><a href="{{ path('user_edit', { 'id': app.user.id }) }}">Modifier</a></li>
+                    </ul>
+                </li>
             {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
             {% endif %}
-        </div>
-
+        </ul>
+        
         {% for type, messages in app.session.flashBag.all %}
             {% for message in messages %}
                 <div class="{{ type }}">
@@ -28,15 +42,6 @@
             {% endfor %}
         {% endfor %}
 
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/le-sel-athois">Le SEL Athois</a></li>
-            <li><a href="/articles">La vie du SEL</a></li>
-            <li><a href="{{ path('service_index') }}">Services</a></li>
-            <li><a href="/agenda">Agenda</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/faq">Questions fréquentes</a></li>
-        </ul>
         {% block fos_user_content %}{% endblock fos_user_content %}
         {% block body %}{% endblock %}
         <h4>Ajouter</h4>

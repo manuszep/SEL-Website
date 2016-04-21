@@ -39,7 +39,7 @@
                         {% if app.user and (app.user.hasRole('ROLE_SUPER_ADMIN') or app.user.hasRole('ROLE_COCO')) %}
                             {%  if app.user.id != user.id %}
                             <li>
-                                {% if user.enabled %}
+                                {% if not user.locked %}
                                 <a href="{{ path('user_disable', { 'id': user.id }) }}">désactiver</a>
                                 {% else %}
                                 <a href="{{ path('user_enable', { 'id': user.id }) }}">activer</a>

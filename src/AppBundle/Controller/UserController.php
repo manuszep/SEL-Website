@@ -56,12 +56,14 @@ class UserController extends Controller
                 $user->setConfirmationToken($tokenGenerator->generateToken());
             }
 
+            $um->updateUser($user);
+
+            $this->get('fos_user.mailer')->sendConfirmationEmailMessage($user);
+
             $this->addFlash(
                 'notice',
                 'L\'utilisateur <strong>' . $user->getUsername() . '</strong> a bien été enregistré. Un email de confirmation lui a été envoyé.'
             );
-
-            $um->updateUser($user);
 
             return $this->redirectToRoute('user_index');
         }
@@ -89,7 +91,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
-        $user->setEnabled(false);
+        $user->setLocked(true);
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
 
@@ -118,7 +120,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
-        $user->setEnabled(true);
+        $user->setLocked(false);
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
 

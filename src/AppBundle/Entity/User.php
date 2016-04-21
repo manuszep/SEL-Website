@@ -5,7 +5,8 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -96,6 +97,16 @@ class User extends BaseUser
      * @ORM\Column(type="datetime")
      */
     private $updated;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture_path;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $picture;
 
     /**
      * Get id
@@ -300,6 +311,28 @@ class User extends BaseUser
     }
 
     /**
+     * Sets picture.
+     *
+     * @param UploadedFile $file
+     *
+     * @return Service
+     */
+    public function setPicture(UploadedFile $file = null)
+    {
+        $this->picture = $file;
+    }
+
+    /**
+     * Get picture.
+     *
+     * @return UploadedFile
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
      * Set created
      *
      * @param \DateTime $created
@@ -339,16 +372,83 @@ class User extends BaseUser
      * @return string
      */
     public function getAddress() {
-        $block1 = trim(implode(" ", array($this->getStreet(), $this->getStreetNumber(), $this->getStreetBox())));
-        $block2 = trim(implode(" ", array($this->getZip(), $this->getCity())));
+        $block1 = trim(implode(" ", array($this->getStreet(), $this->getStreetNumber())));
+        if ($block1 != "" && $this->getStreetBox()) {
+            $block2 = trim(implode(" - ", array($block1, $this->getStreetBox())));
+        } else {
+            $block2 = $block1;
+        }
+        $block3 = trim(implode(" ", array($this->getZip(), $this->getCity())));
         
         $splitter = ",\n";
 
         $block = array();
 
-        if ($block1 != "") {$block[] = $block1;}
         if ($block2 != "") {$block[] = $block2;}
+        if ($block3 != "") {$block[] = $block3;}
 
         return implode($splitter, $block);
+    }
+    
+    /**
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->picture_path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->picture_path;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->picture_path
+            ? null
+            : $this->getUploadDir().'/'.$this->picture_path;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDir()
+    {
+        return 'uploads/users';
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getPicture()) {
+            return;
+        }
+
+        $uuid = uniqid();
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getPicture()->move(
+            $this->getUploadRootDir(),
+            $uuid
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->picture_path = $uuid;
+
+        // clean up the file property as you won't need it anymore
+        $this->picture = null;
     }
 }
