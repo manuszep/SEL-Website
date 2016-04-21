@@ -17,6 +17,9 @@
 
 @import 'modules/FAST-Global-Normalize';
 
+@import 'modules/SEL-Wrapper';
+
 $FAST-Global-flexbox: true !global;
 
 @include FAST-Global-Normalize();
+@include SEL-Wrapper();

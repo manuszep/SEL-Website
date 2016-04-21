@@ -145,6 +145,24 @@
 /**
  *  Mixins
  **/
+/****************************************************************************
+    SEL - Wrapper
+ ****************************************************************************/
+/**
+ *  Local variables
+ **/
+/**
+ *  Functions
+ **/
+/**
+ *  Mixins
+ **/
+/**
+ *  Placeholders
+ **/
+/**
+ *  Styles
+ **/
 /**
  * 1. Set default font family to sans-serif.
  * 2. Prevent iOS and IE text size adjust after device orientation change,
@@ -536,5 +554,20 @@ table {
 td,
 th {
   padding: 0; }
+
+.wrapper {
+  margin: 0 auto; }
+  @media screen and (min-width: 40em) {
+    .wrapper {
+      width: 40em; } }
+  @media screen and (min-width: 64em) {
+    .wrapper {
+      width: 64em; } }
+  @media screen and (min-width: 75em) {
+    .wrapper {
+      width: 75em; } }
+  @media screen and (min-width: 90em) {
+    .wrapper {
+      width: 75em; } }
 
 /*# sourceMappingURL=main.css.map */

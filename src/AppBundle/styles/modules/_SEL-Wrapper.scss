@@ -1,0 +1,52 @@
+/****************************************************************************
+    SEL - Wrapper
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Wrapper() {
+    .wrapper {
+        margin: 0 auto;
+
+        @include FAST-breakpoint(medium) {
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, medium));
+        }
+
+        @include FAST-breakpoint(large) {
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, large));
+        }
+
+        @include FAST-breakpoint(xlarge) {
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xlarge));
+        }
+
+        @include FAST-breakpoint(xxlarge) {
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xxlarge));
+        }
+    }
+}

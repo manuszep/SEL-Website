@@ -9,49 +9,59 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li>Le SEL
-                <ul>
-                    <li><a href="/le-sel-athois">Le SEL Athois</a></li>
-                    <li><a href="/articles">La vie du SEL</a></li>
-                    <li><a href="/agenda">Agenda</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="{{ path('user_index') }}">Liste des membres</a></li>
-                </ul>
-            </li>
-            <li><a href="{{ path('service_index') }}">Services</a></li>
-            <li><a href="/faq">Questions fréquentes</a></li>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <li>Connecté en tant que <a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
+        <div class="wrapper">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li>Le SEL
                     <ul>
-                        <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
-                        <li><a href="{{ path('user_edit', { 'id': app.user.id }) }}">Modifier</a></li>
+                        <li><a href="/le-sel-athois">Le SEL Athois</a></li>
+                        <li><a href="/articles">La vie du SEL</a></li>
+                        <li><a href="/agenda">Agenda</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="{{ path('user_index') }}">Liste des membres</a></li>
                     </ul>
                 </li>
-            {% else %}
-                <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
-            {% endif %}
-        </ul>
+                <li><a href="{{ path('service_index') }}">Services</a></li>
+                <li><a href="/faq">Questions fréquentes</a></li>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li>Connecté en tant que <a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
+                        <ul>
+                            <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                            <li><a href="{{ path('user_edit', { 'id': app.user.id }) }}">Modifier</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
 
-        {% for type, messages in app.session.flashBag.all %}
-            {% for message in messages %}
-                <div class="{{ type }}">
-                    {{ message|trans({}, 'FOSUserBundle')|raw }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+        {% set messages_list = app.session.flashBag.all %}
+        {% if messages_list %}
+            <div class="wrapper">
+                {% for type, messages in messages_list %}
+                    {% for message in messages %}
+                        <div class="{{ type }}">
+                            {{ message|trans({}, 'FOSUserBundle')|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
         {% block fos_user_content %}{% endblock fos_user_content %}
         {% block body %}{% endblock %}
-        <h4>Ajouter</h4>
-        <ul>
-            <li><a href="{{ path('service_new') }}">Service</a></li>
-            <li><a href="/agenda/ajouter">&Eacute;venement</a></li>
-            <li><a href="/articles/ajouter">Article</a></li>
-            <li><a href="{{ path('exchange_new') }}">&Eacute;change</a></li>
-            <li><a href="{{ path('user_new') }}">Utilisateur</a></li>
-        </ul>
+
+        <div class="wrapper">
+            <h4>Ajouter</h4>
+            <ul>
+                <li><a href="{{ path('service_new') }}">Service</a></li>
+                <li><a href="/agenda/ajouter">&Eacute;venement</a></li>
+                <li><a href="/articles/ajouter">Article</a></li>
+                <li><a href="{{ path('exchange_new') }}">&Eacute;change</a></li>
+                <li><a href="{{ path('user_new') }}">Utilisateur</a></li>
+            </ul>
+        </div>
 
         {% block javascripts %}{% endblock %}
     </body>
