@@ -1,18 +1,16 @@
-{% extends 'base.html.twig' %}
 
-{% block body %}
     <h1>Exchange list</h1>
 
     <table>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Credituser</th>
-                <th>Debituser</th>
-                <th>Message</th>
-                <th>Amount</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Credituser</th>
+            <th>Debituser</th>
+            <th>Message</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for exchange in exchanges %}
@@ -36,10 +34,3 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('exchange_new') }}">Create a new entry</a>
-        </li>
-    </ul>
-{% endblock %}

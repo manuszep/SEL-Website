@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="exchange")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ExchangeRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\BalanceKeeper"})
  * @ORM\HasLifecycleCallbacks()
  */
 class Exchange
@@ -26,21 +27,23 @@ class Exchange
     /**
      * @var int
      *
-     * @ORM\Column(name="credit_user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creditUser;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="debit_user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $debitUser;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="string", length=255)
+     * @ORM\Column(name="message", type="string", length=255, nullable=true)
      */
     private $message;
 
@@ -50,20 +53,6 @@ class Exchange
      * @ORM\Column(name="amount", type="float")
      */
     private $amount;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="cu_balance", type="float")
-     */
-    private $cuBalance;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="du_balance", type="float")
-     */
-    private $duBalance;
 
     /**
      * @var \DateTime $created

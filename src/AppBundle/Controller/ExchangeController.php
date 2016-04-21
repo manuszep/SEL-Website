@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Exchange;
+use AppBundle\Entity\User;
 use AppBundle\Form\ExchangeType;
 
 /**
@@ -29,6 +30,31 @@ class ExchangeController extends Controller
         $exchanges = $em->getRepository('AppBundle:Exchange')->findAll();
 
         return $this->render('exchange/index.html.twig', array(
+            'exchanges' => $exchanges,
+        ));
+    }
+
+    /**
+     * Lists all Exchange entities for a user.
+     *
+     * @param User $user
+     * @Method("GET")
+     */
+    public function listForUserAction(User $user) {
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository('AppBundle:Exchange')->createQueryBuilder('e');
+        $exchanges = $qb
+            ->where($qb->expr()->orX(
+                $qb->expr()->eq('e.creditUser', ':cu'),
+                $qb->expr()->eq('e.debitUser', ':du')
+            ))
+            ->setParameters(array('cu' => $user->getId(), 'du' => $user->getId()))
+            ->orderBy('e.created', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('exchange/listForUser.html.twig', array(
             'exchanges' => $exchanges,
         ));
     }

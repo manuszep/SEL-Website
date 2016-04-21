@@ -311,6 +311,28 @@ class User extends BaseUser
     }
 
     /**
+     * @param float $amount
+     *
+     * @return User
+     */
+    public function credit($amount) {
+        $this->balance += $amount;
+
+        return $this;
+    }
+
+    /**
+     * @param float $amount
+     *
+     * @return User
+     */
+    public function debit($amount) {
+        $this->balance -= $amount;
+
+        return $this;
+    }
+
+    /**
      * Sets picture.
      *
      * @param UploadedFile $file
