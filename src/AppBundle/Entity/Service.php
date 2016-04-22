@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Category;
 
 /**
  * @ORM\Entity()
@@ -21,9 +23,12 @@ class Service
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $uid;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -112,27 +117,27 @@ class Service
     }
 
     /**
-     * Set uid
+     * Set user
      *
-     * @param integer $uid
+     * @param User $uid
      *
      * @return Service
      */
-    public function setUid($uid)
+    public function setUser(User $user)
     {
-        $this->uid = $uid;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get uid
+     * Get user
      *
-     * @return integer
+     * @return User
      */
-    public function getUid()
+    public function getUser()
     {
-        return $this->uid;
+        return $this->user;
     }
 
     /**
@@ -234,11 +239,11 @@ class Service
     /**
      * Set category
      *
-     * @param integer $category
+     * @param Category $category
      *
      * @return Service
      */
-    public function setCategory($category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
 
@@ -248,7 +253,7 @@ class Service
     /**
      * Get category
      *
-     * @return integer
+     * @return Category
      */
     public function getCategory()
     {
@@ -415,5 +420,9 @@ class Service
 
         // clean up the file property as you won't need it anymore
         $this->picture = null;
+    }
+
+    public function getSelectLabel() {
+        return $this->getUser()->getUsername() . ' - ' . $this->getTitle();
     }
 }

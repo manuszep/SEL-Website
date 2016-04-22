@@ -42,6 +42,11 @@ class ExchangeType extends AbstractType
                         ->setParameter('locked', '0');
                 }
             ))
+            ->add('service', EntityType::class, array(
+                'class' => 'AppBundle:Service',
+                'choice_label' => 'select_label',
+                'placeholder' => 'Service concerné'
+            ))
             ->add('message', TextareaType::class, array(
                 'required' => false
             ))

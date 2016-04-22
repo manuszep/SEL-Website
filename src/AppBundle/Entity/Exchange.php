@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Service;
 
 /**
  * Exchange
@@ -39,6 +41,14 @@ class Exchange
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $debitUser;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Service")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $service;
 
     /**
      * @var string
@@ -84,11 +94,11 @@ class Exchange
     /**
      * Set creditUser
      *
-     * @param integer $creditUser
+     * @param User $creditUser
      *
      * @return Exchange
      */
-    public function setCreditUser($creditUser)
+    public function setCreditUser(User $creditUser)
     {
         $this->creditUser = $creditUser;
 
@@ -98,7 +108,7 @@ class Exchange
     /**
      * Get creditUser
      *
-     * @return int
+     * @return User
      */
     public function getCreditUser()
     {
@@ -108,11 +118,11 @@ class Exchange
     /**
      * Set debitUser
      *
-     * @param integer $debitUser
+     * @param User $debitUser
      *
      * @return Exchange
      */
-    public function setDebitUser($debitUser)
+    public function setDebitUser(User $debitUser)
     {
         $this->debitUser = $debitUser;
 
@@ -122,11 +132,35 @@ class Exchange
     /**
      * Get debitUser
      *
-     * @return int
+     * @return User
      */
     public function getDebitUser()
     {
         return $this->debitUser;
+    }
+
+    /**
+     * Set service
+     *
+     * @param Service $service
+     *
+     * @return Exchange
+     */
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return Service
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 
     /**
