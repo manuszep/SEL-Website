@@ -38,9 +38,10 @@ class ExchangeController extends Controller
      * Lists all Exchange entities for a user.
      *
      * @param User $user
+     * @param boolean $partial
      * @Method("GET")
      */
-    public function listForUserAction(User $user) {
+    public function listForUserAction(User $user, $partial) {
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->getRepository('AppBundle:Exchange')->createQueryBuilder('e');
@@ -56,6 +57,7 @@ class ExchangeController extends Controller
 
         return $this->render('exchange/listForUser.html.twig', array(
             'exchanges' => $exchanges,
+            'partial' => $partial
         ));
     }
 

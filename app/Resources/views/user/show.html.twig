@@ -61,6 +61,6 @@
 
     {{ render(controller(
         'AppBundle:Exchange:listForUser',
-        { 'user': user.id }
+        { 'user': user.id, 'partial': true}
     )) }}
 {% endblock %}

@@ -1,4 +1,6 @@
+{% extends 'base.html.twig' %}
 
+{% block body %}
     <h1>Exchange list</h1>
 
     <table>
@@ -19,7 +21,7 @@
                 <td><a href="{{ path('exchange_show', { 'id': exchange.id }) }}">{{ exchange.id }}</a></td>
                 <td>{{ exchange.creditUser }}</td>
                 <td>{{ exchange.debitUser }}</td>
-                <td>{{ exchange.service.id }}</td>
+                <td>{{ exchange.service }}</td>
                 <td>{{ exchange.message }}</td>
                 <td>{{ exchange.amount }}</td>
                 <td>
@@ -36,3 +38,4 @@
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
