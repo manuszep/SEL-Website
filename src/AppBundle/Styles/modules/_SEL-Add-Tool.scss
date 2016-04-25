@@ -67,6 +67,7 @@ $SEL-Add-tool-radius: 16rem;
             z-index: 1;
 
             transition: all .4s;
+            transition-delay: .2s;
 
             .icon {
                 width: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
@@ -74,6 +75,7 @@ $SEL-Add-tool-radius: 16rem;
                 line-height: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
 
                 transition: all .2s;
+                transition-delay: .2s;
                 fill: $FAST-Color-white-xxl;
             }
 
@@ -99,6 +101,7 @@ $SEL-Add-tool-radius: 16rem;
             bottom: 0;
             right: 0;
             transition: all .3s;
+            transition-delay: .2s;
 
             a {
                 display: block;
@@ -110,6 +113,7 @@ $SEL-Add-tool-radius: 16rem;
                 padding: $SEL-add-tool-item-padding;
                 font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
                 transition: all .3s;
+                transition-delay: .2s;
             }
 
             .text {

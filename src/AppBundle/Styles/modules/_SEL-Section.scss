@@ -1,0 +1,49 @@
+/****************************************************************************
+    SEL - Section
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$SEL-Section-angle-size: 2rem;
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Section() {
+    .angle-intro {
+        background-color: $FAST-Color-ternary;
+        color: #fff;
+
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$SEL-Section-angle-size}), 0 100%);
+
+        h1 {
+            color: #fff;
+        }
+
+        &:first-child {
+            margin-top: -$SEL-Content-top-margin;
+            padding-top: $SEL-Content-top-margin;
+            padding-bottom: 4rem;
+        }
+    }
+}

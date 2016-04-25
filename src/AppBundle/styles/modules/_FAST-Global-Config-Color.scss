@@ -8,6 +8,7 @@
 $FAST-Color-palette: (
         primary: #2e9395,
         secondary: #ea2049,
+        ternary: #362f2d,
         neutral: #bbbbbb,
         success: #7a9f34,
         warning: #ffae00,
@@ -47,6 +48,7 @@ $FAST-Color-body-font: $FAST-Color-Type-Dark !default;
 
 $FAST-Color-primary: map-get($FAST-Color-palette, primary);
 $FAST-Color-secondary: map-get($FAST-Color-palette, secondary);
+$FAST-Color-ternary: map-get($FAST-Color-palette, ternary);
 $FAST-Color-success: map-get($FAST-Color-palette, success);
 $FAST-Color-warning: map-get($FAST-Color-palette, warning);
 $FAST-Color-alert: map-get($FAST-Color-palette, alert);

@@ -27,8 +27,11 @@
 @import "modules/SEL-Header";
 @import "modules/SEL-Add-Tool";
 @import "modules/SEL-Table";
+@import "modules/SEL-Section";
 
 $FAST-Global-flexbox: true !global;
+
+$SEL-Content-top-margin: 8rem !default;
 
 @include FAST-Global-Normalize();
 @include FAST-Typography();
@@ -39,7 +42,8 @@ $FAST-Global-flexbox: true !global;
 @include SEL-Header();
 @include SEL-Add-Tool();
 @include SEL-Table();
+@include SEL-Section();
 
 .main-content {
-    margin-top: 8rem;
+    margin-top: $SEL-Content-top-margin;
 }
