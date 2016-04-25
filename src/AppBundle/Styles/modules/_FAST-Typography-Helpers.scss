@@ -1,0 +1,69 @@
+/** **************************************************************************
+    AXA FAST - Typography Helpers
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Typography-lead-font-size: $FAST-Global-font-size * 1.25 !default;
+$FAST-Typography-lead-lineheight: 1.6 !default;
+$FAST-Typography-subheader-lineheight: 1.4 !default;
+$FAST-Typography-subheader-color: $FAST-Color-dark-gray !default;
+$FAST-Typography-subheader-font-weight: $FAST-Global-weight-normal !default;
+$FAST-Typography-subheader-margin-top: 0.2rem !default;
+$FAST-Typography-subheader-margin-bottom: 0.5rem !default;
+$FAST-Typography-stat-font-size: 2.5rem !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Typography-Helpers() {
+    // Use to create a subheading under a main header
+    // Make sure you pair the two elements in a <header> element, like this:
+    // <header>
+    //   <h1>Heading</h1>
+    //   <h2>Subheading</h2>
+    // </header>
+    .subheader {
+        margin-top: $FAST-Typography-subheader-margin-top;
+        margin-bottom: $FAST-Typography-subheader-margin-bottom;
+        font-weight: $FAST-Typography-subheader-font-weight;
+        line-height: $FAST-Typography-subheader-lineheight;
+        color: $FAST-Typography-subheader-color;
+    }
+
+    // Use to style an introductory lead, deck, blurb, etc.
+    .lead {
+        font-size: $FAST-Typography-lead-font-size;
+        line-height: $FAST-Typography-lead-lineheight;
+    }
+
+    // Use to style a large number to display a statistic
+    .stat {
+        font-size: $FAST-Typography-stat-font-size;
+        line-height: 1;
+
+        p + & {
+            margin-top: -1rem;
+        }
+    }
+
+    // Use to remove the bullets from an unordered list
+    .no-bullet {
+        margin-left: 0;
+        list-style: none;
+    }
+}

@@ -1,0 +1,50 @@
+/****************************************************************************
+    FAST - Basics
+ ****************************************************************************/
+
+/**
+ *  Styles
+ **/
+
+@mixin FAST-Global-Basic() {
+    .fast-mq {
+        font-family: '#{FAST-bp-serialize($FAST-Util-Breakpoint-list)}';
+    }
+
+    // Styles Google Maps and MapQuest embeds properly
+    // scss-lint:disable IdSelector
+    #map_canvas,
+    .map_canvas,
+    .mqa-display {
+        img,
+        embed,
+        object {
+            max-width: none !important;
+        }
+    }
+
+    .visible {
+        display: block !important;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .switch-after {
+        display: inline-block;
+        @include FAST-switch-after();
+    }
+
+    .ib.ib {
+        display: inline-block;
+    }
+
+    .tb.tb {
+        display: table;
+
+        > * {
+            display: table-cell;
+        }
+    }
+}

@@ -11,15 +11,35 @@
 /**
  *  Imports
  **/
-@import 'modules/FAST-Util';
-@import 'modules/FAST-Global-Config';
-@import 'modules/FAST-Global-Config-Color';
+@import "modules/FAST-Util";
+@import "modules/FAST-Global-Config";
+@import "modules/FAST-Global-Config-Color";
+@import "modules/FAST-Global-Normalize";
+@import "modules/FAST-Typography";
+@import "modules/FAST-Global-Basic";
 
-@import 'modules/FAST-Global-Normalize';
+@import "modules/FAST-Deco.scss";
+@import "modules/FAST-Card.scss";
 
-@import 'modules/SEL-Wrapper';
+@import "modules/SEL-Wrapper";
+@import "modules/SEL-Type";
+@import "modules/SEL-Icon";
+@import "modules/SEL-Header";
+@import "modules/SEL-Add-Tool";
+@import "modules/SEL-Table";
 
 $FAST-Global-flexbox: true !global;
 
 @include FAST-Global-Normalize();
+@include FAST-Typography();
+@include FAST-Global-Basic();
 @include SEL-Wrapper();
+@include SEL-Type();
+@include SEL-Icon();
+@include SEL-Header();
+@include SEL-Add-Tool();
+@include SEL-Table();
+
+.main-content {
+    margin-top: 8rem;
+}

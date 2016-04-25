@@ -32,21 +32,23 @@
 @mixin SEL-Wrapper() {
     .wrapper {
         margin: 0 auto;
+        padding: 0 1rem;
+        width: 96%;
 
         @include FAST-breakpoint(medium) {
-            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, medium));
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, medium)) - 1em;
         }
 
         @include FAST-breakpoint(large) {
-            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, large));
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, large)) - 2em;
         }
 
         @include FAST-breakpoint(xlarge) {
-            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xlarge));
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xlarge)) - 4em;
         }
 
         @include FAST-breakpoint(xxlarge) {
-            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xxlarge));
+            width: FAST-bp-to-em(map_get($FAST-Util-Breakpoint-list, xxlarge)) - 4em;
         }
     }
 }

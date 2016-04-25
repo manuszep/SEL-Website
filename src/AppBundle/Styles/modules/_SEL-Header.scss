@@ -1,0 +1,75 @@
+/****************************************************************************
+    SEL - Header
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Header() {
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        .wrapper {
+            @include FAST-Deco-shadow(1);
+            padding: .75rem 1rem;
+            border-radius: 5px;
+            background: rgba(255,255,255,.9);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            /* TODO: backdrop-filter: blur(10px); // This is not yet supported */
+        }
+
+        .logo {
+            flex-grow: 1;
+
+            img {
+                max-width: 14rem;
+                margin-top: .25rem;
+                margin-bottom: -.25rem;
+            }
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 0 1rem;
+            }
+
+            ul {
+                display: none;
+            }
+        }
+    }
+}

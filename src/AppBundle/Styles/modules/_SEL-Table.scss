@@ -1,0 +1,64 @@
+/****************************************************************************
+    SEL - Table
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Table() {
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        background: transparent;
+    }
+
+    $cell-border: 1px solid $FAST-Color-black-xl;
+
+    td, th {
+        padding: .5rem 1rem;
+        text-align: left;
+        background: $FAST-Color-white-xl;
+        border: $cell-border;
+        border-left-color: $FAST-Color-black-xxl;
+        border-right: none;
+
+        &:first-child {
+            border-left: $cell-border;
+        }
+
+        &:last-child {
+            border-right: $cell-border;
+        }
+    }
+
+    .table-actions {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}

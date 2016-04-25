@@ -1,0 +1,198 @@
+/****************************************************************************
+    SEL - Add Tool
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$SEL-add-tool-toggle-size: 4rem;
+$SEL-add-tool-toggle-padding: .75rem;
+$SEL-add-tool-item-size: 4rem;
+$SEL-add-tool-item-padding: 1rem;
+$SEL-Add-tool-radius: 16rem;
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Add-Tool() {
+    .dimmer {
+        transition: background .2s;
+    }
+
+    .add-tool {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        z-index: 2;
+
+        .wrapper {
+            position: relative;
+        }
+
+        .toggle {
+            @extend %FAST-Deco-shadow-2;
+            background: $FAST-Color-secondary;
+            color: $FAST-Color-white-xxl;
+            border-radius: 50%;
+
+            width: $SEL-add-tool-toggle-size;
+            height: $SEL-add-tool-toggle-size;
+            padding: $SEL-add-tool-toggle-padding;
+            font-size: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
+            line-height: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
+
+            position: absolute;
+            bottom: 3rem;
+            right: 3rem;
+            z-index: 1;
+
+            transition: all .4s;
+
+            .icon {
+                width: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
+                height: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
+                line-height: $SEL-add-tool-toggle-size - ($SEL-add-tool-toggle-padding * 2);
+
+                transition: all .2s;
+                fill: $FAST-Color-white-xxl;
+            }
+
+            .text {
+                display: none;
+            }
+        }
+
+        ul {
+            visibility: hidden;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 3rem;
+            bottom: 3rem;
+            width: $SEL-Add-tool-radius;
+            height: $SEL-Add-tool-radius;
+        }
+
+        li {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transition: all .3s;
+
+            a {
+                display: block;
+                background: #fff;
+                text-align: center;
+                width: $SEL-add-tool-item-size;
+                height: $SEL-add-tool-item-size;
+                border-radius: 50%;
+                padding: $SEL-add-tool-item-padding;
+                font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
+                transition: all .3s;
+            }
+
+            .text {
+                display: none;
+            }
+
+            .icon {
+                display: block;
+                margin: 0 auto;
+                font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
+            }
+        }
+
+        &:hover {
+            .toggle {
+                color: $FAST-Color-secondary;
+                background: $FAST-Color-white-xxl;
+
+                .icon {
+                    transform: rotate(225deg);
+
+                    fill: $FAST-Color-secondary;
+                }
+            }
+
+            ul {
+                visibility: visible;
+
+                a {
+                    @include FAST-Deco-shadow-2();
+                }
+            }
+
+            li {
+                right: $SEL-Add-tool-radius - $SEL-add-tool-item-size;
+                transform-origin: ($SEL-Add-tool-radius - ($SEL-add-tool-item-size / 2)) ($SEL-add-tool-item-size / 2);
+            }
+
+            li:first-child {
+
+            }
+
+            li:nth-child(2) {
+                transform: rotateZ(22.5deg);
+
+                a {
+                    transform: rotateZ(-22.5deg);
+                }
+            }
+
+            li:nth-child(3) {
+                transform: rotateZ(45deg);
+
+                a {
+                    transform: rotateZ(-45deg);
+                }
+            }
+
+            li:nth-child(4) {
+                transform: rotateZ(67.5deg);
+
+                a {
+                    transform: rotateZ(-67.5deg);
+                }
+            }
+
+            li:nth-child(5) {
+                transform: rotateZ(90deg);
+
+                a {
+                    transform: rotateZ(-90deg);
+                }
+            }
+
+            + .dimmer {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,.4);
+                z-index: 1;
+            }
+        }
+    }
+}

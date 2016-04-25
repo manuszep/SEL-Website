@@ -1,0 +1,22 @@
+/** **************************************************************************
+    AXA FAST - Typography
+    ************************************************************************** */
+
+/**
+ *  Imports
+ **/
+@import 'FAST-Typography-Base';
+@import 'FAST-Typography-Helpers';
+@import 'FAST-Typography-Alignment';
+@import 'FAST-Typography-Print';
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Typography() {
+    @include FAST-Typography-Base();
+    @include FAST-Typography-Helpers();
+    @include FAST-Typography-Alignment();
+    @include FAST-Typography-Print();
+}

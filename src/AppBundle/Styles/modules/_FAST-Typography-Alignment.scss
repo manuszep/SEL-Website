@@ -1,0 +1,43 @@
+/** **************************************************************************
+    AXA FAST - Typography Alignment
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Typography-Alignment {
+    @each $size in $FAST-Util-Breakpoint-classes {
+        @include FAST-breakpoint($size) {
+            @each $align in (left, right, center, justify) {
+                @if $size != 'small' {
+                    .#{$size}-text-#{$align} {
+                        text-align: $align;
+                    }
+                }
+                @else {
+                    .text-#{$align} {
+                        text-align: $align;
+                    }
+                }
+            }
+        }
+    }
+}

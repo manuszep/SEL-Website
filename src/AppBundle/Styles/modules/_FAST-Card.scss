@@ -1,0 +1,46 @@
+/****************************************************************************
+    FAST - Card
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+/**
+ *  Imports
+ **/
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-Card-element($depth: 1, $h-padding: false) {
+    //@include FAST-Grid-row();
+    @include FAST-Deco-shadow($depth);
+    padding-top: $FAST-lineheight * 1rem;
+    padding-bottom: $FAST-lineheight * 1rem;
+
+    @if $h-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    background: $FAST-Color-white;
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Card() {
+    .card {
+        @include FAST-Card-element();
+    }
+}
