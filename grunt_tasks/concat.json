@@ -1,0 +1,11 @@
+{
+    "options": {
+        "stripBanners": false
+    },
+    "dev": {
+        "src": [
+            "<%= project.src_scripts %>/main.js"
+        ],
+        "dest": "<%= project.web_scripts %>/main.js"
+    }
+}

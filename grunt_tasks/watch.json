@@ -1,0 +1,25 @@
+{
+    "src_scripts": {
+        "files": ["<%= project.src_scripts %>/{,*/}*.js"],
+        "tasks": ["concat:dev"],
+        "options": {
+            "livereload": true,
+            "event": ["changed", "added", "deleted"]
+        }
+    },
+    "src_styles": {
+        "files": ["<%= project.src_styles %>/{,*/}*.scss"],
+        "tasks": ["sass:dev", "autoprefixer:dev"],
+        "options": {
+            "livereload": true,
+            "event": ["changed", "added", "deleted"]
+        }
+    },
+    "configFiles": {
+        "files": [ "Gruntfile.js", "grunt_tasks/*.json" ],
+        "options": {
+            "reload": true,
+            "event": ["changed", "added", "deleted"]
+        }
+    }
+}

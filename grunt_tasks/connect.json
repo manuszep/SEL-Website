@@ -1,0 +1,15 @@
+{
+    "options": {
+        "port": 80,
+        "livereload": 35729,
+        "hostname": "boutsdefisel.dev"
+    },
+    "livereload": {
+        "options": {
+            "open": true,
+            "base": [
+                "<%= project.server %>"
+            ]
+        }
+    }
+}

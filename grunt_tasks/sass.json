@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "options": {
+            "style": "expanded",
+            "sourcemap": "file",
+            "trace": true,
+            "debugInfo": true,
+            "lineNumbers": true,
+            "bundleExec": true
+        },
+        "files": [{
+            "expand": true,
+            "cwd": "<%= project.src_styles %>",
+            "src": ["*.scss"],
+            "dest": "<%= project.web_styles %>",
+            "ext": ".css"
+        }]
+    }
+}

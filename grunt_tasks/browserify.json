@@ -1,0 +1,9 @@
+{
+  "dev": {
+    "options": {
+      "transform": [["babelify", {"presets": ["es2015"]}]]
+    },
+    "src": ["<%= project.src_scripts %>/main.js"],
+    "dest": "<%= project.web_scripts %>/main.js"
+  }
+}

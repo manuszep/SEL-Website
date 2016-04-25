@@ -1,0 +1,25 @@
+{
+    "options": {
+        "browsers": [
+            "Android 2.3",
+            "Android >= 4",
+            "Chrome >= 35",
+            "Firefox >= 31",
+            "Explorer >= 9",
+            "iOS >= 7",
+            "Opera >= 12",
+            "Safari >= 7.1"
+        ]
+    },
+    "dev": {
+        "options": {
+            "map": true
+        },
+        "files": [{
+            "expand": true,
+            "cwd": "<%= project.web_styles %>",
+            "src": "{,*/}*.css",
+            "dest": "<%= project.web_styles %>"
+        }]
+    }
+}

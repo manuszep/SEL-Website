@@ -1,0 +1,4 @@
+{
+    "web_styles": ["<%= project.web_styles %>"],
+    "web_scripts": ["<%= project.web_scripts %>"]
+}

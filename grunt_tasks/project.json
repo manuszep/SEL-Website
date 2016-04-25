@@ -1,0 +1,9 @@
+{
+    "web": "web",
+
+    "src_styles": "src/AppBundle/Styles",
+    "web_styles": "web/css",
+
+    "src_scripts": "src/AppBundle/JS",
+    "web_scripts": "src/AppBundle/js"
+}

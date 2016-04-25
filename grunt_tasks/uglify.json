@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "files": [{
+      "expand": true,
+      "cwd": "<%= project.web_scripts %>",
+      "src": "*.js",
+      "dest": "<%= project.web_scripts %>"
+    }]
+  }
+}
