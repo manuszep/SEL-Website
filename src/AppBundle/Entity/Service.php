@@ -76,7 +76,7 @@ class Service
     /**
      * @var datetime $created
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $expires_at;
 

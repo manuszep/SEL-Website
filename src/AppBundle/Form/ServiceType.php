@@ -23,7 +23,11 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('uid')
+            ->add('user', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'username',
+                'placeholder' => 'Auteur'
+            ))
             ->add('title', TextType::class)
             ->add('body', TextareaType::class)
             ->add('type', ChoiceType::class, array(
@@ -40,14 +44,16 @@ class ServiceType extends AbstractType
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'select_label',
-                'empty_data' => 'Catégorie'
+                'placeholder' => 'Catégorie'
             ))
             ->add('promote', CheckboxType::class, array(
                 'label'    => 'Mettre en évidence ?',
                 'required' => false,
             ))
             ->add('picture', FileType::class)
-            ->add('expires_at', DateType::class)
+            ->add('expires_at', DateType::class, array(
+                'widget' => 'single_text'
+            ))
         ;
     }
     
