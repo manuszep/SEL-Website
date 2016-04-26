@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Uid</th>
-                <td>{{ service.uid }}</td>
+                <td>{{ service.user }}</td>
             </tr>
             <tr>
                 <th>Title</th>
@@ -23,11 +23,11 @@
             </tr>
             <tr>
                 <th>Type</th>
-                <td>{{ service.type }}</td>
+                <td>{{ service.typeLabel }}</td>
             </tr>
             <tr>
                 <th>Domain</th>
-                <td>{{ service.domain }}</td>
+                <td>{{ service.domainLabel }}</td>
             </tr>
             <tr>
                 <th>Category</th>
@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <th>Picture</th>
-                <td><img width="300" src="/{{ service.getWebPath }}" /></td>
+                <td><img width="300" src="/{{ service.getPictureWebPath }}" /></td>
             </tr>
             <tr>
                 <th>Expires_at</th>
