@@ -124,6 +124,34 @@ $SEL-Service-border-width: .25rem;
             }
         }
 
+        .actions {
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 2rem 0 -1rem 0;
+                display: flex;
+                border-top: 1px solid $FAST-Color-primary;
+            }
+
+            li {
+                flex-grow: 1;
+            }
+
+            a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: .3rem;
+                border-radius: 3px;
+                margin: .2rem;
+
+                &:hover {
+                    background: $FAST-Color-primary;
+                    color: $FAST-Color-white;
+                }
+            }
+        }
+
         .service-type-1 {
             .picture {
                 border-bottom-color: $SEL-Service-type1-color;

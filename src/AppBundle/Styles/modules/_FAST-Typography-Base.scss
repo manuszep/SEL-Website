@@ -51,7 +51,7 @@ $FAST-Typography-code-border: 1px solid $FAST-Color-medium-gray !default;
 $FAST-Typography-code-padding: FAST-rem-calc(2 5 1) !default;
 
 $FAST-Typography-anchor-color: $FAST-Color-primary !default;
-$FAST-Typography-anchor-color-hover: scale-color($FAST-Typography-anchor-color, $lightness: -14%) !default;
+$FAST-Typography-anchor-color-hover: $FAST-Color-secondary !default;
 $FAST-Typography-anchor-text-decoration: none !default;
 $FAST-Typography-anchor-text-decoration-hover: none !default;
 
