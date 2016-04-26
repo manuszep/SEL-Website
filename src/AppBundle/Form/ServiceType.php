@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Service;
 
 class ServiceType extends AbstractType
 {
@@ -22,6 +23,12 @@ class ServiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // TODO: Search for a better way
+        $serivce = new Service();
+
+        $types = array_flip($serivce->getTypes());
+        $domains = array_flip($serivce->getDomains());
+
         $builder
             ->add('user', EntityType::class, array(
                 'class' => 'AppBundle:User',
@@ -31,15 +38,10 @@ class ServiceType extends AbstractType
             ->add('title', TextType::class)
             ->add('body', TextareaType::class)
             ->add('type', ChoiceType::class, array(
-                'choices'  => array(
-                    'Offre' => 1,
-                    'Demande' => 2
-                )))
+                'choices'  => $types
+            ))
             ->add('domain', ChoiceType::class, array(
-                'choices'  => array(
-                    'Prêterie / Donnerie' => 1,
-                    'Services / Savoirs' => 2
-                )
+                'choices'  => $domains
             ))
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle:Category',

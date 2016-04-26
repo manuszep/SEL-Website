@@ -28,6 +28,7 @@
 @import "modules/SEL-Add-Tool";
 @import "modules/SEL-Table";
 @import "modules/SEL-Section";
+@import "modules/SEL-Service";
 
 $FAST-Global-flexbox: true !global;
 
@@ -43,6 +44,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Add-Tool();
 @include SEL-Table();
 @include SEL-Section();
+@include SEL-Service();
 
 .main-content {
     margin-top: $SEL-Content-top-margin;

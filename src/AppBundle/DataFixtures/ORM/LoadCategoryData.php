@@ -2,12 +2,14 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Category;
 
-class LoadCategoryData implements FixtureInterface
+class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterface
 {
+    private $indexes = 0;
     private function addCategories(ObjectManager $manager, $src, $parent = null) {
         foreach ($src as $cat){
             $item = new Category();
@@ -23,6 +25,9 @@ class LoadCategoryData implements FixtureInterface
             }
 
             $manager->persist($item);
+
+            $this->addReference('category' . $this->indexes, $item);
+            $this->indexes++;
 
             if (is_array($cat) && $cat["child"]) {
                 $this->addCategories($manager, $cat["child"], $item);
@@ -115,5 +120,12 @@ class LoadCategoryData implements FixtureInterface
         $this->addCategories($manager, $items);
 
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        // the order in which fixtures will be loaded
+        // the lower the number, the sooner that this fixture is loaded
+        return 2;
     }
 }

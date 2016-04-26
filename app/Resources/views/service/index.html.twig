@@ -7,57 +7,55 @@
         </div>
     </section>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Uid</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Type</th>
-                <th>Domain</th>
-                <th>Category_id</th>
-                <th>Promote</th>
-                <th>Picture</th>
-                <th>Expires_at</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for service in services %}
-            <tr>
-                <td><a href="{{ path('service_show', { 'id': service.id }) }}">{{ service.id }}</a></td>
-                <td>{{ service.uid }}</td>
-                <td>{{ service.title }}</td>
-                <td>{{ service.body }}</td>
-                <td>{{ service.type }}</td>
-                <td>{{ service.domain }}</td>
-                <td>{{ service.categoryid }}</td>
-                <td>{% if service.promote %}Yes{% else %}No{% endif %}</td>
-                <td>{{ service.picture }}</td>
-                <td>{% if service.expiresat %}{{ service.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if service.createdat %}{{ service.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if service.updatedat %}{{ service.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('service_show', { 'id': service.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('service_edit', { 'id': service.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section class="service-list">
+        <div class="wrapper">
+            <div class="grid">
+                {% for service in services %}
+                <article class="service service-type-{{ service.type }} grid-item">
+                    <div class="service-content">
+                        <div class="picture">
+                            <a href="{{ path('service_show', { 'id': service.id }) }}"><img src="/{{ service.getPictureWebPath }}" /></a>
+                        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('service_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+                        <header>
+                            <h3 class="service-title"><a href="{{ path('service_show', { 'id': service.id }) }}">{{ service.title }}</a></h3>
+                            <small class="author"><a href="{{ path('user_show', { 'id': service.user.id }) }}">{{ service.user.username }}</a></small> -
+                            <small class="post-date">{{ service.created | date('l, d F Y') }}</small>
+
+                            <div class="author-image">
+                                <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img src="/uploads/users/default-user.png" /></a>
+                            </div>
+                            <div class="type">
+                                <a href="{{ path('service_index') }}"><svg class="icon icon-tag"><use xlink:href="#icon-tag"></use></svg> {{ service.typeLabel }}</a>
+                            </div>
+                        </header>
+                        <div class="body">
+                            {{ service.body|raw }}
+                        </div>
+
+                        <div class="meta">
+                            <div class="domain">
+                                <a href="{{ path('service_index') }}"><svg class="icon icon-archive"><use xlink:href="#icon-archive"></use></svg> {{ service.domainLabel }}</a>
+                            </div>
+                            <div class="category">
+                                <a href="{{ path('service_index') }}"><svg class="icon icon-tags"><use xlink:href="#icon-tags"></use></svg> {{ service.category.title }}</a>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <ul>
+                                <li>
+                                    <a href="{{ path('service_show', { 'id': service.id }) }}">Afficher</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('service_edit', { 'id': service.id }) }}">Modifier</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

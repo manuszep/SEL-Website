@@ -14,8 +14,7 @@ use AppBundle\Entity\Category;
  * @ORM\HasLifecycleCallbacks()
  */
 class Service
-{
-	/**
+{/**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -43,7 +42,7 @@ class Service
 	/**
      * @ORM\Column(type="integer")
      */
-    private $type; // Offre | Demande
+    private $type; // Offre | Demande | Offre Flash | Demande Flash
 
 	/**
      * @ORM\Column(type="integer")
@@ -188,6 +187,15 @@ class Service
         return $this->body;
     }
 
+    public function getTypes() {
+        return array(
+            1 => 'Offre',
+            2 => 'Demande',
+            3 => 'Offre flash',
+            4 => 'Demande flash'
+        );
+    }
+
     /**
      * Set type
      *
@@ -212,6 +220,10 @@ class Service
         return $this->type;
     }
 
+    public function getTypeLabel() {
+        return $this->getTypes()[$this->getType()];
+    }
+
     /**
      * Set domain
      *
@@ -234,6 +246,17 @@ class Service
     public function getDomain()
     {
         return $this->domain;
+    }
+
+    public function getDomains() {
+        return array(
+            1 => 'Service / Savoir',
+            2 => 'Preterie / Donnerie'
+        );
+    }
+
+    public function getDomainLabel() {
+        return $this->getDomains()[$this->getDomain()];
     }
 
     /**
@@ -294,6 +317,10 @@ class Service
     public function setPicture(UploadedFile $file = null)
     {
         $this->picture = $file;
+    }
+
+    public function setPicturePath($path) {
+        $this->picture_path = $path;
     }
 
     /**
@@ -373,7 +400,7 @@ class Service
     /**
      * @return null|string
      */
-    public function getWebPath()
+    public function getPictureWebPath()
     {
         return null === $this->picture_path
             ? null

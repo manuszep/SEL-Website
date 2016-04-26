@@ -5,7 +5,7 @@
 /**
  *  Local variables
  **/
-$SEL-Section-angle-size: 2rem;
+$SEL-Section-angle-size: 3rem;
 
 
 /**
@@ -45,5 +45,9 @@ $SEL-Section-angle-size: 2rem;
             padding-top: $SEL-Content-top-margin;
             padding-bottom: 4rem;
         }
+    }
+
+    section {
+        padding: 4rem 0;
     }
 }
