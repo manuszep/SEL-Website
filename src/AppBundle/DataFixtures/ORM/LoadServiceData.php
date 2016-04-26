@@ -33,7 +33,7 @@ class LoadServiceData extends AbstractFixture implements ContainerAwareInterface
                 "domain" => 1,
                 "promote" => false,
                 "expires_at" => new \DateTime("2024-01-01 00:00:00"),
-                "picture_path" => "571e85c7367e7",
+                "picture_path" => "571e85c7367e7.jpg",
                 "category" => $this->getReference('category29')
             ],
             [
@@ -44,7 +44,7 @@ class LoadServiceData extends AbstractFixture implements ContainerAwareInterface
                 "domain" => 1,
                 "promote" => false,
                 "expires_at" => new \DateTime("2024-01-01 00:00:00"),
-                "picture_path" => "571e7a3352545",
+                "picture_path" => "571e7a3352545.gif",
                 "category" => $this->getReference('category1')
             ]
         ];

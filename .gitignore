@@ -16,3 +16,4 @@
 /web/bundles/
 src/AppBundle/DataFixtures/ORM/LoadUserData.php
 node_modules
+/web/media/cache

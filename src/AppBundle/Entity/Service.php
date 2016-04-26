@@ -404,7 +404,7 @@ class Service
     {
         return null === $this->picture_path
             ? null
-            : $this->getUploadDir().'/'.$this->picture_path;
+            : '/' . $this->getUploadDir().'/'.$this->picture_path;
     }
 
     /**
@@ -430,7 +430,7 @@ class Service
             return;
         }
 
-        $uuid = uniqid();
+        $uuid = uniqid() . '.' . $this->getPicture()->guessExtension();
 
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues

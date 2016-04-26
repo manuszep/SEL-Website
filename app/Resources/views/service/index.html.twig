@@ -14,7 +14,10 @@
                 <article class="service service-type-{{ service.type }} grid-item">
                     <div class="service-content">
                         <div class="picture">
-                            <a href="{{ path('service_show', { 'id': service.id }) }}"><img src="/{{ service.getPictureWebPath }}" /></a>
+                            <a href="{{ path('service_show', { 'id': service.id }) }}"><img
+                                src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
+                                srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
+                                        {{ service.getPictureWebPath | imagine_filter('service_thumb2x') }} 400w 2x" /></a>
                         </div>
 
                         <header>
