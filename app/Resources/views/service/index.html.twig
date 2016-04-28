@@ -4,6 +4,10 @@
     <section class="angle-intro">
         <div class="wrapper">
             <h1>Service list</h1>
+
+            <div class="filters">
+                
+            </div>
         </div>
     </section>
 
@@ -11,7 +15,12 @@
         <div class="wrapper">
             <div class="grid">
                 {% for service in services %}
-                <article class="service service-type-{{ service.type }} grid-item">
+                    {% if service.type in [1, 3] %}
+                        {% set service_class = 'service-type-1' %}
+                    {% else %}
+                        {% set service_class = 'service-type-2' %}
+                    {% endif %}
+                <article class="service {{ service_class }} grid-item">
                     <div class="service-content">
                         <div class="picture">
                             <a href="{{ path('service_show', { 'id': service.id }) }}"><img
