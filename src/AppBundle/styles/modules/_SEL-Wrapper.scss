@@ -53,8 +53,9 @@
     }
 
     .grid {
-        width: 100%;
         margin: 0 (-1rem);
+
+        @include FAST-clearfix();
     }
 
     .grid-item {

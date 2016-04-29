@@ -35,7 +35,7 @@ $SEL-Service-border-width: .25rem;
 @mixin SEL-Service() {
     .service-list {
         .service {
-            width: 25%;
+            width: 100%;
 
             header {
                 position: relative;
@@ -70,6 +70,10 @@ $SEL-Service-border-width: .25rem;
         .picture {
             margin: -1rem -1rem 0;
             border-bottom: $SEL-Service-border-width solid transparent;
+
+            img {
+                min-width: 100%;
+            }
         }
 
         .author-image {
@@ -185,6 +189,24 @@ $SEL-Service-border-width: .25rem;
 
             .meta:before {
                 background-color: $SEL-Service-type2-color;
+            }
+        }
+
+        @include FAST-breakpoint('medium') {
+            .service {
+                width: 50%;
+            }
+        }
+
+        @include FAST-breakpoint('large') {
+            .service {
+                width: 33.3333%;
+            }
+        }
+
+        @include FAST-breakpoint('xlarge') {
+            .service {
+                width: 25%;
             }
         }
     }
