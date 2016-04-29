@@ -2,12 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Service;
 use AppBundle\Form\ServiceType;
+use AppBundle\Form\ServiceFilterType;
 
 /**
  * Service controller.
@@ -22,14 +24,34 @@ class ServiceController extends Controller
      * @Route("/", name="service_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $dummy_service = new Service();
 
-        $services = $em->getRepository('AppBundle:Service')->findAll();
+        $form = $this->createForm('AppBundle\Form\ServiceFilterType');
+
+        if ($request->query->has($form->getName())) {
+            // manually bind values from the request
+            $form->submit($request->query->get($form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:Service')
+                ->createQueryBuilder('e');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+
+            $services = $filterBuilder->getQuery()->getResult();
+        } else {
+            $em = $this->getDoctrine()->getManager();
+
+            $services = $em->getRepository('AppBundle:Service')->findAll();
+        }
 
         return $this->render('service/index.html.twig', array(
             'services' => $services,
+            'filter' => $form->createView()
         ));
     }
 

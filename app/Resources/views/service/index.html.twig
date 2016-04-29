@@ -5,9 +5,10 @@
         <div class="wrapper">
             <h1>Service list</h1>
 
-            <div class="filters">
-                
-            </div>
+            <form method="get" action=".">
+                {{ form_rest(filter) }}
+                <input type="submit" name="submit-filter" value="filter" />
+            </form>
         </div>
     </section>
 
