@@ -108,3 +108,7 @@ liip_imagine:
             quality: 75
             filters:
                 relative_resize: { widen: 800 }
+
+twig:
+    form_themes:
+        - LexikFormFilterBundle:Form:form_div_layout.html.twig

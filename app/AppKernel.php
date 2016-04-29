@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new AppBundle\AppBundle(),
         ];
 
