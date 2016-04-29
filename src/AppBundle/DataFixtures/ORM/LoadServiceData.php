@@ -32,7 +32,7 @@ class LoadServiceData extends AbstractFixture implements ContainerAwareInterface
                 "type" => 1,
                 "domain" => 1,
                 "promote" => false,
-                "expires_at" => new \DateTime("2024-01-01 00:00:00"),
+                "expires_at" => null,
                 "picture_path" => "571e85c7367e7.jpg",
                 "category" => $this->getReference('category29')
             ],
@@ -43,9 +43,20 @@ class LoadServiceData extends AbstractFixture implements ContainerAwareInterface
                 "type" => 2,
                 "domain" => 1,
                 "promote" => false,
-                "expires_at" => new \DateTime("2024-01-01 00:00:00"),
+                "expires_at" => null,
                 "picture_path" => "571e7a3352545.gif",
                 "category" => $this->getReference('category1')
+            ],
+            [
+                "title" => "Pommes à donner",
+                "user" => $this->getReference("Zoé-user"),
+                "body" => "<p>J'ai des pommes à donner. La saison ayant été excellente, n'hésitez pas à venir nombreux !</p>",
+                "type" => 3,
+                "domain" => 2,
+                "promote" => false,
+                "expires_at" => null,
+                "picture_path" => "571f9697e7784.jpeg",
+                "category" => $this->getReference('category9')
             ]
         ];
 
