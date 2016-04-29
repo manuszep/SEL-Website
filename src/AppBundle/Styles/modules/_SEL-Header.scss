@@ -5,7 +5,8 @@
 /**
  *  Local variables
  **/
-
+$SEL-Header-margin-bottom: 4rem;
+$SEL-Header-bg-color: #dd3300;
 
 
 /**
@@ -36,12 +37,14 @@
         left: 0;
         width: 100%;
         z-index: 1;
+        background: rgba($SEL-Header-bg-color, .9);
+        margin-bottom: $SEL-Header-margin-bottom;
 
         .wrapper {
-            @include FAST-Deco-shadow(1);
+            /*@include FAST-Deco-shadow(1);
             padding: .75rem 1rem;
             border-radius: 5px;
-            background: rgba(255,255,255,.9);
+            background: rgba(255,255,255,.9);*/
             margin: 1rem auto;
             display: flex;
             align-items: center;
@@ -65,11 +68,24 @@
             margin: 0;
 
             li {
-                padding: 0 1rem;
+                padding: 0;
+                margin: 0;
             }
 
             ul {
                 display: none;
+            }
+        }
+
+        a {
+            color: #fff;
+            display: inline-block;
+            padding: .25rem 1rem;
+            border-radius: .15rem;
+
+            &:hover {
+                background: #fff;
+                color: $SEL-Header-bg-color;
             }
         }
     }

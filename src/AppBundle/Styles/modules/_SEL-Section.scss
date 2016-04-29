@@ -31,7 +31,7 @@ $SEL-Section-angle-size: 3rem;
  **/
 @mixin SEL-Section() {
     .angle-intro {
-        background-color: $FAST-Color-ternary;
+        background-color: $SEL-Header-bg-color;
         color: #fff;
 
         clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$SEL-Section-angle-size}), 0 100%);
