@@ -84,18 +84,18 @@ fos_user:
     firewall_name: secured
     user_class: AppBundle\Entity\User
     from_email:
-        address: info@boutsdefisel.be
-        sender_name: "Bouts de fiSEL"
+        address: "%main_email_address%"
+        sender_name: "%site_name%"
     resetting:
         email:
             from_email:
-                address: securite@boutsdefisel.be
-                sender_name: Bouts de fiSEL
+                address: "%security_email_address%"
+                sender_name: "%site_name%"
     registration:
         confirmation:
             from_email:
-                address: inscription@boutsdefisel.be
-                sender_name: Bouts de fiSEL
+                address: "%register_email_address%"
+                sender_name: "%site_name%"
 
 liip_imagine:
     filter_sets:

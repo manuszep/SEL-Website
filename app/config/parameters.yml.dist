@@ -17,3 +17,10 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    #custom variables
+    domain_name: example.com
+    site_name: "My Application"
+    security_email_address: securite@example.com
+    register_email_address: inscription@example.com
+    main_email_address: info@example.com
