@@ -6,7 +6,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-        <link href='https://fonts.googleapis.com/css?family=Lato:300,100,900|PT+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic" media="all">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
         {% block stylesheets %}{% endblock %}
     </head>
@@ -70,7 +70,7 @@
                     <li><a href="{{ path('service_index') }}">Services</a></li>
                     <li><a href="/faq">Questions fréquentes</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <li><a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
+                        <li><a href="{{ path('user_show', { 'id': app.user.id }) }}"><svg class="icon icon-user"><use xlink:href="#icon-user"></use></svg> {{ app.user.username }}</a>
                             <ul>
                                 <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                                 <li><a href="{{ path('user_edit', { 'id': app.user.id }) }}">Modifier</a></li>

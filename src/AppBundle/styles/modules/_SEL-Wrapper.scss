@@ -62,4 +62,28 @@
         padding: 1rem;
         float: left;
     }
+
+    .grid-item-3-4 {
+        width: 75%;
+    }
+
+    .grid-item-2-4 {
+        width: 50%;
+    }
+
+    .grid-item-1-4 {
+        width: 50%;
+    }
+
+    .grid-item-1-3 {
+        width: 33.3333%;
+    }
+
+    .grid-item-2-3 {
+        width: 66.6666%;
+    }
+
+    .grid-item-center {
+        margin: 0 auto;
+    }
 }

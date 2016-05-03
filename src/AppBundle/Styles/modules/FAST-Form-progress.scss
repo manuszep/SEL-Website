@@ -1,0 +1,83 @@
+/** **************************************************************************
+    AXA FAST - Form Progress
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-progress-height: 1rem !default;
+$FAST-progress-background: $FAST-Color-medium-gray !default;
+$FAST-progress-margin-bottom: $FAST-Global-margin !default;
+$FAST-progress-meter-background: $FAST-Color-primary !default;
+$FAST-progress-radius: $FAST-Global-radius !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-progress-element() {
+    progress {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: block;
+        width: 100%;
+        height: $FAST-progress-height;
+        margin-bottom: $FAST-progress-margin-bottom;
+
+        @if FAST-has-value($FAST-progress-radius) {
+            border-radius: $FAST-progress-radius;
+        }
+
+        // For Firefox
+        background: $FAST-progress-background;
+        border: 0;
+
+        &::-webkit-progress-bar {
+            background: $FAST-progress-background;
+
+            @if FAST-has-value($FAST-progress-radius) {
+                border-radius: $FAST-progress-radius;
+            }
+        }
+
+        &::-webkit-progress-value {
+            background: $FAST-progress-meter-background;
+
+            @if FAST-has-value($FAST-progress-radius) {
+                border-radius: $FAST-progress-radius;
+            }
+        }
+
+        &::-moz-progress-bar {
+            background: $FAST-progress-meter-background;
+
+            @if FAST-has-value($FAST-progress-radius) {
+                border-radius: $FAST-progress-radius;
+            }
+        }
+
+        @each $name, $color in $FAST-Color-palette {
+            &.#{$name} {
+                &::-webkit-progress-value {
+                    background: $color;
+                }
+
+                &::-moz-progress-bar {
+                    background: $color;
+                }
+            }
+        }
+    }
+}

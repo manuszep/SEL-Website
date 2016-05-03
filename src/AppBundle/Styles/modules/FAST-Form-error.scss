@@ -1,0 +1,92 @@
+/** **************************************************************************
+    AXA FAST - Form Error
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-abide-inputs: true !default;
+$FAST-abide-labels: true !default;
+$FAST-input-background-invalid: map-get($FAST-Color-palette, alert) !default;
+$FAST-input-background-valid: map-get($FAST-Color-palette, success) !default;
+$FAST-form-label-color-invalid: map-get($FAST-Color-palette, alert) !default;
+$FAST-input-error-color: map-get($FAST-Color-palette, alert) !default;
+$FAST-input-error-font-size: FAST-rem-calc(12) !default;
+$FAST-input-error-font-weight: $FAST-Global-weight-bold !default;
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-Form-input-error(
+    $background: $FAST-input-background-invalid,
+    $background-alpha: 0.025
+) {
+    &:not(:focus) {
+        background-color: rgba($background, $background-alpha);
+        border-color: $background;
+    }
+}
+
+@mixin FAST-Form-input-success(
+    $background: $FAST-input-background-valid,
+    $background-alpha: 0.025
+) {
+    &:not(:focus) {
+        background-color: rgba($background, $background-alpha);
+        border-color: $background;
+    }
+}
+
+@mixin FAST-Form-error-element {
+    margin-top: $FAST-Form-spacing / 2;
+    margin-bottom: 0;
+    font-size: $FAST-input-error-font-size;
+    font-weight: $FAST-input-error-font-weight;
+    color: $FAST-input-error-color;
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-error {
+    @if $FAST-abide-inputs {
+        // Error class for invalid inputs
+        .is-invalid-input, .parsley-error {
+            @include FAST-Form-input-error();
+        }
+
+        .is-valid-input, .parsley-success {
+            @include FAST-Form-input-success();
+        }
+    }
+
+    @if $FAST-abide-labels {
+        // Error class for labels of invalid outputs
+        .is-invalid-label {
+            color: $FAST-form-label-color-invalid;
+        }
+    }
+
+    .form-error-list, .parsley-errors-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        + input, + textarea, + select {
+            margin-top: $FAST-Form-spacing / 2;
+        }
+    }
+
+    // Form error element
+    .form-error, .form-error-list li, .parsley-errors-list li {
+        @include FAST-Form-error-element();
+    }
+}

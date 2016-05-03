@@ -1,0 +1,139 @@
+/** **************************************************************************
+    AXA FAST - Form Text
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-input-color: $FAST-Color-Type-Dark !default;
+$FAST-input-placeholder-color: $FAST-Color-medium-gray !default;
+$FAST-input-font-family: inherit !default;
+$FAST-input-font-size: FAST-rem-calc(16) !default;
+$FAST-input-background: $FAST-Color-white !default;
+$FAST-input-background-focus: $FAST-Color-white !default;
+$FAST-input-background-disabled: $FAST-Color-light-gray !default;
+$FAST-input-border: 1px solid $FAST-Color-medium-gray !default;
+$FAST-input-border-focus: 1px solid $FAST-Color-dark-gray !default;
+$FAST-input-shadow: inset 0 1px 2px rgba($FAST-Color-black, 0.1) !default;
+$FAST-input-shadow-focus: 0 0 5px $FAST-Color-medium-gray !default;
+$FAST-input-cursor-disabled: default !default;
+$FAST-input-transition: box-shadow 0.5s, border-color 0.25s ease-in-out !default;
+$FAST-input-number-spinners: true !default;
+$FAST-input-radius: $FAST-Global-radius !default;
+$FAST-Button-radius: $FAST-Global-radius !default;
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-Form-element() {
+    $height: ($FAST-input-font-size + ($FAST-Form-spacing * 1.5) - FAST-rem-calc(1));
+
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: $height;
+    padding: $FAST-Form-spacing / 2;
+    border: $FAST-input-border;
+    margin: 0;
+
+    font-family: $FAST-input-font-family;
+    font-size: $FAST-input-font-size;
+    color: $FAST-input-color;
+    background-color: $FAST-input-background;
+    box-shadow: $FAST-input-shadow;
+    border-radius: $FAST-input-radius;
+
+    @if FAST-has-value($FAST-input-transition) {
+        transition: $FAST-input-transition;
+    }
+
+    // Focus state
+    &:focus {
+        border: $FAST-input-border-focus;
+        background-color: $FAST-input-background-focus;
+        outline: none;
+        box-shadow: $FAST-input-shadow-focus;
+
+        @if FAST-has-value($FAST-input-transition) {
+            transition: $FAST-input-transition;
+        }
+    }
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-text() {
+    // Text inputs
+    #{FAST-text-inputs()},
+    textarea {
+        @include FAST-Form-element();
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    textarea {
+        max-width: 100%;
+
+        &[rows] {
+            height: auto;
+        }
+    }
+
+    input, textarea {
+        &::placeholder {
+            color: $FAST-input-placeholder-color;
+        }
+
+        &:disabled, &[readonly] {
+            background-color: $FAST-input-background-disabled;
+            cursor: $FAST-input-cursor-disabled;
+        }
+    }
+
+    input, select, textarea {
+        + input, + select, + textarea {
+            margin-top: $FAST-Form-spacing / 2 !important;
+        }
+    }
+
+    // Reset styles on button-like inputs
+    [type='submit'], [type='button'] {
+        border-radius: $FAST-Button-radius;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    // Reset Normalize setting content-box to search elements
+    // scss-lint:disable QualifyingElement
+    input[type='search'] {
+        box-sizing: border-box;
+    }
+
+    // Number input styles
+    [type='number'] {
+        @if not $FAST-input-number-spinners {
+            -moz-appearance: textfield;
+
+            [type='number']::-webkit-inner-spin-button,
+            [type='number']::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+    }
+
+    .fld-radio-group, .fld-chk-group {
+        padding: $FAST-Form-spacing / 2;
+        border-radius: $FAST-input-radius;
+        border: 1px solid transparent;
+    }
+}

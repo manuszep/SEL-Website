@@ -1,0 +1,37 @@
+/** **************************************************************************
+    AXA FAST - Form Helptext
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-helptext-color: $FAST-Color-Type-Dark !default;
+$FAST-Form-helptext-font-size: FAST-rem-calc(13) !default;
+$FAST-Form-helptext-font-style: italic !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-helptext() {
+    .help-text {
+        $margin-top: ($FAST-Form-spacing * 0.5) * -1;
+
+        margin-top: $margin-top;
+        font-size: $FAST-Form-helptext-font-size;
+        font-style: $FAST-Form-helptext-font-style;
+        color: $FAST-Form-helptext-color;
+    }
+}

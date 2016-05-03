@@ -1,0 +1,61 @@
+/** **************************************************************************
+    AXA FAST - Form
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-spacing: FAST-rem-calc(16) !default;
+
+
+/**
+ *  Imports
+ **/
+@import 'FAST-Form-text';
+@import 'FAST-Form-checkbox';
+@import 'FAST-Form-label';
+@import 'FAST-Form-help-text';
+@import 'FAST-Form-input-group';
+@import 'FAST-Form-fieldset';
+@import 'FAST-Form-select';
+@import 'FAST-Form-range';
+@import 'FAST-Form-progress';
+@import 'FAST-Form-meter';
+@import 'FAST-Form-error';
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form() {
+    @include FAST-Form-text();
+    @include FAST-Form-checkbox();
+    @include FAST-Form-label();
+    @include FAST-Form-helptext();
+    @include FAST-Form-prepostfix();
+    @include FAST-Form-fieldset();
+    @include FAST-Form-select();
+    @include FAST-Form-error();
+
+    .form-row {
+        border-bottom: 1px dotted $FAST-Color-xlight-gray;
+        padding-top: ($FAST-Form-spacing / 2);
+        padding-bottom: $FAST-Form-spacing;
+
+        &:last-child, &.last {
+            border-bottom: none;
+        }
+    }
+}

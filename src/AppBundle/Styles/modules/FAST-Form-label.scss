@@ -1,0 +1,70 @@
+/** **************************************************************************
+    AXA FAST - Form Label
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-label-color: inherit !default;
+$FAST-Form-label-font-size: 1rem !default;
+$FAST-Form-label-font-weight: $FAST-Global-weight-bold !default;
+$FAST-Form-label-line-height: 1.8 !default;
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-Form-label-element() {
+    display: block;
+    margin: 0;
+    font-size: $FAST-Form-label-font-size;
+    font-weight: $FAST-Form-label-font-weight;
+    line-height: $FAST-Form-label-line-height;
+    color: $FAST-Form-label-color;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &.required:after {
+        content: " *";
+        color: $FAST-Color-alert;
+    }
+
+    &.box-label, [type="radio"] + &, [type="checkbox"] + & {
+        font-weight: $FAST-Global-weight-normal;
+        white-space: normal;
+    }
+
+    &.box-label {
+        display: table;
+
+        input, span {
+            display: table-cell;
+        }
+    }
+}
+
+@mixin FAST-Form-label-middle() {
+    $input-border-width: FAST-get-border-value($FAST-input-border, width);
+    margin: 0 0 $FAST-Form-spacing;
+    padding: ($FAST-Form-spacing / 2 + FAST-rem-calc($input-border-width)) 0;
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-label() {
+    label {
+        @include FAST-Form-label-element();
+
+        &.middle {
+            @include FAST-Form-label-middle();
+        }
+    }
+}

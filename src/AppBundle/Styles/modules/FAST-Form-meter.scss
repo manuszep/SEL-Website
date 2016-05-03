@@ -1,0 +1,107 @@
+/** **************************************************************************
+    AXA FAST - Form Meter
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-meter-height: $FAST-progress-height !default;
+$FAST-meter-radius: $FAST-progress-radius !default;
+$FAST-meter-background: $FAST-progress-background !default;
+$FAST-meter-fill-good: $FAST-Color-success !default;
+$FAST-meter-fill-medium: $FAST-Color-warning !default;
+$FAST-meter-fill-bad: $FAST-Color-alert !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin foundation-meter-element {
+    meter {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: block;
+        width: 100%;
+        height: $FAST-meter-height;
+        margin-bottom: 1rem;
+
+        @if FAST-has-value($FAST-meter-radius) {
+            border-radius: $FAST-meter-radius;
+        }
+
+        // For Firefox
+        background: $FAST-meter-background;
+        border: 0;
+
+        // Chrome/Safari
+        &::-webkit-meter-bar {
+            background: $FAST-meter-background;
+
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &::-webkit-meter-inner-element {
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &::-webkit-meter-optimum-value {
+            background: $FAST-meter-fill-good;
+
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &::-webkit-meter-suboptimum-value {
+            background: $FAST-meter-fill-medium;
+
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &::-webkit-meter-even-less-good-value {
+            background: $FAST-meter-fill-bad;
+
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &::-moz-meter-bar {
+            background: $FAST-Color-primary-color;
+
+            @if FAST-has-value($FAST-meter-radius) {
+                border-radius: $FAST-meter-radius;
+            }
+        }
+
+        &:-moz-meter-optimum::-moz-meter-bar {
+            background: $FAST-meter-fill-good;
+        }
+
+        &:-moz-meter-sub-optimum::-moz-meter-bar {
+            background: $FAST-meter-fill-medium;
+        }
+
+        &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+            background: $FAST-meter-fill-bad;
+        }
+    }
+}

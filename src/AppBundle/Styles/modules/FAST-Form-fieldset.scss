@@ -1,0 +1,71 @@
+/** **************************************************************************
+    AXA FAST - Form Fieldset
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-fieldset-border: 1px solid $FAST-Color-medium-gray !default;
+$FAST-Form-fieldset-padding: FAST-rem-calc(20) !default;
+$FAST-Form-fieldset-margin: FAST-rem-calc(18 0) !default;
+$FAST-Form-legend-padding: FAST-rem-calc(0 3) !default;
+
+
+/**
+ *  Mixins
+ **/
+@mixin fieldset() {
+    border: $FAST-Form-fieldset-border;
+    padding: $FAST-Form-fieldset-padding;
+    margin: $FAST-Form-fieldset-margin;
+
+    legend {
+        background: $FAST-Color-body-background;
+        padding: $FAST-Form-legend-padding;
+        margin: 0;
+        margin-left: FAST-rem-calc(-3);
+    }
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-fieldset() {
+    fieldset {
+        border: 0;
+        padding: 0;
+        margin: 0;
+
+        &.actions {
+            border-top: 3px solid $FAST-Color-xlight-gray;
+            padding: ($FAST-lineheight * 1rem) 0;
+            margin-top: ($FAST-lineheight * 1rem);
+            @include FAST-clearfix();
+
+            .main {
+                float: right;
+            }
+
+            .alt {
+                float: left;
+            }
+        }
+    }
+
+    legend {
+        @extend h2;
+        margin-bottom: $FAST-Form-spacing * 0.5;
+        max-width: 100%;
+    }
+
+    .fieldset {
+        @include fieldset();
+    }
+}

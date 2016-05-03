@@ -17,6 +17,7 @@
 @import "modules/FAST-Global-Normalize";
 @import "modules/FAST-Typography";
 @import "modules/FAST-Global-Basic";
+@import "modules/FAST-Form";
 
 @import "modules/FAST-Deco.scss";
 @import "modules/FAST-Card.scss";
@@ -28,6 +29,7 @@
 @import "modules/SEL-Add-Tool";
 @import "modules/SEL-Table";
 @import "modules/SEL-Section";
+@import "modules/SEL-Block-Filter";
 @import "modules/SEL-Service";
 
 $FAST-Global-flexbox: true !global;
@@ -37,6 +39,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include FAST-Global-Normalize();
 @include FAST-Typography();
 @include FAST-Global-Basic();
+@include FAST-Form();
 @include SEL-Wrapper();
 @include SEL-Type();
 @include SEL-Icon();
@@ -44,6 +47,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Add-Tool();
 @include SEL-Table();
 @include SEL-Section();
+@include SEL-Block-Filter();
 @include SEL-Service();
 
 .main-content {

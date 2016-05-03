@@ -114,6 +114,10 @@ $SEL-Add-tool-radius: 16rem;
                 font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
                 transition: all .3s;
                 transition-delay: .2s;
+
+                &:hover svg {
+                    color: $FAST-Color-primary;
+                }
             }
 
             .text {

@@ -1,0 +1,70 @@
+/** **************************************************************************
+    AXA FAST - Form Select
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-select-background: $FAST-Color-white !default;
+$FAST-Form-select-triangle-color: $FAST-Color-dark-gray !default;
+$FAST-Form-select-radius: $FAST-Global-radius !default;
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-form-input-select() {
+    $height: ($FAST-input-font-size + ($FAST-Form-spacing * 1.5) - FAST-rem-calc(1));
+
+    height: $height;
+    padding: ($FAST-Form-spacing / 2);
+    border: $FAST-input-border;
+    margin: 0;
+    font-size: $FAST-input-font-size;
+    font-family: $FAST-input-font-family;
+    line-height: normal;
+    color: $FAST-input-color;
+    background-color: $FAST-Form-select-background;
+    border-radius: $FAST-Form-select-radius;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    @if $FAST-Form-select-triangle-color != transparent {
+        @include FAST-background-triangle($FAST-Form-select-triangle-color);
+        background-size: 9px 6px;
+        background-position: right center;
+        background-origin: content-box;
+        background-repeat: no-repeat;
+    }
+
+    // Disabled state
+    &:disabled {
+        background-color: $FAST-input-background-disabled;
+        cursor: $FAST-input-cursor-disabled;
+    }
+
+    // Hide the dropdown arrow shown in newer IE versions
+    &::-ms-expand {
+        display: none;
+    }
+
+    &[multiple] {
+        height: auto;
+    }
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-select() {
+    select {
+        @include FAST-form-input-select();
+    }
+}

@@ -1,0 +1,50 @@
+/** **************************************************************************
+    AXA FAST - Form Checkbox
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-checkbox() {
+    [type='file'],
+    [type='checkbox'],
+    [type='radio'] {
+        margin: 0;
+    }
+
+    [type='checkbox'] + label, [type='radio'] + label {
+        display: inline-block;
+        margin-left: $FAST-Form-spacing * 0.5;
+        margin-right: $FAST-Form-spacing;
+        margin-bottom: 0;
+        vertical-align: baseline;
+    }
+
+    // Styles for inputs inside labels
+    label > [type='checkbox'], label > [type='radio'] {
+        margin-right: $FAST-Form-spacing * 0.5;
+    }
+
+    // Normalize file input width
+    [type='file'] {
+        width: 100%;
+    }
+}

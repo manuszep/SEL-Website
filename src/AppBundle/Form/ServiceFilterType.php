@@ -17,6 +17,11 @@ class ServiceFilterType extends AbstractType
         $types = array_flip($serivce->getTypes());
         $domains = array_flip($serivce->getDomains());
 
+        $builder->add('category', Filters\EntityFilterType::class, array(
+            'class' => 'AppBundle:Category',
+            'choice_label' => 'select_label',
+            'placeholder' => 'Catégorie'
+        ));
         $builder->add('type', Filters\ChoiceFilterType::class, array(
             'choices'  => $types,
             'multiple' => true,
@@ -26,10 +31,6 @@ class ServiceFilterType extends AbstractType
             'choices'  => $domains,
             'multiple' => true,
             'expanded' => true
-        ));
-        $builder->add('category', Filters\EntityFilterType::class, array(
-            'class' => 'AppBundle:Category',
-            'choice_label' => 'select_label',
         ));
     }
 

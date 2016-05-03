@@ -1,0 +1,136 @@
+/** **************************************************************************
+    AXA FAST - Form Range
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-slider-height: 0.5rem !default;
+$FAST-slider-background: $FAST-Color-light-gray !default;
+$FAST-slider-fill-background: $FAST-Color-medium-gray !default;
+$FAST-slider-handle-height: 1.4rem !default;
+$FAST-slider-handle-width: 1.4rem !default;
+$FAST-slider-handle-background: $FAST-Color-primary !default;
+$FAST-slider-opacity-disabled: 0.25 !default;
+$FAST-slider-radius: $FAST-Global-radius !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-range-input() {
+    // scss-lint:disable QualifyingElement
+    input[type="range"] {
+        $margin: ($FAST-slider-handle-height - $FAST-slider-height) / 2;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: block;
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        margin-top: $margin;
+        margin-bottom: $margin;
+        border: 0;
+        line-height: 1;
+
+        @if FAST-has-value($FAST-slider-radius) {
+            border-radius: $FAST-slider-radius;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &[disabled] {
+            opacity: $FAST-slider-opacity-disabled;
+        }
+
+        // Chrome/Safari
+        &::-webkit-slider-runnable-track {
+            height: $FAST-slider-height;
+            background: $FAST-slider-background;
+        }
+
+        &::-webkit-slider-handle {
+            -webkit-appearance: none;
+            background: $FAST-slider-handle-background;
+            width: $FAST-slider-handle-width;
+            height: $FAST-slider-handle-height;
+            margin-top: -$margin;
+
+            @if FAST-has-value($FAST-slider-radius) {
+                border-radius: $FAST-slider-radius;
+            }
+        }
+
+        // Firefox
+        &::-moz-range-track {
+            -moz-appearance: none;
+            height: $FAST-slider-height;
+            background: $FAST-slider-background;
+        }
+
+        &::-moz-range-thumb {
+            -moz-appearance: none;
+            background: $FAST-slider-handle-background;
+            width: $FAST-slider-handle-width;
+            height: $FAST-slider-handle-height;
+            margin-top: -$margin;
+
+            @if FAST-has-value($FAST-slider-radius) {
+                border-radius: $FAST-slider-radius;
+            }
+        }
+
+        // Internet Explorer
+        &::-ms-track {
+            height: $FAST-slider-height;
+            background: $FAST-slider-background;
+            color: transparent;
+            border: 0;
+            overflow: visible;
+            border-top: $margin solid $FAST-Color-body-background;
+            border-bottom: $margin solid $FAST-Color-body-background;
+        }
+
+        &::-ms-thumb {
+            background: $FAST-slider-handle-background;
+            width: $FAST-slider-handle-width;
+            height: $FAST-slider-handle-height;
+            border: 0;
+
+            @if FAST-has-value($FAST-slider-radius) {
+                border-radius: $FAST-slider-radius;
+            }
+        }
+
+        &::-ms-fill-lower {
+            background: $FAST-slider-fill-background;
+        }
+
+        &::-ms-fill-upper {
+            background: $FAST-slider-background;
+        }
+
+        @at-root {
+            output {
+                line-height: $FAST-slider-handle-height;
+                vertical-align: middle;
+                margin-left: 0.5em;
+            }
+        }
+    }
+}

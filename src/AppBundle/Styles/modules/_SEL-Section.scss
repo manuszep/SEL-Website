@@ -31,13 +31,16 @@ $SEL-Section-angle-size: 3rem;
  **/
 @mixin SEL-Section() {
     .angle-intro {
-        background-color: $SEL-Header-bg-color;
-        color: #fff;
+        background-color: $FAST-Color-primary;
 
         clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$SEL-Section-angle-size}), 0 100%);
 
         h1 {
-            color: #fff;
+            color: $FAST-Color-white-xxl;
+
+            small {
+                color: $FAST-Color-white-xxl;
+            }
         }
 
         &:first-child {
@@ -47,7 +50,38 @@ $SEL-Section-angle-size: 3rem;
         }
     }
 
-    section {
+    section, .page-header {
         padding: 4rem 0;
+        @include FAST-clearfix();
+    }
+
+    section header {
+        p {
+            font-size: $FAST-Typography-lead-font-size;
+            font-weight: 300;
+        }
+
+        &:after {
+            content: "";
+            width: 20%;
+            margin: 2rem auto;
+            display: block;
+            height: FAST-rem-calc(2px);
+            background: $FAST-Color-primary;
+        }
+    }
+
+    @include FAST-breakpoint('large') {
+        .page-header.has-block {
+            h1 {
+                max-width: 50%;
+                float: left;
+            }
+
+            .header-block {
+                width: 50%;
+                float: right;
+            }
+        }
     }
 }

@@ -1,0 +1,132 @@
+/** **************************************************************************
+    AXA FAST - Form Input group
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Form-input-prefix-color: $FAST-Color-Type-Dark !default;
+$FAST-Form-input-prefix-background: $FAST-Color-light-gray !default;
+$FAST-Form-input-prefix-border: 1px solid $FAST-Color-medium-gray !default;
+$FAST-Form-input-prefix-padding: 1rem !default;
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Form-prepostfix() {
+    $height: ($FAST-input-font-size + $FAST-Form-spacing * 1.5);
+
+    .input-group {
+        display: if($FAST-Global-flexbox, flex, table);
+        width: 100%;
+        margin-bottom: $FAST-Form-spacing;
+
+        @if $FAST-Global-flexbox {
+            align-items: stretch;
+        }
+
+        > :first-child {
+            border-radius: $FAST-Global-radius 0 0 $FAST-Global-radius;
+        }
+
+        > :last-child {
+            > * {
+                border-radius: 0 $FAST-Global-radius $FAST-Global-radius 0;
+            }
+        }
+    }
+
+    %input-group-child {
+        margin: 0;
+
+        @if not $FAST-Global-flexbox {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
+    .input-group-label {
+        @extend %input-group-child;
+        text-align: center;
+        padding: 0 $FAST-Form-input-prefix-padding;
+        background: $FAST-Form-input-prefix-background;
+        color: $FAST-Form-input-prefix-color;
+        border: $FAST-Form-input-prefix-border;
+        white-space: nowrap;
+
+        @if $FAST-Global-flexbox {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+        @else {
+            width: 1%;
+            height: 100%;
+        }
+
+        @if FAST-has-value($FAST-Form-input-prefix-border) {
+            &:first-child {
+                border-right: 0;
+            }
+
+            &:last-child {
+                border-left: 0;
+            }
+        }
+    }
+
+    .input-group-field {
+        @extend %input-group-child;
+        border-radius: 0;
+
+        // scss-lint:disable ZeroUnit
+        @if $FAST-Global-flexbox {
+            flex: 1 1 0px;
+            width: auto;
+            height: auto;
+        }
+        @else {
+            height: $height;
+        }
+    }
+
+    .input-group-button {
+        @extend %input-group-child;
+        padding-top: 0;
+        padding-bottom: 0;
+        text-align: center;
+
+        @if $FAST-Global-flexbox {
+            flex: 0 0 auto;
+        }
+        @else {
+            height: 100%;
+            width: 1%;
+        }
+
+        a,
+        input,
+        button {
+            margin: 0;
+        }
+    }
+
+    // Specificity bump needed to prevent override by buttons
+    // scss-lint:disable QualifyingSelector
+    .input-group .input-group-button {
+        display: table-cell;
+    }
+}

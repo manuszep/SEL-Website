@@ -9,7 +9,7 @@ $FAST-Typography-header-font-family: $FAST-heading-font-family !default;
 $FAST-Typography-header-font-weight: $FAST-Global-weight-normal !default;
 $FAST-Typography-header-font-style: normal !default;
 $FAST-Typography-header-color: inherit !default;
-$FAST-Typography-header-lineheight: 1.4 !default;
+$FAST-Typography-header-lineheight: 1 !default;
 $FAST-Typography-header-margin-bottom: 0.5rem !default;
 $FAST-Typography-header-text-rendering: optimizeLegibility !default;
 $FAST-Typography-header-small-font-color: $FAST-Color-medium-gray !default;
@@ -144,6 +144,10 @@ $FAST-Typography-abbr-underline: 1px dotted $FAST-Color-black !default;
             color: $FAST-Typography-header-small-font-color;
             line-height: 0;
         }
+    }
+
+    h1 small {
+        font-size: FAST-rem-calc(22px);
     }
 
     @each $size, $headers in $FAST-Typography-header-sizes {

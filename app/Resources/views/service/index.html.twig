@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="angle-intro">
+    <header class="page-header has-block angle-intro">
         <div class="wrapper">
             <h1>Service list</h1>
 
-            <form method="get" action=".">
-                {{ form_rest(filter) }}
-                <input type="submit" name="submit-filter" value="filter" />
-            </form>
+            <div class="filters header-block service-filters">
+                <form method="get" action=".">
+                    {{ form_rest(filter) }}
+                    <button type="submit" name="submit-filter">Filtrer</button>
+                </form>
+            </div>
         </div>
-    </section>
+    </header>
 
     <section class="service-list">
         <div class="wrapper">
