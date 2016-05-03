@@ -102,10 +102,12 @@ liip_imagine:
         cache: ~
         service_thumb:
             quality: 75
+            animated: true
             filters:
                 relative_resize: { widen: 400 }
         service_thumb2x:
             quality: 75
+            animated: true
             filters:
                 relative_resize: { widen: 800 }
 
