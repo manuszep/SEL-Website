@@ -28,6 +28,22 @@
     {{ block('form_widget') }}
 {% endblock collection_widget %}
 
+{% block fieldset_widget %}
+    <fieldset {{ block('widget_container_attributes') }}>
+
+        {% if legend is defined and legend is not empty %}
+            <legend>{{ legend | trans({}, translation_domain) }}</legend>
+        {% endif %}
+        
+        {% if form.parent is empty %}
+            {{ form_errors(form) }}
+        {% endif %}
+        {{ block('form_rows') }}
+        {{ form_rest(form) }}
+
+    </fieldset>
+{% endblock fieldset_widget %}
+
 {% block textarea_widget %}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock textarea_widget %}
@@ -240,11 +256,11 @@
 {% endblock repeated_row %}
 
 {% block form_row %}
-    <div class="form-row">
+    {% if is_fieldset is not defined or is_fieldset == false %}<div class="form-row">{% endif %}
         {{ form_label(form) }}
         {{ form_errors(form) }}
         {{ form_widget(form) }}
-    </div>
+    {% if is_fieldset is not defined or is_fieldset == false %}</div>{% endif %}
 {% endblock form_row %}
 
 {% block button_row %}
