@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Service creation</h1>
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>Service creation</h1>
+        </div>
+    </header>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <section class="add-form">
+        <div class="wrapper">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Create" />
+            {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('service_index') }}">Back to the list</a>
-        </li>
-    </ul>
+            <ul>
+                <li>
+                    <a href="{{ path('service_index') }}">Back to the list</a>
+                </li>
+            </ul>
+        </div>
+    </section>
 {% endblock %}
