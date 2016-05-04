@@ -141,7 +141,7 @@ $FAST-Typography-abbr-underline: 1px dotted $FAST-Color-black !default;
         line-height: $FAST-Typography-header-lineheight;
 
         small {
-            color: $FAST-Typography-header-small-font-color;
+            color: inherit;
             line-height: 0;
         }
     }

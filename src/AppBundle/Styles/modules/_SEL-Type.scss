@@ -30,13 +30,5 @@
  *  Styles
  **/
 @mixin SEL-Type() {
-    a svg {
-        color: $FAST-Color-body-font;
-        opacity: .75;
-        transition: all .3s;
-    }
 
-    a:hover svg {
-        opacity: 1;
-    }
 }
