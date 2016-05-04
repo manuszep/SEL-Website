@@ -42,20 +42,20 @@ $FAST-Form-legend-padding: FAST-rem-calc(0 3) !default;
         border: 0;
         padding: 0;
         margin: 0;
+    }
 
-        &.actions {
-            border-top: 3px solid $FAST-Color-xlight-gray;
-            padding: ($FAST-lineheight * 1rem) 0;
-            margin-top: ($FAST-lineheight * 1rem);
-            @include FAST-clearfix();
+    .form-actions {
+        border-top: 3px solid $FAST-Color-xlight-gray;
+        padding: ($FAST-lineheight * 1rem) 0;
+        margin-top: ($FAST-lineheight * 1rem);
+        @include FAST-clearfix();
 
-            .main {
-                float: right;
-            }
+        .main {
+            float: right;
+        }
 
-            .alt {
-                float: left;
-            }
+        .alt {
+            float: left;
         }
     }
 

@@ -8,9 +8,9 @@
 $FAST-Button-padding: 0.7em 1em !default;
 $FAST-Button-margin: 0 0 $FAST-Global-margin 0 !default;
 $FAST-Button-fill: solid !default;
-$FAST-Button-background: map-get($FAST-Color-palette, secondary) !default;
+$FAST-Button-background: map-get($FAST-Color-palette, primary) !default;
 $FAST-Button-background-hover: scale-color($FAST-Button-background, $lightness: -15%) !default;
-$FAST-Button-color: $FAST-Color-Type-Light !default;
+$FAST-Button-color: FAST-foreground($FAST-Button-background) !default;
 $FAST-Button-color-alt: $FAST-Color-Type-Dark !default;
 $FAST-Button-radius: $FAST-Global-radius !default;
 $FAST-Button-sizes: (
@@ -20,9 +20,8 @@ $FAST-Button-sizes: (
         large: 1.25rem,
 ) !default;
 $FAST-Button-Palette: (
-    primary: map-get($FAST-Color-palette, secondary),
-    secondary: map-get($FAST-Color-palette, neutral),
-    blue: map-get($FAST-Color-palette, primary),
+    primary: map-get($FAST-Color-palette, primary ),
+    secondary: map-get($FAST-Color-palette, secondary),
     success: map-get($FAST-Color-palette, success),
     alert: map-get($FAST-Color-palette, alert),
     warning: map-get($FAST-Color-palette, warning)
@@ -229,5 +228,9 @@ $FAST-Button-opacity-disabled: 0.25 !default;
             float: none;
             top: -0.1em;
         }
+    }
+
+    button[type=submit], input[type=submit] {
+        @include FAST-Button-style(map-get($FAST-Button-Palette, primary), auto, auto);
     }
 }

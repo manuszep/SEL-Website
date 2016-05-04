@@ -50,7 +50,7 @@ $FAST-Form-spacing: FAST-rem-calc(16) !default;
     @include FAST-Form-error();
 
     .form-row {
-        border-bottom: 1px dotted $FAST-Color-xlight-gray;
+        border-bottom: 1px dotted $FAST-Color-light-gray;
         padding-top: ($FAST-Form-spacing / 2);
         padding-bottom: $FAST-Form-spacing;
 
