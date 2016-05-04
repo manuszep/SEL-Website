@@ -46,7 +46,7 @@
                                 </li>
                             {% endif %}
                             <li>
-                                {% if user.hasRole('COCO') %}
+                                {% if user.hasRole('ROLE_COCO') %}
                                     <a href="{{ path('user_disable_coco', { 'id': user.id }) }}">désactiver COCO</a>
                                 {% else %}
                                     <a href="{{ path('user_enable_coco', { 'id': user.id }) }}">activer COCO</a>

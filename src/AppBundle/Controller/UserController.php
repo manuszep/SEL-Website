@@ -140,7 +140,7 @@ class UserController extends Controller
      */
     public function enableCocoAction(User $user)
     {
-        $user->addRole("COCO");
+        $user->addRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
 
@@ -160,7 +160,7 @@ class UserController extends Controller
      */
     public function disableCocoAction(User $user)
     {
-        $user->removeRole("COCO");
+        $user->removeRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
 
