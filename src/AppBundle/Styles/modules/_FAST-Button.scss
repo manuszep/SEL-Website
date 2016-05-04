@@ -1,0 +1,233 @@
+/** **************************************************************************
+    AXA FAST - Button
+    ************************************************************************** */
+
+/**
+ *  Local variables
+ **/
+$FAST-Button-padding: 0.7em 1em !default;
+$FAST-Button-margin: 0 0 $FAST-Global-margin 0 !default;
+$FAST-Button-fill: solid !default;
+$FAST-Button-background: map-get($FAST-Color-palette, secondary) !default;
+$FAST-Button-background-hover: scale-color($FAST-Button-background, $lightness: -15%) !default;
+$FAST-Button-color: $FAST-Color-Type-Light !default;
+$FAST-Button-color-alt: $FAST-Color-Type-Dark !default;
+$FAST-Button-radius: $FAST-Global-radius !default;
+$FAST-Button-sizes: (
+        tiny: 0.75rem,
+        small: 0.875rem,
+        default: 1rem,
+        large: 1.25rem,
+) !default;
+$FAST-Button-Palette: (
+    primary: map-get($FAST-Color-palette, secondary),
+    secondary: map-get($FAST-Color-palette, neutral),
+    blue: map-get($FAST-Color-palette, primary),
+    success: map-get($FAST-Color-palette, success),
+    alert: map-get($FAST-Color-palette, alert),
+    warning: map-get($FAST-Color-palette, warning)
+) !default;
+
+$FAST-Button-opacity-disabled: 0.25 !default;
+
+
+/**
+ *  Imports
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+@mixin FAST-Button-base {
+    @include FAST-disable-mouse-outline();
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-appearance: none;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    border-radius: $FAST-Button-radius;
+    padding: $FAST-Button-padding;
+    margin: $FAST-Button-margin;
+    font-size: map-get($FAST-Button-sizes, default);
+}
+
+@mixin FAST-Button-expand($expand: true) {
+    @if $expand {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    @else {
+        display: inline-block;
+        width: auto;
+        margin: $FAST-Button-margin;
+    }
+}
+
+@mixin FAST-Button-style(
+    $background: $FAST-Button-background,
+    $background-hover: $FAST-Button-background-hover,
+    $color: $FAST-Button-color
+) {
+    @if $color == auto {
+        $color: FAST-foreground($background);
+    }
+
+    @if $background-hover == auto {
+        $background-hover: scale-color($background, $lightness: -20%);
+    }
+
+    background-color: $background;
+    color: $color;
+
+    &:hover, &:focus {
+        background-color: $background-hover;
+        color: $color;
+    }
+}
+
+@mixin FAST-Button-hollow() {
+    &, &:hover, &:focus {
+        background-color: transparent;
+    }
+}
+
+@mixin FAST-Button-hollow-style($color: $FAST-Color-primary) {
+    $color-hover: scale-color($color, $lightness: -50%);
+
+    border: 1px solid $color;
+    color: $color;
+
+    &:hover, &:focus {
+        border-color: $color-hover;
+        color: $color-hover;
+    }
+}
+
+@mixin FAST-Button-disabled {
+    opacity: $FAST-Button-opacity-disabled;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+@mixin FAST-Button-dropdown(
+    $size: 0.4em,
+    $color: $FAST-Color-Type-Light,
+    $offset: FAST-get-side($FAST-Button-padding, right)
+) {
+    &::after {
+        @include FAST-css-triangle($size, $color, down);
+        position: relative;
+        top: 0.4em; // Aligns the arrow with the text of the button
+        float: right;
+        margin-left: FAST-get-side($FAST-Button-padding, right);
+        display: inline-block;
+    }
+}
+
+@mixin FAST-Button-element(
+    $expand: false,
+    $background: $FAST-Button-background,
+    $background-hover: $FAST-Button-background-hover,
+    $color: $FAST-Button-color,
+    $style: $FAST-Button-fill
+) {
+    @include FAST-Button-base();
+
+    @if $style == solid {
+        @include FAST-Button-style($background, $background-hover, $color);
+    }
+    @else if $style == hollow {
+        @include FAST-Button-hollow();
+        @include FAST-Button-hollow-style($background);
+    }
+
+    @if $expand {
+        @include FAST-Button-expand();
+    }
+}
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin FAST-Button() {
+    .btn, button {
+        @include FAST-Button-element();
+
+        // Sizes
+        @each $size, $value in map-remove($FAST-Button-sizes, default) {
+            &.#{$size} { font-size: $value; }
+        }
+
+        &.expanded { @include FAST-Button-expand(); }
+
+        // Colors
+        @each $name, $color in $FAST-Button-Palette {
+            @if $FAST-Button-fill != hollow {
+                &.#{$name} {
+                    @include FAST-Button-style($color, auto, auto);
+                }
+            }
+            @else {
+                &.#{$name} {
+                    @include FAST-Button-hollow-style($color);
+                }
+
+                &.#{$name}.dropdown::after {
+                    border-top-color: $color;
+                }
+            }
+        }
+
+        // Hollow style
+        @if $FAST-Button-fill != hollow {
+            &.hollow {
+                @include FAST-Button-hollow();
+                @include FAST-Button-hollow-style();
+
+                @each $name, $color in $FAST-Button-Palette {
+                    &.#{$name} {
+                        @include FAST-Button-hollow-style($color);
+                    }
+                }
+            }
+        }
+
+        // Disabled style
+        &.disabled,
+        &[disabled] {
+            @include FAST-Button-disabled();
+        }
+
+        // Dropdown arrow
+        &.dropdown {
+            @include FAST-Button-dropdown();
+
+            @if $FAST-Button-fill == hollow {
+                &::after {
+                    border-top-color: $FAST-Button-background;
+                }
+            }
+        }
+
+        // Button with dropdown arrow only
+        &.arrow-only::after {
+            margin-left: 0;
+            float: none;
+            top: -0.1em;
+        }
+    }
+}

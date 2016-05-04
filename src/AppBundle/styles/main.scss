@@ -17,6 +17,7 @@
 @import "modules/FAST-Global-Normalize";
 @import "modules/FAST-Typography";
 @import "modules/FAST-Global-Basic";
+@import "modules/FAST-Button";
 @import "modules/FAST-Form";
 
 @import "modules/FAST-Deco.scss";
@@ -39,6 +40,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include FAST-Global-Normalize();
 @include FAST-Typography();
 @include FAST-Global-Basic();
+@include FAST-Button();
 @include FAST-Form();
 @include SEL-Wrapper();
 @include SEL-Type();
