@@ -7,3 +7,8 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    form.type.service:
+        class: AppBundle\Form\ServiceType
+        arguments: ["@security.authorization_checker"]
+        tags:
+            - { name: form.type, alias: service_type }

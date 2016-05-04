@@ -10,7 +10,60 @@
     <section class="add-form">
         <div class="wrapper">
             {{ form_start(form) }}
-                {{ form_widget(form) }}
+            <fieldset>
+                {% if is_granted('ROLE_EDITOR') %}
+                <div class="form-row">
+                    {{ form_label(form.user) }}
+                    {{ form_widget(form.user) }}
+                    {{ form_errors(form.user) }}
+                </div>
+                {% endif %}
+                <div class="form-row">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                    {{ form_errors(form.title) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.body) }}
+                    {{ form_widget(form.body) }}
+                    {{ form_errors(form.body) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.type) }}
+                    {{ form_widget(form.type) }}
+                    {{ form_errors(form.type) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.domain) }}
+                    {{ form_widget(form.domain) }}
+                    {{ form_errors(form.domain) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.category) }}
+                    {{ form_widget(form.category) }}
+                    {{ form_errors(form.category) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.picture) }}
+                    {{ form_widget(form.picture) }}
+                    {{ form_errors(form.picture) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.expires_at) }}
+                    {{ form_widget(form.expires_at) }}
+                    {{ form_errors(form.expires_at) }}
+                </div>
+                <div class="form-row">
+                    {{ form_widget(form.promote) }}
+                    {{ form_label(form.promote) }}
+                    {{ form_errors(form.promote) }}
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                {{ form_widget(form.save) }}
+            </div>
+
             {{ form_end(form) }}
 
             <ul>
