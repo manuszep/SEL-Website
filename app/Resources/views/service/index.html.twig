@@ -25,12 +25,14 @@
                     {% endif %}
                 <article class="service {{ service_class }} grid-item">
                     <div class="service-content">
+                        {% if service.getPictureWebPath is not empty %}
                         <div class="picture">
                             <a href="{{ path('service_show', { 'id': service.id }) }}"><img
                                 src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
                                 srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
                                         {{ service.getPictureWebPath | imagine_filter('service_thumb2x') }} 400w 2x" /></a>
                         </div>
+                        {% endif %}
 
                         <header>
                             <h3 class="service-title"><a href="{{ path('service_show', { 'id': service.id }) }}">{{ service.title }}</a></h3>
@@ -41,7 +43,7 @@
                                 <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img src="/uploads/users/default-user.png" /></a>
                             </div>
                             <div class="type">
-                                <a href="{{ path('service_index') }}"><svg class="icon icon-tag"><use xlink:href="#icon-tag"></use></svg> {{ service.typeLabel }}</a>
+                                <svg class="icon icon-tag"><use xlink:href="#icon-tag"></use></svg> <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
                             </div>
                         </header>
                         <div class="body">
@@ -50,10 +52,10 @@
 
                         <div class="meta">
                             <div class="domain">
-                                <a href="{{ path('service_index') }}"><svg class="icon icon-archive"><use xlink:href="#icon-archive"></use></svg> {{ service.domainLabel }}</a>
+                                <svg class="icon icon-archive"><use xlink:href="#icon-archive"></use></svg> <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
                             </div>
                             <div class="category">
-                                <a href="{{ path('service_index') }}"><svg class="icon icon-tags"><use xlink:href="#icon-tags"></use></svg> {{ service.category.title }}</a>
+                                <svg class="icon icon-tags"><use xlink:href="#icon-tags"></use></svg> <a href="{{ path('service_index') }}">{{ service.category.title }}</a>
                             </div>
                         </div>
 

@@ -72,7 +72,8 @@ class ServiceType extends AbstractType
                 'required' => false,
             ))
             ->add('picture', FileType::class, array(
-                'label' => 'Image'
+                'label' => 'Image',
+                'required' => false
             ))
             ->add('expires_at', DateType::class, array(
                 'widget' => 'single_text',

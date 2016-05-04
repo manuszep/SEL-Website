@@ -38,8 +38,11 @@ $SEL-Service-border-width: .25rem;
             width: 100%;
 
             header {
+                $header-padding-top: ($SEL-Service-user-image-size / 2) + 1rem;
+
+                margin-top: -1rem;
                 position: relative;
-                padding-top: ($SEL-Service-user-image-size / 2) + 1rem;
+                padding-top: $header-padding-top;
                 text-align: center;
 
                 &:after {
@@ -49,6 +52,17 @@ $SEL-Service-border-width: .25rem;
                     margin: 1rem auto;
                     display: block;
                 }
+
+                &:before {
+                    content: "";
+                    display: block;
+                    height: $SEL-Service-border-width;
+                    margin: -$header-padding-top -1rem $header-padding-top -1rem;
+                }
+            }
+
+            .picture + header {
+                margin-top: 0;
             }
         }
 
@@ -69,7 +83,6 @@ $SEL-Service-border-width: .25rem;
 
         .picture {
             margin: -1rem -1rem 0;
-            border-bottom: $SEL-Service-border-width solid transparent;
 
             img {
                 min-width: 100%;
@@ -106,7 +119,7 @@ $SEL-Service-border-width: .25rem;
         }
 
         .body {
-            max-height: 15rem;
+            max-height: 15.5rem;
             overflow: hidden;
             text-overflow: ellipsis;
             position: relative;
@@ -123,7 +136,7 @@ $SEL-Service-border-width: .25rem;
                 position: absolute;
                 top: 13rem;
                 left: 0;
-                height: 2rem;
+                height: 2.5rem;
                 background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.75) 50%, rgba(255,255,255,1) 100%);
             }
         }
@@ -157,8 +170,8 @@ $SEL-Service-border-width: .25rem;
         }
 
         .service-type-1 {
-            .picture {
-                border-bottom-color: $SEL-Service-type1-color;
+            header:before {
+                background-color: $SEL-Service-type1-color;
             }
 
             .service-title a {
@@ -175,8 +188,8 @@ $SEL-Service-border-width: .25rem;
         }
 
         .service-type-2 {
-            .picture {
-                border-bottom-color: $SEL-Service-type2-color;
+            header:before {
+                background-color: $SEL-Service-type2-color;
             }
 
             .service-title a {
@@ -190,6 +203,10 @@ $SEL-Service-border-width: .25rem;
             .meta:before {
                 background-color: $SEL-Service-type2-color;
             }
+        }
+
+        .icon {
+            opacity: .85;
         }
 
         @include FAST-breakpoint('medium') {

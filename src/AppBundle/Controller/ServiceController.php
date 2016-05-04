@@ -71,6 +71,11 @@ class ServiceController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $service->upload();
+
+            if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+                $service->setUser($this->getUser());
+            }
+
             $em->persist($service);
             $em->flush();
 
@@ -113,6 +118,9 @@ class ServiceController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $service->upload();
+
             $em->persist($service);
             $em->flush();
 

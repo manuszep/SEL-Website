@@ -6,13 +6,13 @@
  *  Local variables
  **/
 $FAST-Color-palette: (
-        primary: #C81217,
-        secondary: #00B6CF,
-        ternary: #DBDA23,
-        neutral: #E4DED0,
-        success: #00C335,
-        warning: #FD8603,
-        alert: #DF151A,
+        primary: #cc3311,
+        secondary: #2e9395,
+        ternary: #362f2d,
+        neutral: #bbbbbb,
+        success: #7a9f34,
+        warning: #ffae00,
+        alert: #E62426,
 ) !default;
 
 @if not map-has-key($FAST-Color-palette, primary) {
