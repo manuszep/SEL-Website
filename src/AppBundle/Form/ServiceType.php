@@ -68,6 +68,9 @@ class ServiceType extends AbstractType
                 'required' => false,
                 'label' => 'Date d\'expiration'
             ))
+            ->add('Enregistrer', SubmitType::class, array(
+                'attr' => array('class' => 'form-action-main'),
+            ));
         ;
     }
     
