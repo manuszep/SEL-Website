@@ -72,8 +72,10 @@ $SEL-Header-bg-color: $FAST-Color-primary;
                 margin: 0;
                 position: relative;
 
-                &:hover ul {
-                    display: block;
+                &:hover {
+                    ul {
+                        display: block;
+                    }
                 }
             }
 
@@ -85,19 +87,33 @@ $SEL-Header-bg-color: $FAST-Color-primary;
                 margin: 0;
                 right: 0;
                 top: 100%;
+                background: #fff;
+                min-width: 10em;
+                padding: .25em;
+                @include FAST-Deco-shadow-2();
+
+                a {
+                    color: $FAST-Color-primary;
+                }
             }
         }
 
         a {
             color: FAST-foreground($SEL-Header-bg-color);
             display: inline-block;
+            width: 100%;
             padding: .25rem 1rem;
             border-radius: .15rem;
+        }
 
-            &:hover {
-                background: FAST-foreground($SEL-Header-bg-color);
-                color: FAST-foreground(FAST-foreground($SEL-Header-bg-color), $SEL-Header-bg-color);
-            }
+        li:hover > a, a:hover {
+            background: FAST-foreground($SEL-Header-bg-color);
+            color: FAST-foreground(FAST-foreground($SEL-Header-bg-color), $SEL-Header-bg-color);
+        }
+
+        li ul a:hover {
+            color: #fff;
+            background: $FAST-Color-primary;
         }
     }
 }

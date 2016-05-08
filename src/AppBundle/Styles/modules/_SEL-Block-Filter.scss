@@ -39,6 +39,17 @@
     }
 
     #service_filter_domain {
-        float: left;
+    }
+
+    #filter_submit {
+        margin: 1em 0 0 0;
+        float: right;
+        @include FAST-Button-hollow-style(FAST-foreground($FAST-Color-primary));
+
+        &:hover {
+            border-color: FAST-foreground($FAST-Color-primary);
+            background: FAST-foreground($FAST-Color-primary);
+            color: $FAST-Color-primary;
+        }
     }
 }

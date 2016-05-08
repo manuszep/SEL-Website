@@ -3,12 +3,12 @@
 {% block body %}
     <header class="page-header has-block angle-intro">
         <div class="wrapper">
-            <h1>Service list</h1>
+            <h1>Les services</h1>
 
             <div class="filters header-block service-filters">
                 <form method="get" action=".">
                     {{ form_rest(filter) }}
-                    <button type="submit" name="submit-filter">Filtrer</button>
+                    <button id="filter_submit" type="submit" name="submit-filter">Filtrer</button>
                 </form>
             </div>
         </div>
