@@ -70,10 +70,21 @@ $SEL-Header-bg-color: $FAST-Color-primary;
             li {
                 padding: 0;
                 margin: 0;
+                position: relative;
+
+                &:hover ul {
+                    display: block;
+                }
             }
 
             ul {
                 display: none;
+                position: absolute;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                right: 0;
+                top: 100%;
             }
         }
 
