@@ -101,7 +101,6 @@ $SEL-Add-tool-radius: 16rem;
             bottom: 0;
             right: 0;
             transition: all .3s;
-            transition-delay: .2s;
 
             a {
                 display: block;
@@ -114,7 +113,7 @@ $SEL-Add-tool-radius: 16rem;
                 font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
 
                 &:hover {
-                    color: $FAST-Color-secondary;
+                    color: $FAST-Color-primary;
                 }
             }
 
@@ -152,6 +151,7 @@ $SEL-Add-tool-radius: 16rem;
             li {
                 right: $SEL-Add-tool-radius - $SEL-add-tool-item-size;
                 transform-origin: ($SEL-Add-tool-radius - ($SEL-add-tool-item-size / 2)) ($SEL-add-tool-item-size / 2);
+                transition-delay: .2s;
             }
 
             li:first-child {
