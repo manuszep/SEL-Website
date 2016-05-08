@@ -31,7 +31,10 @@
  **/
 @mixin SEL-Block-Filter() {
     .filters {
-
+        .form-row {
+            padding: 0 0 1em 0;
+            border: none;
+        }
     }
 
     .service-filters {
@@ -42,7 +45,7 @@
     }
 
     #filter_submit {
-        margin: 1em 0 0 0;
+        margin: 0 0 -2rem 0;
         float: right;
         @include FAST-Button-hollow-style(FAST-foreground($FAST-Color-primary));
 

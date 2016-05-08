@@ -51,6 +51,10 @@ $SEL-Section-angle-size: 3rem;
         }
     }
 
+    .angle-reverse {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - #{$SEL-Section-angle-size}));
+    }
+
     section, .page-header {
         padding: 4rem 0;
         @include FAST-clearfix();
