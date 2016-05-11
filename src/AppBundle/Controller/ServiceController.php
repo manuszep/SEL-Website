@@ -26,6 +26,8 @@ class ServiceController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // TODO: Filter expired items
+        // TODO: Split "offre flash" and "demande flash" to display them separately
         $dummy_service = new Service();
 
         $form = $this->createForm('AppBundle\Form\ServiceFilterType');
@@ -49,8 +51,15 @@ class ServiceController extends Controller
             $services = $em->getRepository('AppBundle:Service')->findAll();
         }
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $services, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+
         return $this->render('service/index.html.twig', array(
-            'services' => $services,
+            'services' => $pagination,
             'filter' => $form->createView()
         ));
     }
@@ -63,6 +72,7 @@ class ServiceController extends Controller
      */
     public function newAction(Request $request)
     {
+        // TODO: Add logic so when the user chooses to make a "flash" service, the expiration date is mandatory and is set in 15 days by default.
         $service = new Service();
         $form = $this->createForm('AppBundle\Form\ServiceType', $service);
         $form->handleRequest($request);
