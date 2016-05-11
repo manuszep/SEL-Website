@@ -17,7 +17,6 @@ module.exports = function (grunt) {
         "clean:web_scripts",
         "sass:dev",
         "autoprefixer:dev",
-        "concat:dev",
         "browserify:dev",
         "uglify:dev",
         "bytesize:dev",

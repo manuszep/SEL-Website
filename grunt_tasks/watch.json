@@ -1,7 +1,7 @@
 {
     "src_scripts": {
         "files": ["<%= project.src_scripts %>/{,*/}*.js"],
-        "tasks": ["concat:dev"],
+        "tasks": ["browserify:dev", "uglify:dev"],
         "options": {
             "livereload": true,
             "event": ["changed", "added", "deleted"]

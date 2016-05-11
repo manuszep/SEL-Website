@@ -18,3 +18,4 @@ src/AppBundle/DataFixtures/ORM/LoadUserData.php
 node_modules
 /web/media/cache
 /web/css/*
+/web/js/*
