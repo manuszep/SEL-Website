@@ -425,10 +425,10 @@ class User extends BaseUser
     /**
      * @return null|string
      */
-    public function getWebPath()
+    public function getPictureWebPath()
     {
         return null === $this->picture_path
-            ? null
+            ? '/uploads/users/default-user.png'
             : $this->getUploadDir().'/'.$this->picture_path;
     }
 
@@ -455,7 +455,7 @@ class User extends BaseUser
             return;
         }
 
-        $uuid = uniqid();
+        $uuid = uniqid() . '.' . $this->getPicture()->guessExtension();
 
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues

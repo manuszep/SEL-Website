@@ -201,6 +201,8 @@ class UserController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $um = $this->get('fos_user.user_manager');
 
+            $user->upload();
+
             $this->addFlash(
                 'success',
                 'L\'utilisateur <strong>' . $user->getUsername() . '</strong> a bien été enregistré.'

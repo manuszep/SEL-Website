@@ -30,7 +30,10 @@ class UserProfileType extends AbstractType
             ->add('street_box', TextType::class, array('label' => 'Boite'))
             ->add('zip', NumberType::class, array('label' => 'Code postal'))
             ->add('city', TextType::class, array('label' => 'Ville'))
-            ->add('picture', FileType::class)
+            ->add('picture', FileType::class, array(
+                'label' => 'Image',
+                'required' => false
+            ))
             ->add('current_password', PasswordType::class, array(
                 'label' => 'Mot de passe actuel',
                 'mapped' => false,

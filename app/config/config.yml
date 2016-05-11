@@ -113,3 +113,13 @@ liip_imagine:
             animated: true
             filters:
                 relative_resize: { widen: 800 }
+        user_thumb:
+            quality: 75
+            animated: true
+            filters:
+                thumbnail: { size: [80, 80], mode: outbound }
+        user_thumb2x:
+            quality: 75
+            animated: true
+            filters:
+                thumbnail: { size: [160, 160], mode: outbound }
