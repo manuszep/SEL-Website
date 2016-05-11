@@ -82,6 +82,7 @@ class ServiceType extends AbstractType
             ))
             ->add('save', SubmitType::class, array(
                 'attr' => array('class' => 'main'),
+                'label' => 'Enregistrer'
             ));
     }
     

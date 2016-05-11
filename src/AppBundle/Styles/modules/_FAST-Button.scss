@@ -8,7 +8,7 @@
 $FAST-Button-padding: 0.7em 1em !default;
 $FAST-Button-margin: 0 0 $FAST-Global-margin 0 !default;
 $FAST-Button-fill: solid !default;
-$FAST-Button-background: map-get($FAST-Color-palette, primary) !default;
+$FAST-Button-background: map-get($FAST-Color-palette, neutral) !default;
 $FAST-Button-background-hover: scale-color($FAST-Button-background, $lightness: -15%) !default;
 $FAST-Button-color: FAST-foreground($FAST-Button-background) !default;
 $FAST-Button-color-alt: $FAST-Color-Type-Dark !default;
