@@ -39,82 +39,82 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     {
         $items = [
             [
-                "title" => "Administratif et travaux de bureau",
+                "title" => "Administratif et travaux de bureau", // 0
                 "child" => [
-                    "Aide administrative, sociale ou juridique",
-                    "Informatique: hardware",
-                    "Informatique: software",
-                    "Job coaching",
-                    "Langues et traductions"
+                    "Aide administrative, sociale ou juridique", // 1
+                    "Informatique: hardware", // 2
+                    "Informatique: software", // 3
+                    "Job coaching", // 4
+                    "Langues et traductions" // 5
                 ]
             ],
             [
-                "title" => "Alimentation",
+                "title" => "Alimentation", // 6
                 "child" => [
-                    "Fêtes",
-                    "Gastronomie et Œnologie",
-                    "Quotidien"
+                    "Fêtes", // 7
+                    "Gastronomie et Œnologie", // 8
+                    "Quotidien" // 9
                 ]
             ],
             [
-                "title" => "Animaux",
+                "title" => "Animaux", // 10
                 "child" => [
-                    "Gardiennage"
+                    "Gardiennage" // 11
                 ]
             ],
             [
-                "title" => "Bien-être et loisirs",
+                "title" => "Bien-être et loisirs", // 12
                 "child" => [
-                    "Créativité, art et artisanat",
-                    "Détente, relaxation, santé",
-                    "Multimédia, audiovisuel",
-                    "Musique, cinéma, BD et livres",
-                    "Nature",
-                    "Sport"
+                    "Créativité, art et artisanat", // 13
+                    "Détente, relaxation, santé", // 14
+                    "Multimédia, audiovisuel", // 15
+                    "Musique, cinéma, BD et livres", // 16
+                    "Nature", // 17
+                    "Sport" // 18
                 ]
             ],
             [
-                "title" => "Bricolage",
+                "title" => "Bricolage", // 19
                 "child" => [
-                    "Bois et menuiserie",
-                    "Electricité, électroménager, soudure",
-                    "Gros œuvre",
-                    "Main d'œuvre",
-                    "Mécanique",
-                    "Peinture et déco"
+                    "Bois et menuiserie", // 20
+                    "Electricité, électroménager, soudure", // 21
+                    "Gros œuvre", // 22
+                    "Main d'œuvre", // 23
+                    "Mécanique", // 24
+                    "Peinture et déco" // 25
                 ]
             ],
             [
-                "title" => "Enfance",
+                "title" => "Enfance", // 26
                 "child" => [
-                    "Babysitting",
-                    "Cours et apprentissages",
-                    "Loisirs"
+                    "Babysitting", // 27
+                    "Cours et apprentissages", // 28
+                    "Loisirs" // 29
                 ]
             ],
             [
-                "title" => "Jardin",
+                "title" => "Jardin", // 30
                 "child" => [
-                    "Jardin d'agrément",
-                    "Potager et verger"
+                    "Jardin d'agrément", // 31
+                    "Potager et verger" // 32
                 ]
             ],
             [
-                "title" => "Maison et ménage",
+                "title" => "Maison et ménage", // 33
                 "child" => [
-                    "Courses",
-                    "Couture, tricot, repassage et broderie",
-                    "Gardiennage de maison"
+                    "Courses", // 34
+                    "Couture, tricot, repassage et broderie", // 35
+                    "Gardiennage de maison" // 36
                 ]
             ],
             [
-                "title" => "Mobilité",
+                "title" => "Mobilité", // 37
                 "child" => [
-                    "Transport de marchandises",
-                    "Transport de personnes"
+                    "Transport de marchandises", // 38
+                    "Transport de personnes" // 39
                 ]
             ],
-            "Pouvoir d'achat"
+            "Pouvoir d'achat" // 40
         ];
 
         $this->addCategories($manager, $items);
