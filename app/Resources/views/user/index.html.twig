@@ -5,58 +5,62 @@
         TODO: Use user.locked variable to grey out locked user rows
         TODO: Put user.lastLogin|date("d/m/Y H:i:s") in a tooltip
     -->
-    <div class="wrapper">
-        <h1>Users list</h1>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Email</th>
-                <th>Noeuds</th>
-                <th>Téléphone</th>
-                <th>Adresse</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
-                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                <td>{{ user.balance }}</td>
-                <td>{{ user.phone }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.mobile }}</td>
-                <td>{{ user.address|nl2br }}</td>
-                <td>
-                    <ul class="table-actions">
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">afficher</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">modifier</a>
-                        </li>
-                        {% if app.user and (app.user.hasRole('ROLE_SUPER_ADMIN') or app.user.hasRole('ROLE_COCO')) %}
-                            {%  if app.user.id != user.id %}
-                                <li>
-                                    {% if not user.locked %}
-                                        <a href="{{ path('user_disable', { 'id': user.id }) }}">désactiver</a>
-                                    {% else %}
-                                        <a href="{{ path('user_enable', { 'id': user.id }) }}">activer</a>
+    <header class="page-header has-block angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Les membres</h1>
+        </div>
+    </header>
+
+    <section class="service-list">
+        <div class="wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Noeuds</th>
+                        <th>Téléphone</th>
+                        <th>Adresse</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <!-- Add Voter to handle permissions on users (COCO can see disabled users but not others, COCO can edit all users but others can only edit own profile, ...) -->
+                    <tr class="{% if user.locked %}disabled{% endif %} {% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
+                        <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
+                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                        <td>{{ user.balance }}</td>
+                        <td>{{ user.phone }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.mobile }}</td>
+                        <td>{{ user.address|nl2br }}</td>
+                        <td>
+                            <ul class="table-actions">
+                                <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
+                                {% if app.user and (app.user.hasRole('ROLE_SUPER_ADMIN') or app.user.hasRole('ROLE_COCO')) %}
+                                    {%  if app.user.id != user.id and not user.hasRole('ROLE_ADMIN') %}
+                                        <li>
+                                            {% if not user.locked %}
+                                                {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}
+                                            {% else %}
+                                                {{ icons.iconlink('unlock', 'Activer', path('user_enable', { 'id': user.id }), 'enable-action') }}
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            {% if user.hasRole('ROLE_COCO') %}
+                                                {{ icons.iconlink('badge', 'Désactiver COCO', path('user_disable_coco', { 'id': user.id }), 'disable-action') }}
+                                            {% else %}
+                                                {{ icons.iconlink('badge', 'Activer COCO', path('user_enable_coco', { 'id': user.id }), 'enable-action') }}
+                                            {% endif %}
+                                        </li>
                                     {% endif %}
-                                </li>
-                            {% endif %}
-                            <li>
-                                {% if user.hasRole('ROLE_COCO') %}
-                                    <a href="{{ path('user_disable_coco', { 'id': user.id }) }}">désactiver COCO</a>
-                                {% else %}
-                                    <a href="{{ path('user_enable_coco', { 'id': user.id }) }}">activer COCO</a>
                                 {% endif %}
-                            </li>
-                        {% endif %}
-                    </ul>
-                </td>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

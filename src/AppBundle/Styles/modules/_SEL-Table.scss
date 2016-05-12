@@ -60,5 +60,29 @@
         margin: 0;
         padding: 0;
         list-style: none;
+
+        li {
+            display: inline-block;
+        }
+
+        a {
+            color: $FAST-Color-Type-Dark;
+        }
+
+        .enable-action {
+            color: $FAST-Color-success;
+        }
+
+        .disable-action {
+            color: $FAST-Color-alert;
+        }
+    }
+
+    tr.disabled td {
+        background: $FAST-Color-black-xxl;
+    }
+
+    tr.coco td {
+        background: rgba(#ffdd00, .2);
     }
 }
