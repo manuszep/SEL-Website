@@ -23,9 +23,9 @@
             <div class="wrapper">
                 <p class="user-data lead">
                     <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a><br />
-                    {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a>{% endif %}<br />
-                    {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>{% endif %}<br />
-                    {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}{% endif %}<br />
+                    {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a><br />{% endif %}
+                    {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a><br />{% endif %}
+                    {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}<br />{% endif %}
                 </p>
             </div>
         </section>
