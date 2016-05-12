@@ -12,3 +12,10 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type, alias: service_type }
+    app.service_voter:
+        class: AppBundle\Security\ServiceVoter
+        arguments: ['@security.access.decision_manager']
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false

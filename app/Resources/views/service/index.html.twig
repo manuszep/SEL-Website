@@ -63,6 +63,7 @@
                             </div>
                         </div>
 
+                        {% if is_granted("edit", service) %}
                         <div class="actions">
                             <ul>
                                 <li>
@@ -70,6 +71,7 @@
                                 </li>
                             </ul>
                         </div>
+                        {% endif %}
                     </div>
                 </article>
                 {% endfor %}
