@@ -150,11 +150,13 @@ $SEL-Service-border-width: .25rem;
                 padding: 0;
                 margin: 2rem 0 -1rem 0;
                 display: flex;
-                border-top: 1px solid $FAST-Color-primary;
+                border-top: 1px solid $FAST-Color-black-xxl;
+                justify-content: flex-end;
+                text-align: right;
             }
 
             li {
-                flex-grow: 1;
+                display: inline-block;
             }
 
             a {
@@ -164,10 +166,15 @@ $SEL-Service-border-width: .25rem;
                 padding: .3rem;
                 border-radius: 3px;
                 margin: .2rem;
+                color: $FAST-Color-black-m;
 
                 &:hover {
                     background: $FAST-Color-primary;
                     color: $FAST-Color-white;
+                }
+
+                .text {
+                    display: none;
                 }
             }
         }
