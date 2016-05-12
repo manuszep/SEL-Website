@@ -21,21 +21,21 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array('label' => 'Nom d\'utilisateur'))
-            ->add('email', EmailType::class, array('label' => 'Adresse email'))
-            ->add('phone', TextType::class, array('label' => 'Téléphone'))
-            ->add('mobile', TextType::class, array('label' => 'GSM'))
-            ->add('street', TextType::class, array('label' => 'Rue'))
-            ->add('street_number', TextType::class, array('label' => 'N°'))
-            ->add('street_box', TextType::class, array('label' => 'Boite'))
-            ->add('zip', NumberType::class, array('label' => 'Code postal'))
-            ->add('city', TextType::class, array('label' => 'Ville'))
+            ->add('username', TextType::class, array('label' => 'label.username'))
+            ->add('email', EmailType::class, array('label' => 'label.email'))
+            ->add('phone', TextType::class, array('label' => 'label.phone'))
+            ->add('mobile', TextType::class, array('label' => 'label.mobile'))
+            ->add('street', TextType::class, array('label' => 'label.street'))
+            ->add('street_number', TextType::class, array('label' => 'label.streetNumber'))
+            ->add('street_box', TextType::class, array('label' => 'label.streetBox'))
+            ->add('zip', NumberType::class, array('label' => 'label.zip'))
+            ->add('city', TextType::class, array('label' => 'label.city'))
             ->add('picture', FileType::class, array(
-                'label' => 'Image',
+                'label' => 'label.picture',
                 'required' => false
             ))
             ->add('current_password', PasswordType::class, array(
-                'label' => 'Mot de passe actuel',
+                'label' => 'label.passwordCurrent',
                 'mapped' => false,
                 'constraints' => new UserPassword(),
             ))

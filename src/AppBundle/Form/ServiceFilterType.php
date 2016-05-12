@@ -20,17 +20,20 @@ class ServiceFilterType extends AbstractType
         $builder->add('category', Filters\EntityFilterType::class, array(
             'class' => 'AppBundle:Category',
             'choice_label' => 'select_label',
-            'placeholder' => 'Catégorie'
+            'placeholder' => 'placeholder.pleaseChoose',
+            'label' => 'label.category'
         ));
         $builder->add('type', Filters\ChoiceFilterType::class, array(
             'choices'  => $types,
             'multiple' => true,
-            'expanded' => true
+            'expanded' => true,
+            'label' => 'label.serviceType'
         ));
         $builder->add('domain', Filters\ChoiceFilterType::class, array(
             'choices'  => $domains,
             'multiple' => true,
-            'expanded' => true
+            'expanded' => true,
+            'label' => 'label.domain'
         ));
     }
 

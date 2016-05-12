@@ -42,47 +42,47 @@ class ServiceType extends AbstractType
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
                 'placeholder' => 'Auteur',
-                'label' => 'Auteur'
+                'label' => 'label.author'
             ));
         }
 
         $builder
             ->add('title', TextType::class, array(
-                'label' => 'Titre'
+                'label' => 'label.title'
             ))
             ->add('body', TextareaType::class, array(
-                'label' => 'Contenu'
+                'label' => 'label.content'
             ))
             ->add('type', ChoiceType::class, array(
                 'choices'  => $types,
-                'label' => 'Type de service'
+                'label' => 'label.serviceType'
             ))
             ->add('domain', ChoiceType::class, array(
                 'choices'  => $domains,
-                'label' => 'Domaine'
+                'label' => 'label.domain'
             ))
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'select_label',
-                'placeholder' => 'Catégorie',
-                'label' => 'Catégorie'
+                'placeholder' => 'placeholder.pleaseChoose',
+                'label' => 'label.category'
             ))
             ->add('promote', CheckboxType::class, array(
-                'label'    => 'Mettre en évidence ?',
+                'label'    => 'label.highlight',
                 'required' => false,
             ))
             ->add('picture', FileType::class, array(
-                'label' => 'Image',
+                'label' => 'label.picture',
                 'required' => false
             ))
             ->add('expires_at', DateType::class, array(
                 'widget' => 'single_text',
                 'required' => false,
-                'label' => 'Date d\'expiration'
+                'label' => 'label.expiresAt'
             ))
             ->add('save', SubmitType::class, array(
                 'attr' => array('class' => 'main'),
-                'label' => 'Enregistrer'
+                'label' => 'label.save'
             ));
     }
     

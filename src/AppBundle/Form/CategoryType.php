@@ -16,10 +16,12 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', array('label' => 'label.title'))
             ->add('parent', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'select_label',
+                'label' => 'label.parent',
+                'placeholder' => 'placeholder.pleaseChoose'
             ))
         ;
     }

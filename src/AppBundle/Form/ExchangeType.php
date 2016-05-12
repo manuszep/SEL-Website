@@ -23,7 +23,8 @@ class ExchangeType extends AbstractType
             ->add('creditUser', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
-                'placeholder' => 'Membre qui reçoit des noeuds',
+                'placeholder' => 'placeholder.pleaseChoose',
+                'label' => 'label.creditUser',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.username', 'ASC')
@@ -34,7 +35,8 @@ class ExchangeType extends AbstractType
             ->add('debitUser', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
-                'placeholder' => 'Membre qui donne des noeuds',
+                'placeholder' => 'placeholder.pleaseChoose',
+                'label' => 'label.debitUser',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.username', 'ASC')
@@ -45,16 +47,19 @@ class ExchangeType extends AbstractType
             ->add('service', EntityType::class, array(
                 'class' => 'AppBundle:Service',
                 'choice_label' => 'select_label',
-                'placeholder' => 'Service concerné'
+                'placeholder' => 'placeholder.pleaseChoose',
+                'label' => 'label.targetService'
             ))
             ->add('message', TextareaType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => 'label.message'
             ))
             ->add('amount', NumberType::class, array(
                 'scale' => 2,
                 'attr' => array(
                     'step' => 0.25
-                )
+                ),
+                'label' => 'label.amount'
             ))
         ;
 

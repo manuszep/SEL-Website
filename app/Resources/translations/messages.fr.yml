@@ -1,2 +1,50 @@
 Next: Suivant
 Previous: Précédent
+Category: Catégorie
+Catégorie: Catégorie
+Type: Type
+Offre: Offre
+Demande: Demande
+Offre flash: Offre flash
+Demande flash: Demande flash
+Domain: Domaine
+Service / Savoir: Service / Savoir
+Preterie / Donnerie: Prêterie / Donnerie
+Enregistrer: Enregistrer
+
+label:
+    username: Nom d'utilisateur
+    email: Adresse email
+    password: Mot de passe
+    passwordRepeat: Confirmation
+    passwordCurrent: Mot de passe actuel
+    phone: Téléphone
+    mobile: GSM
+    street: Rue
+    streetNumber: N°
+    streetBox: Boite
+    zip: Code postal
+    city: Ville
+    picture: Image
+    author: Auteur
+    title: Titre
+    content: Contenu
+    serviceType: Type de service
+    domain: domaine
+    category: Catégorie
+    highlight: Mettre en évidence ?
+    expiresAt: Date d'expiration
+    save: Enregistrer
+    creditUser: Membre qui reçoit des noeuds
+    debitUser: Membre qui donne des noeuds
+    targetService: Service concerné
+    message: Message
+    amount: Montant
+    parent: Parent
+
+placeholder:
+    pleaseChoose: Veuillez faire un choix dans la liste
+
+message:
+    password:
+        dontMatch: Le mot de passe et la confirmation ne correspondent pas.
