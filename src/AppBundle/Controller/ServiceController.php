@@ -139,7 +139,7 @@ class ServiceController extends Controller
 
         return $this->render('service/edit.html.twig', array(
             'service' => $service,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
