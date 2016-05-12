@@ -7,32 +7,36 @@
         </div>
     </header>
 
-    <table>
-        <thead>
-        <tr>
-            <th><i>A</i> a rendu service à <i>B</i></th>
-            <th>Service</th>
-            <th>{{ 'label.message'|trans }}</th>
-            <th>{{ 'label.amount'|trans }}</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for exchange in exchanges %}
-            <tr>
-                <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
-                <td><a href="{{ path('service_show', {'id': exchange.service.id}) }}">{{ exchange.service.title }}</a></td>
-                <td>{{ exchange.message }}</td>
-                <td>{{ exchange.amount }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            {{ icons.iconlink('pencil', 'Modifier', path('exchange_edit', { 'id': exchange.id })) }}
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section>
+        <div class="wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th><i>A</i> a rendu service à <i>B</i></th>
+                    <th>Service</th>
+                    <th>{{ 'label.message'|trans }}</th>
+                    <th>{{ 'label.amount'|trans }}</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for exchange in exchanges %}
+                    <tr>
+                        <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
+                        <td><a href="{{ path('service_show', {'id': exchange.service.id}) }}">{{ exchange.service.title }}</a></td>
+                        <td>{{ exchange.message }}</td>
+                        <td>{{ exchange.amount }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    {{ icons.iconlink('pencil', 'Modifier', path('exchange_edit', { 'id': exchange.id })) }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}
