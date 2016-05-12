@@ -37,23 +37,21 @@
                         <td>
                             <ul class="table-actions">
                                 <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
-                                {% if app.user and (app.user.hasRole('ROLE_SUPER_ADMIN') or app.user.hasRole('ROLE_COCO')) %}
-                                    {%  if app.user.id != user.id and not user.hasRole('ROLE_ADMIN') %}
-                                        <li>
-                                            {% if not user.locked %}
-                                                {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}
-                                            {% else %}
-                                                {{ icons.iconlink('unlock', 'Activer', path('user_enable', { 'id': user.id }), 'enable-action') }}
-                                            {% endif %}
-                                        </li>
-                                        <li>
-                                            {% if user.hasRole('ROLE_COCO') %}
-                                                {{ icons.iconlink('badge', 'Désactiver COCO', path('user_disable_coco', { 'id': user.id }), 'disable-action') }}
-                                            {% else %}
-                                                {{ icons.iconlink('badge', 'Activer COCO', path('user_enable_coco', { 'id': user.id }), 'enable-action') }}
-                                            {% endif %}
-                                        </li>
-                                    {% endif %}
+                                {% if app.user and app.user.id != user.id and app.user.hasRole('ROLE_COCO') and not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_ADMIN') %}
+                                    <li>
+                                        {% if not user.locked %}
+                                            {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}
+                                        {% else %}
+                                            {{ icons.iconlink('unlock', 'Activer', path('user_enable', { 'id': user.id }), 'enable-action') }}
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if user.hasRole('ROLE_COCO') %}
+                                            {{ icons.iconlink('badge', 'Désactiver COCO', path('user_disable_coco', { 'id': user.id }), 'disable-action') }}
+                                        {% else %}
+                                            {{ icons.iconlink('badge', 'Activer COCO', path('user_enable_coco', { 'id': user.id }), 'enable-action') }}
+                                        {% endif %}
+                                    </li>
                                 {% endif %}
                             </ul>
                         </td>
