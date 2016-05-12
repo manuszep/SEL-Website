@@ -1,36 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Exchange list</h1>
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>Liste des échanges pour {{ user.username }}</h1>
+        </div>
+    </header>
 
     <table>
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Credituser</th>
-            <th>Debituser</th>
+            <th><i>A</i> a rendu service à <i>B</i></th>
             <th>Service</th>
-            <th>Message</th>
-            <th>Amount</th>
+            <th>{{ 'label.message'|trans }}</th>
+            <th>{{ 'label.amount'|trans }}</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for exchange in exchanges %}
             <tr>
-                <td><a href="{{ path('exchange_show', { 'id': exchange.id }) }}">{{ exchange.id }}</a></td>
-                <td>{{ exchange.creditUser }}</td>
-                <td>{{ exchange.debitUser }}</td>
-                <td>{{ exchange.service }}</td>
+                <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
+                <td><a href="{{ path('service_show', {'id': exchange.service.id}) }}">{{ exchange.service.title }}</a></td>
                 <td>{{ exchange.message }}</td>
                 <td>{{ exchange.amount }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('exchange_show', { 'id': exchange.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('exchange_edit', { 'id': exchange.id }) }}">edit</a>
+                            {{ icons.iconlink('pencil', 'Modifier', path('exchange_edit', { 'id': exchange.id })) }}
                         </li>
                     </ul>
                 </td>

@@ -1,16 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Exchange creation</h1>
+    <header class="page-header angle-intro inline-heading">
+        <div class="wrapper">
+            <h1>Nouvel échange</h1>
+        </div>
+    </header>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <section class="add-form">
+        <div class="wrapper">
+            {{ form_start(form) }}
+            <fieldset>
+                <div class="form-row">
+                    {{ form_label(form.creditUser) }}
+                    {{ form_widget(form.creditUser) }}
+                    {{ form_errors(form.creditUser) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.debitUser) }}
+                    {{ form_widget(form.debitUser) }}
+                    {{ form_errors(form.debitUser) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.service) }}
+                    {{ form_widget(form.service) }}
+                    {{ form_errors(form.service) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message) }}
+                    {{ form_errors(form.message) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.amount) }}
+                    {{ form_widget(form.amount) }}
+                    {{ form_errors(form.amount) }}
+                </div>
+            </fieldset>
 
-    <ul>
-        <li>
-            <a href="{{ path('exchange_index') }}">Back to the list</a>
-        </li>
-    </ul>
+            <div class="form-actions">
+                {{ form_widget(form.save) }}
+                <a href="{{ path('exchange_index') }}" class="btn">Retour à la liste</a>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
 {% endblock %}

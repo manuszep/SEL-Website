@@ -56,6 +56,7 @@ class ExchangeController extends Controller
             ->getResult();
 
         return $this->render('exchange/listForUser.html.twig', array(
+            'user' => $user,
             'exchanges' => $exchanges,
             'partial' => $partial
         ));
@@ -95,22 +96,6 @@ class ExchangeController extends Controller
         return $this->render('exchange/new.html.twig', array(
             'exchange' => $exchange,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Exchange entity.
-     *
-     * @Route("/{id}", name="exchange_show")
-     * @Method("GET")
-     */
-    public function showAction(Exchange $exchange)
-    {
-        $deleteForm = $this->createDeleteForm($exchange);
-
-        return $this->render('exchange/show.html.twig', array(
-            'exchange' => $exchange,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
