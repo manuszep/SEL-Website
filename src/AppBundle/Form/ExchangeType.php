@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\DataTransformer\CommaToDotTransformer;
 use Doctrine\ORM\EntityRepository;
 
@@ -60,6 +61,10 @@ class ExchangeType extends AbstractType
                     'step' => 0.25
                 ),
                 'label' => 'label.amount'
+            ))
+            ->add('save', SubmitType::class, array(
+                'attr' => array('class' => 'main'),
+                'label' => 'label.save'
             ))
         ;
 

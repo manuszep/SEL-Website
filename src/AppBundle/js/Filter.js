@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 export class Filter {
-    constructor(selector = "[data-fast-scroll]") {
+    constructor() {
         this._cache = {};
 
         this._cache.filterBlocks = $('.filters');

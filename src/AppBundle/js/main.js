@@ -1,11 +1,19 @@
-var $ = require('jquery'),
+import {Filter} from './Filter.js';
+import {Form} from './Form.js';
+
+let $ = require('jquery'),
     Masonry = require('masonry-layout');
 
-import {Filter} from './Filter.js';
+let $grid = $('.grid');
 
-var msnry = new Masonry('.grid', {
-    itemSelector: 'article',
-    columnWidth: 'article'
-});
+if ($grid.length) {
+    $grid.each(function() {
+        new Masonry(this, {
+            itemSelector: 'article',
+            columnWidth: 'article'
+        });
+    });
+}
 
-var filter = new Filter();
+let filter = new Filter();
+let form = new Form();

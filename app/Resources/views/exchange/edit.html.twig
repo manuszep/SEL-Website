@@ -1,21 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Exchange edit</h1>
+    <header class="page-header angle-intro inline-heading">
+        <div class="wrapper">
+            <h1>Modifier un échange</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('exchange_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            {{ form_start(delete_form, {'attr': {'class': 'delete-form'}}) }}
+            <button type="submit" class="btn-delete" data-confirm-message="Êtes-vous sûr de vouloir supprimer cet échange ?">{{ icons.icon('trash', 'Supprimer') }}</button>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+    </header>
+
+<section class="edit-form">
+    <div class="wrapper">
+        {{ form_start(form) }}
+        <fieldset>
+            <div class="form-row">
+                {{ form_label(form.creditUser) }}
+                {{ form_widget(form.creditUser) }}
+                {{ form_errors(form.creditUser) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.debitUser) }}
+                {{ form_widget(form.debitUser) }}
+                {{ form_errors(form.debitUser) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.service) }}
+                {{ form_widget(form.service) }}
+                {{ form_errors(form.service) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.message) }}
+                {{ form_widget(form.message) }}
+                {{ form_errors(form.message) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.amount) }}
+                {{ form_widget(form.amount) }}
+                {{ form_errors(form.amount) }}
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            {{ form_widget(form.save) }}
+            <a href="{{ path('exchange_index') }}" class="btn">Retour à la liste</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</section>
 {% endblock %}

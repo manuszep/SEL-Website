@@ -60,6 +60,24 @@ $SEL-Section-angle-size: 3rem;
         @include FAST-clearfix();
     }
 
+    .page-header .delete-form {
+        display: inline-block;
+        vertical-align: middle;
+        button.btn-delete {
+            @include FAST-Button-hollow-style(FAST-foreground($FAST-Color-primary));
+            border: none;
+            opacity: .75;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .page-header.inline-heading h1 {
+        display: inline-block;
+    }
+
     section header {
         p {
             font-size: $FAST-Typography-lead-font-size;

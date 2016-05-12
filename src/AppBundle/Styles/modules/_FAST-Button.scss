@@ -236,4 +236,9 @@ $FAST-Button-opacity-disabled: 0.25 !default;
     button[type=submit], input[type=submit] {
         @include FAST-Button-style(map-get($FAST-Button-Palette, primary), auto, auto);
     }
+
+    button.btn-delete {
+        @include FAST-Button-hollow();
+        @include FAST-Button-hollow-style($FAST-Color-alert);
+    }
 }
