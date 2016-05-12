@@ -37,7 +37,7 @@
                         <td>
                             <ul class="table-actions">
                                 <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
-                                {% if app.user and app.user.id != user.id and app.user.hasRole('ROLE_COCO') and not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_ADMIN') %}
+                                {% if app.user and (app.user.hasRole('ROLE_COCO') or app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_SUPER_ADMIN')) and not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_SUPER_ADMIN') %}
                                     <li>
                                         {% if not user.locked %}
                                             {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}

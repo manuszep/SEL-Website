@@ -60,10 +60,14 @@ $SEL-Section-angle-size: 3rem;
         @include FAST-clearfix();
     }
 
-    .page-header .delete-form {
-        display: inline-block;
-        vertical-align: middle;
-        button.btn-delete {
+    .page-header {
+
+        .delete-form, .btn {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .btn-delete, .btn {
             @include FAST-Button-hollow-style(FAST-foreground($FAST-Color-primary));
             border: none;
             opacity: .75;
@@ -72,10 +76,10 @@ $SEL-Section-angle-size: 3rem;
                 opacity: 1;
             }
         }
-    }
 
-    .page-header.inline-heading h1 {
-        display: inline-block;
+        &.inline-heading h1 {
+            display: inline-block;
+        }
     }
 
     section header {
@@ -91,6 +95,26 @@ $SEL-Section-angle-size: 3rem;
             display: block;
             height: FAST-rem-calc(2px);
             background: $FAST-Color-primary;
+        }
+    }
+
+    .user-profile {
+        text-align: center;
+    }
+
+    .user-picture {
+        position: relative;
+
+        img {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            right: 0;
+            top: -9rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid $FAST-Color-white-xxl;
+            @include FAST-Deco-shadow-1();
         }
     }
 

@@ -42,11 +42,18 @@
         line-height: $FAST-lineheight;
         color: $FAST-Color-body-font;
         background: $FAST-Color-body-background;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
 
         @if ($FAST-body-antialiased) {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+    }
+
+    .main-content {
+        flex-grow: 1;
     }
 
     /* HTML5 display definitions

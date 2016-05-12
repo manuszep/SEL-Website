@@ -1,13 +1,7 @@
 {% extends 'base.html.twig' %}
 {% import "Macros/icons.html.twig" as icons %}
 {% block body %}
-    <header>
-        <div class="wrapper">
-            <h2>Liste des échanges pour {{ user.username }}</h2>
-        </div>
-    </header>
-
-    <section>
+    <section class="user-exchanges" data-tab-title="Liste des échanges">
         <div class="wrapper">
             <table>
                 <thead>

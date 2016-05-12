@@ -1,66 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User</h1>
+    <header class="page-header angle-intro inline-heading">
+        <div class="wrapper">
+            <h1>{{ user.username }}</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Adresse email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Dernière connexion</th>
-                <td>{% if user.lastLogin %}{{ user.lastLogin|date("d/m/Y H:i:s") }}{% else %}Jamais connecté{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Bloqué</th>
-                <td>{% if user.locked %}Oui{% else %}Non{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Noeuds</th>
-                <td>{{ user.balance }}</td>
-            </tr>
-            <tr>
-                <th>Téléphone</th>
-                <td>{% if user.phone and user.mobile %}
-                    <ul>
-                        {% if user.phone %}
-                        <li>{{ user.phone }}</li>
-                        {% endif %}
+            {{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id }), 'btn') }}
 
-                        {% if user.mobile %}
-                            <li>{{ user.mobile }}</li>
-                        {% endif %}
-                    </ul>{% else %}Aucun{% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ user.address|nl2br }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="balance">{{ user.balance }} noeuds</div>
+        </div>
+    </header>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
-        </li>
-    </ul>
+    <div class="wrapper user-picture">
+        <img src="{{ user.getPictureWebPath | imagine_filter('user_full') }}"
+             srcset="{{ user.getPictureWebPath | imagine_filter('user_full') }} 1x,
+                         {{ user.getPictureWebPath | imagine_filter('user_full2x') }} 2x" />
+    </div>
 
-    {{ render(controller(
-        'AppBundle:Exchange:listForUser',
-        { 'user': user.id, 'partial': true}
-    )) }}
+
+    <div class="tabbed-sections">
+        <section class="user-profile" data-tab-title="Données de contact">
+            <div class="wrapper">
+                <p class="user-data lead">
+                    <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a><br />
+                    {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a>{% endif %}<br />
+                    {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>{% endif %}<br />
+                    {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}{% endif %}<br />
+                </p>
+            </div>
+        </section>
+
+        <section class="user-services" data-tab-title="Liste des services">
+            <div class="wrapper">
+                TODO: Inject AppBundle:Services:ListForUser
+            </div>
+        </section>
+
+        {{ render(controller(
+            'AppBundle:Exchange:listForUser',
+            { 'user': user.id, 'partial': true}
+        )) }}
+    </div>
 {% endblock %}
