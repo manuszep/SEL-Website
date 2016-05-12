@@ -41,7 +41,7 @@ class ServiceType extends AbstractType
             $builder->add('user', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
-                'placeholder' => 'Auteur',
+                'placeholder' => 'placeholder.pleaseChoose',
                 'label' => 'label.author'
             ));
         }
