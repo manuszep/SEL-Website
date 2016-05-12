@@ -1,11 +1,6 @@
 {% if pageCount > 1 %}
     <nav class="pagination">
         <ul>
-        {% if first is defined and current != first %}
-            <li class="first">
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): first})) }}">{{ 'First'|trans }}</a>
-            </li>
-        {% endif %}
         {% if previous is defined %}
             <li class="previous">
                 <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo; {{ 'Previous'|trans }}</a>
@@ -78,13 +73,6 @@
                 <span class="pagination-link">
                     {{ 'Next'|trans }} &nbsp;&raquo;
                 </span>
-            </li>
-        {% endif %}
-
-
-            {% if last is defined and current != last %}
-            <li class="first">
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): last})) }}">{{ 'Last'|trans }}</a>
             </li>
         {% endif %}
         </ul>
