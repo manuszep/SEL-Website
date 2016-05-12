@@ -31,17 +31,12 @@
  **/
 @mixin SEL-Block-Filter() {
     .filters {
+        position: relative;
+
         .form-row {
             padding: 0 0 1em 0;
             border: none;
         }
-    }
-
-    .service-filters {
-
-    }
-
-    #service_filter_domain {
     }
 
     #filter_submit {
@@ -53,6 +48,37 @@
             border-color: FAST-foreground($FAST-Color-primary);
             background: FAST-foreground($FAST-Color-primary);
             color: $FAST-Color-primary;
+        }
+    }
+
+    .filter-toggle {
+        position: absolute;
+        right: 0;
+        color: inherit;
+        display: none;
+
+        &:hover, &:focus {
+            color: inherit;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &.toggled:after {
+            transform: rotateZ(90deg) scaleX(-1);
+        }
+
+        &:after {
+            content: "»";
+            display: inline-block;
+            transform: rotateZ(90deg) scaleX(1);
+            transition: all .3s;
+            text-align: center;
+            width: 1em;
+            height: 1em;
+            line-height: 1em;
+            vertical-align: middle;
         }
     }
 }
