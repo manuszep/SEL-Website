@@ -1,0 +1,9 @@
+{% macro icon(name, text) %}
+    {% set r = random() %}
+    <svg class="icon icon-{{ name }}" aria-labelledby="svgTitle-{{ r }}"><title id="svgTitle-{{ r }}">{{ text }}</title><use xlink:href="#icon-{{ name }}"></use></svg>
+{% endmacro %}
+
+{% macro iconlink(name, text, url) %}
+    {% set r = random() %}
+    <a href="{{ url }}" title="{{ text }}"><svg class="icon icon-{{ name }}" aria-labelledby="svgTitle-{{ r }}"><title id="svgTitle-{{ r }}">{{ text }}</title><use xlink:href="#icon-{{ name }}"></use></svg></a>
+{% endmacro %}

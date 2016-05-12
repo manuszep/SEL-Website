@@ -47,7 +47,7 @@
                                                     {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
                             </div>
                             <div class="type">
-                                <svg class="icon icon-tag"><use xlink:href="#icon-tag"></use></svg> <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
+                                {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
                             </div>
                         </header>
                         <div class="body">
@@ -56,17 +56,17 @@
 
                         <div class="meta">
                             <div class="domain">
-                                <svg class="icon icon-archive"><use xlink:href="#icon-archive"></use></svg> <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
+                                {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
                             </div>
                             <div class="category">
-                                <svg class="icon icon-tags"><use xlink:href="#icon-tags"></use></svg> <a href="{{ path('service_index') }}">{{ service.category.title }}</a>
+                                {{ icons.icon('tags', 'Catégorie') }} <a href="{{ path('service_index') }}">{{ service.category.title }}</a>
                             </div>
                         </div>
 
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a href="{{ path('service_edit', { 'id': service.id }) }}" title="Modifier"><svg class="icon icon-pencil" aria-labelledby="svgEditTitle"><title id="svgEditTitle">Modifier</title><use xlink:href="#icon-pencil" title="modifier"></use></svg></a>
+                                    {{ icons.iconlink('pencil', 'Modifier', path('service_edit', { 'id': service.id })) }}
                                 </li>
                             </ul>
                         </div>
