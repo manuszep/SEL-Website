@@ -1,0 +1,97 @@
+/****************************************************************************
+    SEL - Pagination
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+/*<nav class="pagination">
+<ul>
+<li class="previous unavailable">
+<a>
+ « Previous
+</a>
+</li>
+
+
+<li class="current">
+<a>1</a>
+</li>
+
+<li>
+<a href="/service/?page=2">
+2
+</a>
+</li>
+
+
+
+<li class="next">
+<a href="/service/?page=2">
+                          Next &nbsp;»
+</a>
+</li>
+
+
+<li class="first">
+<a href="/service/?page=2">Last &gt;|</a>
+</li>
+</ul>
+</nav>*/
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Pagination() {
+    .pagination {
+        margin: 1rem auto;
+        padding: 1rem 0;
+        border: 1px solid $FAST-Color-black-xl;
+        border-width: 1px 0;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .pagination-link {
+            display: inline-block;
+            min-width: 2em;
+            height: 2em;
+            line-height: 1em;
+            text-align: center;
+            border-radius: 2px;
+            background: $FAST-Color-white-xxl;
+            margin: 0 .5em;
+            padding: .5em;
+        }
+
+        a.pagination-link:hover {
+            background: $FAST-Typography-anchor-color;
+            color: $FAST-Color-white-xxl;
+        }
+    }
+}

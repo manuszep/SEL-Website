@@ -27,10 +27,12 @@
 @import "modules/SEL-Type";
 @import "modules/SEL-Icon";
 @import "modules/SEL-Header";
+@import "modules/SEL-Footer";
 @import "modules/SEL-Add-Tool";
 @import "modules/SEL-Table";
 @import "modules/SEL-Section";
 @import "modules/SEL-Block-Filter";
+@import "modules/SEL-Pagination";
 @import "modules/SEL-Service";
 
 $FAST-Global-flexbox: true !global;
@@ -46,10 +48,12 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Type();
 @include SEL-Icon();
 @include SEL-Header();
+@include SEL-Footer();
 @include SEL-Add-Tool();
 @include SEL-Table();
 @include SEL-Section();
 @include SEL-Block-Filter();
+@include SEL-Pagination();
 @include SEL-Service();
 
 .main-content {

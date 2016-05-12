@@ -1,0 +1,38 @@
+/****************************************************************************
+    SEL - Footer
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$SEL-Footer-background: desaturate(darken($FAST-Color-primary, 30%), 60%) !default;
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Footer() {
+    .main-footer {
+        background: $SEL-Footer-background;
+        padding: 3rem;
+        margin-top: 2rem;
+    }
+}
