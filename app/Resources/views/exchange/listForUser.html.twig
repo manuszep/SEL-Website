@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% import "Macros/icons.html.twig" as icons %}
 {% block body %}
-    <header class="page-header angle-intro">
+    <header>
         <div class="wrapper">
-            <h1>Liste des échanges pour {{ user.username }}</h1>
+            <h2>Liste des échanges pour {{ user.username }}</h2>
         </div>
     </header>
 
@@ -27,7 +27,7 @@
                         <td>{{ exchange.message }}</td>
                         <td>{{ exchange.amount }}</td>
                         <td>
-                            <ul>
+                            <ul class="table-actions">
                                 <li>
                                     {{ icons.iconlink('pencil', 'Modifier', path('exchange_edit', { 'id': exchange.id })) }}
                                 </li>
