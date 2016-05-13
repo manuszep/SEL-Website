@@ -1,0 +1,56 @@
+/****************************************************************************
+    SEL - User
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-User() {
+    .user-profile {
+        text-align: center;
+    }
+
+    .user-picture {
+        position: relative;
+
+        img {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            right: 0;
+            top: -9rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid $FAST-Color-white-xxl;
+            @include FAST-Deco-shadow-1();
+        }
+    }
+
+    .user-balance {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+    }
+}

@@ -34,6 +34,7 @@
 @import "modules/SEL-Block-Filter";
 @import "modules/SEL-Pagination";
 @import "modules/SEL-Service";
+@import "modules/SEL-User";
 
 $FAST-Global-flexbox: true !global;
 
@@ -56,6 +57,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Block-Filter();
 @include SEL-Pagination();
 @include SEL-Service();
+@include SEL-User();
 
 .main-content {
     margin-top: $SEL-Content-top-margin;
