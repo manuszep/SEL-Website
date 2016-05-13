@@ -49,6 +49,15 @@ $SEL-Section-angle-size: 3rem;
             padding-top: $SEL-Content-top-margin;
             padding-bottom: 4rem;
         }
+
+        a {
+            color: inherit;
+            border-bottom: 1px dotted currentcolor;
+
+            &:hover {
+                border-bottom-style: solid;
+            }
+        }
     }
 
     .angle-reverse {
@@ -116,6 +125,11 @@ $SEL-Section-angle-size: 3rem;
             border: 2px solid $FAST-Color-white-xxl;
             @include FAST-Deco-shadow-1();
         }
+    }
+
+    .user-balance {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
     }
 
     @include FAST-breakpoint('large') {
