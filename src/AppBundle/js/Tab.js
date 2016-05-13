@@ -15,10 +15,10 @@ export class Tab {
 
         this.buildNavigation();
 
-        if(typeof this._cache.sections[current_index] !== 'undefined') {
-            this._cache.sections.not(":eq(" + current_index + ")").hide();
+        if(typeof this._cache.navigationLinks[current_index] !== 'undefined') {
+            this.enableTab(this._cache.navigationLinks.eq(current_index), true);
         } else {
-            this._cache.sections.not(":eq(0)").hide();
+            this.enableTab(this._cache.navigationLinks.eq(0), true);
         }
 
         this.setupEvents();
@@ -26,7 +26,7 @@ export class Tab {
     
     buildNavigation() {
         let self = this;
-        let $nav = $('<nav class="wrapper"></nav>');
+        let $nav = $('<nav class="wrapper tab-wrapper"></nav>');
         let $navigation_list = $('<ul class="tabbed-navigation"></ul>');
         let index = 0;
         
@@ -46,28 +46,34 @@ export class Tab {
     }
 
     setupEvents() {
-        this._cache.navigationLinks.on('click.Tab', {sections: this._cache.sections}, this.handleLinkClick);
-        $(window).on('hashchange', {sections: this._cache.sections}, this.handleHashChange);
+        let self = this;
+
+        this._cache.navigationLinks.on('click.Tab', function() {
+            self.enableTab($(this));
+        });
+
+        $(window).on('hashchange', function() {
+            let current_hash = window.location.hash;
+
+            if (current_hash.substr(0, 8) === '#section') {
+                let current_index = current_hash.replace("#section", "");
+
+                this.enableTab(self._cache.navigationLink.eq(current_index));
+            }
+        });
     }
 
-    handleLinkClick(e) {
-        let $target = $(this).data('target');
+    enableTab($link, force = false) {
+        let $target = $link.data('target');
 
-        if ($target.is(':visible')) {
+        if ($target.is(':visible') && !force) {
             return;
         }
 
-        e.data.sections.filter(":visible").slideUp(200);
+        this._cache.navigationLinks.removeClass('active');
+        $link.addClass("active");
+
+        this._cache.sections.filter(":visible").slideUp(200);
         $target.slideDown(300);
-    }
-
-    handleHashChange(e) {
-        let current_hash = window.location.hash;
-
-        if (current_hash.substr(0, 8) === '#section') {
-            let current_index = current_hash.replace("#section", "");
-            e.data.sections.not(":eq(" + current_index + ")").slideUp(200);
-            e.data.sections.eq(current_index).slideDown(300);
-        }
     }
 }
