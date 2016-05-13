@@ -32,7 +32,6 @@ class ServiceVoter extends Voter
             return false;
         }
 
-        echo "supports ok";
         return true;
     }
 
@@ -49,7 +48,6 @@ class ServiceVoter extends Voter
             return true;
         }
 
-        echo "not role editor";
 
         // you know $subject is a Service object, thanks to supports
         /** @var Service $service */

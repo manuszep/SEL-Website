@@ -19,11 +19,10 @@
 
 
     <div class="tabbed-sections">
-        <section class="user-services" data-tab-title="Liste des services">
-            <div class="wrapper">
-                TODO: Inject AppBundle:Services:ListForUser
-            </div>
-        </section>
+        {{ render(controller(
+        'AppBundle:Service:listForUser',
+        { 'request' : app.request, 'user': user.id, 'partial': true }
+        )) }}
 
         {{ render(controller(
             'AppBundle:Exchange:listForUser',

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Service;
 use AppBundle\Form\ServiceType;
 use AppBundle\Form\ServiceFilterType;
+use AppBundle\Entity\User;
 
 /**
  * Service controller.
@@ -61,6 +62,24 @@ class ServiceController extends Controller
         return $this->render('service/index.html.twig', array(
             'services' => $pagination,
             'filter' => $form->createView()
+        ));
+    }
+
+    public function listForUserAction(Request $request, User $user, $partial) {
+        $em = $this->getDoctrine()->getManager();
+
+        $services = $em->getRepository('AppBundle:Service')->findByUser($user);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $services, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            1/*limit per page*/
+        );
+
+        return $this->render('service/listForUser.html.twig', array(
+            'services' => $pagination,
+            'partial' => $partial
         ));
     }
 
