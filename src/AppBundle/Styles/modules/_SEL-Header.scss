@@ -91,6 +91,15 @@ $SEL-Header-bg-color: $FAST-Color-primary;
                 min-width: 10em;
                 padding: .25em;
                 @include FAST-Deco-shadow-2();
+
+                a {
+                    color: $FAST-Color-primary;
+                }
+
+                li:hover > a, a:hover {
+                    color: #fff;
+                    background: $FAST-Color-primary;
+                }
             }
 
             a {
@@ -105,11 +114,6 @@ $SEL-Header-bg-color: $FAST-Color-primary;
                 background: FAST-foreground($SEL-Header-bg-color);
                 color: FAST-foreground(FAST-foreground($SEL-Header-bg-color), $SEL-Header-bg-color);
             }
-        }
-
-        li ul a:hover {
-            color: #fff;
-            background: $FAST-Color-primary;
         }
     }
 }
