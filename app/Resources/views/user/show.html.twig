@@ -7,7 +7,7 @@
 
             {{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id }), 'btn') }}
 
-            <div class="balance">{{ user.balance }} noeuds</div>
+            <div class="user-balance">{{ user.balance }} noeuds</div>
         </div>
     </header>
 
@@ -19,17 +19,6 @@
 
 
     <div class="tabbed-sections">
-        <section class="user-profile" data-tab-title="Données de contact">
-            <div class="wrapper">
-                <p class="user-data lead">
-                    <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a><br />
-                    {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a><br />{% endif %}
-                    {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a><br />{% endif %}
-                    {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}<br />{% endif %}
-                </p>
-            </div>
-        </section>
-
         <section class="user-services" data-tab-title="Liste des services">
             <div class="wrapper">
                 TODO: Inject AppBundle:Services:ListForUser
@@ -40,5 +29,16 @@
             'AppBundle:Exchange:listForUser',
             { 'user': user.id, 'partial': true}
         )) }}
+
+        <section class="user-profile" data-tab-title="Infos de contact">
+            <div class="wrapper">
+                <p class="user-data lead">
+                    <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a><br />
+                    {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a><br />{% endif %}
+                    {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a><br />{% endif %}
+                    {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}<br />{% endif %}
+                </p>
+            </div>
+        </section>
     </div>
 {% endblock %}
