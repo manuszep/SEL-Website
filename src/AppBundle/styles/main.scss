@@ -35,6 +35,7 @@
 @import "modules/SEL-Pagination";
 @import "modules/SEL-Service";
 @import "modules/SEL-User";
+@import "modules/SEL-Tab";
 
 $FAST-Global-flexbox: true !global;
 
@@ -58,6 +59,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Pagination();
 @include SEL-Service();
 @include SEL-User();
+@include SEL-Tab();
 
 .main-content {
     margin-top: $SEL-Content-top-margin;
