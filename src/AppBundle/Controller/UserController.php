@@ -52,6 +52,11 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $password = substr($tokenGenerator->generateToken(), 0, 12);
+
+            $user->setPassword($password);
+
             if (null === $user->getConfirmationToken()) {
                 $user->setConfirmationToken($tokenGenerator->generateToken());
             }
@@ -59,7 +64,7 @@ class UserController extends Controller
             $um->updateUser($user);
 
             $this->get('fos_user.mailer')->sendConfirmationEmailMessage($user);
-
+            // TODO: Ovveride confirmation email message to include generated password.
             $this->addFlash(
                 'notice',
                 'L\'utilisateur <strong>' . $user->getUsername() . '</strong> a bien été enregistré. Un email de confirmation lui a été envoyé.'
