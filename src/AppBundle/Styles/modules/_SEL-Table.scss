@@ -82,6 +82,11 @@
         background: $FAST-Color-black-xxl;
     }
 
+    tr.locked {
+        background: $FAST-Color-black-xxl;
+        opacity: .5;
+    }
+
     tr.coco td {
         background: rgba(#ffdd00, .2);
     }
