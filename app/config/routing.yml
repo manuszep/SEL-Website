@@ -30,7 +30,7 @@ fos_user_profile_edit:
 fos_user_registration_confirm:
     path: /inscription/confirmation/{token}
     defaults: { _controller: FOSUserBundle:Registration:confirm }
-    methods: [GET]
+    methods: [GET, POST]
 fos_user_registration_confirmed:
     path: /inscription/confirme
     defaults: { _controller: FOSUserBundle:Registration:confirmed }

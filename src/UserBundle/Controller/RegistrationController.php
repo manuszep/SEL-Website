@@ -1,10 +1,14 @@
 <?php
 
-namespace Acme\UserBundle\Controller;
+namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\FOSUserEvents;
 
 class RegistrationController extends BaseController
 {
@@ -22,24 +26,36 @@ class RegistrationController extends BaseController
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $form = $this->createForm('UserBundle\Form\UserPasswordType');
+        $form->handleRequest($request);
 
-        $user->setConfirmationToken(null);
-        $user->setEnabled(true);
+        if ($form->isValid()) {
+            $form_data = $form->getData();
 
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
+            $user->setPlainPassword($form_data['plainPassword']);
+            $user->setConfirmationToken(null);
+            $user->setEnabled(true);
 
-        $userManager->updateUser($user);
+            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+            $dispatcher = $this->get('event_dispatcher');
 
-        if (null === $response = $event->getResponse()) {
-            $url = $this->generateUrl('fos_user_registration_confirmed');
-            $response = new RedirectResponse($url);
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
+
+            $userManager->updateUser($user);
+
+            if (null === $response = $event->getResponse()) {
+                $url = $this->generateUrl('user_show', array('id' => $user->getId()));
+                $response = new RedirectResponse($url);
+            }
+
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
+
+            return $response;
         }
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
-
-        return $response;
+        return $this->render('user/registrationPassword.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }
