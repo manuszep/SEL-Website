@@ -3,6 +3,9 @@
 {% block body %}
 <section class="service-list" data-tab-title="Liste des services">
     <div class="wrapper">
+        {% if services|length < 1 %}
+            <p class="lead text-center">Vous n'avez encore encodé aucun service. Cliquez sur le bouton <strong>+</strong> en bas à droite de la page pour en ajouter.</p>
+        {% else %}
         <div class="grid">
             {% for service in services %}
                 {% if service.type in [1, 3] %}
@@ -56,6 +59,7 @@
             {% endfor %}
         </div>
         {{ knp_pagination_render(services) }}
+        {% endif %}
     </div>
 </section>
 {% endblock %}

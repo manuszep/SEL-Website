@@ -3,6 +3,9 @@
 {% block body %}
     <section class="user-exchanges" data-tab-title="Liste des échanges">
         <div class="wrapper">
+            {% if exchanges|length < 1 %}
+                <p class="lead text-center">Vous n'avez encore fait aucun échange. Si vous avez bénéficié des services d'un autre membre, cliquez sur le <strong>+</strong> en bas, à droite de cette page pour encoder un échange.</p>
+            {% else %}
             <table>
                 <thead>
                 <tr>
@@ -31,6 +34,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+                {% endif %}
         </div>
     </section>
 {% endblock %}

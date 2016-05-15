@@ -44,8 +44,13 @@ class RegistrationController extends BaseController
 
             $userManager->updateUser($user);
 
+            $this->addFlash(
+                'success',
+                'Bienvenue ' . $user->getUsername() . '&nbsp;! Votre compte vient d\'être activé.'
+            );
+
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('user_show', array('id' => $user->getId()));
+                $url = $this->generateUrl('user_show', array('id' => $user->getId())) . '#section2';
                 $response = new RedirectResponse($url);
             }
 

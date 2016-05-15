@@ -32,7 +32,10 @@
         <section class="user-profile" data-tab-title="Infos de contact">
             <div class="wrapper">
                 <p class="user-data lead">
-                    <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a><br />
+                    <strong>Adresse email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                    {% if not user.phone and not user.mobile and not user.address and not user.getPicture %}
+                       </p><p class="lead text-center">Votre profil est bien vide. Cliquez sur le petit crayon à droite de votre nom en haut de cette page pour modifier vos données.</p><p>
+                    {% else %}<br />{% endif %}
                     {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.phone }}</a><br />{% endif %}
                     {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a><br />{% endif %}
                     {% if user.address %}<strong>Adresse:</strong> {{ user.address|nl2br }}<br />{% endif %}
