@@ -19,3 +19,10 @@ services:
             - { name: security.voter }
         # small performance boost
         public: false
+    app.user_voter:
+        class: AppBundle\Security\UserVoter
+        arguments: ['@security.access.decision_manager']
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
