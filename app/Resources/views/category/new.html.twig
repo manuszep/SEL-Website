@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Category creation</h1>
+{% block header %}
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Nouvelle catégorie</h1>
+        </div>
+    </header>
+{% endblock %}
 
+{% block body %}
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />

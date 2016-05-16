@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>{{ service.title }}</h1>
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
     <h1>Service</h1>
 
@@ -12,10 +20,6 @@
             <tr>
                 <th>Uid</th>
                 <td>{{ service.user }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ service.title }}</td>
             </tr>
             <tr>
                 <th>Body</th>

@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block header %}
     <header class="page-header angle-intro">
         <div class="wrapper">
             <h1>Nouveau service</h1>
         </div>
     </header>
+{% endblock %}
 
+{% block body %}
     <section class="add-form">
         <div class="wrapper">
             {{ form_start(form) }}

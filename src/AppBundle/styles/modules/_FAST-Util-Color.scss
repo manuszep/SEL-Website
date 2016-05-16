@@ -45,6 +45,10 @@
     @return scale-color($color, $lightness: $scale);
 }
 
+@function FAST-set-lightness($color, $lightness: 50%) {
+    @return hsl(hue($color), saturation($color), $lightness);
+}
+
 
 /**
  *  Mixins

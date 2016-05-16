@@ -1,0 +1,75 @@
+/****************************************************************************
+    SEL - Flash
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Flash() {
+    .flash-messages {
+        .message {
+            border-radius: 0 0 3px 3px;
+            @include FAST-Deco-shadow-4;
+            padding: .5rem 1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .error {
+            background: FAST-set-lightness($FAST-Color-alert, 95%);
+            border: 1px solid $FAST-Color-alert;
+            color: $FAST-Color-alert;
+        }
+
+        .success {
+            background: FAST-set-lightness($FAST-Color-success, 95%);
+            border: 1px solid $FAST-Color-success;
+            color: $FAST-Color-success;
+        }
+
+        .info {
+            background: FAST-set-lightness($FAST-Color-secondary, 95%);
+            border: 1px solid $FAST-Color-secondary;
+            color: $FAST-Color-secondary;
+        }
+
+        .warning {
+            background: FAST-set-lightness($FAST-Color-warning, 95%);
+            border: 1px solid $FAST-Color-warning;
+            color: $FAST-Color-warning;
+        }
+    }
+
+    .js .flash-messages {
+        //position: absolute;
+        //top: -1px;
+        width: 100%;
+        //left: 0;
+        //z-index: 999;
+        margin-top: 0;
+        display: none;
+    }
+}

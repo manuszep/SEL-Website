@@ -36,6 +36,7 @@
 @import "modules/SEL-Service";
 @import "modules/SEL-User";
 @import "modules/SEL-Tab";
+@import "modules/SEL-Flash";
 
 $FAST-Global-flexbox: true !global;
 
@@ -60,6 +61,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Service();
 @include SEL-User();
 @include SEL-Tab();
+@include SEL-Flash();
 
 .main-content {
     margin-top: $SEL-Content-top-margin;

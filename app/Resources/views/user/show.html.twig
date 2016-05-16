@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block header %}
     <header class="page-header angle-intro inline-heading">
         <div class="wrapper">
             <h1>{{ user.username }}</h1>
@@ -16,8 +16,9 @@
              srcset="{{ user.getPictureWebPath | imagine_filter('user_full') }} 1x,
                          {{ user.getPictureWebPath | imagine_filter('user_full2x') }} 2x" />
     </div>
+{% endblock %}
 
-
+{% block body %}
     <div class="tabbed-sections">
         {{ render(controller(
         'AppBundle:Service:listForUser',

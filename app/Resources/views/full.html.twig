@@ -89,6 +89,20 @@
         </svg>
 
         <div class="header">
+            {% set messages_list = app.session.flashBag.all %}
+            {% if messages_list %}
+                <div class="flash-messages">
+                    <div class="wrapper">
+                        {% for type, messages in messages_list %}
+                            {% for message in messages %}
+                                <div class="message {{ type }}">
+                                    {{ message|trans({}, 'FOSUserBundle')|raw }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
             <div class="wrapper">
                 <div class="logo"><a href="/"><img src="/logo_white.svg" width="282" height="48" /></a></div>
                 <ul class="menu">
@@ -119,18 +133,7 @@
         </div>
 
         <div class="main-content">
-            {% set messages_list = app.session.flashBag.all %}
-            {% if messages_list %}
-                <div class="wrapper">
-                    {% for type, messages in messages_list %}
-                        {% for message in messages %}
-                            <div class="{{ type }}">
-                                {{ message|trans({}, 'FOSUserBundle')|raw }}
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-            {% endif %}
+            {% block header %}{% endblock %}
 
             {% block fos_user_content %}{% endblock fos_user_content %}
             {% block body %}{% endblock %}

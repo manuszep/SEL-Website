@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block header %}
     <header class="page-header angle-intro inline-heading">
         <div class="wrapper">
             <h1>Modifier un échange</h1>
@@ -10,7 +10,9 @@
             {{ form_end(delete_form) }}
         </div>
     </header>
+{% endblock %}
 
+{% block body %}
 <section class="edit-form">
     <div class="wrapper">
         {{ form_start(form) }}
