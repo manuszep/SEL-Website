@@ -17,18 +17,20 @@
             <table>
                 <thead>
                     <tr>
+                        <td width="1"></td>
                         <th>Nom d'utilisateur</th>
                         <th>Email</th>
                         <th>Noeuds</th>
                         <th>Téléphone</th>
                         <th>Adresse</th>
-                        <th>Actions</th>
+                        <th width="1">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
                         <!-- Add Voter to handle permissions on users (COCO can see disabled users but not others, COCO can edit all users but others can only edit own profile, ...) -->
                     <tr class="{% if user.locked %}locked{% endif %} {% if not user.isEnabled %}disabled{% endif %} {% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
+                        <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td>{{ user.balance }}</td>
@@ -37,7 +39,7 @@
                         <td>
                             <ul class="table-actions">
                                 <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
-                                {% if app.user and not user.locked and user.isEnabled and (app.user.hasRole('ROLE_COCO') or app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_SUPER_ADMIN')) and not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_SUPER_ADMIN') %}
+                                {% if app.user and user.isEnabled and (app.user.hasRole('ROLE_COCO') or app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_SUPER_ADMIN')) and not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_SUPER_ADMIN') %}
                                     <li>
                                         {% if not user.locked %}
                                             {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}
@@ -45,6 +47,7 @@
                                             {{ icons.iconlink('unlock', 'Activer', path('user_enable', { 'id': user.id }), 'enable-action') }}
                                         {% endif %}
                                     </li>
+                                    {% if not user.locked %}
                                     <li>
                                         {% if user.hasRole('ROLE_COCO') %}
                                             {{ icons.iconlink('badge', 'Désactiver COCO', path('user_disable_coco', { 'id': user.id }), 'disable-action') }}
@@ -52,6 +55,7 @@
                                             {{ icons.iconlink('badge', 'Activer COCO', path('user_enable_coco', { 'id': user.id }), 'enable-action') }}
                                         {% endif %}
                                     </li>
+                                        {% endif %}
                                 {% endif %}
                             </ul>
                         </td>
