@@ -82,7 +82,7 @@ class UserController extends Controller
     /**
      * Disables a User entity.
      *
-     * @Route("/{id}/desactiver", name="user_disable")
+     * @Route("/{id}/bloquer", name="user_disable")
      * @Method("GET")
      */
     public function disableAction(User $user)
@@ -102,7 +102,7 @@ class UserController extends Controller
 
         $this->addFlash(
             'success',
-            'L\'utilisateur ' . $user->getUsername() . ' a bien été désactivé.'
+            'L\'utilisateur ' . $user->getUsername() . ' a bien été bloqué.'
         );
 
         return $this->redirectToRoute('user_index');
@@ -111,7 +111,7 @@ class UserController extends Controller
     /**
      * Enables a User entity.
      *
-     * @Route("/{id}/activer", name="user_enable")
+     * @Route("/{id}/debloquer", name="user_enable")
      * @Method("GET")
      */
     public function enableAction(User $user)
@@ -131,10 +131,53 @@ class UserController extends Controller
 
         $this->addFlash(
             'success',
-            'L\'utilisateur ' . $user->getUsername() . ' a bien été activé.'
+            'L\'utilisateur ' . $user->getUsername() . ' a bien été débloqué.'
         );
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * Activate a User entity.
+     *
+     * @Route("/{id}/activer", name="user_activate")
+     * @Method({"GET", "POST"})
+     */
+    public function activateAction(Request $request, User $user)
+    {
+        if ($user->isEnabled()) {
+            $this->addFlash(
+                'error',
+                'L\'utilisateur est déjà activé.'
+            );
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        $form = $this->createForm('UserBundle\Form\UserPasswordType');
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $form_data = $form->getData();
+
+            $user->setPlainPassword($form_data['plainPassword']);
+
+            $user->setConfirmationToken(null);
+            $user->setEnabled(true);
+            $this->get('fos_user.user_manager')->updateUser($user, false);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur ' . $user->getUsername() . ' a bien été activé.'
+            );
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('user/registrationPassword.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

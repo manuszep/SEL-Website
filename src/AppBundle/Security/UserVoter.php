@@ -12,6 +12,7 @@ class UserVoter extends Voter
 {
     // these strings are just invented: you can use anything
     const MANAGE = 'manage';
+    const ENABLE = 'enable';
 
     private $decisionManager;
 
@@ -23,7 +24,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::MANAGE))) {
+        if (!in_array($attribute, array(self::MANAGE, self::ENABLE))) {
             return false;
         }
 
@@ -40,13 +41,15 @@ class UserVoter extends Voter
         /** @var User $user */
         $user = $subject;
 
-        if (!$token->getUser() instanceof UserInterface || !$user->isEnabled()) {
+        if (!$token->getUser() instanceof UserInterface) {
             return false;
         }
 
         switch($attribute) {
             case self::MANAGE:
                 return $this->canManage($user, $token);
+            case self::ENABLE:
+                return $this->canEnable($user, $token);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -61,7 +64,15 @@ class UserVoter extends Voter
         if ($user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_SUPER_ADMIN')) {
             return false;
         }
-        
+
+        return $this->decisionManager->decide($token, array('ROLE_EDITOR'));
+    }
+
+    private function canEnable(User $user, TokenInterface $token) {
+        if ($user->isEnabled()) {
+            return false;
+        }
+
         return $this->decisionManager->decide($token, array('ROLE_EDITOR'));
     }
 }

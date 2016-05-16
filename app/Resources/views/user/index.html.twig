@@ -42,9 +42,9 @@
                                 {% if is_granted("manage", user) %}
                                     <li>
                                         {% if not user.locked %}
-                                            {{ icons.iconlink('lock', 'Désactiver', path('user_disable', { 'id': user.id }), 'disable-action') }}
+                                            {{ icons.iconlink('lock', 'Bloquer', path('user_disable', { 'id': user.id }), 'disable-action') }}
                                         {% else %}
-                                            {{ icons.iconlink('unlock', 'Activer', path('user_enable', { 'id': user.id }), 'enable-action') }}
+                                            {{ icons.iconlink('unlock', 'Débloquer', path('user_enable', { 'id': user.id }), 'enable-action') }}
                                         {% endif %}
                                     </li>
                                     {% if not user.locked %}
@@ -56,6 +56,11 @@
                                         {% endif %}
                                     </li>
                                     {% endif %}
+                                {% endif %}
+                                {% if is_granted("enable", user) %}
+                                    <li>
+                                        {{ icons.iconlink('check', 'Activer', path('user_activate', { 'id': user.id }), 'enable-action') }}
+                                    </li>
                                 {% endif %}
                             </ul>
                         </td>
