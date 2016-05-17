@@ -5,18 +5,21 @@ import {Flash} from './Flash.js';
 import {Disqus} from './Disqus.js';
 
 let $ = require('jquery'),
-    Masonry = require('masonry-layout');
+    Masonry = require('masonry-layout'),
+    imagesLoaded = require('imagesloaded'),
+    jQueryBridget = require('jquery-bridget');;
+
+imagesLoaded.makeJQueryPlugin( $ );
+jQueryBridget( 'masonry', Masonry, $ );
 
 $('body').addClass('js');
 
 let $grid = $('.grid');
 
 if ($grid.length) {
-    $grid.each(function() {
-        new Masonry(this, {
-            itemSelector: 'article',
-            columnWidth: 'article'
-        });
+    $grid.masonry({
+        itemSelector: 'article',
+        columnWidth: 'article'
     });
 
     /* Relayout when images are loaded to avoid overlapping items */
