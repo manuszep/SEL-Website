@@ -24,7 +24,7 @@
                     {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
                 </div>
                 <div class="category">
-                    {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index') }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index') }}">{{ service.category.title }}</a>
+                    {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index', {service_filter: {category: service.category.parent.id }}) }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index', {service_filter: {category: service.category.id }}) }}">{{ service.category.title }}</a>
                 </div>
             </div>
         </div>
