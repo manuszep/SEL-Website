@@ -13,6 +13,7 @@ class UserVoter extends Voter
     // these strings are just invented: you can use anything
     const MANAGE = 'manage';
     const ENABLE = 'enable';
+    const CREATE = 'create user';
 
     private $decisionManager;
 
@@ -24,12 +25,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::MANAGE, self::ENABLE))) {
-            return false;
-        }
-
-        // only vote on User objects inside this voter
-        if (!$subject instanceof User) {
+        if (!in_array($attribute, array(self::MANAGE, self::ENABLE, self::CREATE))) {
             return false;
         }
 
@@ -38,18 +34,29 @@ class UserVoter extends Voter
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        /** @var User $user */
-        $user = $subject;
-
         if (!$token->getUser() instanceof UserInterface) {
             return false;
         }
 
         switch($attribute) {
             case self::MANAGE:
+                if (!$subject instanceof User) {
+                    return false;
+                }
+
+                $user = $subject;
+
                 return $this->canManage($user, $token);
             case self::ENABLE:
+                if (!$subject instanceof User) {
+                    return false;
+                }
+
+                $user = $subject;
+
                 return $this->canEnable($user, $token);
+            case self::CREATE:
+                return $this->canCreate($token);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -74,5 +81,9 @@ class UserVoter extends Voter
         }
 
         return $this->decisionManager->decide($token, array('ROLE_EDITOR'));
+    }
+
+    private function canCreate(TokenInterface $token) {
+        return $this->decisionManager->decide($token, array('ROLE_COCO'));
     }
 }
