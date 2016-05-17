@@ -1,7 +1,7 @@
 {
     "src_scripts": {
         "files": ["<%= project.src_scripts %>/{,*/}*.js"],
-        "tasks": ["browserify:dev", "uglify:dev"],
+        "tasks": ["browserify:dev"],
         "options": {
             "livereload": true,
             "event": ["changed", "added", "deleted"]
