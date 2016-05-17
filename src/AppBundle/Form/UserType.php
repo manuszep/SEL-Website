@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
 {
@@ -20,7 +21,10 @@ class UserType extends AbstractType
         $builder
             ->add('username', null, array('label' => 'label.username'))
             ->add('email', EmailType::class, array('label' => 'label.email'))
-        ;
+            ->add('save', SubmitType::class, array(
+                'attr' => array('class' => 'main'),
+                'label' => 'label.save'
+            ));
     }
 
     /**
