@@ -21,6 +21,9 @@ use AppBundle\Entity\User;
 class ServiceController extends Controller
 {
     /**
+     * TODO: Add route and controller for category view
+     */
+    /**
      * Lists all Service entities.
      *
      * @Route("/", name="service_index")

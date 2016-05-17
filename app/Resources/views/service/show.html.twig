@@ -13,7 +13,19 @@
                                 src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
                                 srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
                                                     {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" />
-                 {{ service.user.username }}</a></div>
+                 {{ service.user.username }}</a>
+            </div>
+            <div class="meta">
+                <div class="type">
+                    {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
+                </div>
+                <div class="domain">
+                    {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
+                </div>
+                <div class="category">
+                    {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index') }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index') }}">{{ service.category.title }}</a>
+                </div>
+            </div>
         </div>
     </header>
 {% endblock %}
@@ -21,17 +33,7 @@
 {% block body %}
 <section class="add-form">
     <div class="wrapper">
-        <div class="meta">
-            <div class="type">
-                {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
-            </div>
-            <div class="domain">
-                {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
-            </div>
-            <div class="category">
-                {{ icons.icon('tags', 'Catégorie') }} <a href="{{ path('service_index') }}">{{ service.category.title }}</a>
-            </div>
-        </div>
+
         {{ service.body|raw }}
     </div>
 </section>
