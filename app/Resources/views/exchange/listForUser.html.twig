@@ -10,7 +10,6 @@
                 <thead>
                 <tr>
                     <th><i>A</i> a rendu service à <i>B</i></th>
-                    <th>Service</th>
                     <th>{{ 'label.message'|trans }}</th>
                     <th>{{ 'label.amount'|trans }}</th>
                     <th>Actions</th>
@@ -20,7 +19,6 @@
                 {% for exchange in exchanges %}
                     <tr>
                         <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
-                        <td><a href="{{ path('service_show', {'id': exchange.service.id}) }}">{{ exchange.service.title }}</a></td>
                         <td>{{ exchange.message }}</td>
                         <td>{{ exchange.amount }}</td>
                         <td>
