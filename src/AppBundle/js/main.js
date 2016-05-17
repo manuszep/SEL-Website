@@ -17,6 +17,11 @@ if ($grid.length) {
             columnWidth: 'article'
         });
     });
+
+    /* Relayout when images are loaded to avoid overlapping items */
+    $grid.imagesLoaded( function() {
+        $grid.masonry('layout');
+    });
 }
 
 let filter = new Filter();
