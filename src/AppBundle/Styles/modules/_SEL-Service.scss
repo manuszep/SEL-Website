@@ -90,18 +90,13 @@ $SEL-Service-border-width: .25rem;
             }
         }
 
-        .author-image {
+        .service-author-image {
             position: absolute;
             width: $SEL-Service-user-image-size;
             height: $SEL-Service-user-image-size;
             top: -($SEL-Service-user-image-size / 3);
             left: 50%;
             margin-left: -($SEL-Service-user-image-size / 2);
-            border-radius: 50%;
-            overflow: hidden;
-            text-align: center;
-            border: 2px solid $FAST-Color-white-xl;
-            @include FAST-Deco-shadow-1();
         }
 
         .service-title {
@@ -111,6 +106,7 @@ $SEL-Service-border-width: .25rem;
 
         .meta {
             text-align: center;
+            font-size: FAST-rem-calc(14px);
 
             &:before {
                 content: "";
@@ -236,5 +232,26 @@ $SEL-Service-border-width: .25rem;
                 width: 25%;
             }
         }
+    }
+
+    .service-author {
+        float: left;
+    }
+
+    .service-author-image {
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 50%;
+        overflow: hidden;
+        text-align: center;
+        border: 2px solid $FAST-Color-white-xl;
+        @include FAST-Deco-shadow-1();
+        margin-right: .5rem;
+    }
+
+    .service-meta {
+        float: right;
+        text-align: right;
+        font-size: FAST-rem-calc(14px);
     }
 }

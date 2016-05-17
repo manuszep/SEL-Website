@@ -42,7 +42,7 @@
                             <small class="author"><a href="{{ path('user_show', { 'id': service.user.id }) }}">{{ service.user.username }}</a></small> -
                             <small class="post-date">{{ service.created | date('l, d F Y') }}</small>
 
-                            <div class="author-image">
+                            <div class="service-author-image">
                                 <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img
                                             src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
                                             srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
