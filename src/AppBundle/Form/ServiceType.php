@@ -51,7 +51,10 @@ class ServiceType extends AbstractType
                 'label' => 'label.title'
             ))
             ->add('body', TextareaType::class, array(
-                'label' => 'label.content'
+                'label' => 'label.content',
+                'attr' => array(
+                    'class' => "wysiwyg"
+                )
             ))
             ->add('type', ChoiceType::class, array(
                 'choices'  => $types,

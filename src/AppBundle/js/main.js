@@ -7,7 +7,11 @@ import {Disqus} from './Disqus.js';
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
-    jQueryBridget = require('jquery-bridget');;
+    jQueryBridget = require('jquery-bridget');
+
+window.jQuery = window.$ = $;
+
+require('trumbowyg');
 
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
@@ -33,3 +37,11 @@ let form = new Form();
 let tab = new Tab();
 let flash = new Flash();
 let disqus = new Disqus();
+
+$('.wysiwyg').trumbowyg({
+    fullscreenable: false,
+    closable: false,
+    lang: 'fr',
+    removeformatPasted: true,
+    btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'removeformat']
+});

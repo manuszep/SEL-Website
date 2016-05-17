@@ -10,7 +10,8 @@
     "imagesloaded": "^4.1.0",
     "jquery": "^2.2.3",
     "jquery-bridget": "^2.0.0",
-    "masonry-layout": "^4.1.0"
+    "masonry-layout": "^4.1.0",
+    "trumbowyg": "^2.1.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
