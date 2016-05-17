@@ -25,11 +25,6 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $this->addFlash(
-            'error',
-            'L\'utilisateur est déjà activé.'
-        );
-        
         $um = $this->get('fos_user.user_manager');
         
         $users = $um->findUsers();
