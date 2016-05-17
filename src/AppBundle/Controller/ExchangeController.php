@@ -76,6 +76,10 @@ class ExchangeController extends Controller
         $error = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$exchange->getDebitUser()) {
+                $exchange->setDebitUser($this->getUser());
+            }
+
             if ($exchange->getCreditUser()->getId() == $exchange->getDebitUser()->getId()) {
                 $this->addFlash(
                     'error',
@@ -89,7 +93,7 @@ class ExchangeController extends Controller
                 $em->persist($exchange);
                 $em->flush();
 
-                return $this->redirectToRoute('exchange_show', array('id' => $exchange->getId()));
+                return $this->redirectToRoute('exchange_index');
             }
         }
 
@@ -112,11 +116,26 @@ class ExchangeController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($exchange);
-            $em->flush();
+            $error = false;
 
-            return $this->redirectToRoute('exchange_edit', array('id' => $exchange->getId()));
+            if (!$exchange->getDebitUser()) {
+                $exchange->setDebitUser($this->getUser());
+            }
+
+            if ($exchange->getCreditUser()->getId() == $exchange->getDebitUser()->getId()) {
+                $this->addFlash(
+                    'error',
+                    'Le donneur et le receveur doivent être des utilisateurs différents.'
+                );
+                $error = true;
+            }
+            if (!$error) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($exchange);
+                $em->flush();
+
+                return $this->redirectToRoute('exchange_edit', array('id' => $exchange->getId()));
+            }
         }
 
         return $this->render('exchange/edit.html.twig', array(

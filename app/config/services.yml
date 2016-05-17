@@ -12,6 +12,11 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type, alias: service_type }
+    form.type.exchange:
+        class: AppBundle\Form\ExchangeType
+        arguments: ["@security.authorization_checker", "@security.token_storage"]
+        tags:
+            - { name: form.type, alias: exchange_type }
     app.service_voter:
         class: AppBundle\Security\ServiceVoter
         arguments: ['@security.access.decision_manager']

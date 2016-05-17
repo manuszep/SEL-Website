@@ -22,16 +22,13 @@
                 {{ form_widget(form.creditUser) }}
                 {{ form_errors(form.creditUser) }}
             </div>
-            <div class="form-row">
-                {{ form_label(form.debitUser) }}
-                {{ form_widget(form.debitUser) }}
-                {{ form_errors(form.debitUser) }}
-            </div>
-            <div class="form-row">
-                {{ form_label(form.service) }}
-                {{ form_widget(form.service) }}
-                {{ form_errors(form.service) }}
-            </div>
+            {% if is_granted('ROLE_EDITOR') %}
+                <div class="form-row">
+                    {{ form_label(form.debitUser) }}
+                    {{ form_widget(form.debitUser) }}
+                    {{ form_errors(form.debitUser) }}
+                </div>
+            {% endif %}
             <div class="form-row">
                 {{ form_label(form.message) }}
                 {{ form_widget(form.message) }}

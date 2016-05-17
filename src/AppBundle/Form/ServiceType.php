@@ -31,7 +31,7 @@ class ServiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO: Search for a better way
+        // TODO: Set the list of types and domains in the config
         $serivce = new Service();
 
         $types = array_flip($serivce->getTypes());

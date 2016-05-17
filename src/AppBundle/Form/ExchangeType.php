@@ -11,29 +11,27 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\DataTransformer\CommaToDotTransformer;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ExchangeType extends AbstractType
 {
+    private $authorizationChecker;
+    private $tokenStorage;
+
+    public function __construct(AuthorizationChecker $authorizationChecker, TokenStorage $tokenStorage)
+    {
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('creditUser', EntityType::class, array(
-                'class' => 'AppBundle:User',
-                'choice_label' => 'username',
-                'placeholder' => 'placeholder.pleaseChoose',
-                'label' => 'label.creditUser',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.username', 'ASC')
-                        ->where('u.locked = :locked')
-                        ->setParameter('locked', '0');
-                }
-            ))
-            ->add('debitUser', EntityType::class, array(
+        if ($this->authorizationChecker->isGranted('ROLE_EDITOR')) {
+            $builder->add('debitUser', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
                 'placeholder' => 'placeholder.pleaseChoose',
@@ -44,12 +42,36 @@ class ExchangeType extends AbstractType
                         ->where('u.locked = :locked')
                         ->setParameter('locked', '0');
                 }
-            ))
-            ->add('service', EntityType::class, array(
-                'class' => 'AppBundle:Service',
-                'choice_label' => 'select_label',
+            ));
+
+            $builder->add('creditUser', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'username',
                 'placeholder' => 'placeholder.pleaseChoose',
-                'label' => 'label.targetService'
+                'label' => 'label.creditUser',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.username', 'ASC')
+                        ->where('u.locked = :locked')
+                        ->setParameter('locked', '0');
+                }
+            ));
+        }
+
+        $builder
+            ->add('creditUser', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'username',
+                'placeholder' => 'placeholder.pleaseChoose',
+                'label' => 'label.creditUser',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.username', 'ASC')
+                        ->where('u.locked = :locked')
+                        ->andWhere('u.id != :id')
+                        ->setParameter('locked', '0')
+                        ->setParameter('id', $this->tokenStorage->getToken()->getUser()->getId());
+                }
             ))
             ->add('message', TextareaType::class, array(
                 'required' => false,
