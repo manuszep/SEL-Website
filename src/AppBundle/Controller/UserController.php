@@ -65,7 +65,7 @@ class UserController extends Controller
 
             $this->get('fos_user.mailer')->sendConfirmationEmailMessage($user);
             $this->addFlash(
-                'notice',
+                'success',
                 'L\'utilisateur <strong>' . $user->getUsername() . '</strong> a bien été enregistré. Un email de confirmation lui a été envoyé.'
             );
 
@@ -262,7 +262,7 @@ class UserController extends Controller
 
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
-            'edit_form' => $editForm->createView()
+            'form' => $editForm->createView()
         ));
     }
 }

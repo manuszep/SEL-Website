@@ -9,14 +9,71 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+<section class="edit-form">
+    <div class="wrapper">
+        {{ form_start(form) }}
+        <fieldset>
+            <div class="form-row">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                {{ form_errors(form.username) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.phone) }}
+                {{ form_widget(form.phone) }}
+                {{ form_errors(form.phone) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.mobile) }}
+                {{ form_widget(form.mobile) }}
+                {{ form_errors(form.mobile) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.street) }}
+                {{ form_widget(form.street) }}
+                {{ form_errors(form.street) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.street_number) }}
+                {{ form_widget(form.street_number) }}
+                {{ form_errors(form.street_number) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.street_box) }}
+                {{ form_widget(form.street_box) }}
+                {{ form_errors(form.street_box) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.zip) }}
+                {{ form_widget(form.zip) }}
+                {{ form_errors(form.zip) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.city) }}
+                {{ form_widget(form.city) }}
+                {{ form_errors(form.city) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.picture) }}
+                {{ form_widget(form.picture) }}
+                {{ form_errors(form.picture) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.current_password) }}
+                {{ form_widget(form.current_password) }}
+                {{ form_errors(form.current_password) }}
+            </div>
+        </fieldset>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Retour à la liste</a>
-        </li>
-    </ul>
+        <div class="form-actions">
+            {{ form_widget(form.save) }}
+            <a href="{{ path('user_index') }}" class="btn">Retour à la liste</a>
+        </div>
+    </div>
+</section>
 {% endblock %}

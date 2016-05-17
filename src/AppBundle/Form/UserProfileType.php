@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserProfileType extends AbstractType
 {
@@ -39,7 +40,10 @@ class UserProfileType extends AbstractType
                 'mapped' => false,
                 'constraints' => new UserPassword(),
             ))
-        ;
+            ->add('save', SubmitType::class, array(
+                'attr' => array('class' => 'main'),
+                'label' => 'label.save'
+            ));
     }
 
     /**
