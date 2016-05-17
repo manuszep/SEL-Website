@@ -18,10 +18,10 @@
             </div>
             <div class="service-meta">
                 <div class="type">
-                    {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index') }}">{{ service.typeLabel }}</a>
+                    {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index', {service_filter: {type: service.type }}) }}">{{ service.typeLabel }}</a>
                 </div>
                 <div class="domain">
-                    {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index') }}">{{ service.domainLabel }}</a>
+                    {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index', {service_filter: {domain: service.domain }}) }}">{{ service.domainLabel }}</a>
                 </div>
                 <div class="category">
                     {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index', {service_filter: {category: service.category.parent.id }}) }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index', {service_filter: {category: service.category.id }}) }}">{{ service.category.title }}</a>
