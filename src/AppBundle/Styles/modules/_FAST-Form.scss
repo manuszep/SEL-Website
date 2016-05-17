@@ -58,4 +58,14 @@ $FAST-Form-spacing: FAST-rem-calc(16) !default;
             border-bottom: none;
         }
     }
+
+    .small-form {
+        max-width: 20rem;
+        margin: 0 auto;
+    }
+
+    .medium-form {
+        max-width: 40rem;
+        margin: 0 auto;
+    }
 }
