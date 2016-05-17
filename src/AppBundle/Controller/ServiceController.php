@@ -79,6 +79,11 @@ class ServiceController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $service_manager->saveService($service);
 
+            $this->addFlash(
+                'success',
+                'Le service a bien été enregistré.'
+            );
+
             return $this->redirectToRoute('service_show', array('id' => $service->getId()));
         }
 
@@ -120,6 +125,11 @@ class ServiceController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $service_manager->saveService($service);
 
+            $this->addFlash(
+                'success',
+                'Le service a bien été enregistré.'
+            );
+
             return $this->redirectToRoute('service_show', array('id' => $service->getId()));
         }
 
@@ -144,6 +154,11 @@ class ServiceController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $service_manager = $this->getServiceManager();
             $service_manager->deleteService($service);
+
+            $this->addFlash(
+                'success',
+                'Le service a bien été supprimé.'
+            );
         }
 
         return $this->redirectToRoute('service_index');

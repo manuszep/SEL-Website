@@ -93,6 +93,11 @@ class ExchangeController extends Controller
                 $em->persist($exchange);
                 $em->flush();
 
+                $this->addFlash(
+                    'success',
+                    'L\'échange a bien été enregistré.'
+                );
+
                 return $this->redirectToRoute('exchange_index');
             }
         }
@@ -134,6 +139,11 @@ class ExchangeController extends Controller
                 $em->persist($exchange);
                 $em->flush();
 
+                $this->addFlash(
+                    'success',
+                    'L\'échange a bien été enregistré.'
+                );
+
                 return $this->redirectToRoute('user_show', array('id' => $exchange->getDebitUser()->getId()));
             }
         }
@@ -160,6 +170,11 @@ class ExchangeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($exchange);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'échange a bien été supprimé.'
+            );
         }
 
         return $this->redirectToRoute('exchange_index');

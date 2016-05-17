@@ -50,6 +50,11 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
+            $this->addFlash(
+                'success',
+                'La catégorie a bien été enregistrée.'
+            );
+
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
@@ -92,6 +97,11 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
+            $this->addFlash(
+                'success',
+                'La catégorie a bien été enregistrée.'
+            );
+
             return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
         }
 
@@ -117,6 +127,11 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'La catégorie a bien été supprimée.'
+            );
         }
 
         return $this->redirectToRoute('category_index');
