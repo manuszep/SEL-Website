@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         "sass:dev",
         "autoprefixer:dev",
         "browserify:dev",
-        "uglify:dev",
+        //"uglify:dev",
         "bytesize:dev",
         "watch"
     ]);
