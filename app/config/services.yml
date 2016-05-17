@@ -1,7 +1,6 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
 
 services:
 #    service_name:
@@ -9,9 +8,14 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     form.type.service:
         class: AppBundle\Form\ServiceType
-        arguments: ["@security.authorization_checker"]
+        arguments: ["@security.authorization_checker", "%app_bundle.service.types%", "%app_bundle.service.domains%"]
         tags:
             - { name: form.type, alias: service_type }
+    form.type.service_filter:
+        class: AppBundle\Form\ServiceFilterType
+        arguments: ["%app_bundle.service.types%", "%app_bundle.service.domains%"]
+        tags:
+            - { name: form.type, alias: service_filter_type }
     form.type.exchange:
         class: AppBundle\Form\ExchangeType
         arguments: ["@security.authorization_checker", "@security.token_storage"]
@@ -31,3 +35,18 @@ services:
             - { name: security.voter }
         # small performance boost
         public: false
+    app.manager.service:
+        class: AppBundle\Entity\ServiceManager
+        arguments:
+            em: "@doctrine.orm.default_entity_manager"
+            class: AppBundle\Entity\Service
+            filter: "@lexik_form_filter.query_builder_updater"
+            authorizationChecker: "@security.authorization_checker"
+            tokenStorage: "@security.token_storage"
+    app.subscriber.service_listener:
+        class: AppBundle\EventListener\ServiceListener
+        arguments:
+            - "%app_bundle.service.types%"
+            - "%app_bundle.service.domains%"
+        tags:
+            - { name: doctrine.event_subscriber }

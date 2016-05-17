@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ServiceManager;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,56 +30,32 @@ class ServiceController extends Controller
     {
         // TODO: Filter expired items
         // TODO: Split "offre flash" and "demande flash" to display them separately
-        $dummy_service = new Service();
-
         $form = $this->createForm('AppBundle\Form\ServiceFilterType');
+
+        $service_manager = $this->getServiceManager();
 
         if ($request->query->has($form->getName())) {
             // manually bind values from the request
             $form->submit($request->query->get($form->getName()));
 
-            // initialize a query builder
-            $filterBuilder = $this->get('doctrine.orm.entity_manager')
-                ->getRepository('AppBundle:Service')
-                ->createQueryBuilder('e');
-
-            // build the query from the given form object
-            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
-
-            $services = $filterBuilder->getQuery()->getResult();
+            $services = $service_manager->findFiltered($form);
         } else {
-            $em = $this->getDoctrine()->getManager();
-
-            $services = $em->getRepository('AppBundle:Service')->findAll();
+            $services = $service_manager->findAll();
         }
 
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $services, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
-
         return $this->render('service/index.html.twig', array(
-            'services' => $pagination,
+            'services' => $this->getPagination($services, $request),
             'filter' => $form->createView()
         ));
     }
 
     public function listForUserAction(Request $request, User $user, $partial) {
-        $em = $this->getDoctrine()->getManager();
+        $service_manager = $this->getServiceManager();
 
-        $services = $em->getRepository('AppBundle:Service')->findByUser($user);
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $services, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
+        $services = $service_manager->findByUser($user);
 
         return $this->render('service/listForUser.html.twig', array(
-            'services' => $pagination,
+            'services' => $this->getPagination($services, $request),
             'partial' => $partial
         ));
     }
@@ -91,22 +68,16 @@ class ServiceController extends Controller
      */
     public function newAction(Request $request)
     {
+        $service_manager = $this->getServiceManager();
+
         // TODO: Add logic so when the user chooses to make a "flash" service, the expiration date is mandatory and is set in 15 days by default.
-        $service = new Service();
+        $service = $service_manager->createService();
+
         $form = $this->createForm('AppBundle\Form\ServiceType', $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $service->upload();
-
-            if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
-                $service->setUser($this->getUser());
-            }
-
-            $em->persist($service);
-            $em->flush();
+            $service_manager->saveService($service);
 
             return $this->redirectToRoute('service_show', array('id' => $service->getId()));
         }
@@ -141,17 +112,13 @@ class ServiceController extends Controller
      */
     public function editAction(Request $request, Service $service)
     {
+        $service_manager = $this->getServiceManager();
         $deleteForm = $this->createDeleteForm($service);
         $editForm = $this->createForm('AppBundle\Form\ServiceType', $service);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $service->upload();
-
-            $em->persist($service);
-            $em->flush();
+            $service_manager->saveService($service);
 
             return $this->redirectToRoute('service_edit', array('id' => $service->getId()));
         }
@@ -175,9 +142,8 @@ class ServiceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($service);
-            $em->flush();
+            $service_manager = $this->getServiceManager();
+            $service_manager->deleteService($service);
         }
 
         return $this->redirectToRoute('service_index');
@@ -197,5 +163,22 @@ class ServiceController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    protected function getServiceManager()
+    {
+        return $this->container->get('app.manager.service');
+    }
+
+    public function getPagination($services, $request, $limit = 10) {
+        $paginator  = $this->get('knp_paginator');
+        return $paginator->paginate(
+            $services,
+            $request->query->getInt('page', 1),
+            $limit
+        );
     }
 }

@@ -10,12 +10,19 @@ use AppBundle\Entity\Service;
 
 class ServiceFilterType extends AbstractType
 {
+    private $serviceTypes;
+    private $serviceDomains;
+
+    public function __construct($serviceTypes, $serviceDomains)
+    {
+        $this->serviceTypes = $serviceTypes;
+        $this->serviceDomains = $serviceDomains;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $serivce = new Service();
-
-        $types = array_flip($serivce->getTypes());
-        $domains = array_flip($serivce->getDomains());
+        $types = array_flip($this->serviceTypes);
+        $domains = array_flip($this->serviceDomains);
 
         $builder->add('category', Filters\EntityFilterType::class, array(
             'class' => 'AppBundle:Category',

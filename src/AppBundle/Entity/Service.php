@@ -103,6 +103,33 @@ class Service
      */
     private $contentChanged;
 
+    private $types_list;
+    private $domains_list;
+
+    public function setTypesList($types)
+    {
+        $this->types_list = $types;
+
+        return $this;
+    }
+
+    public function setDomainsList($domains)
+    {
+        $this->domains_list = $domains;
+
+        return $this;
+    }
+
+    public function getTypesList()
+    {
+        return $this->types_list;
+    }
+
+    public function getDomainsList()
+    {
+        return $this->domains_list;
+    }
+
 
 
     /**
@@ -187,15 +214,6 @@ class Service
         return $this->body;
     }
 
-    public function getTypes() {
-        return array(
-            1 => 'Offre',
-            2 => 'Demande',
-            3 => 'Offre flash',
-            4 => 'Demande flash'
-        );
-    }
-
     /**
      * Set type
      *
@@ -221,7 +239,7 @@ class Service
     }
 
     public function getTypeLabel() {
-        return $this->getTypes()[$this->getType()];
+        return $this->getTypesList()[$this->getType()];
     }
 
     /**
@@ -248,15 +266,8 @@ class Service
         return $this->domain;
     }
 
-    public function getDomains() {
-        return array(
-            1 => 'Service / Savoir',
-            2 => 'Preterie / Donnerie'
-        );
-    }
-
     public function getDomainLabel() {
-        return $this->getDomains()[$this->getDomain()];
+        return $this->getDomainsList()[$this->getDomain()];
     }
 
     /**

@@ -64,7 +64,6 @@ class UserController extends Controller
             $um->updateUser($user);
 
             $this->get('fos_user.mailer')->sendConfirmationEmailMessage($user);
-            // TODO: Ovveride confirmation email message to include generated password.
             $this->addFlash(
                 'notice',
                 'L\'utilisateur <strong>' . $user->getUsername() . '</strong> a bien été enregistré. Un email de confirmation lui a été envoyé.'

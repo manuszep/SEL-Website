@@ -55,7 +55,6 @@ class ServiceVoter extends Voter
 
         switch($attribute) {
             case self::EDIT:
-                echo "case edit";
                 return $this->canEdit($service, $user);
         }
 

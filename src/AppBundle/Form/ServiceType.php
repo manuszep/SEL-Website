@@ -13,16 +13,19 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Entity\Service;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class ServiceType extends AbstractType
 {
     private $authorizationChecker;
+    private $serviceTypes;
+    private $serviceDomains;
 
-    public function __construct(AuthorizationChecker $authorizationChecker)
+    public function __construct(AuthorizationChecker $authorizationChecker, $serviceTypes, $serviceDomains)
     {
         $this->authorizationChecker = $authorizationChecker;
+        $this->serviceTypes = $serviceTypes;
+        $this->serviceDomains = $serviceDomains;
     }
 
     /**
@@ -31,11 +34,8 @@ class ServiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO: Set the list of types and domains in the config
-        $serivce = new Service();
-
-        $types = array_flip($serivce->getTypes());
-        $domains = array_flip($serivce->getDomains());
+        $types = array_flip($this->serviceTypes);
+        $domains = array_flip($this->serviceDomains);
 
         if ($this->authorizationChecker->isGranted('ROLE_EDITOR')) {
             $builder->add('user', EntityType::class, array(
