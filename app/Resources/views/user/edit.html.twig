@@ -11,7 +11,7 @@
 {% block body %}
 <section class="edit-form">
     <div class="wrapper">
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
         <fieldset>
             <div class="form-row">
                 {{ form_label(form.username) }}

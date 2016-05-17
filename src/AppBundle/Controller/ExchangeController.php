@@ -134,7 +134,7 @@ class ExchangeController extends Controller
                 $em->persist($exchange);
                 $em->flush();
 
-                return $this->redirectToRoute('exchange_edit', array('id' => $exchange->getId()));
+                return $this->redirectToRoute('user_show', array('id' => $exchange->getDebitUser()->getId()));
             }
         }
 

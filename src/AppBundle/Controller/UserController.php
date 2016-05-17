@@ -257,7 +257,7 @@ class UserController extends Controller
 
             $um->updateUser($user);
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
         return $this->render('user/edit.html.twig', array(
