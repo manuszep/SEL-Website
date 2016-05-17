@@ -18,7 +18,11 @@ $FAST-Typography-stat-font-size: 2.5rem !default;
 /**
  *  Mixins
  **/
-
+@mixin FAST-Typography-lead() {
+    font-size: $FAST-Typography-lead-font-size;
+    font-weight: 300;
+    line-height: $FAST-Typography-lead-lineheight;
+}
 
 
 /**
@@ -47,9 +51,7 @@ $FAST-Typography-stat-font-size: 2.5rem !default;
 
     // Use to style an introductory lead, deck, blurb, etc.
     .lead {
-        font-size: $FAST-Typography-lead-font-size;
-        font-weight: 300;
-        line-height: $FAST-Typography-lead-lineheight;
+        @include FAST-Typography-lead();
     }
 
     // Use to style a large number to display a statistic

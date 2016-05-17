@@ -1,32 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-    <header class="page-header angle-intro inline-heading">
+    <header class="page-header angle-intro angle-reverse inline-heading">
         <div class="wrapper">
             <h1>{{ service.title }}</h1>
 
             {{ icons.iconlink('pencil', 'Modifier', path('service_edit', { 'id': service.id }), 'btn') }}
 
-            <div class="clearfix">
-                <div class="service-author">
-                    <div class="service-author-image">
-                        <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img
-                                    src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
-                                    srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
-                                                    {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
-                    </div>
-                    {{ service.user.username }}
-                </div>
-                <div class="service-meta">
-                    <div class="type">
-                        {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index', {service_filter: {type: service.type }}) }}">{{ service.typeLabel }}</a>
-                    </div>
-                    <div class="domain">
-                        {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index', {service_filter: {domain: service.domain }}) }}">{{ service.domainLabel }}</a>
-                    </div>
-                    <div class="category">
-                        {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index', {service_filter: {category: service.category.parent.id }}) }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index', {service_filter: {category: service.category.id }}) }}">{{ service.category.title }}</a>
-                    </div>
+            <div class="service-author">
+                {{ service.user.username }}
+                <div class="service-author-image">
+                    <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img
+                                src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
+                                srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
+                                                {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
                 </div>
             </div>
         </div>
@@ -36,13 +23,26 @@
 {% block body %}
 <section class="add-form">
     <div class="wrapper">
+        <p class="service-meta">
+            <span class="type">
+                {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index', {service_filter: {type: service.type }}) }}">{{ service.typeLabel }}</a>
+            </span>
+            <span class="domain">
+                {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index', {service_filter: {domain: service.domain }}) }}">{{ service.domainLabel }}</a>
+            </span>
+            <span class="category">
+                {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index', {service_filter: {category: service.category.parent.id }}) }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index', {service_filter: {category: service.category.id }}) }}">{{ service.category.title }}</a>
+            </span>
+        </p>
         {% if service.getPictureWebPath %}
-            <a class="service-content-image" href="{{ service.getPictureWebPath }}"><img
-            src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
-            srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
+            <div class="service-content-image">
+                <a href="{{ service.getPictureWebPath }}"><img
+                            src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
+                            srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
                     {{ service.getPictureWebPath | imagine_filter('service_thumb2x') }} 2x" /></a>
+            </div>
         {% endif %}
-        <div class="service-content">
+        <div class="service-content-body">
             {{ service.body|raw }}
         </div>
     </div>

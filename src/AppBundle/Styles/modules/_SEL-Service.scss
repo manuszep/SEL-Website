@@ -235,7 +235,7 @@ $SEL-Service-border-width: .25rem;
     }
 
     .service-author {
-        float: left;
+        float: right;
         clear: left;
     }
 
@@ -247,19 +247,30 @@ $SEL-Service-border-width: .25rem;
         text-align: center;
         border: 2px solid $FAST-Color-white-xl;
         @include FAST-Deco-shadow-1();
-        margin-right: .5rem;
+        margin-left: .5rem;
     }
 
     .service-meta {
-        float: right;
-        clear: right;
-        text-align: right;
-        font-size: FAST-rem-calc(14px);
+        font-size: FAST-rem-calc(16px);
+        text-align: center;
+        margin-bottom: 2rem;
+
+        .type, .domain {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+        .category {
+            display: block;
+        }
     }
 
     .service-content-image {
         border: 3px solid #fff;
         @include FAST-Deco-shadow-1;
+    }
+
+    .service-content-body {
+        @include FAST-Typography-lead();
     }
 
     @include FAST-breakpoint('medium') {
@@ -270,8 +281,8 @@ $SEL-Service-border-width: .25rem;
         }
 
         .service-content-image {
-            float: left;
-            margin: 0 1rem 1rem 0;
+            float: right;
+            margin: 0 0 1rem 1rem;
             max-width: 50%;
         }
     }
