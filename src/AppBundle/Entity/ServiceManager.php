@@ -8,6 +8,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Doctrine\ORM\QueryBuilder;
 
 class ServiceManager
 {
@@ -38,24 +39,44 @@ class ServiceManager
 
         return $service;
     }
-    
-    public function findAll($reverse_order = true) {
+
+    public function getQueryBuilder($reverse_order = true, $key = 's') {
         $order = ($reverse_order) ? 'DESC' : 'ASC';
-        return $this->repo->findBy(array(), array('updated' => $order));
+        $qb = $this->repo->createQueryBuilder($key);
+
+        $now = new \DateTime();
+
+        return $qb->where(
+                $qb->expr()->orX(
+                    $qb->expr()->gt($key . '.expires_at', ':now'),
+                    $qb->expr()->isNull($key . '.expires_at')
+                )
+            )
+            ->orderBy($key . '.updated', $order)
+            ->setParameter('now', $now->format("Y-m-d H:i:s"));
+
+    }
+
+    public function findAll($reverse_order = true) {
+        /** @var QueryBuilder $qb */
+        $qb = $this->getQueryBuilder($reverse_order);
+
+        return $qb->getQuery()->getResult();
     }
     
     public function findByUser(User $user, $reverse_order = true) {
-        $order = ($reverse_order) ? 'DESC' : 'ASC';
-        return $this->repo->findByUser($user, array('updated' => $order));
+        /** @var QueryBuilder $qb */
+        $qb = $this->getQueryBuilder($reverse_order);
+
+        $qb->andWhere(
+            $qb->expr()->eq('s.user', ':user')
+        )->setParameter('user', $user);
+
+        return $qb->getQuery()->getResult();
     }
     
-    public function getQueryBuilder($key = 's', $reverse_order = true) {
-        $order = ($reverse_order) ? 'DESC' : 'ASC';
-        return $this->repo->createQueryBuilder($key)->orderBy('s.updated', $order);
-    }
-    
-    public function getFilteredQueryBuilder($form) {
-        return $this->filter->addFilterConditions($form, $this->getQueryBuilder());
+    public function getFilteredQueryBuilder($form, $reverse_order = true) {
+        return $this->filter->addFilterConditions($form, $this->getQueryBuilder($reverse_order));
     }
     
     public function getFilteredQuery($form) {
