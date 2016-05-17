@@ -14,6 +14,7 @@ class UserVoter extends Voter
     const MANAGE = 'manage';
     const ENABLE = 'enable';
     const CREATE = 'create user';
+    const SHOW = 'show';
 
     private $decisionManager;
 
@@ -25,7 +26,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::MANAGE, self::ENABLE, self::CREATE))) {
+        if (!in_array($attribute, array(self::MANAGE, self::ENABLE, self::CREATE, self::SHOW))) {
             return false;
         }
 
@@ -34,10 +35,6 @@ class UserVoter extends Voter
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        if (!$token->getUser() instanceof UserInterface) {
-            return false;
-        }
-
         switch($attribute) {
             case self::MANAGE:
                 if (!$subject instanceof User) {
@@ -55,6 +52,14 @@ class UserVoter extends Voter
                 $user = $subject;
 
                 return $this->canEnable($user, $token);
+            case self::SHOW:
+                if (!$subject instanceof User) {
+                    return false;
+                }
+
+                $user = $subject;
+
+                return $this->canShow($user, $token);
             case self::CREATE:
                 return $this->canCreate($token);
         }
@@ -62,8 +67,20 @@ class UserVoter extends Voter
         throw new \LogicException('This code should not be reached!');
     }
 
+    private function canShow(User $user, TokenInterface $token) {
+        if ((!$user->isEnabled() || $user->isLocked()) && !$this->decisionManager->decide($token, array('ROLE_COCO'))) {
+            return false;
+        }
+
+        return true;
+    }
+
     private function canManage(User $user, TokenInterface $token)
     {
+        if (!$token->getUser() instanceof UserInterface) {
+            return false;
+        }
+
         if (!$user->isEnabled()) {
             return false;
         }
@@ -76,6 +93,10 @@ class UserVoter extends Voter
     }
 
     private function canEnable(User $user, TokenInterface $token) {
+        if (!$token->getUser() instanceof UserInterface) {
+            return false;
+        }
+
         if ($user->isEnabled()) {
             return false;
         }
@@ -84,6 +105,10 @@ class UserVoter extends Voter
     }
 
     private function canCreate(TokenInterface $token) {
+        if (!$token->getUser() instanceof UserInterface) {
+            return false;
+        }
+
         return $this->decisionManager->decide($token, array('ROLE_COCO'));
     }
 }

@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        <!-- Add Voter to handle permissions on users (COCO can see disabled users but not others, COCO can edit all users but others can only edit own profile, ...) -->
+                        {% if is_granted("show", user) %}
                     <tr class="{% if user.locked %}locked{% endif %} {% if not user.isEnabled %}disabled{% endif %} {% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
                         <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
@@ -66,6 +66,7 @@
                             </ul>
                         </td>
                     </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
