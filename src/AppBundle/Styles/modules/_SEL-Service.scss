@@ -236,6 +236,7 @@ $SEL-Service-border-width: .25rem;
 
     .service-author {
         float: left;
+        clear: left;
     }
 
     .service-author-image {
@@ -251,7 +252,43 @@ $SEL-Service-border-width: .25rem;
 
     .service-meta {
         float: right;
+        clear: right;
         text-align: right;
         font-size: FAST-rem-calc(14px);
+    }
+
+    .service-content-image {
+        border: 3px solid #fff;
+        @include FAST-Deco-shadow-1;
+    }
+
+    @include FAST-breakpoint('medium') {
+        .service-list {
+            .service {
+                width: 50%;
+            }
+        }
+
+        .service-content-image {
+            float: left;
+            margin: 0 1rem 1rem 0;
+            max-width: 50%;
+        }
+    }
+
+    @include FAST-breakpoint('large') {
+        .service-list {
+            .service {
+                width: 33.3333%;
+            }
+        }
+    }
+
+    @include FAST-breakpoint('xlarge') {
+        .service-list {
+            .service {
+                width: 25%;
+            }
+        }
     }
 }

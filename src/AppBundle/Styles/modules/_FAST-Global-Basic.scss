@@ -47,4 +47,16 @@
             display: table-cell;
         }
     }
+
+    .clearfix {
+        @include FAST-clearfix();
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
 }
