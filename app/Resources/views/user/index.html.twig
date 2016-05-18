@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-    <section class="service-list">
+    <section class="user-list">
         <div class="wrapper">
             <table>
                 <thead>
@@ -31,7 +31,7 @@
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td>{{ user.balance }}</td>
-                        <td>{{ user.phone }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.mobile }}</td>
+                        <td>{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
                         <td>{{ user.address|nl2br }}</td>
                         <td>
                             <ul class="table-actions">

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Les membres</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="user-list">
+        <div class="wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <td width="1"></td>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Adresse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    {% if is_granted("show", user) and not user.locked and user.isEnabled %}
+                        <tr class="{% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
+                            <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{% if user.phone %}{{ user.getPhoneFormatted }}{% endif %}{% if user.phone and user.mobile %}<br />{% endif %}{% if user.mobile %}{{ user.getMobileFormatted }}{% endif %}</td>
+                            <td>{{ user.address|nl2br }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

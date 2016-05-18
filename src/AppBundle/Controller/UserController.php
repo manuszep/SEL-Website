@@ -29,7 +29,25 @@ class UserController extends Controller
         
         $users = $um->findUsers();
 
+        /* Todo: Add pagination */
         return $this->render('user/index.html.twig', array(
+            'users' => $users,
+        ));
+    }
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/print-list.{_format}", name="user_index_print", defaults={"_format": "html"}, requirements={"_format": "html|pdf"})
+     * @Method("GET")
+     */
+    public function printListAction($_format)
+    {
+        $um = $this->get('fos_user.user_manager');
+
+        $users = $um->findUsers();
+ 
+        return $this->render('user/printList.' . $_format . '.twig', array(
             'users' => $users,
         ));
     }

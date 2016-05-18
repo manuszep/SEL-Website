@@ -1,0 +1,101 @@
+/****************************************************************************
+    SEL - Print
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Print() {
+    @media print {
+        html {
+            font-size: 9pt !important;
+        }
+        body {
+            margin: 0 !important;
+            font-size: 9pt !important;
+        }
+        .wrapper {
+            width: 100% !important;
+            padding: 0 !important;
+        }
+        .header {
+            position: static;
+            margin: 0;
+
+            .wrapper {
+                display: block;
+            }
+
+            .logo {
+                display: block;
+                float: right;
+
+                a:after {
+                    content: '';
+                }
+
+                img {
+                    filter: url(#negative);
+                    filter: invert(100%);
+                    width: 5.3599cm;
+                    height: .75cm;
+                }
+            }
+
+            .menu {
+                display: none;
+            }
+        }
+
+        .main-content {
+            margin: 0;
+        }
+
+        .page-header {
+            padding: 0 !important;
+            margin: 0 !important;
+            color: #000 !important;
+            clip-path: none;
+        }
+
+        section {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #ccc !important;
+        }
+
+        .add-tool, .main-footer, .dimmer, .sf-toolbar {
+            display: none !important;
+        }
+    }
+}

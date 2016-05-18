@@ -1,6 +1,6 @@
 {% import "Macros/icons.html.twig" as icons %}
 <!DOCTYPE html>
-<html>
+<html moznomarginboxes mozdisallowselectionprint>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,12 @@
     <body>
         <svg class="hidden" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
+                <filter id="negative">
+                    <feColorMatrix values="-1  0 0 0 1
+                        0 -1 0 0 1
+                        0 0 -1 0 1
+                        0 0 0 1 0" />
+                </filter>
                 <symbol id="icon-plus" viewBox="0 0 33 40">
                     <title>plus</title>
                     <path class="path1" d="M33 17.25v4.5q0 0.937-0.656 1.594t-1.594 0.656h-9.75v9.75q0 0.937-0.656 1.594t-1.594 0.656h-4.5q-0.937 0-1.594-0.656t-0.656-1.594v-9.75h-9.75q-0.937 0-1.594-0.656t-0.656-1.594v-4.5q0-0.937 0.656-1.594t1.594-0.656h9.75v-9.75q0-0.937 0.656-1.594t1.594-0.656h4.5q0.937 0 1.594 0.656t0.656 1.594v9.75h9.75q0.937 0 1.594 0.656t0.656 1.594z"></path>
