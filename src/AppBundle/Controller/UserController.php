@@ -23,32 +23,20 @@ class UserController extends Controller
      * @Route("/", name="user_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $print_list = $request->get('print_list');
         $um = $this->get('fos_user.user_manager');
         
         $users = $um->findUsers();
 
-        /* Todo: Add pagination */
+        if (!$print_list) {
+            /* Todo: Add pagination */
+        }
+
         return $this->render('user/index.html.twig', array(
             'users' => $users,
-        ));
-    }
-
-    /**
-     * Lists all User entities.
-     *
-     * @Route("/print-list.{_format}", name="user_index_print", defaults={"_format": "html"}, requirements={"_format": "html|pdf"})
-     * @Method("GET")
-     */
-    public function printListAction($_format)
-    {
-        $um = $this->get('fos_user.user_manager');
-
-        $users = $um->findUsers();
- 
-        return $this->render('user/printList.' . $_format . '.twig', array(
-            'users' => $users,
+            'print_list' => $print_list
         ));
     }
 

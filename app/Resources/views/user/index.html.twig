@@ -1,9 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {% if print_list %}
+<script>
+    (function(window) {
+        $(function() {
+            window.print();
+        })();
+    })(window);
+    {% endif %}
+</script>
+{% endblock %}
+
 {% block header %}
-    <header class="page-header angle-intro angle-reverse">
+    <header class="page-header angle-intro angle-reverse inline-heading">
         <div class="wrapper">
             <h1>Les membres</h1>
+            {{ icons.iconlink('print', 'Imprimer', path('user_index', { 'print_list': 1 }), 'btn') }}
         </div>
     </header>
 {% endblock %}
@@ -17,23 +30,23 @@
                         <td width="1"></td>
                         <th>Nom d'utilisateur</th>
                         <th>Email</th>
-                        <th>Noeuds</th>
+                        <th class="hide-for-print">Noeuds</th>
                         <th>Téléphone</th>
                         <th>Adresse</th>
-                        <th width="1">&nbsp;</th>
+                        <th class="hide-for-print" width="1">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
                         {% if is_granted("show", user) %}
-                    <tr class="{% if user.locked %}locked{% endif %} {% if not user.isEnabled %}disabled{% endif %} {% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
+                    <tr class="{% if user.locked or not user.isEnabled %}hide-for-print {% endif %}{% if user.locked %}locked {% endif %}{% if not user.isEnabled %}disabled {% endif %}{% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
                         <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                        <td>{{ user.balance }}</td>
+                        <td class="hide-for-print">{{ user.balance }}</td>
                         <td>{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
                         <td>{{ user.address|nl2br }}</td>
-                        <td>
+                        <td class="hide-for-print">
                             <ul class="table-actions">
                                 <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
                                 {% if is_granted("manage", user) %}
