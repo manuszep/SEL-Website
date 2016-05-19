@@ -30,7 +30,9 @@ class ServiceController extends Controller
     {
         // TODO: Filter expired items
         // TODO: Split "offre flash" and "demande flash" to display them separately
+        $print_list = $request->get('print_list');
         $form = $this->createForm('AppBundle\Form\ServiceFilterType');
+        $template_ext = '';
 
         $service_manager = $this->getServiceManager();
 
@@ -43,9 +45,17 @@ class ServiceController extends Controller
             $services = $service_manager->findAll();
         }
 
-        return $this->render('service/index.html.twig', array(
-            'services' => $this->getPagination($services, $request),
-            'filter' => $form->createView()
+        if ($print_list) {
+            $template_ext = '_print';
+            $data = $services;
+        } else {
+            $data = $this->getPagination($services, $request);
+        }
+
+        return $this->render('service/index' . $template_ext . '.html.twig', array(
+            'services' => $data,
+            'filter' => $form->createView(),
+            'print_list' => $print_list
         ));
     }
 

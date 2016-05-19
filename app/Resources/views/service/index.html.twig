@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-    <header class="page-header has-block angle-intro angle-reverse">
+    <header class="page-header has-block inline-heading angle-intro angle-reverse">
         <div class="wrapper">
             <h1>Les services</h1>
-
+            {{ icons.iconlink('print', 'Imprimer', path('service_index', { 'print_list': 1 }), 'btn') }}
             <div class="filters header-block service-filters">
                 <a href="#" class="filter-toggle">Filtrer</a>
                 <form method="get" action=".">

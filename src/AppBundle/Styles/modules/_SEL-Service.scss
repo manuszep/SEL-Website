@@ -273,6 +273,11 @@ $SEL-Service-border-width: .25rem;
         @include FAST-Typography-lead();
     }
 
+    .service-print-heading {
+        display: block;
+        margin-bottom: .5rem;
+    }
+
     @include FAST-breakpoint('medium') {
         .service-list {
             .service {
