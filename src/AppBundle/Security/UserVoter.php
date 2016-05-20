@@ -14,7 +14,12 @@ class UserVoter extends Voter
     const MANAGE = 'manage';
     const ENABLE = 'enable';
     const CREATE = 'create user';
+    const EDIT = 'edit';
     const SHOW = 'show';
+    const LOCK = 'lock';
+    const UNLOCK = 'unlock';
+    const ENABLE_COCO = 'enable_coco';
+    const DISABLE_COCO = 'disable_coco';
 
     private $decisionManager;
 
@@ -26,7 +31,9 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::MANAGE, self::ENABLE, self::CREATE, self::SHOW))) {
+        if (!in_array($attribute, array(
+            self::MANAGE, self::ENABLE, self::CREATE, self::EDIT, self::SHOW, self::LOCK, self::UNLOCK, self::ENABLE_COCO, self::DISABLE_COCO
+        ))) {
             return false;
         }
 
@@ -35,36 +42,48 @@ class UserVoter extends Voter
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
+        if ($attribute == self::CREATE) {
+            return $this->canCreate($token);
+        }
+
+        if (!$subject instanceof User) {
+            return false;
+        }
+
+        $user = $subject;
+
         switch($attribute) {
             case self::MANAGE:
-                if (!$subject instanceof User) {
-                    return false;
-                }
-
-                $user = $subject;
-
                 return $this->canManage($user, $token);
             case self::ENABLE:
-                if (!$subject instanceof User) {
-                    return false;
-                }
-
-                $user = $subject;
-
                 return $this->canEnable($user, $token);
+            case self::EDIT:
+                return $this->canEdit($user, $token);
             case self::SHOW:
-                if (!$subject instanceof User) {
-                    return false;
-                }
-
-                $user = $subject;
-
                 return $this->canShow($user, $token);
-            case self::CREATE:
-                return $this->canCreate($token);
+            case self::LOCK:
+                return $this->canLock($user, $token);
+            case self::UNLOCK:
+                return $this->canUnlock($user, $token);
+            case self::ENABLE_COCO:
+                return $this->canEnableCoco($user, $token);
+            case self::DISABLE_COCO:
+                return $this->canDisableCoco($user, $token);
         }
 
         throw new \LogicException('This code should not be reached!');
+    }
+
+    private function canEdit(User $user, TokenInterface $token) {
+        if ($this->decisionManager->decide($token, array('ROLE_EDITOR'))) {
+            return true;
+        }
+
+        if ($user == $token->getUser()) {
+            return true;
+        }
+
+        return false;
     }
 
     private function canShow(User $user, TokenInterface $token) {
@@ -77,10 +96,6 @@ class UserVoter extends Voter
 
     private function canManage(User $user, TokenInterface $token)
     {
-        if (!$token->getUser() instanceof UserInterface) {
-            return false;
-        }
-
         if (!$user->isEnabled()) {
             return false;
         }
@@ -93,10 +108,6 @@ class UserVoter extends Voter
     }
 
     private function canEnable(User $user, TokenInterface $token) {
-        if (!$token->getUser() instanceof UserInterface) {
-            return false;
-        }
-
         if ($user->isEnabled()) {
             return false;
         }
@@ -105,10 +116,46 @@ class UserVoter extends Voter
     }
 
     private function canCreate(TokenInterface $token) {
-        if (!$token->getUser() instanceof UserInterface) {
+        return $this->decisionManager->decide($token, array('ROLE_COCO'));
+    }
+
+    private function canLock(User $user, TokenInterface $token) {
+        if ($user->isLocked()) {
             return false;
         }
 
+        if ($token->getUser() == $user) {
+            return false;
+        }
+
+        return $this->decisionManager->decide($token, array('ROLE_COCO'));
+    }
+
+    private function canUnlock(User $user, TokenInterface $token) {
+        if (!$user->isLocked()) {
+            return false;
+        }
+
+        if ($token->getUser() == $user) {
+            return false;
+        }
+
+        return $this->decisionManager->decide($token, array('ROLE_COCO'));
+    }
+
+    private function canEnableCoco(User $user, TokenInterface $token) {
+        if ($user->isLocked()) {
+            return false;
+        }
+
+        if (!$user->isEnabled()) {
+            return false;
+        }
+
+        return $this->decisionManager->decide($token, array('ROLE_COCO'));
+    }
+
+    private function canDisableCoco(User $user, TokenInterface $token) {
         return $this->decisionManager->decide($token, array('ROLE_COCO'));
     }
 }

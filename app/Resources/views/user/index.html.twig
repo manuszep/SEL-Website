@@ -33,7 +33,7 @@
                         <th class="hide-for-print">Noeuds</th>
                         <th>Téléphone</th>
                         <th>Adresse</th>
-                        <th class="hide-for-print" width="1">&nbsp;</th>
+                        <th class="hide-for-print" width="1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,9 +47,15 @@
                         <td>{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
                         <td>{{ user.address|nl2br }}</td>
                         <td class="hide-for-print">
+                            {% set canEdit = is_granted("edit", user) %}
+                            {% set canManage = is_granted("manage", user) %}
+
+                            {% if canEdit or canManage %}
                             <ul class="table-actions">
+                                {% if canEdit %}
                                 <li>{{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}</li>
-                                {% if is_granted("manage", user) %}
+                                {% endif %}
+                                {% if canManage %}
                                     <li>
                                         {% if not user.locked %}
                                             {{ icons.iconlink('lock', 'Bloquer', path('user_disable', { 'id': user.id }), 'disable-action') }}
@@ -73,12 +79,14 @@
                                     </li>
                                 {% endif %}
                             </ul>
+                            {% endif %}
                         </td>
                     </tr>
                         {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
+            {{ knp_pagination_render(users) }}
         </div>
     </section>
 {% endblock %}

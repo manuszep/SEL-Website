@@ -27,15 +27,29 @@ class UserController extends Controller
     {
         $print_list = $request->get('print_list');
         $um = $this->get('fos_user.user_manager');
-        
+
         $users = $um->findUsers();
 
-        if (!$print_list) {
-            /* Todo: Add pagination */
+        /**
+         *  TODO: Check for an alternative way to filter objects
+         *  This block removes items that the current user has not the right to see.
+         *  Qerying all items and then looping them to test security may not be the most optimal option
+         *  It would be more efficient to inject a where clause in the query but how to keep that logic in the voter ?
+         */
+        foreach($users as $key =>$user) {
+            if (!$this->isGranted('show', $user)) {
+                unset($users[$key]);
+            }
+        }
+
+        if ($print_list) {
+            $data = $users;
+        } else {
+            $data = $this->getPagination($users, $request);
         }
 
         return $this->render('user/index.html.twig', array(
-            'users' => $users,
+            'users' => $data,
             'print_list' => $print_list
         ));
     }
@@ -48,8 +62,8 @@ class UserController extends Controller
      */
     public function newAction(Request $request)
     {
-        $tokenGenerator = new TokenGenerator();
-
+        $this->denyAccessUnlessGranted('create user');
+        
         $um = $this->get('fos_user.user_manager');
         $user = $um->createUser();
         $user->setEnabled(false);
@@ -101,6 +115,8 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
+        $this->denyAccessUnlessGranted('lock', $user);
+
         $user->setLocked(true);
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
@@ -130,6 +146,8 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
+        $this->denyAccessUnlessGranted('unlock', $user);
+
         $user->setLocked(false);
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
@@ -158,6 +176,8 @@ class UserController extends Controller
 
             return $this->redirectToRoute('user_index');
         }
+
+        $this->denyAccessUnlessGranted('enable', $user);
 
         $form = $this->createForm('UserBundle\Form\UserPasswordType');
         $form->handleRequest($request);
@@ -193,6 +213,8 @@ class UserController extends Controller
      */
     public function enableCocoAction(User $user)
     {
+        $this->denyAccessUnlessGranted('enable_coco', $user);
+
         $user->addRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
@@ -213,6 +235,8 @@ class UserController extends Controller
      */
     public function disableCocoAction(User $user)
     {
+        $this->denyAccessUnlessGranted('disable_coco', $user);
+        
         $user->removeRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
@@ -233,6 +257,8 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+        $this->denyAccessUnlessGranted('show', $user);
+        
         return $this->render('user/show.html.twig', array(
             'user' => $user
         ));
@@ -248,6 +274,8 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
+        $this->denyAccessUnlessGranted('edit', $user);
+        
         $editForm = $this->createForm('AppBundle\Form\UserProfileType', $user);
         $editForm->handleRequest($request);
 
@@ -270,5 +298,14 @@ class UserController extends Controller
             'user' => $user,
             'form' => $editForm->createView()
         ));
+    }
+
+    public function getPagination($users, $request, $limit = 10) {
+        $paginator  = $this->get('knp_paginator');
+        return $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1),
+            $limit
+        );
     }
 }
