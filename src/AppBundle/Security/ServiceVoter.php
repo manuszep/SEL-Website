@@ -14,6 +14,7 @@ class ServiceVoter extends Voter
     const EDIT = 'edit';
     const CREATE = 'create-service';
     const DELETE = 'delete';
+    const COMMENT = 'comment-service';
 
     private $decisionManager;
 
@@ -25,12 +26,7 @@ class ServiceVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::EDIT, self::CREATE, self::DELETE))) {
-            return false;
-        }
-
-        // only vote on Service objects inside this voter
-        if (!$subject instanceof Service) {
+        if (!in_array($attribute, array(self::EDIT, self::CREATE, self::DELETE, self::COMMENT))) {
             return false;
         }
 
@@ -46,9 +42,9 @@ class ServiceVoter extends Voter
             return false;
         }
 
-        if ($attribute == self::CREATE) {
+        if ($attribute == self::CREATE || $attribute == self::COMMENT) {
             return true;
-            // Being logged-in is enough to create some services
+            // Being logged-in is enough to create some services or comment
         }
 
         if ($this->decisionManager->decide($token, array('ROLE_EDITOR'))) {
