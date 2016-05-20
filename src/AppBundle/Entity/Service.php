@@ -463,4 +463,8 @@ class Service
     public function getSelectLabel() {
         return $this->getUser()->getUsername() . ' - ' . $this->getTitle();
     }
+
+    public function isExpired() {
+        return ($this->getExpiresAt()->diff(new \DateTime())->invert == 0);
+    }
 }

@@ -73,11 +73,13 @@ class ServiceController extends Controller
     /**
      * Creates a new Service entity.
      *
-     * @Route("/new", name="service_new")
+     * @Route("/ajouter", name="service_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('create-service');
+
         $service_manager = $this->getServiceManager();
 
         // TODO: Add logic so when the user chooses to make a "flash" service, the expiration date is mandatory and is set in 15 days by default.
@@ -111,6 +113,10 @@ class ServiceController extends Controller
      */
     public function showAction(Service $service)
     {
+        if ($service->getUser()->isLocked() || $service->isExpired()) {
+            throw $this->createNotFoundException('Ce service n\'existe pas');
+        }
+
         $deleteForm = $this->createDeleteForm($service);
 
         return $this->render('service/show.html.twig', array(
@@ -127,6 +133,8 @@ class ServiceController extends Controller
      */
     public function editAction(Request $request, Service $service)
     {
+        $this->denyAccessUnlessGranted('edit', $service);
+
         $service_manager = $this->getServiceManager();
         $deleteForm = $this->createDeleteForm($service);
         $editForm = $this->createForm('AppBundle\Form\ServiceType', $service);
@@ -158,6 +166,8 @@ class ServiceController extends Controller
      */
     public function deleteAction(Request $request, Service $service)
     {
+        $this->denyAccessUnlessGranted('delete', $service);
+        
         $form = $this->createDeleteForm($service);
         $form->handleRequest($request);
 

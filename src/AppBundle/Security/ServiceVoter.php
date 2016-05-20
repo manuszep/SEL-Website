@@ -12,6 +12,8 @@ class ServiceVoter extends Voter
 {
     // these strings are just invented: you can use anything
     const EDIT = 'edit';
+    const CREATE = 'create-service';
+    const DELETE = 'delete';
 
     private $decisionManager;
 
@@ -23,7 +25,7 @@ class ServiceVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::EDIT))) {
+        if (!in_array($attribute, array(self::EDIT, self::CREATE, self::DELETE))) {
             return false;
         }
 
@@ -44,6 +46,11 @@ class ServiceVoter extends Voter
             return false;
         }
 
+        if ($attribute == self::CREATE) {
+            return true;
+            // Being logged-in is enough to create some services
+        }
+
         if ($this->decisionManager->decide($token, array('ROLE_EDITOR'))) {
             return true;
         }
@@ -56,6 +63,8 @@ class ServiceVoter extends Voter
         switch($attribute) {
             case self::EDIT:
                 return $this->canEdit($service, $user);
+            case self::DELETE:
+                return $this->canDelete($service, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -63,8 +72,11 @@ class ServiceVoter extends Voter
 
     private function canEdit(Service $service, User $user)
     {
-        // this assumes that the data object has a getOwner() method
-        // to get the entity of the user who owns this data object
+        return $user === $service->getUser();
+    }
+
+    private function canDelete(Service $service, User $user)
+    {
         return $user === $service->getUser();
     }
 }

@@ -42,6 +42,13 @@ class UserVoter extends Voter
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
+        $user = $token->getUser();
+
+        if (!$user instanceof User) {
+            // the user must be logged in; if not, deny access
+            return false;
+        }
+        
         if ($attribute == self::CREATE) {
             return $this->canCreate($token);
         }
