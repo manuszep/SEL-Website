@@ -24,6 +24,8 @@ class CategoryController extends Controller
      */
     public function indexAction()
     {
+        $this->denyAccessUnlessGranted('manage-category');
+
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
@@ -41,6 +43,8 @@ class CategoryController extends Controller
      */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('manage-category');
+
         $category = new Category();
         $form = $this->createForm('AppBundle\Form\CategoryType', $category);
         $form->handleRequest($request);
@@ -72,6 +76,8 @@ class CategoryController extends Controller
      */
     public function showAction(Category $category)
     {
+        $this->denyAccessUnlessGranted('manage-category');
+
         $deleteForm = $this->createDeleteForm($category);
 
         return $this->render('category/show.html.twig', array(
@@ -88,6 +94,8 @@ class CategoryController extends Controller
      */
     public function editAction(Request $request, Category $category)
     {
+        $this->denyAccessUnlessGranted('manage-category');
+
         $deleteForm = $this->createDeleteForm($category);
         $editForm = $this->createForm('AppBundle\Form\CategoryType', $category);
         $editForm->handleRequest($request);
@@ -120,6 +128,8 @@ class CategoryController extends Controller
      */
     public function deleteAction(Request $request, Category $category)
     {
+        $this->denyAccessUnlessGranted('manage-category');
+        
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
 
