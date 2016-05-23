@@ -43,6 +43,7 @@ services:
             filter: "@lexik_form_filter.query_builder_updater"
             authorizationChecker: "@security.authorization_checker"
             tokenStorage: "@security.token_storage"
+            serviceFlashTypes: "%app_bundle.service.flash_types_ids%"
     app.subscriber.service_listener:
         class: AppBundle\EventListener\ServiceListener
         arguments:

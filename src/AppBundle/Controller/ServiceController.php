@@ -152,7 +152,7 @@ class ServiceController extends Controller
                 $now = new \DateTime();
                 $service->setExpiresAt($now->modify('+ 2 weeks'));
             }
-            
+
             $service_manager->saveService($service);
 
             $this->addFlash(
