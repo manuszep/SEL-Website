@@ -86,7 +86,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% if not print_list %}
             {{ knp_pagination_render(users) }}
+            {% endif %}
         </div>
     </section>
 {% endblock %}
