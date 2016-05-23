@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,6 +31,10 @@ class ExchangeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('title', TextType::class, array(
+            'label' => 'label.title'
+        ));
+        
         if ($this->authorizationChecker->isGranted('ROLE_EDITOR')) {
             $builder->add('debitUser', EntityType::class, array(
                 'class' => 'AppBundle:User',

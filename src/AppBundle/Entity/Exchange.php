@@ -27,6 +27,11 @@ class Exchange
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $title;
+
+    /**
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -41,14 +46,6 @@ class Exchange
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $debitUser;
-
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Service")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    private $service;
 
     /**
      * @var string
@@ -80,6 +77,10 @@ class Exchange
      */
     private $updated;
 
+    public function getEntityName() {
+        return 'Exchange';
+    }
+
 
     /**
      * Get id
@@ -89,6 +90,30 @@ class Exchange
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Service
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**

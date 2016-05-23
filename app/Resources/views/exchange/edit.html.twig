@@ -18,6 +18,11 @@
         {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
         <fieldset>
             <div class="form-row">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+            </div>
+            <div class="form-row">
                 {{ form_label(form.creditUser) }}
                 {{ form_widget(form.creditUser) }}
                 {{ form_errors(form.creditUser) }}
