@@ -13,7 +13,7 @@
                     <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img
                                 src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
                                 srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
-                                                {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
+                                        {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
                 </div>
             </div>
         </div>

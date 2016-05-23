@@ -28,7 +28,6 @@ class ServiceController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // TODO: Filter expired items
         // TODO: Split "offre flash" and "demande flash" to display them separately
         $print_list = $request->get('print_list');
         $form = $this->createForm('AppBundle\Form\ServiceFilterType');
@@ -82,13 +81,19 @@ class ServiceController extends Controller
 
         $service_manager = $this->getServiceManager();
 
-        // TODO: Add logic so when the user chooses to make a "flash" service, the expiration date is mandatory and is set in 15 days by default.
         $service = $service_manager->createService();
 
         $form = $this->createForm('AppBundle\Form\ServiceType', $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $flash_services_ids = $this->container->getParameter('app_bundle.service.flash_types_ids');
+
+            if (in_array($service->getType(), $flash_services_ids) && !$service->getExpiresAt()) {
+                $now = new \DateTime();
+                $service->setExpiresAt($now->modify('+ 2 weeks'));
+            }
+
             $service_manager->saveService($service);
 
             $this->addFlash(
@@ -141,6 +146,13 @@ class ServiceController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $flash_services_ids = $this->container->getParameter('app_bundle.service.flash_types_ids');
+
+            if (in_array($service->getType(), $flash_services_ids) && !$service->getExpiresAt()) {
+                $now = new \DateTime();
+                $service->setExpiresAt($now->modify('+ 2 weeks'));
+            }
+            
             $service_manager->saveService($service);
 
             $this->addFlash(
@@ -167,7 +179,7 @@ class ServiceController extends Controller
     public function deleteAction(Request $request, Service $service)
     {
         $this->denyAccessUnlessGranted('delete', $service);
-        
+
         $form = $this->createDeleteForm($service);
         $form->handleRequest($request);
 
