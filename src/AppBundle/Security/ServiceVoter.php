@@ -25,9 +25,16 @@ class ServiceVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::EDIT, self::CREATE, self::DELETE, self::COMMENT))) {
-            return false;
+        if (in_array($attribute, array(self::CREATE, self::COMMENT))) {
+            return true;
+        }
+
+        if (in_array($attribute, array(self::EDIT, self::DELETE))) {
+            if (! $subject instanceof Service) {
+                return false;
+            }
+
+            return true;
         }
 
         return true;
