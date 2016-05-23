@@ -1,0 +1,159 @@
+/****************************************************************************
+    SEL - Exchange
+ ****************************************************************************/
+
+/**
+ *  Local variables
+ **/
+$SEL-Exchange-user-image-size: 5rem;
+$SEL-Exchange-type1-color: $FAST-Color-primary;
+$SEL-Exchange-type2-color: $FAST-Color-secondary;
+$SEL-Exchange-border-width: .25rem;
+
+
+/**
+ *  Functions
+ **/
+
+
+
+/**
+ *  Mixins
+ **/
+
+
+
+/**
+ *  Placeholders
+ **/
+
+
+
+/**
+ *  Styles
+ **/
+@mixin SEL-Exchange() {
+    .exchange-list {
+        .exchange {
+            width: 100%;
+            margin: 0 0 1rem 0;
+
+            header {
+                $header-padding-top: ($SEL-Exchange-user-image-size / 2) + 1.5rem;
+
+                margin-top: -1rem;
+                position: relative;
+                padding-top: $header-padding-top;
+                text-align: center;
+
+                &:after {
+                    content: "";
+                    width: 50%;
+                    height: 1px;
+                    margin: 1rem auto;
+                    display: block;
+                }
+
+                &:before {
+                    content: "";
+                    display: block;
+                    height: $SEL-Exchange-border-width;
+                    margin: -$header-padding-top -1rem $header-padding-top -1rem;
+                }
+            }
+        }
+
+        .exchange-content {
+            padding: 1rem;
+            background: #fff;
+            border-radius: 4px;
+            @include FAST-Deco-shadow-1();
+            position: relative;
+            transition: box-shadow .3s, transform .3s;
+            transition-delay: .2s;
+            border-top: 3px solid $FAST-Color-warning;
+
+            &:hover {
+                @include FAST-Deco-shadow-7();
+                transform: scale(1.01);
+            }
+        }
+
+        .exchange-author-image {
+            $total-width: $SEL-Exchange-user-image-size * 2 + 1rem;
+            position: absolute;
+            width: $total-width;
+            height: $SEL-Exchange-user-image-size;
+            top: -($SEL-Exchange-user-image-size / 3);
+            left: 50%;
+            margin-left: -($total-width / 2);
+
+            a {
+                border-radius: 50%;
+                overflow: hidden;
+                text-align: center;
+                border: 2px solid $FAST-Color-white-xl;
+                @include FAST-Deco-shadow-1();
+                display: inline-block;
+            }
+        }
+
+        .exchange-title {
+            font-size: 1.5rem;
+            line-height: 1.75rem;
+        }
+
+        .body {
+            max-height: 15.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            margin-bottom: 2rem;
+
+            :last-child {
+                margin-bottom: 0;
+            }
+
+            &:after {
+                content: "";
+                width: 100%;
+                display: block;
+                position: absolute;
+                top: 13rem;
+                left: 0;
+                height: 2.5rem;
+                background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.75) 50%, rgba(255,255,255,1) 100%);
+            }
+        }
+    }
+
+    @include FAST-breakpoint('medium') {
+        .exchange-list {
+            .exchange {
+                width: 50%;
+            }
+        }
+
+        .exchange-content-image {
+            float: right;
+            margin: 0 0 1rem 1rem;
+            max-width: 50%;
+        }
+    }
+
+    @include FAST-breakpoint('large') {
+        .exchange-list {
+            .exchange {
+                width: 33.3333%;
+            }
+        }
+    }
+
+    @include FAST-breakpoint('xlarge') {
+        .exchange-list {
+            .exchange {
+                width: 25%;
+            }
+        }
+    }
+}

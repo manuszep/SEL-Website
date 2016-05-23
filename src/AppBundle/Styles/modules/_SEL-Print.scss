@@ -29,6 +29,7 @@
  *  Styles
  **/
 @mixin SEL-Print() {
+    /* TODO: Hide icons in print version */
     @media print {
         html {
             font-size: 9pt !important;

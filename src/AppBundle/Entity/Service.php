@@ -100,6 +100,10 @@ class Service
 
     private $types_list;
     private $domains_list;
+    
+    public function getEntityName() {
+        return 'Service';
+    }
 
     public function setTypesList($types)
     {

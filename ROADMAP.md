@@ -31,7 +31,6 @@
 ### Exchanges
 
 - Any member can encode an exchange
-- A link to the service page can optionnaly be added
 - A comment can be added
 
 

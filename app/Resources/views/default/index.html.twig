@@ -4,7 +4,7 @@
     <header class="page-header angle-intro">
         <div class="wrapper">
             <h1>Bouts de fi<strong>SEL</strong><br />
-                <small>Le système d'échange local de la région d'Ath</small></h1>
+                <small>Le Système d'&Eacute;change Local de la région d'Ath</small></h1>
 
         </div>
     </header>
@@ -15,7 +15,7 @@
         <div class="wrapper">
             <header class="grid-item-3-4 grid-item-center text-center">
                 <h1 class="headline super hairline">Qu'est-ce qu'un SEL ?</h1>
-                <p>Un SEL est un Système d'Echange Local, un groupe de personnes qui pratiquent l'échange de services, de savoirs et de biens au moyen d'une unité d'échange choisie par ses membres. Il ambitionne de redonner à la vie de nos villages et quartiers une dimension solidaire et conviviale.</p>
+                <p>Un SEL est un Système d'&Eacute;change Local, un groupe de personnes qui pratiquent l'échange de services, de savoirs et de biens au moyen d'une unité d'échange choisie par ses membres. Il ambitionne de redonner à la vie de nos villages et quartiers une dimension solidaire et conviviale.</p>
             </header>
 
             <div class="grid-item-3-4 grid-item-center text-center">
@@ -24,68 +24,20 @@
         </div>
     </section>
 
-    <section class="service-list">
+    <section class="service-list exchange-list">
         <div class="wrapper">
             <h2>La vie du SEL{% if user %} (Depuis votre dernière visite){% endif %}</h2>
             <div class="grid">
-                {% for services in services_groups %}
-                    {% for service in services %}
-                        {% if service.type in [1, 3] %}
-                            {% set service_class = 'service-type-1' %}
-                        {% else %}
-                            {% set service_class = 'service-type-2' %}
-                        {% endif %}
-                        <article class="service {{ service_class }} grid-item">
-                            <div class="service-content">
-                                {% if service.getPictureWebPath is not empty %}
-                                    <div class="picture">
-                                        <a href="{{ path('service_show', { 'id': service.id }) }}"><img
-                                                    src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
-                                                    srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
-                                            {{ service.getPictureWebPath | imagine_filter('service_thumb2x') }} 2x" /></a>
-                                    </div>
-                                {% endif %}
-
-                                <header>
-                                    <h3 class="service-title"><a href="{{ path('service_show', { 'id': service.id }) }}">{{ service.title }}</a></h3>
-                                    <small class="author"><a href="{{ path('user_show', { 'id': service.user.id }) }}">{{ service.user.username }}</a></small> -
-                                    <small class="post-date">{{ service.created | date('l, d F Y') }}</small>
-
-                                    <div class="service-author-image">
-                                        <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img
-                                                    src="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }}"
-                                                    srcset="{{ service.user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
-                                                        {{ service.user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
-                                    </div>
-                                    <div class="type">
-                                        {{ icons.icon('tag', 'Type de service') }} <a href="{{ path('service_index', {service_filter: {type: service.type }}) }}">{{ service.typeLabel }}</a>
-                                    </div>
-                                </header>
-                                <div class="body">
-                                    {{ service.body|raw }}
-                                </div>
-
-                                <div class="meta">
-                                    <div class="domain">
-                                        {{ icons.icon('archive', 'Domaine') }} <a href="{{ path('service_index', {service_filter: {domain: service.domain }}) }}">{{ service.domainLabel }}</a>
-                                    </div>
-                                    <div class="category">
-                                        {{ icons.icon('tags', 'Catégorie') }} {% if service.category.parent %}<a href="{{ path('service_index', {service_filter: {category: service.category.parent.id }}) }}">{{ service.category.parent.title }}</a> > {% endif %}<a href="{{ path('service_index', {service_filter: {category: service.category.id }}) }}">{{ service.category.title }}</a>
-                                    </div>
-                                </div>
-
-                                {% if is_granted("edit", service) %}
-                                    <div class="actions">
-                                        <ul>
-                                            <li>
-                                                {{ icons.iconlink('pencil', 'Modifier', path('service_edit', { 'id': service.id })) }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </article>
-                    {% endfor %}
+                {% for service in flash_services %}
+                    {% include 'service/serviceItem.html.twig' with {'service': service} %}
+                {% endfor %}
+                {% for item in journal %}
+                    {% if item.getEntityName == 'Service' %}
+                        {% include 'service/serviceItem.html.twig' with {'service': item} %}
+                    {% endif %}
+                    {% if item.getEntityName == 'Exchange' %}
+                        {% include 'exchange/exchangeItem.html.twig' with {'exchange': item} %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

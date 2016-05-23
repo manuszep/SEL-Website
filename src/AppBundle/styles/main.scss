@@ -34,6 +34,7 @@
 @import "modules/SEL-Block-Filter";
 @import "modules/SEL-Pagination";
 @import "modules/SEL-Service";
+@import "modules/SEL-Exchange";
 @import "modules/SEL-User";
 @import "modules/SEL-Tab";
 @import "modules/SEL-Flash";
@@ -61,6 +62,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Block-Filter();
 @include SEL-Pagination();
 @include SEL-Service();
+@include SEL-Exchange();
 @include SEL-User();
 @include SEL-Tab();
 @include SEL-Flash();

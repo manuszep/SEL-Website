@@ -1,0 +1,27 @@
+<article class="exchange grid-item">
+    <div class="exchange-content">
+
+        <header>
+            <h3 class="exchange-title">{{ exchange.title }}</h3>
+            <small class="author"><a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}">{{ exchange.creditUser.username }}</a> {{ icons.icon('arrow-right') }} <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}">{{ exchange.debitUser.username }}</a></small><br />
+            <small class="post-date">{{ exchange.created | date('l, d F Y') }}</small>
+
+            <div class="exchange-author-image">
+                <a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}"><img
+                            src="{{ exchange.creditUser.getPictureWebPath | imagine_filter('user_thumb') }}"
+                            srcset="{{ exchange.creditUser.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
+                                                    {{ exchange.creditUser.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
+                <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}"><img
+                            src="{{ exchange.debitUser.getPictureWebPath | imagine_filter('user_thumb') }}"
+                            srcset="{{ exchange.debitUser.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
+                                                    {{ exchange.debitUser.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
+            </div>
+            <div class="type">
+                {{ icons.icon('exchange') }} {{ exchange.amount }} noeuds
+            </div>
+        </header>
+        <div class="body">
+            <p>{{ exchange.message }}</p>
+        </div>
+    </div>
+</article>
