@@ -37,7 +37,7 @@ class ServiceVoter extends Voter
             return true;
         }
 
-        return true;
+        return false;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)

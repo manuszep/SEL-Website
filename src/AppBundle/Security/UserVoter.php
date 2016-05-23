@@ -30,14 +30,21 @@ class UserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(
-            self::MANAGE, self::ENABLE, self::CREATE, self::EDIT, self::SHOW, self::LOCK, self::UNLOCK, self::ENABLE_COCO, self::DISABLE_COCO
-        ))) {
-            return false;
+        if (in_array($attribute, array(self::CREATE))) {
+            return true;
         }
 
-        return true;
+        if (in_array($attribute, array(
+            self::MANAGE, self::ENABLE, self::CREATE, self::EDIT, self::SHOW, self::LOCK, self::UNLOCK, self::ENABLE_COCO, self::DISABLE_COCO
+        ))) {
+            if (!$subject instanceof User) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)

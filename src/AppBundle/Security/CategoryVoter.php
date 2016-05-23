@@ -22,7 +22,7 @@ class CategoryVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::manage))) {
+        if (!in_array($attribute, array(self::manage)) || !$subject) {
             return false;
         }
 
