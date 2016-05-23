@@ -28,7 +28,6 @@ class ServiceController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // TODO: Split "offre flash" and "demande flash" to display them separately
         $print_list = $request->get('print_list');
         $form = $this->createForm('AppBundle\Form\ServiceFilterType');
         $template_ext = '';

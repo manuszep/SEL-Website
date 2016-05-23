@@ -8,6 +8,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class ServiceManager
@@ -80,11 +81,12 @@ class ServiceManager
     /**
      * @param bool $reverse_order
      * @param string $flash_or_normal (all|flash|normal)
+     * @param mixed $limit
      * @param string $key
      * 
      * @return QueryBuilder
      */
-    public function getQueryBuilder($reverse_order = true, $flash_or_normal = 'all', $key = 's') {
+    public function getQueryBuilder($reverse_order = true, $flash_or_normal = 'all', $limit = false, $key = 's') {
         $order = ($reverse_order) ? 'DESC' : 'ASC';
         $qb = $this->repo->createQueryBuilder($key);
         $now = new \DateTime();
@@ -105,6 +107,19 @@ class ServiceManager
                 ->setParameter('types', $this->serviceFlashTypes);
         }
 
+        var_dump($limit instanceof \DateTime);
+
+        if ($limit) {
+            if ($limit instanceof \DateTime) {
+                $qb->andWhere(
+                    $qb->expr()->gt($key . '.updated', ':limit')
+                )
+                ->setParameter('limit', $limit->format("Y-m-d H:i:s"));
+            } else if (is_numeric($limit)) {
+                $qb->setMaxResults($limit);
+            }
+        }
+
         return $qb;
     }
 
@@ -114,9 +129,9 @@ class ServiceManager
      * 
      * @return array
      */
-    public function findAll($reverse_order = true, $flash_or_normal = 'all') {
+    public function findAll($reverse_order = true, $flash_or_normal = 'all', $limit = false) {
         /** @var QueryBuilder $qb */
-        $qb = $this->getQueryBuilder($reverse_order, $flash_or_normal);
+        $qb = $this->getQueryBuilder($reverse_order, $flash_or_normal, $limit);
 
         return $qb->getQuery()->getResult();
     }

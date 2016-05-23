@@ -278,6 +278,10 @@ $SEL-Service-border-width: .25rem;
         margin-bottom: .5rem;
     }
 
+    /**
+        TODO: Add a star icon on the flash services
+     */
+
     @include FAST-breakpoint('medium') {
         .service-list {
             .service {
