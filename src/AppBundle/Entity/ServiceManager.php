@@ -107,8 +107,6 @@ class ServiceManager
                 ->setParameter('types', $this->serviceFlashTypes);
         }
 
-        var_dump($limit instanceof \DateTime);
-
         if ($limit) {
             if ($limit instanceof \DateTime) {
                 $qb->andWhere(
