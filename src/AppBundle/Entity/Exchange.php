@@ -237,54 +237,6 @@ class Exchange
     }
 
     /**
-     * Set cuBalance
-     *
-     * @param float $cuBalance
-     *
-     * @return Exchange
-     */
-    public function setCuBalance($cuBalance)
-    {
-        $this->cuBalance = $cuBalance;
-
-        return $this;
-    }
-
-    /**
-     * Get cuBalance
-     *
-     * @return float
-     */
-    public function getCuBalance()
-    {
-        return $this->cuBalance;
-    }
-
-    /**
-     * Set duBalance
-     *
-     * @param float $duBalance
-     *
-     * @return Exchange
-     */
-    public function setDuBalance($duBalance)
-    {
-        $this->duBalance = $duBalance;
-
-        return $this;
-    }
-
-    /**
-     * Get duBalance
-     *
-     * @return float
-     */
-    public function getDuBalance()
-    {
-        return $this->duBalance;
-    }
-
-    /**
      * Get created
      *
      * @return \DateTime
@@ -303,8 +255,5 @@ class Exchange
     {
         return $this->updated;
     }
-
-    // TODO: Add create, delete and update listeners to apply changes on the concerned users
-    // TODO: Check if $cu_balance and $du_balance are necessary because if an exchange is deleted, every older exchanges must be updated.
 }
 
