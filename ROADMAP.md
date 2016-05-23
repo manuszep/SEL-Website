@@ -44,6 +44,10 @@
 
 ## Second release
 
+### Optimization
+
+- http://labs.octivi.com/mastering-symfony2-performance-doctrine/
+
 ### RSS feeds
 
 - RSS feed for every lists (users, services, exchanges)
