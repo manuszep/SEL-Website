@@ -33,14 +33,6 @@ class DefaultController extends Controller
         $flash_services = $service_manager->findAll(true, 'flash');
         $normal_services = $service_manager->findAll(true, 'normal', $limit);
 
-        /**
-         * TODO: Fetch other resources
-         *
-         * - In the same way as done for the normal services, fetch exchanges, events, new users, ...
-         * - Merge all arrays
-         * - Sort them on the updated field
-         */
-
         $exchange_qb = $em->getRepository('AppBundle:Exchange')->createQueryBuilder('e');
 
         $exchange_qb->where(
