@@ -112,6 +112,7 @@ fos_user:
                 sender_name: "%site_name%"
 
 liip_imagine:
+    driver: imagick
     filter_sets:
         cache: ~
         service_thumb:
