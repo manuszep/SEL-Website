@@ -44,7 +44,7 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (!$user instanceof User && $attribute != self::SHOW) {
             // the user must be logged in; if not, deny access
             return false;
         }

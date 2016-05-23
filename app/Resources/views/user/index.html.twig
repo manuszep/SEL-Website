@@ -16,7 +16,7 @@
     <header class="page-header angle-intro angle-reverse inline-heading">
         <div class="wrapper">
             <h1>Les membres</h1>
-            {{ icons.iconlink('print', 'Imprimer', path('user_index', { 'print_list': 1 }), 'btn') }}
+            {{ icons.iconlink('print', 'Imprimer', path('user_index', { 'print_list': 1 }), 'btn') }} {{ icons.iconlink('download', 'Télécharger au format CSV', path('user_csv_index'), 'btn') }}
         </div>
     </header>
 {% endblock %}

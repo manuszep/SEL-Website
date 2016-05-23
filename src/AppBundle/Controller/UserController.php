@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\User;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * User controller.
@@ -52,6 +53,71 @@ class UserController extends Controller
             'users' => $data,
             'print_list' => $print_list
         ));
+    }
+
+    /**
+     * @Route("/csv", name="user_csv_index")
+     * @Method("GET")
+     */
+    public function exportCSV() {
+        $um = $this->get('fos_user.user_manager');
+
+        $users = $um->findUsers();
+
+        foreach($users as $key => $user) {
+            if (!$this->isGranted('show', $user)) {
+                unset($users[$key]);
+            }
+        }
+
+        $response = new StreamedResponse();
+        $response->setCallback(function() use ($users) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, array(
+                'Name',
+                'E-mail 1 – Type',
+                'E-mail 1 - Value',
+                'Phone 1 - Type',
+                'Phone 1 - Value',
+                'Phone 2 - Type',
+                'Phone 2 - Value',
+                'Address 1 - Street',
+                'Address 1 - City',
+                'Address 1 - PO Box',
+                'Address 1 - Postal Code',
+                'Address 1 - Country',
+                'Website 1 - Value'
+            ), ',');
+
+            /**
+             * @var User $user
+             */
+            foreach($users as $user) {
+                fputcsv($handle, array(
+                    $user->getUsername(),
+                    'Principal',
+                    $user->getEmail(),
+                    'Fixe',
+                    $user->getPhone(),
+                    'GSM',
+                    $user->getMobile(),
+                    $user->getStreet() . ' ' . $user->getStreetNumber(),
+                    $user->getCity(),
+                    $user->getStreetBox(),
+                    $user->getZip(),
+                    'Belgique',
+                    'http://www.boutsdefisel.be/membres/' . $user->getId()
+                ), ',');
+            }
+
+            fclose($handle);
+        });
+
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="boutsdefisel.csv"');
+
+        return $response;
     }
 
     /**
@@ -300,8 +366,15 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * @param $users
+     * @param Request $request
+     * @param int $limit
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
     public function getPagination($users, $request, $limit = 10) {
         $paginator  = $this->get('knp_paginator');
+
         return $paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
