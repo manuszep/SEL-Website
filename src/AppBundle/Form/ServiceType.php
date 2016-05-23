@@ -70,10 +70,6 @@ class ServiceType extends AbstractType
                 'placeholder' => 'placeholder.pleaseChoose',
                 'label' => 'label.category'
             ))
-            ->add('promote', CheckboxType::class, array(
-                'label'    => 'label.highlight',
-                'required' => false,
-            ))
             ->add('picture', FileType::class, array(
                 'label' => 'label.picture',
                 'required' => false

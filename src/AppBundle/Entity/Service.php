@@ -58,11 +58,6 @@ class Service
     private $category;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $promote;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture_path;
@@ -465,6 +460,10 @@ class Service
     }
 
     public function isExpired() {
+        if (!$this->getExpiresAt()) {
+            return false;
+        }
+
         return ($this->getExpiresAt()->diff(new \DateTime())->invert == 0);
     }
 }
