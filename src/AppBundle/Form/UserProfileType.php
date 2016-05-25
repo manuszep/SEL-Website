@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\DataTransformer\PhoneNumberTransformer;
 
 class UserProfileType extends AbstractType
 {
@@ -24,13 +25,13 @@ class UserProfileType extends AbstractType
         $builder
             ->add('username', TextType::class, array('label' => 'label.username'))
             ->add('email', EmailType::class, array('label' => 'label.email'))
-            ->add('phone', TextType::class, array('label' => 'label.phone'))
-            ->add('mobile', TextType::class, array('label' => 'label.mobile'))
-            ->add('street', TextType::class, array('label' => 'label.street'))
-            ->add('street_number', TextType::class, array('label' => 'label.streetNumber'))
-            ->add('street_box', TextType::class, array('label' => 'label.streetBox'))
-            ->add('zip', NumberType::class, array('label' => 'label.zip'))
-            ->add('city', TextType::class, array('label' => 'label.city'))
+            ->add('phone', TextType::class, array('label' => 'label.phone', 'required' => false))
+            ->add('mobile', TextType::class, array('label' => 'label.mobile', 'required' => false))
+            ->add('street', TextType::class, array('label' => 'label.street', 'required' => false))
+            ->add('street_number', TextType::class, array('label' => 'label.streetNumber', 'required' => false))
+            ->add('street_box', TextType::class, array('label' => 'label.streetBox', 'required' => false))
+            ->add('zip', NumberType::class, array('label' => 'label.zip', 'required' => false))
+            ->add('city', TextType::class, array('label' => 'label.city', 'required' => false))
             ->add('picture', FileType::class, array(
                 'label' => 'label.picture',
                 'required' => false
@@ -44,6 +45,12 @@ class UserProfileType extends AbstractType
                 'attr' => array('class' => 'main'),
                 'label' => 'label.save'
             ));
+
+        $builder->get('phone')
+            ->addModelTransformer(new PhoneNumberTransformer());
+
+        $builder->get('mobile')
+            ->addModelTransformer(new PhoneNumberTransformer());
     }
 
     /**

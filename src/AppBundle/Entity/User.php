@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\DataTransformer\PhoneNumberTransformer;
 
 /**
  * User
@@ -247,7 +248,8 @@ class User extends BaseUser
      */
     public function setPhone($phone)
     {
-        $this->phone = $phone;
+        $transformer = new PhoneNumberTransformer();
+        $this->phone = $transformer->reverseTransform($phone);
 
         return $this;
     }
@@ -263,8 +265,10 @@ class User extends BaseUser
     }
 
     public function getPhoneFormatted() {
-        return $this->formatPhoneNumber($this->phone);
+        $transformer = new PhoneNumberTransformer();
+        return $transformer->transform($this->phone);
     }
+
     /**
      * Set mobile
      *
@@ -274,7 +278,8 @@ class User extends BaseUser
      */
     public function setMobile($mobile)
     {
-        $this->mobile = $mobile;
+        $transformer = new PhoneNumberTransformer();
+        $this->mobile = $transformer->reverseTransform($mobile);
 
         return $this;
     }
@@ -290,49 +295,8 @@ class User extends BaseUser
     }
 
     public function getMobileFormatted() {
-        return $this->formatPhoneNumber($this->mobile);
-    }
-
-    public function validPhoneNumber($number) {
-        $ret = FALSE;
-        $number = trim($number);
-        if (substr($number, 0, 1) != '0' && substr($number, 0, 1) != '+') {
-            $number = '+32' . $number;
-        }
-        // Patterns
-        $pattern = '/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/';
-        $pattern_mobile = '/^((\+|00)32\s?|0)4(60|[789]\d)(\s?\d{2}){3}$/';
-        // Matches
-        if (preg_match($pattern, $number, $matches)) {
-            $ret = "fixe";
-        } else if (preg_match($pattern_mobile, $number, $matches)) {
-            $ret = "mobile";
-        }
-        return $ret;
-    }
-
-    public function formatPhoneNumber($number) {
-        /* TODO: Make this method a data transformer */
-        $number = trim($number);
-
-        if (substr($number, 0, 1) != '0') {
-            if (substr($number, 0, 1) == '+') {
-                $number = str_replace('+32', '', $number);
-            }
-            $number = '0' . $number;
-        }
-        $valid_phone_number = $this->validPhoneNumber($number);
-        if ($valid_phone_number !== FALSE) {
-            if ($valid_phone_number == 'mobile') {
-                $pattern = '/^\s?(\d{4})\s?(\d{2})\s?(\d{2})\s?(\d{2})\s?$/i';
-            } else {
-                $pattern = '/^(?|(0[2349])\s?(\d{3})|(\d{3})\s?(\d{2}))\s?(\d{2})\s?(\d{2})$/i';
-            }
-            preg_match($pattern, $number, $matches);
-            $number = $matches[1] . ' ' . $matches[2] . ' ' . $matches[3] . ' ' . $matches[4];
-        }
-
-        return $number;
+        $transformer = new PhoneNumberTransformer();
+        return $transformer->transform($this->mobile);
     }
 
 
