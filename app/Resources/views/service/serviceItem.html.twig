@@ -5,6 +5,9 @@
 {% endif %}
 <article class="service {{ service_class }} grid-item">
     <div class="service-content">
+        {% if service.type in [3, 4] %}
+            {{ icons.icon('star', 'Flash', 'service-star-icon') }}
+        {% endif %}
         {% if service.getPictureWebPath is not empty %}
             <div class="picture">
                 <a href="{{ path('service_show', { 'id': service.id }) }}"><img
