@@ -29,7 +29,6 @@
  *  Styles
  **/
 @mixin SEL-Print() {
-    /* TODO: Hide icons in print version */
     @media print {
         html {
             font-size: 9pt !important;
@@ -97,6 +96,10 @@
 
         .add-tool, .main-footer, .dimmer, .sf-toolbar {
             display: none !important;
+        }
+
+        .page-header .btn {
+            display: none;
         }
     }
 }
