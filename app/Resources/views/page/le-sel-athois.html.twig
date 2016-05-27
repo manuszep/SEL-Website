@@ -1,9 +1,95 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Le SEL Athois</h1>
+        </div>
+    </header>
 {% endblock %}
 
 {% block body %}
-    <h1>Le SEL Athois</h1>
+    <section>
+        <div class="wrapper">
+            <div class="grid grid-v-align">
+                <div class="grid-item grid-item-1-4 text-center">
+                    <img class="circle thumbnail" width="250" src="/uploads/pages/margaret_mead.jpg"
+                         srcset="{{ '/uploads/pages/margaret_mead.jpg' | imagine_filter('service_thumb') }} 1x,
+                         {{ '/uploads/pages/margaret_mead.jpg' | imagine_filter('service_thumb2x') }} 2x" />
+                </div>
+
+                <div class="grid-item grid-item-3-4">
+                    <p class="lead">Ne doutez jamais qu'un petit groupe d'individus conscients et engagés puisse changer le monde.
+                        <br>
+                        C'est même la seule chose qui se soit jamais produite.</p>
+                    <p>Margaret Mead</p>
+                    <p><a href="/contact" class="btn primary">Contactez-nous</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="angle-top">
+        <div class="wrapper">
+            <h2>Qu'est-ce qu'un <strong>SEL</strong>&nbsp;?</h2>
+
+            <div class="grid grid-v-align">
+                <div class="grid-item grid-item-2-4 text-center">
+                    <div class="grid grid-v-align">
+                        <div class="grid-item grid-item-1-4 text-center">
+                            <img class="circle thumbnail" width="150" src="/uploads/pages/pain.jpg"
+                                 srcset="{{ '/uploads/pages/pain.jpg' | imagine_filter('service_thumb') }} 1x,
+                                        {{ '/uploads/pages/pain.jpg' | imagine_filter('service_thumb2x') }} 2x" />
+                        </div>
+
+                        <div class="grid-item grid-item-3-4 text-center">
+                            Annick fait du pain pour Marie
+                        </div>
+                    </div>
+
+                    <div class="grid grid-v-align">
+                        <div class="grid-item grid-item-1-4 text-center">
+                            <img class="circle thumbnail" width="150" src="/uploads/pages/enfants.jpg"
+                                 srcset="{{ '/uploads/pages/enfants.jpg' | imagine_filter('service_thumb') }} 1x,
+                                        {{ '/uploads/pages/enfants.jpg' | imagine_filter('service_thumb2x') }} 2x" />
+                        </div>
+
+                        <div class="grid-item grid-item-3-4 text-center">
+                            Annick fait du pain pour Marie
+                        </div>
+                    </div>
+
+                    <div class="grid grid-v-align">
+                        <div class="grid-item grid-item-1-4 text-center">
+                            <img class="circle thumbnail" width="150" src="/uploads/pages/uk.jpg"
+                                 srcset="{{ '/uploads/pages/uk.jpg' | imagine_filter('service_thumb') }} 1x,
+                                        {{ '/uploads/pages/uk.jpg' | imagine_filter('service_thumb2x') }} 2x" />
+                        </div>
+
+                        <div class="grid-item grid-item-3-4 text-center">
+                            Annick fait du pain pour Marie
+                        </div>
+                    </div>
+
+                    <div class="grid grid-v-align">
+                        <div class="grid-item grid-item-1-4 text-center">
+                            <img class="circle thumbnail" width="150" src="/uploads/pages/pelouse.jpg"
+                                 srcset="{{ '/uploads/pages/pelouse.jpg' | imagine_filter('service_thumb') }} 1x,
+                                        {{ '/uploads/pages/pelouse.jpg' | imagine_filter('service_thumb2x') }} 2x" />
+                        </div>
+
+                        <div class="grid-item grid-item-3-4 text-center">
+                            Annick fait du pain pour Marie
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item grid-item-2-4">
+                    <p>Ces différents échanges sont comptabilisés par le comité de coordination du SEL. Une heure de prestation = une heure de prestation, quel que soit le type de service et la personne qui l’a rendu.<br />Au sein de Bouts de fiSEL, une heure équivaut à 1 noeud.</p>
+                    <hr>
+                    <p>Si le sujet vous intéresse et vous souhaitez en savoir plus, allez lire notre charte. Vous pouvez également consulter la brochure éditée par la Communauté française</p>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

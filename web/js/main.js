@@ -14577,7 +14577,7 @@ jQueryBridget('masonry', Masonry, $);
 
 $('body').addClass('js');
 
-var $grid = $('.grid');
+var $grid = $('.masonry');
 
 if ($grid.length) {
     $grid.masonry({

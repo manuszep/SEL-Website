@@ -122,4 +122,11 @@ $FAST-Deco-shadow-ambient-shadow-opacity: 0.12 !default;
     .FAST-Deco-shadow-7 {
         @extend %FAST-Deco-shadow-7;
     }
+    .thumbnail {
+        @include FAST-Deco-shadow-1();
+        border: 3px solid #fff;
+    }
+    .circle {
+        border-radius: 50%;
+    }
 }

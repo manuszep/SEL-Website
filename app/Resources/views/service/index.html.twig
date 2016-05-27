@@ -19,7 +19,7 @@
 {% block body %}
     <section class="service-list">
         <div class="wrapper">
-            <div class="grid">
+            <div class="grid masonry">
                 {% for service in services %}
                     {% include 'service/serviceItem.html.twig' with {'service': service} %}
                 {% endfor %}

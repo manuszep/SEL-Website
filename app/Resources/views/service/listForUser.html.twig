@@ -6,7 +6,7 @@
         {% if services|length < 1 %}
             <p class="lead text-center">Vous n'avez encore encodé aucun service. Cliquez sur le bouton <strong>+</strong> en bas à droite de la page pour en ajouter.</p>
         {% else %}
-        <div class="grid">
+        <div class="grid masonry">
             {% for service in services %}
                 {% if service.type in [1, 3] %}
                     {% set service_class = 'service-type-1' %}

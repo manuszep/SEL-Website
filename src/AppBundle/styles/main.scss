@@ -50,6 +50,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include FAST-Global-Basic();
 @include FAST-Button();
 @include FAST-Form();
+@include FAST-Deco();
 @include FAST-Card();
 @include SEL-Wrapper();
 @include SEL-Type();
