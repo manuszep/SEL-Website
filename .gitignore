@@ -16,5 +16,3 @@
 /web/bundles/
 node_modules
 /web/media/cache
-/web/css/*
-/web/js/*
