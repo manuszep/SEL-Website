@@ -204,6 +204,7 @@ class UserController extends Controller
             $password = substr($tokenGenerator->generateToken(), 0, 12);
 
             $user->setPassword($password);
+            $user->setBalance(50);
 
             if (null === $user->getConfirmationToken()) {
                 $user->setConfirmationToken($tokenGenerator->generateToken());
