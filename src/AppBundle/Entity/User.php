@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use AppBundle\DataTransformer\PhoneNumberTransformer;
 
 /**
@@ -37,7 +38,12 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="street_number", type="string", length=10, nullable=true)
+     * @ORM\Column(name="street_number", type="string", length=5, nullable=true)
+     *
+     * @Assert\Length(
+     *      max = 5,
+     *      maxMessage = "Le numéro de rue ne peut dépasser 5 caractères"
+     * )
      */
     private $street_number;
 
@@ -45,6 +51,11 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="street_box", type="string", length=5, nullable=true)
+     *
+     * @Assert\Length(
+     *      max = 5,
+     *      maxMessage = "La boite postale ne peut dépasser 5 caractères."
+     * )
      */
     private $street_box;
 
@@ -59,6 +70,16 @@ class User extends BaseUser
      * @var integer
      *
      * @ORM\Column(name="zip", type="integer", nullable=true)
+     *
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Le code postal n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "Le code postal doit être un nombre à 4 chiffres."
+     * )
      */
     private $zip;
 
@@ -80,6 +101,11 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="balance", type="decimal", precision=6, scale=2)
+     *
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="La balance doit être un nombre."
+     * )
      */
     private $balance = 0;
 
@@ -105,7 +131,11 @@ class User extends BaseUser
     private $picture_path;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(
+     *     maxSize="6000000",
+     *     mimeTypes={"image/*"},
+     *     mimeTypesMessage = "Cette image n'est pas valide."
+     * )
      */
     private $picture;
 
@@ -486,5 +516,31 @@ class User extends BaseUser
 
         // clean up the file property as you won't need it anymore
         $this->picture = null;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public static function validate($object, ExecutionContextInterface $context, $payload = null)
+    {
+        $phone = $object->getPhone();
+        $mobile = $object->getMobile();
+
+        $pattern = '/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/';
+        $pattern_mobile = '/^((\+|00)32\s?|0)4(60|[789]\d)(\s?\d{2}){3}$/';
+
+        if (!preg_match($pattern, $phone, $matches)) {
+            $context->buildViolation('Ce numéro de téléphone ne semble pas valide.')
+                ->atPath('phone')
+                ->addViolation()
+            ;
+        }
+
+        if (!preg_match($pattern_mobile, $mobile, $matches)) {
+            $context->buildViolation('Ce numéro de GSM ne semble pas valide.')
+                ->atPath('mobile')
+                ->addViolation()
+            ;
+        }
     }
 }
