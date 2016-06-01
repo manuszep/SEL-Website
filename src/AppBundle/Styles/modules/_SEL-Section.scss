@@ -45,8 +45,6 @@ $SEL-Section-angle-size: 3rem;
         }
 
         &:first-child {
-            margin-top: -$SEL-Content-top-margin;
-            padding-top: $SEL-Content-top-margin;
             padding-bottom: 4rem;
         }
 
@@ -117,6 +115,16 @@ $SEL-Section-angle-size: 3rem;
     }
 
     @include FAST-breakpoint('large') {
+        .main-content {
+            margin-top: $SEL-Content-top-margin;
+        }
+
+        .angle-intro {
+            &:first-child {
+                margin-top: -$SEL-Content-top-margin;
+                padding-top: $SEL-Content-top-margin;
+            }
+        }
         .page-header.has-block {
             h1 {
                 max-width: 50%;

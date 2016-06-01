@@ -32,22 +32,14 @@ $SEL-Header-bg-color: $FAST-Color-primary;
  **/
 @mixin SEL-Header() {
     .header {
-        position: fixed;
-        top: 0;
-        left: 0;
         width: 100%;
         z-index: 1;
-        background: rgba($SEL-Header-bg-color, .9);
-        margin-bottom: $SEL-Header-margin-bottom;
+        background: $SEL-Header-bg-color;
 
         .wrapper {
-            /*@include FAST-Deco-shadow(1);
-            padding: .75rem 1rem;
-            border-radius: 5px;
-            background: rgba(255,255,255,.9);*/
             margin: 1rem auto;
-            display: flex;
             align-items: center;
+            position: relative;
             /* TODO: backdrop-filter: blur(10px); // This is not yet supported */
         }
 
@@ -62,57 +54,159 @@ $SEL-Header-bg-color: $FAST-Color-primary;
         }
 
         .menu {
-            display: flex;
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 1rem 0 0;
+            //border: 1px solid $FAST-Color-white-d;
+            border-width: 1px 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all .3s;
 
             li {
+                width: 100%;
+                text-align: center;
                 padding: 0;
                 margin: 0;
                 position: relative;
-
-                &:hover {
-                    ul {
-                        display: block;
-                    }
-                }
+                background: rgba(#fff, .1);
+                border-bottom: 1px solid $FAST-Color-primary;
             }
 
             ul {
-                display: none;
-                position: absolute;
                 list-style: none;
                 padding: 0;
-                margin: 0;
                 right: 0;
                 top: 100%;
-                background: #fff;
                 min-width: 12em;
-                padding: .25em;
-                @include FAST-Deco-shadow-2();
+                margin: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: all .3s;
+                transition-delay: .3s;
+            }
 
-                a {
-                    color: $FAST-Color-primary;
-                }
-
-                li:hover > a, a:hover {
-                    color: #fff;
-                    background: $FAST-Color-primary;
-                }
+            li:hover ul {
+                max-height: 10em;
+                margin: 0 0 1rem 0;
+                padding: .25em 1em;
             }
 
             a {
                 color: FAST-foreground($SEL-Header-bg-color);
                 display: inline-block;
                 width: 100%;
-                padding: .25rem 1rem;
+                padding: .5rem 1rem;
                 border-radius: .15rem;
             }
 
             li:hover > a, a:hover {
                 background: FAST-foreground($SEL-Header-bg-color);
                 color: FAST-foreground(FAST-foreground($SEL-Header-bg-color), $SEL-Header-bg-color);
+            }
+        }
+
+        .menu-toggle-label {
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            svg {
+                font-size: 2em;
+                color: #fff;
+            }
+
+            .menu-close, .menu-open {
+                transition: all .3s;
+                position: absolute;
+            }
+
+            .menu-close {
+                opacity: 0;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-toggle:checked + label {
+            .menu-close {
+                opacity: 1;
+                transform: rotateZ(180deg);
+            }
+
+            .menu-open {
+                opacity: 0;
+                transform: rotateZ(180deg);
+            }
+        }
+
+        .menu-toggle:checked + label + .menu {
+            max-height: 30rem;
+        }
+    }
+
+    @include FAST-breakpoint(large) {
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba($SEL-Header-bg-color, .9);
+
+            .wrapper {
+                display: flex;
+            }
+
+            .menu-toggle-label, .menu-toggle {
+                display: none;
+            }
+
+            .menu {
+                display: flex;
+                border: none;
+                margin: 0;
+                max-height: none;
+                overflow: visible;
+
+                li {
+                    width: auto;
+                    text-align: left;
+                    background: none;
+                    border: none;
+                }
+
+                a {
+                    padding: .25rem 1rem;
+                }
+
+                ul {
+                    display: none;
+                    position: absolute;
+                    background: #fff;
+                    @include FAST-Deco-shadow-2();
+                    margin: 0;
+                    padding: .25em;
+                    max-height: none;
+                    overflow: visible;
+
+                    a {
+                        color: $FAST-Color-primary;
+                    }
+
+                    li:hover > a, a:hover {
+                        color: #fff;
+                        background: $FAST-Color-primary;
+                    }
+                }
+
+                li:hover {
+                    ul {
+                        display: block;
+                        max-height: none;
+                    }
+                }
             }
         }
     }

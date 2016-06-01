@@ -69,8 +69,4 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Flash();
 @include SEL-Wysiwyg();
 
-.main-content {
-    margin-top: $SEL-Content-top-margin;
-}
-
 @include SEL-Print();
