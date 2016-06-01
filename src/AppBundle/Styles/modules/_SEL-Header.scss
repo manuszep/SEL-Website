@@ -111,6 +111,10 @@ $SEL-Header-bg-color: $FAST-Color-primary;
             position: absolute;
             right: 0;
             top: 0;
+            padding: 0;
+            margin: 0;
+            width: 2rem;
+            height: 2rem;
 
             svg {
                 font-size: 2em;
