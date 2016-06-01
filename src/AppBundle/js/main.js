@@ -13,6 +13,7 @@ window.jQuery = window.$ = $;
 
 require('trumbowyg');
 
+
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
 
@@ -37,6 +38,8 @@ let form = new Form();
 let tab = new Tab();
 let flash = new Flash();
 let disqus = new Disqus();
+
+$.trumbowyg.svgPath = '/img/icons.svg';
 
 $('.wysiwyg').trumbowyg({
     fullscreenable: false,

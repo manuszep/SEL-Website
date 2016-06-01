@@ -14597,6 +14597,8 @@ var tab = new _Tab.Tab();
 var flash = new _Flash.Flash();
 var disqus = new _Disqus.Disqus();
 
+$.trumbowyg.svgPath = '/img/icons.svg';
+
 $('.wysiwyg').trumbowyg({
     fullscreenable: false,
     closable: false,
