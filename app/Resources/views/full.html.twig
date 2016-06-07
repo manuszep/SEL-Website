@@ -117,6 +117,7 @@
 
         <div class="header">
             {% set messages_list = app.session.flashBag.all %}
+            {% block fos_user_error %}{% endblock %}
             {% if messages_list %}
                 <div class="flash-messages">
                     <div class="wrapper">

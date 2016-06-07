@@ -33,7 +33,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-    default_locale:  "%locale%"
+    default_locale:  "fr"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
@@ -158,3 +158,8 @@ knp_paginator:
     template:
         pagination: 'Pagination/sliding.html.twig'     # sliding pagination controls template
         sortable: 'Pagination/sortable_link.html.twig'
+
+ewz_recaptcha:
+    public_key:  '%captcha_public_key%'
+    private_key: '%captcha_private_key%'
+    locale_key:  'fr'

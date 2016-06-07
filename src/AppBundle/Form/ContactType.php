@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Collection;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 
 class ContactType extends AbstractType
 {
@@ -56,16 +58,28 @@ class ContactType extends AbstractType
 
         $builder
             ->add('name', TextType::class, array(
-                'attr' => $name_attrs
+                'attr' => $name_attrs,
+                'constraints' => array(
+                    new NotBlank(array('message' => 'Le nom est obligatoire')),
+                    new Length(array('min' => 2))
+                )
             ))
             ->add('email', EmailType::class, array(
-                'attr' => $email_attrs
+                'attr' => $email_attrs,
+                'constraints' => array(
+                    new NotBlank(array('message' => 'L\'email est obligatoire')),
+                    new Email(array('message' => 'Cette adresse email ne semble pas valide.'))
+                )
             ))
             ->add('subject', TextType::class, array(
                 'attr' => array(
                     'placeholder' => 'Le sujet de votre message',
                     'label' => 'Sujet',
                     'pattern'     => '.{3,}' //minlength
+                ),
+                'constraints' => array(
+                    new NotBlank(array('message' => 'Le sujet est obligatoire.')),
+                    new Length(array('min' => 3))
                 )
             ))
             ->add('message', TextareaType::class, array(
@@ -75,37 +89,35 @@ class ContactType extends AbstractType
                     'placeholder' => 'Votre message',
                     'label' => 'Message',
                     'class' => "wysiwyg"
+                ),
+                'constraints' => array(
+                    new NotBlank(array('message' => 'Le message est obligatoire.')),
+                    new Length(array('min' => 5))
+                )
+            ))
+            ->add('recaptcha', EWZRecaptchaType::class, array(
+                'attr' => array(
+                    'options' => array(
+                        'theme' => 'light',
+                        'type'  => 'image',
+                        'size'  => 'normal',
+                        'defer' => true,
+                        'async' => true
+                    )
+                ),
+                'mapped'      => false,
+                'constraints' => array(
+                    new RecaptchaTrue()
                 )
             ))
             ->add('send', SubmitType::class, array(
                 'attr' => array('class' => 'main'),
-                'label' => 'label.send'
-            ));;
+                    'label' => 'label.send'
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $collectionConstraint = new Collection(array(
-            'name' => array(
-                new NotBlank(array('message' => 'Le nom est obligatoire')),
-                new Length(array('min' => 2))
-            ),
-            'email' => array(
-                new NotBlank(array('message' => 'L\'email est obligatoire')),
-                new Email(array('message' => 'Cette adresse email ne semble pas valide.'))
-            ),
-            'subject' => array(
-                new NotBlank(array('message' => 'Le sujet est obligatoire.')),
-                new Length(array('min' => 3))
-            ),
-            'message' => array(
-                new NotBlank(array('message' => 'Le message est obligatoire.')),
-                new Length(array('min' => 5))
-            )
-        ));
-
-        $resolver->setDefaults(array(
-            'constraints' => $collectionConstraint
-        ));
     }
 }

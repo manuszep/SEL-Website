@@ -42,6 +42,12 @@
                     {{ form_widget(form.message) }}
                     {{ form_errors(form.message) }}
                 </div>
+
+                <div class="form-row">
+                    {{ form_label(form.recaptcha) }}
+                    {{ form_widget(form.recaptcha) }}
+                    {{ form_errors(form.recaptcha) }}
+                </div>
             </fieldset>
 
             <div class="form-actions">
