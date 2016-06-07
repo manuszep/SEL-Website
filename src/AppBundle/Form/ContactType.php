@@ -73,7 +73,8 @@ class ContactType extends AbstractType
                     'cols' => 90,
                     'rows' => 10,
                     'placeholder' => 'Votre message',
-                    'label' => 'Message'
+                    'label' => 'Message',
+                    'class' => "wysiwyg"
                 )
             ))
             ->add('send', SubmitType::class, array(
