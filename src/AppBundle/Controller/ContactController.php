@@ -26,6 +26,7 @@ class ContactController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            
             $message = \Swift_Message::newInstance()
                 ->setSubject($data['subject'])
                 ->setFrom($data['email'])

@@ -49,9 +49,9 @@ class ContactType extends AbstractType
             // Set default value on name_attrs and lock field
             $usr = $this->tokenStorage->getToken()->getUser();
             $name_attrs['value'] = $usr->getUsername();
-            $name_attrs['disabled'] = true;
+            $name_attrs['readonly'] = true;
             $email_attrs['value'] = $usr->getEmail();
-            $email_attrs['disabled'] = true;
+            $email_attrs['readonly'] = true;
         }
 
         $builder
