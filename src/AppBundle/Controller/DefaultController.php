@@ -51,7 +51,7 @@ class DefaultController extends Controller
                     return 0;
                 }
 
-                return ($a->getUpdated() < $b->getUpdated())? -1 : 1;
+                return ($a->getUpdated() < $b->getUpdated())? 1 : -1;
             }
         );
 
