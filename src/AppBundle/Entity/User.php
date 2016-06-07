@@ -529,7 +529,7 @@ class User extends BaseUser
         $pattern = '/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/';
         $pattern_mobile = '/^((\+|00)32\s?|0)4(60|[789]\d)(\s?\d{2}){3}$/';
 
-        if ($phone != null) {
+        if (null !== $phone || '' !== $phone) {
             if (!preg_match($pattern, $phone, $matches)) {
                 $context->buildViolation('Ce numéro de téléphone ne semble pas valide.')
                     ->atPath('phone')
@@ -537,7 +537,7 @@ class User extends BaseUser
             }
         }
 
-        if ($mobile != null) {
+        if (null !== $mobile || '' !== $mobile) {
             if (!preg_match($pattern_mobile, $mobile, $matches)) {
                 $context->buildViolation('Ce numéro de GSM ne semble pas valide.')
                     ->atPath('mobile')
