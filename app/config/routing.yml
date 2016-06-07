@@ -70,6 +70,9 @@ user:
 category:
     resource: "@AppBundle/Controller/CategoryController.php"
     type:     annotation
+contact:
+    resource: "@AppBundle/Controller/ContactController.php"
+    type:     annotation
 page:
     resource: "@AppBundle/Controller/PageController.php"
     type:     annotation

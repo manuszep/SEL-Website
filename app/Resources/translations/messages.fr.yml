@@ -36,6 +36,7 @@ label:
     message: Message
     amount: Montant
     parent: Parent
+    send: Envoyer
 
 placeholder:
     pleaseChoose: Veuillez faire un choix dans la liste
