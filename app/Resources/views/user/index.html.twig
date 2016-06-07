@@ -29,10 +29,10 @@
                     <tr>
                         <td width="1"></td>
                         <th>Nom d'utilisateur</th>
-                        <th>Email</th>
-                        <th class="hide-for-print">Noeuds</th>
-                        <th>Téléphone</th>
-                        <th>Adresse</th>
+                        <th class="hide-small hide-medium">Email</th>
+                        <th class="hide-for-print hide-small hide-medium">Noeuds</th>
+                        <th class="hide-small hide-medium">Téléphone</th>
+                        <th class="hide-small hide-medium">Adresse</th>
                         <th class="hide-for-print" width="1"></th>
                     </tr>
                 </thead>
@@ -42,10 +42,10 @@
                     <tr class="{% if app.getUser == user %}current-user {% endif %}{% if user.locked or not user.isEnabled %}hide-for-print {% endif %}{% if user.locked %}locked {% endif %}{% if not user.isEnabled %}disabled {% endif %}{% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
                         <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
-                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                        <td class="hide-for-print">{{ user.balance }}</td>
-                        <td>{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
-                        <td>{{ user.address|nl2br }}</td>
+                        <td class="hide-small hide-medium"><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                        <td class="hide-for-print hide-small hide-medium">{{ user.balance }}</td>
+                        <td class="hide-small hide-medium">{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
+                        <td class="hide-small hide-medium">{{ user.address|nl2br }}</td>
                         <td class="hide-for-print">
                             {% set canEdit = is_granted("edit", user) %}
                             {% set canManage = is_granted("manage", user) %}

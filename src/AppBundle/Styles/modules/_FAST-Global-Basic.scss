@@ -59,4 +59,34 @@
     .right {
         float: right;
     }
+
+    @include FAST-breakpoint((small only)) {
+        .hide-small {
+            display: none;
+        }
+    }
+
+    @include FAST-breakpoint(medium only) {
+        .hide-medium {
+            display: none;
+        }
+    }
+
+    @include FAST-breakpoint(large only) {
+        .hide-large {
+            display: none;
+        }
+    }
+
+    @include FAST-breakpoint(xlarge only) {
+        .hide-xlarge {
+            display: none;
+        }
+    }
+
+    @include FAST-breakpoint(xxlarge only) {
+        .hide-xxlarge {
+            display: none;
+        }
+    }
 }
