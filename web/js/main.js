@@ -14325,6 +14325,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var $ = require('jquery');
 
+var Faq = exports.Faq = function () {
+    function Faq() {
+        _classCallCheck(this, Faq);
+
+        this._cache = {};
+
+        this._cache.list = $('.faq-list');
+        this._cache.questions = this._cache.list.find('.question');
+        this._cache.answers = this._cache.list.find('.answer');
+
+        this._cache.answers.hide();
+
+        this.setupEvents();
+    }
+
+    _createClass(Faq, [{
+        key: 'setupEvents',
+        value: function setupEvents() {
+            var self = this;
+            this._cache.questions.on('click.selFaq', function () {
+                self.handleQuestionClick($(this));
+            });
+        }
+    }, {
+        key: 'handleQuestionClick',
+        value: function handleQuestionClick($question) {
+            var $answer = $question.siblings('.answer');
+
+            this._cache.answers.not($answer).slideUp();
+            $answer.slideDown();
+        }
+    }]);
+
+    return Faq;
+}();
+
+},{"jquery":7}],14:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $ = require('jquery');
+
 var Filter = exports.Filter = function () {
     function Filter() {
         _classCallCheck(this, Filter);
@@ -14360,7 +14409,7 @@ var Filter = exports.Filter = function () {
     return Filter;
 }();
 
-},{"jquery":7}],14:[function(require,module,exports){
+},{"jquery":7}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14403,7 +14452,7 @@ var Flash = exports.Flash = function () {
     return Flash;
 }();
 
-},{"jquery":7}],15:[function(require,module,exports){
+},{"jquery":7}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14448,7 +14497,7 @@ var Form = exports.Form = function () {
     return Form;
 }();
 
-},{"jquery":7}],16:[function(require,module,exports){
+},{"jquery":7}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14550,7 +14599,7 @@ var Tab = exports.Tab = function () {
     return Tab;
 }();
 
-},{"jquery":7}],17:[function(require,module,exports){
+},{"jquery":7}],18:[function(require,module,exports){
 'use strict';
 
 var _Filter = require('./Filter.js');
@@ -14562,6 +14611,8 @@ var _Tab = require('./Tab.js');
 var _Flash = require('./Flash.js');
 
 var _Disqus = require('./Disqus.js');
+
+var _Faq = require('./Faq.js');
 
 var $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -14596,6 +14647,7 @@ var form = new _Form.Form();
 var tab = new _Tab.Tab();
 var flash = new _Flash.Flash();
 var disqus = new _Disqus.Disqus();
+var faq = new _Faq.Faq();
 
 $.trumbowyg.svgPath = '/img/icons.svg';
 
@@ -14607,4 +14659,4 @@ $('.wysiwyg').trumbowyg({
     btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'removeformat']
 });
 
-},{"./Disqus.js":12,"./Filter.js":13,"./Flash.js":14,"./Form.js":15,"./Tab.js":16,"imagesloaded":5,"jquery":7,"jquery-bridget":6,"masonry-layout":8,"trumbowyg":11}]},{},[17]);
+},{"./Disqus.js":12,"./Faq.js":13,"./Filter.js":14,"./Flash.js":15,"./Form.js":16,"./Tab.js":17,"imagesloaded":5,"jquery":7,"jquery-bridget":6,"masonry-layout":8,"trumbowyg":11}]},{},[18]);

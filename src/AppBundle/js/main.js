@@ -3,6 +3,7 @@ import {Form} from './Form.js';
 import {Tab} from './Tab.js';
 import {Flash} from './Flash.js';
 import {Disqus} from './Disqus.js';
+import {Faq} from './Faq.js';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -38,6 +39,7 @@ let form = new Form();
 let tab = new Tab();
 let flash = new Flash();
 let disqus = new Disqus();
+let faq = new Faq();
 
 $.trumbowyg.svgPath = '/img/icons.svg';
 

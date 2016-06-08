@@ -73,6 +73,9 @@ category:
 contact:
     resource: "@AppBundle/Controller/ContactController.php"
     type:     annotation
+faq:
+    resource: "@AppBundle/Controller/FaqController.php"
+    type:     annotation
 page:
     resource: "@AppBundle/Controller/PageController.php"
     type:     annotation

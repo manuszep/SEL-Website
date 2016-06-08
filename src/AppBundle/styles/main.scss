@@ -39,6 +39,7 @@
 @import "modules/SEL-Tab";
 @import "modules/SEL-Flash";
 @import "modules/SEL-Wysiwyg";
+@import "modules/SEL-Faq";
 @import "modules/SEL-Print";
 
 $FAST-Global-flexbox: true !global;
@@ -68,5 +69,6 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Tab();
 @include SEL-Flash();
 @include SEL-Wysiwyg();
+@include SEL-Faq();
 
 @include SEL-Print();

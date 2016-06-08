@@ -14,7 +14,8 @@ use AppBundle\Entity\Category;
  * @ORM\HasLifecycleCallbacks()
  */
 class Service
-{/**
+{
+    /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
