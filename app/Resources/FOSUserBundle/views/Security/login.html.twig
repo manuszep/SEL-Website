@@ -17,9 +17,7 @@
             <form action="{{ path("fos_user_security_check") }}" method="post" class="small-form">
 
                 {% if error %}
-                    {% block fos_user_error %}
-                        <div class="message form-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endblock %}
+                    <div class="message form-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
                 <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

@@ -125,4 +125,24 @@
     @include FAST-breakpoint(xxlarge only) {
         @include FAST-Wrapper-grid-item(xxlarge);
     }
+
+    @include FAST-breakpoint((small up)) {
+        @include FAST-Wrapper-grid-item(small-up);
+    }
+
+    @include FAST-breakpoint(medium up) {
+        @include FAST-Wrapper-grid-item(medium-up);
+    }
+
+    @include FAST-breakpoint(large up) {
+        @include FAST-Wrapper-grid-item(large-up);
+    }
+
+    @include FAST-breakpoint(xlarge up) {
+        @include FAST-Wrapper-grid-item(xlarge-up);
+    }
+
+    @include FAST-breakpoint(xxlarge up) {
+        @include FAST-Wrapper-grid-item(xxlarge-up);
+    }
 }
