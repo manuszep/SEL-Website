@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <header class="page-header has-block angle-intro">
+        <div class="wrapper">
+            <h1>Réinitialisation du mot de passe</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    {% trans_default_domain 'FOSUserBundle' %}
+    <section>
+        <div class="wrapper">
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="small-form">
+                {% if invalid_username is defined %}
+                    <div class="message form-error">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
+                {% endif %}
+
+                <fieldset>
+                    <div class="form-row">
+                        <label for="username">{{ 'resetting.request.username'|trans }}</label>
+                        <input type="text" id="username" name="username" required="required" />
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button class="main" type="submit" id="_submit" name="_submit">{{ 'resetting.request.submit'|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock fos_user_content %}

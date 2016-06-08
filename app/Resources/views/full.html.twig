@@ -160,6 +160,7 @@
                             <ul>
                                 <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                                 <li><a href="{{ path('user_edit', { 'id': app.user.id }) }}">Modifier</a></li>
+                                <li><a href="{{ path('fos_user_change_password', { 'id': app.user.id }) }}">Changer de mot de passe</a></li>
                             </ul>
                         </li>
                     {% else %}

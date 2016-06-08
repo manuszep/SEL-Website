@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <header class="page-header has-block angle-intro">
+        <div class="wrapper">
+            <h1>Réinitialisation du mot de passe</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    {% trans_default_domain 'FOSUserBundle' %}
+    <section>
+        <div class="wrapper">
+            <p class="text-center">
+                {{ 'resetting.check_email'|trans({'%email%': email}) }}
+            </p>
+            <p class="lead text-center">
+                <a href="/">Retour à l'accueil</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}
