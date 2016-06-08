@@ -13,9 +13,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\DataTransformer\PhoneNumberTransformer;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class UserProfileType extends AbstractType
 {
+    private $authorizationChecker;
+    private $tokenStorage;
+
+    public function __construct(AuthorizationChecker $authorizationChecker, TokenStorage $tokenStorage)
+    {
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -35,16 +46,20 @@ class UserProfileType extends AbstractType
             ->add('picture', FileType::class, array(
                 'label' => 'label.picture',
                 'required' => false
-            ))
-            ->add('current_password', PasswordType::class, array(
+            ));
+
+        if (!$this->authorizationChecker->isGranted('ROLE_EDITOR')) {
+            $builder->add('current_password', PasswordType::class, array(
                 'label' => 'label.passwordCurrent',
                 'mapped' => false,
                 'constraints' => new UserPassword(),
-            ))
-            ->add('save', SubmitType::class, array(
-                'attr' => array('class' => 'main'),
-                'label' => 'label.save'
             ));
+        }
+
+        $builder->add('save', SubmitType::class, array(
+            'attr' => array('class' => 'main'),
+            'label' => 'label.save'
+        ));
 
         $builder->get('phone')
             ->addModelTransformer(new PhoneNumberTransformer());

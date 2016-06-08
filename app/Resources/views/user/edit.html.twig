@@ -63,11 +63,13 @@
                 {{ form_widget(form.picture) }}
                 {{ form_errors(form.picture) }}
             </div>
+            {% if form.current_password is defined %}
             <div class="form-row">
                 {{ form_label(form.current_password) }}
                 {{ form_widget(form.current_password) }}
                 {{ form_errors(form.current_password) }}
             </div>
+            {% endif %}
         </fieldset>
 
         <div class="form-actions">
