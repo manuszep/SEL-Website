@@ -19,7 +19,7 @@
                 {% for exchange in exchanges %}
                     <tr>
                         <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
-                        <td>{{ exchange.message }}</td>
+                        <td><b>{{ exchange.title }}</b>{% if exchange.message is defined %}<br />{{ exchange.message }}{% endif %}</td>
                         <td>{{ exchange.amount }}</td>
                         <td>
                             <ul class="table-actions">

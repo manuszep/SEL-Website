@@ -76,8 +76,9 @@ class ExchangeController extends Controller
         $error = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $current_user = $this->getUser();
             if (!$exchange->getDebitUser()) {
-                $exchange->setDebitUser($this->getUser());
+                $exchange->setDebitUser($current_user);
             }
 
             if ($exchange->getCreditUser()->getId() == $exchange->getDebitUser()->getId()) {
@@ -98,7 +99,7 @@ class ExchangeController extends Controller
                     'L\'échange a bien été enregistré.'
                 );
 
-                return $this->redirectToRoute('exchange_index');
+                return $this->redirect($this->generateUrl('user_show', array('id' => $current_user->getId())) . '#section1');
             }
         }
 
