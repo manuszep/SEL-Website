@@ -33,7 +33,7 @@ $SEL-Header-bg-color: $FAST-Color-primary;
 @mixin SEL-Header() {
     .header {
         width: 100%;
-        z-index: 1;
+        z-index: 9;
         background: $SEL-Header-bg-color;
 
         .wrapper {
