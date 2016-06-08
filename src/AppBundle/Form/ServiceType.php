@@ -77,7 +77,10 @@ class ServiceType extends AbstractType
             ->add('expires_at', DateType::class, array(
                 'widget' => 'single_text',
                 'required' => false,
-                'label' => 'label.expiresAt'
+                'label' => 'label.expiresAt',
+                'attr' => array(
+                    'placeholder' => 'jj/mm/aaaa'
+                )
             ))
             ->add('save', SubmitType::class, array(
                 'attr' => array('class' => 'main'),
