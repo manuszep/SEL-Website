@@ -7,8 +7,22 @@
             {{ icons.iconlink('print', 'Imprimer', path('service_index', { 'print_list': 1 }), 'btn') }}
             <div class="filters header-block service-filters">
                 <a href="#" class="filter-toggle">Filtrer</a>
-                <form method="get" action=".">
-                    {{ form_rest(filter) }}
+                <form method="get" action="." class="grid">
+                    <div class="form-row">
+                        {{ form_label(filter.category) }}
+                        {{ form_widget(filter.category) }}
+                        {{ form_errors(filter.category) }}
+                    </div>
+                    <div class="form-row grid-item-medium-up grid-item-2-4-medium-up">
+                        {{ form_label(filter.type) }}
+                        {{ form_widget(filter.type) }}
+                        {{ form_errors(filter.type) }}
+                    </div>
+                    <div class="form-row grid-item-medium-up grid-item-2-4-medium-up">
+                        {{ form_label(filter.domain) }}
+                        {{ form_widget(filter.domain) }}
+                        {{ form_errors(filter.domain) }}
+                    </div>
                     <button id="filter_submit" type="submit" name="submit-filter">Filtrer</button>
                 </form>
             </div>
