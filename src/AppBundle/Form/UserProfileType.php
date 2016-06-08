@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -30,7 +30,7 @@ class UserProfileType extends AbstractType
             ->add('street', TextType::class, array('label' => 'label.street', 'required' => false))
             ->add('street_number', TextType::class, array('label' => 'label.streetNumber', 'required' => false))
             ->add('street_box', TextType::class, array('label' => 'label.streetBox', 'required' => false))
-            ->add('zip', NumberType::class, array('label' => 'label.zip', 'required' => false))
+            ->add('zip', IntegerType::class, array('label' => 'label.zip', 'required' => false))
             ->add('city', TextType::class, array('label' => 'label.city', 'required' => false))
             ->add('picture', FileType::class, array(
                 'label' => 'label.picture',

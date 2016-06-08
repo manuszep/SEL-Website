@@ -73,7 +73,7 @@ class User extends BaseUser
      *
      * @Assert\Type(
      *     type="integer",
-     *     message="Le code postal n'est pas valide."
+     *     message="Le code postal doit être un nombre entier."
      * )
      * @Assert\Length(
      *      min = 4,
