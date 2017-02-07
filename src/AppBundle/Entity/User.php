@@ -110,6 +110,13 @@ class User extends BaseUser
     private $balance = 0;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="locked", type="boolean")
+     */
+    protected $locked;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -430,6 +437,35 @@ class User extends BaseUser
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * isAccountNonLocked
+     *
+     * @return \Boolean
+     */
+    public function isAccountNonLocked()
+    {
+        return !$this->locked;
+    }
+
+    /**
+     * isLocked
+     *
+     * @return \Boolean
+     */
+    public function isLocked()
+    {
+        return !$this->isAccountNonLocked();
+    }
+
+    /**
+     * Set locked
+     */
+    public function setLocked($boolean)
+    {
+        $this->locked = $boolean;
+        return $this;
     }
 
     /**

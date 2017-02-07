@@ -49,7 +49,7 @@
                         <td class="hide-small hide-medium">{{ user.address|nl2br }}</td>
                         <td class="hide-for-print">
                             {% set canEdit = is_granted("edit user", user) %}
-                            {% set canManage = is_granted("manage user", user) %}
+                            {% set canManage = is_granted("manage users", user) %}
 
                             {% if canEdit or canManage %}
                             <ul class="table-actions">

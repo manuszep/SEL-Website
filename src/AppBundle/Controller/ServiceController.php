@@ -117,7 +117,7 @@ class ServiceController extends Controller
      */
     public function showAction(Service $service)
     {
-        if ($service->getUser()->isLocked() || $service->isExpired()) {
+        if (!$service->getUser()->isAccountNonLocked() || $service->isExpired()) {
             throw $this->createNotFoundException('Ce service n\'existe pas');
         }
 

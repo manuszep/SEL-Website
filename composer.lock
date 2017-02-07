@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4040d8d1159a0937f5c7df5046ba6c85",
+    "content-hash": "034bb598a76288860ba556fce2f21a51",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -820,16 +820,16 @@
         },
         {
             "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
+            "version": "2.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "00b8079fb12837f9a7a0f884dff17c0b4c13bad8"
+                "reference": "d01739f70df32e6ab441b23b88395ae26715c5f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/00b8079fb12837f9a7a0f884dff17c0b4c13bad8",
-                "reference": "00b8079fb12837f9a7a0f884dff17c0b4c13bad8",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/d01739f70df32e6ab441b23b88395ae26715c5f3",
+                "reference": "d01739f70df32e6ab441b23b88395ae26715c5f3",
                 "shasum": ""
             },
             "require": {
@@ -839,8 +839,7 @@
                 "symfony/framework-bundle": "^2.7 || ^3.0",
                 "symfony/security-bundle": "^2.7 || ^3.0",
                 "symfony/templating": "^2.7 || ^3.0",
-                "symfony/twig-bundle": "^2.7 || ^3.0",
-                "twig/twig": "^1.28 || ^2.0"
+                "symfony/twig-bundle": "^2.7 || ^3.0"
             },
             "conflict": {
                 "doctrine/doctrine-bundle": "<1.3",
@@ -893,7 +892,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-02-07 15:26:35"
+            "time": "2017-01-30T16:02:42+00:00"
         },
         {
             "name": "imagine/imagine",
@@ -2789,7 +2788,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
+        "friendsofsymfony/user-bundle": 15,
         "lexik/form-filter-bundle": 20
     },
     "prefer-stable": false,

@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserVoter extends Voter
 {
     // these strings are just invented: you can use anything
-    const LIST = 'list users';
+    const LISTUSERS = 'list users';
     const MANAGE = 'manage users';
     const ENABLE = 'enable user';
     const CREATE = 'create user';
@@ -31,7 +31,7 @@ class UserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (in_array($attribute, array(self::CREATE, self::LIST))) {
+        if (in_array($attribute, array(self::CREATE, self::LISTUSERS))) {
             return true;
         }
 
@@ -61,7 +61,7 @@ class UserVoter extends Voter
             return $this->canCreate($token);
         }
 
-        if ($attribute == self::LIST) {
+        if ($attribute == self::LISTUSERS) {
             return true;
         }
 
@@ -102,7 +102,7 @@ class UserVoter extends Voter
     }
 
     private function canShow(User $user, TokenInterface $token) {
-        if ((!$user->isEnabled() || $user->isLocked()) && !$this->decisionManager->decide($token, array('ROLE_COCO'))) {
+        if ((!$user->isEnabled() || !$user->isAccountNonLocked()) && !$this->decisionManager->decide($token, array('ROLE_COCO'))) {
             return false;
         }
 
@@ -135,7 +135,7 @@ class UserVoter extends Voter
     }
 
     private function canLock(User $user, TokenInterface $token) {
-        if ($user->isLocked()) {
+        if (!$user->isAccountNonLocked()) {
             return false;
         }
 
@@ -147,7 +147,7 @@ class UserVoter extends Voter
     }
 
     private function canUnlock(User $user, TokenInterface $token) {
-        if (!$user->isLocked()) {
+        if ($user->isAccountNonLocked()) {
             return false;
         }
 
@@ -159,7 +159,7 @@ class UserVoter extends Voter
     }
 
     private function canEnableCoco(User $user, TokenInterface $token) {
-        if ($user->isLocked()) {
+        if (!$user->isAccountNonLocked()) {
             return false;
         }
 
