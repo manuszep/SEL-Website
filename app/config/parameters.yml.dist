@@ -14,6 +14,8 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    mailer_encryption: tls
+    mailer_port:       25
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
@@ -24,3 +26,6 @@ parameters:
     security_email_address: securite@example.com
     register_email_address: inscription@example.com
     main_email_address: info@example.com
+
+    captcha_public_key: '6LfjByITAAAAAOyiqNn40FAP5fBAdufik4rwVa2i'
+    captcha_private_key: '6LfjByITAAAAAMQaHUquzgUwTjMBh8dOiJ1vUKup'
