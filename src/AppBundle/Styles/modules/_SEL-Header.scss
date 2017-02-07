@@ -7,6 +7,7 @@
  **/
 $SEL-Header-margin-bottom: 4rem;
 $SEL-Header-bg-color: $FAST-Color-primary;
+$SEL-Header-bg-color-alt: $FAST-Color-primary-alt;
 
 
 /**
@@ -34,7 +35,7 @@ $SEL-Header-bg-color: $FAST-Color-primary;
     .header {
         width: 100%;
         z-index: 9;
-        background: $SEL-Header-bg-color;
+        background: linear-gradient(to right, $SEL-Header-bg-color 0%, $SEL-Header-bg-color-alt 100%);
 
         .wrapper {
             margin: 1rem auto;
@@ -157,7 +158,7 @@ $SEL-Header-bg-color: $FAST-Color-primary;
             position: fixed;
             top: 0;
             left: 0;
-            background: rgba($SEL-Header-bg-color, .9);
+            background: linear-gradient(to right, rgba($SEL-Header-bg-color, .9) 0%, rgba($SEL-Header-bg-color-alt, .9) 100%);
 
             .wrapper {
                 display: flex;

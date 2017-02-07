@@ -6,8 +6,9 @@
  *  Local variables
  **/
 $FAST-Color-palette: (
-        primary: #cc3311,
-        secondary: #2e9395,
+        primary: #34949D,
+        primary-alt: #4E8490,
+        secondary: #C13E56,
         ternary: #362f2d,
         neutral: #bbbbbb,
         success: #7a9f34,
@@ -47,6 +48,7 @@ $FAST-Color-body-background: #f2f5f7 !default;
 $FAST-Color-body-font: $FAST-Color-Type-Dark !default;
 
 $FAST-Color-primary: map-get($FAST-Color-palette, primary);
+$FAST-Color-primary-alt: map-get($FAST-Color-palette, primary-alt);
 $FAST-Color-secondary: map-get($FAST-Color-palette, secondary);
 $FAST-Color-ternary: map-get($FAST-Color-palette, ternary);
 $FAST-Color-success: map-get($FAST-Color-palette, success);
