@@ -5,7 +5,7 @@
 /**
  *  Local variables
  **/
-
+$FAST-Faq-border: 1px solid $FAST-Color-black-xl;
 
 /**
  *  Functions
@@ -30,32 +30,43 @@
  **/
 @mixin SEL-Faq() {
     .faq-list {
-        ul {
+        ul.faq-group {
             list-style: none;
-            padding: 0 0 1rem 0;
-            margin: 0 0 2rem 0;
+            padding: 0 .25rem;
+            margin: 0 0 3rem 0;
+            border: $FAST-Faq-border;
+            border-radius: 3px;
 
-            &:last-child {
+            :last-child {
                 border-bottom: none;
             }
+        }
+
+        .faq-item {
+            border-bottom: $FAST-Faq-border;
         }
 
         .question {
             @include FAST-Typography-lead;
             cursor: pointer;
-            border-bottom: 1px solid $FAST-Color-black-xl;
+            padding: .25rem .75rem;
+
+            a {
+                float: right;
+                color: $FAST-Color-primary;
+
+                &:hover {
+                    color: $FAST-Color-secondary;
+                }
+            }
         }
 
         .answer {
-            padding: .5rem 0 1rem 1rem;
+            padding: .25rem 0 1rem 1rem;
 
             p {
                 margin-bottom: .5rem;
             }
-        }
-
-        h2 {
-            text-align: center;
         }
     }
 }

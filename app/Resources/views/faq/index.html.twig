@@ -14,7 +14,7 @@
         {% if q_public is not empty %}
         <h2>Questions générales</h2>
 
-        <ul>
+        <ul class="faq-group">
         {% for q in q_public %}
             <li class="faq-item">
                 <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('faq_edit', { 'id': q.id })) }}</div>
@@ -27,7 +27,7 @@
         {% if q_member is not empty %}
         <h2>Questions internes</h2>
 
-        <ul>
+        <ul class="faq-group">
             {% for q in q_member %}
                 <li class="faq-item">
                     <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('faq_edit', { 'id': q.id })) }}</div>
@@ -40,7 +40,7 @@
         {% if q_editor is not empty %}
         <h2>Questions relatives au COCO</h2>
 
-        <ul>
+        <ul class="faq-group">
             {% for q in q_editor %}
                 <li class="faq-item">
                     <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('faq_edit', { 'id': q.id })) }}</div>
