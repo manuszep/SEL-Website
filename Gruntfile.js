@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         "autoprefixer:dev",
         "browserify:dev",
         //"uglify:dev",
-        "bytesize:dev",
+        //"bytesize:dev",
         "watch"
     ]);
 
