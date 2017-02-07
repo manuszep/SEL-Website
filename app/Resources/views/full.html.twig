@@ -150,7 +150,9 @@
                             <!--<li><a href="/articles">La vie du SEL</a></li>
                             <li><a href="/agenda">Agenda</a></li>-->
                             <li><a href="/contact">Contact</a></li>
+                            {% if is_granted("ROLE_USER") %}
                             <li><a href="{{ path('user_index') }}">Liste des membres</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                     <li><a href="{{ path('service_index') }}">Services</a></li>

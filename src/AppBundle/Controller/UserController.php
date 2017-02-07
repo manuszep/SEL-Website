@@ -26,6 +26,7 @@ class UserController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('list users');
         $print_list = $request->get('print_list');
         $um = $this->get('fos_user.user_manager');
 
@@ -38,7 +39,7 @@ class UserController extends Controller
          *  It would be more efficient to inject a where clause in the query but how to keep that logic in the voter ?
          */
         foreach($users as $key =>$user) {
-            if (!$this->isGranted('show', $user)) {
+            if (!$this->isGranted('show user', $user)) {
                 unset($users[$key]);
             }
         }
@@ -65,7 +66,7 @@ class UserController extends Controller
         $users = $um->findUsers();
 
         foreach($users as $key => $user) {
-            if (!$this->isGranted('show', $user)) {
+            if (!$this->isGranted('show user', $user)) {
                 unset($users[$key]);
             }
         }
@@ -191,7 +192,7 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $this->denyAccessUnlessGranted('create user');
-        
+
         $um = $this->get('fos_user.user_manager');
         $user = $um->createUser();
         $user->setEnabled(false);
@@ -244,7 +245,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
-        $this->denyAccessUnlessGranted('lock', $user);
+        $this->denyAccessUnlessGranted('lock user', $user);
 
         $user->setLocked(true);
         $this->get('fos_user.user_manager')->updateUser($user, false);
@@ -275,7 +276,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
-        $this->denyAccessUnlessGranted('unlock', $user);
+        $this->denyAccessUnlessGranted('unlock user', $user);
 
         $user->setLocked(false);
         $this->get('fos_user.user_manager')->updateUser($user, false);
@@ -306,7 +307,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_index');
         }
 
-        $this->denyAccessUnlessGranted('enable', $user);
+        $this->denyAccessUnlessGranted('enable user', $user);
 
         $form = $this->createForm('UserBundle\Form\UserPasswordType');
         $form->handleRequest($request);
@@ -342,7 +343,7 @@ class UserController extends Controller
      */
     public function enableCocoAction(User $user)
     {
-        $this->denyAccessUnlessGranted('enable_coco', $user);
+        $this->denyAccessUnlessGranted('enable coco user', $user);
 
         $user->addRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
@@ -364,8 +365,8 @@ class UserController extends Controller
      */
     public function disableCocoAction(User $user)
     {
-        $this->denyAccessUnlessGranted('disable_coco', $user);
-        
+        $this->denyAccessUnlessGranted('disable coco user', $user);
+
         $user->removeRole("ROLE_COCO");
         $this->get('fos_user.user_manager')->updateUser($user, false);
         $this->getDoctrine()->getManager()->flush();
@@ -386,12 +387,12 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
-        $this->denyAccessUnlessGranted('show', $user);
-        
+        $this->denyAccessUnlessGranted('show user', $user);
+
         return $this->render('user/show.html.twig', array(
             'user' => $user
         ));
-        
+
         return;
     }
 
@@ -403,8 +404,8 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $this->denyAccessUnlessGranted('edit', $user);
-        
+        $this->denyAccessUnlessGranted('edit user', $user);
+
         $editForm = $this->createForm('AppBundle\Form\UserProfileType', $user);
         $editForm->handleRequest($request);
 

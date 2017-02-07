@@ -11,15 +11,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserVoter extends Voter
 {
     // these strings are just invented: you can use anything
-    const MANAGE = 'manage';
-    const ENABLE = 'enable';
+    const LIST = 'list users';
+    const MANAGE = 'manage users';
+    const ENABLE = 'enable user';
     const CREATE = 'create user';
-    const EDIT = 'edit';
-    const SHOW = 'show';
-    const LOCK = 'lock';
-    const UNLOCK = 'unlock';
-    const ENABLE_COCO = 'enable_coco';
-    const DISABLE_COCO = 'disable_coco';
+    const EDIT = 'edit user';
+    const SHOW = 'show user';
+    const LOCK = 'lock user';
+    const UNLOCK = 'unlock user';
+    const ENABLE_COCO = 'enable coco user';
+    const DISABLE_COCO = 'disable coco user';
 
     private $decisionManager;
 
@@ -30,7 +31,7 @@ class UserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (in_array($attribute, array(self::CREATE))) {
+        if (in_array($attribute, array(self::CREATE, self::LIST))) {
             return true;
         }
 
@@ -51,17 +52,17 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User && $attribute != self::SHOW) {
+        if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
         }
-        
+
         if ($attribute == self::CREATE) {
             return $this->canCreate($token);
         }
 
-        if (!$subject instanceof User) {
-            return false;
+        if ($attribute == self::LIST) {
+            return true;
         }
 
         $user = $subject;

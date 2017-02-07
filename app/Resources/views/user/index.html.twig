@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        {% if is_granted("show", user) %}
+                        {% if is_granted("show user", user) %}
                     <tr class="{% if app.getUser == user %}current-user {% endif %}{% if user.locked or not user.isEnabled %}hide-for-print {% endif %}{% if user.locked %}locked {% endif %}{% if not user.isEnabled %}disabled {% endif %}{% if user.hasRole('ROLE_COCO') %}coco{% endif %}">
                         <td>{% if user.locked %}{{ icons.icon('lock') }}{% endif %}{% if not user.isEnabled %}{{ icons.icon('clock') }}{% endif %}{% if user.hasRole('ROLE_COCO') %}{{ icons.icon('badge') }}{% endif %}</td>
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
@@ -47,8 +47,8 @@
                         <td class="hide-small hide-medium">{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
                         <td class="hide-small hide-medium">{{ user.address|nl2br }}</td>
                         <td class="hide-for-print">
-                            {% set canEdit = is_granted("edit", user) %}
-                            {% set canManage = is_granted("manage", user) %}
+                            {% set canEdit = is_granted("edit user", user) %}
+                            {% set canManage = is_granted("manage user", user) %}
 
                             {% if canEdit or canManage %}
                             <ul class="table-actions">
@@ -73,7 +73,7 @@
                                     </li>
                                     {% endif %}
                                 {% endif %}
-                                {% if is_granted("enable", user) %}
+                                {% if is_granted("enable user", user) %}
                                     <li>
                                         {{ icons.iconlink('check', 'Activer', path('user_activate', { 'id': user.id }), 'enable-action') }}
                                     </li>
