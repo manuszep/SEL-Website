@@ -2,7 +2,7 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     127.0.0.1
+    database_host:     localhost
     database_port:     ~
     database_name:     boutsdefisel
     database_user:     root
@@ -21,11 +21,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     #custom variables
-    domain_name: example.com
-    site_name: "My Application"
+    domain_name: boutsdefisel.be
+    site_name: 'Bouts de fiSEL'
     security_email_address: securite@example.com
     register_email_address: inscription@example.com
     main_email_address: info@example.com
-
-    captcha_public_key: '6LfjByITAAAAAOyiqNn40FAP5fBAdufik4rwVa2i'
-    captcha_private_key: '6LfjByITAAAAAMQaHUquzgUwTjMBh8dOiJ1vUKup'
