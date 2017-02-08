@@ -26,3 +26,5 @@ parameters:
     security_email_address: securite@example.com
     register_email_address: inscription@example.com
     main_email_address: info@example.com
+    captcha_public_key: ~
+    captcha_private_key: ~
