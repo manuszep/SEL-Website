@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-row">
                     {{ form_label(form.amount) }}
-                    {{ form_widget(form.amount) }}
+                    {{ form_widget(form.amount, { 'type':'number' }) }}
                     {{ form_errors(form.amount) }}
                 </div>
             </fieldset>
