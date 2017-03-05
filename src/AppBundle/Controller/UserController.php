@@ -196,6 +196,7 @@ class UserController extends Controller
         $um = $this->get('fos_user.user_manager');
         $user = $um->createUser();
         $user->setEnabled(false);
+        $user->setLocked(false);
 
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
