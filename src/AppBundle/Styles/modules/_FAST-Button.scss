@@ -5,7 +5,9 @@
 /**
  *  Local variables
  **/
-$FAST-Button-padding: 0.7em 1em !default;
+$FAST-button-padding-v: 0.7em !default;
+$FAST-button-padding-h: 1em !default;
+$FAST-Button-padding: $FAST-button-padding-v $FAST-button-padding-h !default;
 $FAST-Button-margin: 0 0 $FAST-Global-margin 0 !default;
 $FAST-Button-fill: solid !default;
 $FAST-Button-background: map-get($FAST-Color-palette, neutral) !default;

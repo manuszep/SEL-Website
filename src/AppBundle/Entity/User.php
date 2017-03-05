@@ -145,7 +145,7 @@ class User extends BaseUser
      * )
      */
     private $picture;
-    
+
     public function __construct()
     {
         parent::__construct();

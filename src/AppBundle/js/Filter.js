@@ -8,10 +8,10 @@ export class Filter {
         this._cache.filterBlockToggles = this._cache.filterBlocks.find('.filter-toggle');
         this._cache.filterBlockForms = this._cache.filterBlocks.find('form');
 
-        this._cache.filterBlockToggles.show();
-        this._cache.filterBlockForms.hide();
+        //this._cache.filterBlockToggles.show();
+        //this._cache.filterBlockForms.hide();
 
-        this.setupEvents();
+        //this.setupEvents();
     }
 
     setupEvents() {

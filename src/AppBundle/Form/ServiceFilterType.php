@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
+use AppBundle\Form\Type\ButtonChoiceType as ButtonChoiceType;
 use AppBundle\Entity\Service;
 
 class ServiceFilterType extends AbstractType
@@ -18,7 +19,7 @@ class ServiceFilterType extends AbstractType
         $this->serviceTypes = $serviceTypes;
         $this->serviceDomains = $serviceDomains;
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $types = array_flip($this->serviceTypes);
@@ -30,13 +31,13 @@ class ServiceFilterType extends AbstractType
             'placeholder' => 'placeholder.pleaseChoose',
             'label' => 'label.category'
         ));
-        $builder->add('type', Filters\ChoiceFilterType::class, array(
+        $builder->add('type', ButtonChoiceType::class, array(
             'choices'  => $types,
             'multiple' => true,
             'expanded' => true,
             'label' => 'label.serviceType'
         ));
-        $builder->add('domain', Filters\ChoiceFilterType::class, array(
+        $builder->add('domain', ButtonChoiceType::class, array(
             'choices'  => $domains,
             'multiple' => true,
             'expanded' => true,

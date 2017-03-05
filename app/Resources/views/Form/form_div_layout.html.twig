@@ -34,7 +34,7 @@
         {% if legend is defined and legend is not empty %}
             <legend>{{ legend | trans({}, translation_domain) }}</legend>
         {% endif %}
-        
+
         {% if form.parent is empty %}
             {{ form_errors(form) }}
         {% endif %}
@@ -47,6 +47,64 @@
 {% block textarea_widget %}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock textarea_widget %}
+
+{% block button_choice_widget %}
+    {% if expanded %}
+        <ul class="button-choice" {{ block('widget_container_attributes') }}>
+        {% for child in form %}
+            <li>
+                {% set value = child.vars.value %}
+                {% set attr = child.vars.attr %}
+                {% set form = child.vars.form %}
+                {% set id = child.vars.id %}
+                {% set name = child.vars.name %}
+                {% set full_name = child.vars.full_name %}
+                {% set disabled = child.vars.disabled %}
+                {% set label = child.vars.label %}
+                {% set label_format = child.vars.label_format %}
+                {% set multipart = child.vars.multipart %}
+                {% set block_prefixes = child.vars.block_prefixes %}
+                {% set unique_block_prefix = child.vars.unique_block_prefix %}
+                {% set translation_domain = child.vars.translation_domain %}
+                {% set cache_key = child.vars.cache_key %}
+                {% set errors = child.vars.errors %}
+                {% set valid = child.vars.valid %}
+                {% set data = child.vars.data %}
+                {% set required = child.vars.required %}
+                {% set size = child.vars.size %}
+                {% set label_attr = child.vars.label_attr %}
+                {% set compound = child.vars.compound %}
+                {% set method = child.vars.method %}
+                {% set action = child.vars.action %}
+                {% set submitted = child.vars.submitted %}
+                {% set checked = child.vars.checked %}
+
+                {% if not compound %}
+                    {% set label_attr = label_attr|merge({'for': id}) %}
+                {% endif %}
+                {% if required %}
+                    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+                {% endif %}
+                {% if label is empty %}
+                    {% if label_format is not empty %}
+                        {% set label = label_format|replace({
+                        '%name%': name,
+                        '%id%': id,
+                        }) %}
+                    {% else %}
+                        {% set label = name|humanize %}
+                    {% endif %}
+                {% endif %}
+
+                <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+                <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {{ block('choice_widget_collapsed') }}
+    {% endif %}
+{% endblock %}
 
 {% block choice_widget %}
     {% if expanded %}
@@ -68,7 +126,7 @@
     {% if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) %}
         {% set required = false %}
     {% endif %}
-    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    <div class="select-field"><select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if placeholder is not none %}
             <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
         {% endif %}
@@ -81,7 +139,7 @@
         {% endif %}
         {% set options = choices %}
         {{ block('choice_widget_options') }}
-    </select>
+    </select></div>
 {% endblock choice_widget_collapsed %}
 
 {% block choice_widget_options %}
