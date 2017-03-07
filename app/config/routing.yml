@@ -72,9 +72,9 @@ user:
 contact:
     resource: "@AppBundle/Controller/ContactController.php"
     type:     annotation
-faq:
-    resource: "@AppBundle/Controller/FaqController.php"
-    type:     annotation
+sel_faq:
+    resource: "@SelFaqBundle/Resources/config/routing.yml"
+    prefix:   /
 page:
     resource: "@AppBundle/Controller/PageController.php"
     type:     annotation

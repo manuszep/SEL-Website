@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>Nouvelle question</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="add-form">
+        <div class="wrapper">
+            {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
+            <fieldset>
+                <div class="form-row">
+                    {{ form_label(form.question) }}
+                    {{ form_widget(form.question) }}
+                    {{ form_errors(form.question) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.answer) }}
+                    {{ form_widget(form.answer) }}
+                    {{ form_errors(form.answer) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.type) }}
+                    {{ form_widget(form.type) }}
+                    {{ form_errors(form.type) }}
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                {{ form_widget(form.save) }}
+                <a href="{{ path('sel_faq_index') }}" class="btn">Retour à la liste</a>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

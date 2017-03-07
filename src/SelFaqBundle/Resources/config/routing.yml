@@ -1,0 +1,3 @@
+sel_faq:
+    resource: "@SelFaqBundle/Controller/FaqController.php"
+    type:     annotation

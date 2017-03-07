@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new SelCategoryBundle\SelCategoryBundle(),
             new SelExchangeBundle\SelExchangeBundle(),
+            new SelFaqBundle\SelFaqBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

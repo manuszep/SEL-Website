@@ -156,7 +156,7 @@
                         </ul>
                     </li>
                     <li><a href="{{ path('service_index') }}">Services</a></li>
-                    <li><a href="/faq">Questions fréquentes</a></li>
+                    <li><a href="{{ path('sel_faq_index') }}">Questions fréquentes</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <li><a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ icons.icon('user', 'Membre') }} {{ app.user.username }}</a>
                             <ul>
@@ -198,7 +198,7 @@
                     <li>{{ icons.iconlink('user', 'Ajouter un membre', path('user_new')) }}</li>
                     {% endif %}
                     {% if is_granted("ROLE_EDITOR") %}
-                    <li>{{ icons.iconlink('question', 'Ajouter une question', path('faq_new')) }}</li>
+                    <li>{{ icons.iconlink('question', 'Ajouter une question', path('sel_faq_new')) }}</li>
                     {% endif %}
                 </ul>
             </div>
