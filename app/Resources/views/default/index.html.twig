@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block body %}
+    {% if not user %}
     <section>
         <div class="wrapper">
             <header class="grid-item-3-4 grid-item-center text-center">
@@ -23,10 +24,14 @@
             </div>
         </div>
     </section>
+    {% endif %}
 
     <section class="service-list exchange-list">
         <div class="wrapper">
             <h2>La vie du SEL{% if user %} (Depuis votre dernière visite){% endif %}</h2>
+            {% if flash_services is empty and journal is empty %}
+                <p class="lead text-center">On dirait que c'est le calme plat depuis votre dernière connexion :'(</p>
+            {% else %}
             <div class="grid">
                 {% for service in flash_services %}
                     {% include 'service/serviceItem.html.twig' with {'service': service} %}
@@ -40,6 +45,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
