@@ -41,7 +41,7 @@
                         {% include 'service/serviceItem.html.twig' with {'service': item} %}
                     {% endif %}
                     {% if item.getEntityName == 'Exchange' %}
-                        {% include 'exchange/exchangeItem.html.twig' with {'exchange': item} %}
+                        {% include 'SelExchangeBundle::exchangeItem.html.twig' with {'exchange': item} %}
                     {% endif %}
                 {% endfor %}
             </div>

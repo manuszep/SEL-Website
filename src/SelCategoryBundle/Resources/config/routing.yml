@@ -1,0 +1,3 @@
+sel_category:
+  resource: "@SelCategoryBundle/Controller/CategoryController.php"
+  type: annotation

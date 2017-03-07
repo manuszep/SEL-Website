@@ -193,7 +193,7 @@
                     <li>{{ icons.iconlink('calendar', 'Ajouter un évènement', '/agenda/ajouter') }}</li>
                     <li>{{ icons.iconlink('file-text', 'Ajouter un article', '/articles/ajouter') }}</li>
                     -->
-                    <li>{{ icons.iconlink('exchange', 'Ajouter un échange', path('exchange_new')) }}</li>
+                    <li>{{ icons.iconlink('exchange', 'Ajouter un échange', path('sel_exchange_new')) }}</li>
                     {% if is_granted("create user") %}
                     <li>{{ icons.iconlink('user', 'Ajouter un membre', path('user_new')) }}</li>
                     {% endif %}

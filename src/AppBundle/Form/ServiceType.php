@@ -65,7 +65,7 @@ class ServiceType extends AbstractType
                 'label' => 'label.domain'
             ))
             ->add('category', EntityType::class, array(
-                'class' => 'AppBundle:Category',
+                'class' => 'SelCategoryBundle:Category',
                 'choice_label' => 'select_label',
                 'placeholder' => 'placeholder.pleaseChoose',
                 'label' => 'label.category'

@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $flash_services = $service_manager->findAll(true, 'flash');
         $normal_services = $service_manager->findAll(true, 'normal', $limit);
 
-        $exchange_qb = $em->getRepository('AppBundle:Exchange')->createQueryBuilder('e');
+        $exchange_qb = $em->getRepository('SelExchangeBundle:Exchange')->createQueryBuilder('e');
 
         $exchange_qb->where(
                 $exchange_qb->expr()->gt('e.updated', ':limit')

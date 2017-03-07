@@ -16,11 +16,6 @@ services:
         arguments: ["%app_bundle.service.types%", "%app_bundle.service.domains%"]
         tags:
             - { name: form.type, alias: service_filter_type }
-    form.type.exchange:
-        class: AppBundle\Form\ExchangeType
-        arguments: ["@security.authorization_checker", "@security.token_storage"]
-        tags:
-            - { name: form.type, alias: exchange_type }
     form.type.contact:
         class: AppBundle\Form\ContactType
         arguments: ["@security.authorization_checker", "@security.token_storage"]

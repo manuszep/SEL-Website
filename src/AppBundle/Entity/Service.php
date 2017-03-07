@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
-use AppBundle\Entity\Category;
+use SelCategoryBundle\Entity\Category;
 
 /**
  * @ORM\Entity()
@@ -53,7 +53,7 @@ class Service
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="\SelCategoryBundle\Entity\Category", inversedBy="services")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     private $category;
@@ -273,7 +273,7 @@ class Service
     /**
      * Set category
      *
-     * @param Category $category
+     * @param \SelCategoryBundle\Entity\Category $category
      *
      * @return Service
      */
@@ -287,7 +287,7 @@ class Service
     /**
      * Get category
      *
-     * @return Category
+     * @return \SelCategoryBundle\Entity\Category
      */
     public function getCategory()
     {

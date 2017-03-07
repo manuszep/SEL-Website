@@ -5,7 +5,7 @@ namespace AppBundle\EventListener;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\User;
-use AppBundle\Entity\Exchange;
+use SelExchangeBundle\Entity\Exchange;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 
 class BalanceKeeper

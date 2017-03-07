@@ -1,0 +1,7 @@
+services:
+  sel_category.category_voter:
+    class: SelCategoryBundle\Security\CategoryVoter
+    arguments: ['@security.access.decision_manager']
+    tags:
+        - { name: security.voter }
+    public: false

@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
+            new SelCategoryBundle\SelCategoryBundle(),
+            new SelExchangeBundle\SelExchangeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

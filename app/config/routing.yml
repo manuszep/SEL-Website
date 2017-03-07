@@ -1,7 +1,3 @@
-app_exchange:
-    resource: "@AppBundle/Controller/ExchangeController.php"
-    type:     annotation
-
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
@@ -61,14 +57,17 @@ fos_user_change_password:
 default:
     resource: "@AppBundle/Controller/DefaultController.php"
     type:     annotation
+sel_exchange:
+    resource: "@SelExchangeBundle/Resources/config/routing.yml"
+    prefix:   /
 service:
     resource: "@AppBundle/Controller/ServiceController.php"
     type:     annotation
+sel_category:
+    resource: "@SelCategoryBundle/Resources/config/routing.yml"
+    prefix:   /
 user:
     resource: "@AppBundle/Controller/UserController.php"
-    type:     annotation
-category:
-    resource: "@AppBundle/Controller/CategoryController.php"
     type:     annotation
 contact:
     resource: "@AppBundle/Controller/ContactController.php"

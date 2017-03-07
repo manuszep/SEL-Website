@@ -26,7 +26,7 @@ class ServiceFilterType extends AbstractType
         $domains = array_flip($this->serviceDomains);
 
         $builder->add('category', Filters\EntityFilterType::class, array(
-            'class' => 'AppBundle:Category',
+            'class' => 'SelCategoryBundle:Category',
             'choice_label' => 'select_label',
             'placeholder' => 'placeholder.pleaseChoose',
             'label' => 'label.category'

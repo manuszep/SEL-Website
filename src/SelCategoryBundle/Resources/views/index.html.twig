@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% import _self as macros %}
+
+{% macro display_tree(level) %}
+    {% import _self as macros %}
+    <li>{{ level.title }} (<a href="{{ path('sel_category_edit', { 'id': level.id }) }}">edit</a>)
+        {% if level.children|default() %}
+            <ul>
+                {% for child in level.children %}
+                    {{ macros.display_tree(child) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+{% block header %}
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Catégories</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for category in categories %}
+            {% if category.lvl == 0 %}
+                {{ macros.display_tree(category) }}
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+    <ul>
+        <li>
+            <a href="{{ path('sel_category_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

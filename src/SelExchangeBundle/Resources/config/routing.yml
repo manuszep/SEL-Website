@@ -1,0 +1,3 @@
+sel_exchange:
+    resource: "@SelExchangeBundle/Controller/ExchangeController.php"
+    type:     annotation

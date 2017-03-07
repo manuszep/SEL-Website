@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+
+{% block header %}
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>Liste des échanges</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th><i>A</i> a rendu service à <i>B</i></th>
+                    <th>{{ 'label.message'|trans }}</th>
+                    <th>{{ 'label.amount'|trans }}</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for exchange in exchanges %}
+                    <tr>
+                        <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
+                        <td>{{ exchange.message }}</td>
+                        <td>{{ exchange.amount }}</td>
+                        <td>
+                            <ul class="table-actions">
+                                <li>
+                                    {{ icons.iconlink('pencil', 'Modifier', path('sel_exchange_edit', { 'id': exchange.id })) }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

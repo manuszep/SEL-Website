@@ -1,0 +1,6 @@
+services:
+  form.type.exchange:
+          class: SelExchangeBundle\Form\ExchangeType
+          arguments: ["@security.authorization_checker", "@security.token_storage"]
+          tags:
+              - { name: form.type, alias: exchange_type }
