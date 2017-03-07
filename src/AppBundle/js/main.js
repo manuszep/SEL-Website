@@ -8,7 +8,8 @@ import {Faq} from './Faq.js';
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
-    jQueryBridget = require('jquery-bridget');
+    jQueryBridget = require('jquery-bridget'),
+    inputMask = require('jquery.inputmask');
 
 window.jQuery = window.$ = $;
 
@@ -50,3 +51,5 @@ $('.wysiwyg').trumbowyg({
     removeformatPasted: true,
     btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'removeformat']
 });
+
+$('[data-inputmask-regex]').inputmask("Regex");
