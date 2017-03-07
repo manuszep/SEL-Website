@@ -78,6 +78,7 @@ class FaqController extends Controller
      */
     public function editAction(Request $request, Faq $faq)
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
         $deleteForm = $this->createDeleteForm($faq);
         $editForm = $this->createForm('SelFaqBundle\Form\FaqType', $faq);
         $editForm->handleRequest($request);
@@ -110,6 +111,7 @@ class FaqController extends Controller
      */
     public function deleteAction(Request $request, Faq $faq)
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
         $form = $this->createDeleteForm($faq);
         $form->handleRequest($request);
 

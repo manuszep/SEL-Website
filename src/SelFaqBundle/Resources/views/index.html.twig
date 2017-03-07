@@ -18,7 +18,7 @@
         <ul class="faq-group">
         {% for q in q_public %}
             <li class="faq-item">
-                <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}</div>
+                <div class="question">{{ q.question }}{% if is_granted('ROLE_EDITOR') %} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}{% endif %}</div>
                 <div class="answer">{{ q.answer|raw }}</div>
             </li>
         {% endfor %}
@@ -31,7 +31,7 @@
         <ul class="faq-group">
             {% for q in q_member %}
                 <li class="faq-item">
-                    <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}</div>
+                    <div class="question">{{ q.question }}{% if is_granted('ROLE_EDITOR') %} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}{% endif %}</div>
                     <div class="answer">{{ q.answer|raw }}</div>
                 </li>
             {% endfor %}
@@ -44,7 +44,7 @@
         <ul class="faq-group">
             {% for q in q_editor %}
                 <li class="faq-item">
-                    <div class="question">{{ q.question }} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}</div>
+                    <div class="question">{{ q.question }}{% if is_granted('ROLE_EDITOR') %} {{ icons.iconlink('pencil', 'Modifier', path('sel_faq_edit', { 'id': q.id })) }}{% endif %}</div>
                     <div class="answer">{{ q.answer|raw }}</div>
                 </li>
             {% endfor %}
