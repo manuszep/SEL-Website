@@ -31,7 +31,7 @@ class PhoneNumberTransformer implements DataTransformerInterface
         $number = trim($number);
         $valid_phone_number = $this->validPhoneNumber($number);
 
-        if ($valid_phone_number !== FALSE) {
+        if ($valid_phone_number !== FALSE && $number !== "") {
             if ($valid_phone_number == 'mobile') {
                 $pattern = '/^\s?(\d{4})\s?(\d{2})\s?(\d{2})\s?(\d{2})\s?$/i';
             } else {
