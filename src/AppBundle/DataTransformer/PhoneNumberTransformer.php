@@ -7,8 +7,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 class PhoneNumberTransformer implements DataTransformerInterface
 {
     public function validPhoneNumber($number) {
-        echo "a";
-        var_dump($number);
         $number = $this->reverseTransform($number);
         $ret = FALSE;
 
@@ -30,8 +28,6 @@ class PhoneNumberTransformer implements DataTransformerInterface
 
     public function transform($number)
     {
-        echo "b";
-        var_dump($number);
         $number = trim($number);
         $valid_phone_number = $this->validPhoneNumber($number);
 
