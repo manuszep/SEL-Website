@@ -61,6 +61,7 @@ class RegistrationController extends BaseController
 
         return $this->render('user/registrationPassword.html.twig', array(
             'form' => $form->createView(),
+            'username' => $user->getUsername()
         ));
     }
 }
