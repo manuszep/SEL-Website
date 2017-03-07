@@ -48,7 +48,7 @@
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock textarea_widget %}
 
-{% block button_choice_widget %}
+{% block filter_choice_widget %}
     {% if expanded %}
         <ul class="button-choice" {{ block('widget_container_attributes') }}>
         {% for child in form %}
