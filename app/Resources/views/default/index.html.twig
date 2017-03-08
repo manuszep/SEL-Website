@@ -20,7 +20,7 @@
             </header>
 
             <div class="grid-item-3-4 grid-item-center text-center">
-                <p>Si le sujet vous intéresse et vous souhaitez en savoir plus, <a href="/le-sel-athois">toutes les infos se trouvent ici</a>. Vous pouvez également <a href="http://www.questionsante.be/outils/sels.pdf">consulter la brochure éditée par la Communauté française</a></p>
+                <p>Si le sujet vous intéresse et vous souhaitez en savoir plus, <a href="/le-sel-athois">toutes les infos se trouvent ici</a>. Vous pouvez également <a href="http://www.questionsante.org/education-permanente/nos-outils/par-collection/liens-sociaux/les-systemes-d-echange-local-une-source-de-bien-etre?highlight=WyJzZWwiLCJzZWxsZXMiLCJzZWxzIl0=">consulter la brochure éditée par la Communauté française</a></p>
             </div>
         </div>
     </section>
@@ -32,12 +32,10 @@
             {% if flash_services is empty and journal is empty %}
                 <p class="lead text-center">On dirait que c'est le calme plat depuis votre dernière connexion :'(</p>
             {% else %}
-            <div class="grid">
+            <div class="grid masonry">
                 {% for service in flash_services %}
                     {% include 'service/serviceItem.html.twig' with {'service': service} %}
                 {% endfor %}
-            </div>
-            <div class="grid masonry">
                 {% for item in journal %}
                     {% if item.getEntityName == 'Service' %}
                         {% include 'service/serviceItem.html.twig' with {'service': item} %}
