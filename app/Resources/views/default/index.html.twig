@@ -36,6 +36,8 @@
                 {% for service in flash_services %}
                     {% include 'service/serviceItem.html.twig' with {'service': service} %}
                 {% endfor %}
+            </div>
+            <div class="grid masonry">
                 {% for item in journal %}
                     {% if item.getEntityName == 'Service' %}
                         {% include 'service/serviceItem.html.twig' with {'service': item} %}
