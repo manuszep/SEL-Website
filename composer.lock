@@ -933,11 +933,11 @@
         },
         {
             "name": "excelwebzone/recaptcha-bundle",
-            "version": "v1.4.5",
+            "version": "v1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "c26cc2fa93649c05d9e1d2fc7130df16d86b4f13"
+                "reference": "fff64c4fec283c4d2728f75e45cc1042f46b6876"
             },
             "dist": {
                 "type": "zip",
