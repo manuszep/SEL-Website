@@ -20,7 +20,25 @@ $SEL-Service-border-width: .25rem;
 /**
  *  Mixins
  **/
+@mixin service-author-image {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid $FAST-Color-white-xl;
+    @include FAST-Deco-shadow-1();
+    margin-left: .5rem;
+}
 
+@mixin service-list-author-image ($width: $SEL-Service-user-image-size, $height: $SEL-Service-user-image-size) {
+    position: absolute;
+    width: $width;
+    height: $height;
+    top: -($height / 3);
+    left: 50%;
+    margin-left: -($width / 2);
+}
 
 
 /**
@@ -110,12 +128,7 @@ $SEL-Service-border-width: .25rem;
         }
 
         .service-author-image {
-            position: absolute;
-            width: $SEL-Service-user-image-size;
-            height: $SEL-Service-user-image-size;
-            top: -($SEL-Service-user-image-size / 3);
-            left: 50%;
-            margin-left: -($SEL-Service-user-image-size / 2);
+            @include service-list-author-image;
         }
 
         .service-title {
@@ -259,14 +272,7 @@ $SEL-Service-border-width: .25rem;
     }
 
     .service-author-image {
-        display: inline-block;
-        vertical-align: middle;
-        border-radius: 50%;
-        overflow: hidden;
-        text-align: center;
-        border: 2px solid $FAST-Color-white-xl;
-        @include FAST-Deco-shadow-1();
-        margin-left: .5rem;
+        @include service-author-image;
     }
 
     .service-meta {

@@ -79,23 +79,19 @@ $SEL-Exchange-border-width: .25rem;
             }
         }
 
-        .exchange-author-image {
+        .exchange-author-images {
             $total-width: $SEL-Exchange-user-image-size * 2 + 1rem;
-            position: absolute;
-            width: $total-width;
-            height: $SEL-Exchange-user-image-size;
-            top: -($SEL-Exchange-user-image-size / 3);
-            left: 50%;
-            margin-left: -($total-width / 2);
+            @include service-list-author-image($total-width);
+        }
 
-            a {
-                border-radius: 50%;
-                overflow: hidden;
-                text-align: center;
-                border: 2px solid $FAST-Color-white-xl;
-                @include FAST-Deco-shadow-1();
-                display: inline-block;
-            }
+        .exchange-author-image {
+            border-radius: 50%;
+            overflow: hidden;
+            text-align: center;
+            border: 2px solid $FAST-Color-white-xl;
+            @include FAST-Deco-shadow-1();
+            display: inline-block;
+            width: $SEL-Exchange-user-image-size;
         }
 
         .exchange-title {

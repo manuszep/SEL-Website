@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-row">
                     {{ form_label(form.expires_at) }}
-                    {{ form_widget(form.expires_at) }}
+                    {{ form_widget(form.expires_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
                     {{ form_errors(form.expires_at) }}
                 </div>
             </fieldset>

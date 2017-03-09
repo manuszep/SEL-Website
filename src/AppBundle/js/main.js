@@ -14,6 +14,7 @@ let $ = require('jquery'),
 window.jQuery = window.$ = $;
 
 require('trumbowyg');
+require ('air-datepicker');
 
 
 imagesLoaded.makeJQueryPlugin( $ );
@@ -53,3 +54,25 @@ $('.wysiwyg').trumbowyg({
 });
 
 $('[data-inputmask-regex]').inputmask("Regex");
+
+$.fn.datepicker.language['fr'] = {
+    days: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    daysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+    daysMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+    months: ['Janvier','Février','Mars','Avril','Mai','Juin', 'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+    monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+    today: 'Aujourd\'hui',
+    clear: 'Effacer',
+    dateFormat: 'dd/mm/yyyy',
+    timeFormat: 'hh:ii aa',
+    firstDay: 1
+};
+
+$('[data-datepicker]').datepicker({
+    language: 'fr'
+});
+
+$('[data-datepicker-future]').datepicker({
+    language: 'fr',
+    minDate: new Date()
+});
