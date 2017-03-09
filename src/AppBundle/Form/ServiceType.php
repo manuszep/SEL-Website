@@ -78,6 +78,7 @@ class ServiceType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'label' => 'label.expiresAt',
+                'format' => 'dd/MM/yyyy',
                 'attr' => array(
                     'placeholder' => 'jj/mm/aaaa'
                 )
