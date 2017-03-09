@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Service;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Exchange
@@ -58,6 +59,9 @@ class Exchange
      * @var float
      *
      * @ORM\Column(name="amount", type="float")
+     * @Assert\Range(
+     *      min = 0.25
+     * )
      */
     private $amount;
 
