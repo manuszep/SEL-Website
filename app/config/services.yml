@@ -54,3 +54,7 @@ services:
             - "%app_bundle.service.domains%"
         tags:
             - { name: doctrine.event_subscriber }
+    twig.extension.intl:
+         class: Twig_Extensions_Extension_Intl
+         tags:
+             - { name: twig.extension }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d2732a9bbc8295514e40bca047d7e6a",
+    "content-hash": "6f4a5a1dcfc99456f344ff1930503159",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -941,23 +941,19 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/c26cc2fa93649c05d9e1d2fc7130df16d86b4f13",
-                "reference": "c26cc2fa93649c05d9e1d2fc7130df16d86b4f13",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/fff64c4fec283c4d2728f75e45cc1042f46b6876",
+                "reference": "fff64c4fec283c4d2728f75e45cc1042f46b6876",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6",
                 "symfony/form": "^2.8 || ^3.0",
                 "symfony/framework-bundle": "^2.8 || ^3.0",
                 "symfony/validator": "^2.8 || ^3.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "~5.3"
-            },
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
-                    "EWZ\\Bundle\\RecaptchaBundle\\": "src"
+                    "EWZ\\Bundle\\RecaptchaBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -976,7 +972,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2017-02-24T13:25:11+00:00"
+            "time": "2016-09-13T16:29:16+00:00"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -2739,6 +2735,58 @@
                 "framework"
             ],
             "time": "2017-02-17T00:00:43+00:00"
+        },
+        {
+            "name": "twig/extensions",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig-extensions.git",
+                "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
+                "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "~1.20|~2.0"
+            },
+            "require-dev": {
+                "symfony/translation": "~2.3"
+            },
+            "suggest": {
+                "symfony/translation": "Allow the time_diff output to be translated"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_Extensions_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Common additional features for Twig that do not directly belong in core",
+            "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
+            "keywords": [
+                "i18n",
+                "text"
+            ],
+            "time": "2016-10-25T17:34:14+00:00"
         },
         {
             "name": "twig/twig",
