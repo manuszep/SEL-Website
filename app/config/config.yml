@@ -102,6 +102,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: secured
     user_class: AppBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
     from_email:
         address: "%main_email_address%"
         sender_name: "%site_name%"
@@ -110,11 +112,13 @@ fos_user:
             from_email:
                 address: "%security_email_address%"
                 sender_name: "%site_name%"
+            template: Emails/user_password_reset.email.twig
     registration:
         confirmation:
             from_email:
                 address: "%register_email_address%"
                 sender_name: "%site_name%"
+            template: Emails/user_confirmation.email.twig
 
 liip_imagine:
     driver: imagick

@@ -1,0 +1,19 @@
+{% extends 'Emails/base.html.twig' %}
+{% import "Emails/Macros/elements.html.twig" as el %}
+
+{% block title %}Bouts de fiSEL - Nouvel échange{% endblock %}
+
+{% block preHeaderText %}{{ exchange.debitUser.username }} vous a transféré {{ exchange.amount }} noeuds.{% endblock %}
+
+{% block content %}
+    {{ el.oneColumnA() }}
+        <h1>Nouvel échange</h1>
+        <p>Vous avez rendu service à <strong>{{ exchange.debitUser.username }}</strong>? Un échange vient d'être encodé pour vous&nbsp;:</p>
+
+        <p><strong>Titre</strong>: {{ exchange.title }}</p>
+        <p><strong>Message</strong>: {{ exchange.message }}</p>
+        <p><strong>Noeuds</strong>: {{ exchange.amount }}</p>
+
+        {{ el.button("Consulter mon compte", url('user_show', { 'id': exchange.creditUser.id })) }}
+    {{ el.oneColumnB() }}
+{% endblock %}

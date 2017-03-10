@@ -332,7 +332,7 @@ class UserController extends Controller
         }
 
         return $this->render('user/registrationPassword.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ));
     }
 

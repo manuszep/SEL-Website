@@ -66,8 +66,9 @@ class ResettingController extends BaseController
             return $response;
         }
 
-        return $this->render('user/registrationPassword.html.twig', array(
+        return $this->render('user/resetPassword.html.twig', array(
             'form' => $form->createView(),
+            'username' => $user->getUsername()
         ));
     }
 }

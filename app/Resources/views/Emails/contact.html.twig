@@ -1,3 +1,14 @@
-<p>Message de {{ name }}</p>
+{% extends 'Emails/base.html.twig' %}
+{% import "Emails/Macros/elements.html.twig" as el %}
 
-{{ message|raw }}
+{% block title %}Message de {{ name }}{% endblock %}
+
+{% block preHeaderText %}{{ name }} a utilisé le formulaire de contact.{% endblock %}
+
+{% block content %}
+    {{ el.oneColumnA() }}
+    <h1>Contenu du message</h1>
+
+    {{ message|raw }}
+    {{ el.oneColumnB() }}
+{% endblock %}

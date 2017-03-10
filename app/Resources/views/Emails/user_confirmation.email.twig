@@ -1,0 +1,18 @@
+{% block subject %}Bouts de fiSEL - Bienvenue {{ user.username }} !{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        Bonjour {{ user.username }} !
+
+        Vous êtes inscrit sur le site de Bouts de fiSEL. Il ne vous reste qu'à choisir un mot de passe avant de pouvoir publier vos premières offres de services.
+
+        Pour activer votre compte utilisateur, merci de vous rendre sur {{ confirmationUrl }}.
+        Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
+
+        Votre dévoué COCO
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% include 'Emails/user_confirmation.html.twig' %}
+{% endblock %}

@@ -1,0 +1,172 @@
+{% macro css() %}
+    <style>
+        html, body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        div[style*="margin: 16px 0"] {
+            margin:0 !important;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+
+        table table table {
+            table-layout: auto;
+        }
+
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+
+        {# What it does: A work-around for iOS meddling in triggered links. #}
+        *[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        {# What it does: A work-around for Gmail meddling in triggered links. #}
+        .x-gmail-data-detectors,
+        .x-gmail-data-detectors *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+        }
+
+        {# What it does: Prevents Gmail from displaying an download button on large, non-linked images. #}
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
+        }
+        {# If the above doesn't work, add a .g-img class to any image in question. #}
+        img.g-img + div {
+            display:none !important;
+        }
+
+        {# What it does: Prevents underlining the button text in Windows 10 #}
+        .button-link {
+            text-decoration: none !important;
+        }
+
+        {# What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  #}
+        {# Create one of these media queries for each additional viewport size you'd like to fix #}
+        {# Thanks to Eric Lepetit @ericlepetitsf) for help troubleshooting #}
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { {# iPhone 6 and 6+ #}
+            .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+        {# What it does: Hover styles for buttons #}
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+        .button-td:hover,
+        .button-a:hover {
+            background: #555555 !important;
+            border-color: #555555 !important;
+        }
+
+        p {
+            margin: 16px 0 0 0;
+        }
+
+        h1 {
+            line-height: 1.2;
+        }
+    </style>
+{% endmacro %}
+
+{% macro button(text, url) %}
+    {# Button : Begin #}
+    <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+        <tr>
+            <td style="border-radius: 3px; background: #34949D; text-align: center;" class="button-td">
+                <a href="{{ url }}" style="background: #34949D; border: 15px solid #34949D; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;{{ text }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </a>
+            </td>
+        </tr>
+    </table>
+    {# Button : END #}
+{% endmacro %}
+
+{% macro oneColumnA() %}
+    <tr>
+        <td bgcolor="#ffffff">
+            <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+{% endmacro %}
+{% macro oneColumnB() %}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro twoColumnsA() %}
+    {# 2 Even Columns : BEGIN #}
+    <tr>
+        <td bgcolor="#ffffff" align="center" height="100%" valign="top" width="100%" style="padding-bottom: 40px">
+            <table role="presentation" aria-hidden="true" border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="max-width:560px;">
+                <tr>
+                    <td align="center" valign="top" width="50%">
+{% endmacro %}
+{% macro twoColumnsB() %}
+                    </td>
+                    <td align="center" valign="top" width="50%">
+{% endmacro %}
+{% macro twoColumnsC() %}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    {# Two Even Columns : END #}
+{% endmacro %}
+
+{% macro imgTextColumnA(imgUrl) %}
+    <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+        <tr>
+            <td style="text-align: center; padding: 0 10px;">
+                <img src="{{ imgUrl }}" aria-hidden="true" width="200" height="" border="0" align="center" style="width: 100%; max-width: 200px;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 10px 10px 0;" class="stack-column-center">
+{% endmacro %}
+{% macro imgTextColumnB() %}
+            </td>
+        </tr>
+    </table>
+{% endmacro %}
+
+{% macro spacer() %}
+    {# Clear Spacer : BEGIN #}
+    <tr>
+        <td height="40" style="font-size: 0; line-height: 0;">
+            &nbsp;&nbsp;
+        </td>
+    </tr>
+    {# Clear Spacer : END #}
+{% endmacro %}

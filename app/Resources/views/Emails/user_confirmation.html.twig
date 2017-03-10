@@ -1,0 +1,20 @@
+{% extends 'Emails/base.html.twig' %}
+{% import "Emails/Macros/elements.html.twig" as el %}
+
+{% block title %}Bouts de fiSEL - Bienvenue {{ user.username }} !{% endblock %}
+
+{% block preHeaderText %}Activation de votre compte.{% endblock %}
+
+{% block content %}
+    {{ el.oneColumnA() }}
+    <h1>Activation de votre compte</h1>
+
+    <p>Bonjour {{ user.username }} !</p>
+
+    <p>Vous êtes inscrit sur le site de Bouts de fiSEL. Il ne vous reste qu'à choisir un mot de passe avant de pouvoir publier vos premières offres de services.</p>
+
+    {{ el.button("Activer mon compte", confirmationUrl) }}
+
+    <p>Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</p>
+    {{ el.oneColumnB() }}
+{% endblock %}

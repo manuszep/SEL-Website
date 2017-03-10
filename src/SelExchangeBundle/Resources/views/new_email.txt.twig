@@ -1,0 +1,11 @@
+Bouts de fiSEL - Nouvel échange
+-------------------------------
+{{ exchange.debitUser.username }} vous a transféré {{ exchange.amount }} noeuds.
+
+Vous avez rendu service à {{ exchange.debitUser.username }}? Un échange vient d'être encodé pour vous&nbsp;:
+
+- Titre: {{ exchange.title }}
+- Noeuds: {{ exchange.amount }}
+- Message: {{ exchange.message }}
+
+Consulter mon compte à l'adresse {{ url('user_show', { 'id': exchange.creditUser.id }) }}

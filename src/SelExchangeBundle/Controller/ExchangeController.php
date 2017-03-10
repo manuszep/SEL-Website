@@ -99,6 +99,26 @@ class ExchangeController extends Controller
                     'L\'échange a bien été enregistré.'
                 );
 
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Bouts de fiSEL - Nouvel échange')
+                    ->setFrom('info@boutsdefisel.be')
+                    ->setTo($exchange->getCreditUser()->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                            'SelExchangeBundle::new_email.html.twig',
+                            array('exchange' => $exchange)
+                        ),
+                        'text/html'
+                    )->addPart(
+                        $this->renderView(
+                            'SelExchangeBundle::new_email.txt.twig',
+                            array('exchange' => $exchange)
+                        ),
+                        'text/plain'
+                    );
+                $this->get('mailer')->send($message);
+
                 return $this->redirect($this->generateUrl('user_show', array('id' => $exchange->getDebitUser()->getId())) . '#section1');
             }
         }
