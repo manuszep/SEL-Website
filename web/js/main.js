@@ -19695,6 +19695,10 @@ var faq = new _Faq.Faq();
 
 $.trumbowyg.svgPath = '/img/icons.svg';
 
+$('.add-tool .toggle').on('click', function (e) {
+    e.preventDefault();
+});
+
 $('.wysiwyg').trumbowyg({
     fullscreenable: false,
     closable: false,
