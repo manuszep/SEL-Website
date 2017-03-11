@@ -45,7 +45,7 @@
                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
                         <td class="hide-small hide-medium"><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td class="hide-for-print hide-small hide-medium">{{ user.balance }}</td>
-                        <td class="hide-small hide-medium">{{ user.getPhoneFormatted }}{% if user.phone and user.mobile %}<br />{% endif %}{{ user.getMobileFormatted }}</td>
+                        <td class="hide-small hide-medium">{{ user.getPhoneFormatted }}{% if user.phone and (user.mobile or user.mobile2) %}<br />{% endif %}{{ user.getMobileFormatted }}{% if user.mobile and user.mobile2 %}<br />{% endif %}{{ user.getMobile2Formatted }}</td>
                         <td class="hide-small hide-medium">{{ user.address|nl2br }}</td>
                         <td class="hide-for-print">
                             {% set canEdit = is_granted("edit user", user) %}

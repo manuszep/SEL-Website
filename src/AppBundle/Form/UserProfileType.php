@@ -38,6 +38,7 @@ class UserProfileType extends AbstractType
             ->add('email', EmailType::class, array('label' => 'label.email'))
             ->add('phone', TextType::class, array('label' => 'label.phone', 'required' => false))
             ->add('mobile', TextType::class, array('label' => 'label.mobile', 'required' => false))
+            ->add('mobile2', TextType::class, array('label' => 'label.mobile2', 'required' => false))
             ->add('street', TextType::class, array('label' => 'label.street', 'required' => false))
             ->add('street_number', TextType::class, array('label' => 'label.streetNumber', 'required' => false))
             ->add('street_box', TextType::class, array('label' => 'label.streetBox', 'required' => false))
@@ -65,6 +66,9 @@ class UserProfileType extends AbstractType
             ->addModelTransformer(new PhoneNumberTransformer());
 
         $builder->get('mobile')
+            ->addModelTransformer(new PhoneNumberTransformer());
+
+        $builder->get('mobile2')
             ->addModelTransformer(new PhoneNumberTransformer());
     }
 

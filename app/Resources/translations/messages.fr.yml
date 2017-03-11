@@ -15,6 +15,7 @@ label:
     passwordCurrent: Mot de passe actuel
     phone: Téléphone
     mobile: GSM
+    mobile2: GSM secondaire
     street: Rue
     streetNumber: N°
     streetBox: Boite

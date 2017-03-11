@@ -100,6 +100,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="mobile2", type="string", length=15, nullable=true)
+     */
+    private $mobile2;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="balance", type="decimal", precision=6, scale=2)
      *
      * @Assert\Type(
@@ -341,6 +348,36 @@ class User extends BaseUser
         return $transformer->transform($this->mobile);
     }
 
+    /**
+     * Set mobile2
+     *
+     * @param string $mobile
+     *
+     * @return User
+     */
+    public function setMobile2($mobile)
+    {
+        $transformer = new PhoneNumberTransformer();
+        $this->mobile2 = $transformer->reverseTransform($mobile);
+
+        return $this;
+    }
+
+    /**
+     * Get mobile2
+     *
+     * @return string
+     */
+    public function getMobile2()
+    {
+        return $this->mobile2;
+    }
+
+    public function getMobile2Formatted() {
+        $transformer = new PhoneNumberTransformer();
+        return $transformer->transform($this->mobile2);
+    }
+
 
     /**
      * Set balance
@@ -566,6 +603,7 @@ class User extends BaseUser
     {
         $phone = $object->getPhone();
         $mobile = $object->getMobile();
+        $mobile2 = $object->getMobile();
 
         $pattern = '/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/';
         $pattern_mobile = '/^((\+|00)32\s?|0)4(60|[789]\d)(\s?\d{2}){3}$/';
@@ -582,6 +620,15 @@ class User extends BaseUser
             if (!preg_match($pattern_mobile, $mobile, $matches)) {
                 $context->buildViolation('Ce numéro de GSM ne semble pas valide.')
                     ->atPath('mobile')
+                    ->addViolation()
+                ;
+            }
+        }
+
+        if (null !== $mobile2 && '' !== $mobile2) {
+            if (!preg_match($pattern_mobile, $mobile2, $matches)) {
+                $context->buildViolation('Ce numéro de GSM ne semble pas valide.')
+                    ->atPath('mobile2')
                     ->addViolation()
                 ;
             }
