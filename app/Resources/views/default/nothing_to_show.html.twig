@@ -1,0 +1,26 @@
+{% import "Macros/icons.html.twig" as icons %}
+<p class="lead text-center">On dirait que c'est le calme plat depuis votre dernière connexion :'(</p>
+
+<div class="grid grid-v-align-large-up text-center ">
+    <div class="grid-item-large-up grid-item-2-4-large-up">
+        <div class="grid grid-v-align">
+            <div class="grid-item grid-item-1-4 text-center">
+                {{ icons.icon('plus', 'Ajouter', 'icon-big icon-circle') }}
+            </div>
+
+            <div class="grid-item grid-item-3-4 text-left">
+                Ajoutez des services et des échanges à l'aide du bouton "Plus" situé en bas à droite de l'écran.
+            </div>
+        </div>
+
+        <div class="grid grid-v-align">
+            <div class="grid-item grid-item-1-4 text-center">
+                {{ icons.icon('lightbulb', 'Services', 'icon-big icon-circle') }}
+            </div>
+
+            <div class="grid-item grid-item-3-4 text-left">
+                Consultez la <a href="{{ path('service_index') }}">liste complète des services disponibles</a>.
+            </div>
+        </div>
+    </div>
+</div>

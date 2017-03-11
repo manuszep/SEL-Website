@@ -37,9 +37,26 @@
         fill: currentColor;
         line-height: 1em;
         vertical-align: -.15rem;
+
+        svg {
+            width: 1em;
+            height: 1em;
+        }
     }
 
     a svg {
         color: inherit;
+    }
+
+    .icon-big {
+        font-size: 2rem;
+    }
+
+    .icon-circle {
+        border-radius: 50%;
+        background: $FAST-Color-primary;
+        padding: .25em;
+        color: #fff;
+        box-sizing: content-box;
     }
 }
