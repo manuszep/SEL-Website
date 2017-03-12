@@ -2245,7 +2245,7 @@ require('./timepicker');
 
 },{}],6:[function(require,module,exports){
 /**
- * matchesSelector v2.0.1
+ * matchesSelector v2.0.2
  * matchesSelector( element, '.selector' )
  * MIT license
  */
@@ -2271,7 +2271,7 @@ require('./timepicker');
   'use strict';
 
   var matchesMethod = ( function() {
-    var ElemProto = Element.prototype;
+    var ElemProto = window.Element.prototype;
     // check for the standard method name first
     if ( ElemProto.matches ) {
       return 'matches';
@@ -2411,7 +2411,7 @@ return EvEmitter;
 
 },{}],8:[function(require,module,exports){
 /**
- * Fizzy UI utils v2.0.3
+ * Fizzy UI utils v2.0.4
  * MIT license
  */
 
@@ -2472,7 +2472,8 @@ utils.makeArray = function( obj ) {
   if ( Array.isArray( obj ) ) {
     // use object if already an array
     ary = obj;
-  } else if ( obj && typeof obj.length == 'number' ) {
+  } else if ( obj && typeof obj == 'object' &&
+    typeof obj.length == 'number' ) {
     // convert nodeList to array
     for ( var i=0; i < obj.length; i++ ) {
       ary.push( obj[i] );
@@ -17671,8 +17672,115 @@ return Outlayer;
 }));
 
 },{"./item":23,"ev-emitter":7,"fizzy-ui-utils":8,"get-size":9}],25:[function(require,module,exports){
+!function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.7 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""), 
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)), 
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent);
+                if (svg) {
+                    var src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(), 
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+},{}],26:[function(require,module,exports){
 /**
- * Trumbowyg v2.4.2 - A lightweight WYSIWYG editor
+ * Trumbowyg v2.5.1 - A lightweight WYSIWYG editor
  * Trumbowyg core file
  * ------------------------
  * @link http://alex-d.github.io/Trumbowyg
@@ -17743,7 +17851,9 @@ jQuery.trumbowyg = {
     plugins: {},
 
     // SVG Path globally
-    svgPath: null
+    svgPath: null,
+
+    hideButtonTexts: null
 };
 
 
@@ -17831,6 +17941,8 @@ jQuery.trumbowyg = {
         } else {
             t.lang = $.trumbowyg.langs.en;
         }
+
+        t.hideButtonTexts = $.trumbowyg.hideButtonTexts != null ? $.trumbowyg.hideButtonTexts : options.hideButtonTexts;
 
         // SVG path
         var svgPathOption = $.trumbowyg.svgPath != null ? $.trumbowyg.svgPath : options.svgPath;
@@ -18021,7 +18133,6 @@ jQuery.trumbowyg = {
         // Defaults Options
         t.o = $.extend(true, {}, {
             lang: 'en',
-            useComposition: true,
 
             fixedBtnPane: false,
             fixedFullWidth: false,
@@ -18121,6 +18232,9 @@ jQuery.trumbowyg = {
 
         // Admit multiple paste handlers
         t.pasteHandlers = [].concat(t.o.pasteHandlers);
+
+        // Check if browser is IE
+        t.isIE = (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') !== -1);
 
         t.init();
     };
@@ -18228,34 +18342,46 @@ jQuery.trumbowyg = {
 
             var ctrl = false,
                 composition = false,
-                debounceButtonPaneStatus;
+                debounceButtonPaneStatus,
+                updateEventName = t.isIE ? 'keyup' : 'input';
 
             t.$ed
                 .on('dblclick', 'img', t.o.imgDblClickHandler)
                 .on('keydown', function (e) {
-                    composition = t.o.useComposition && (e.which === 229);
-
                     if (e.ctrlKey) {
                         ctrl = true;
-                        var k = t.keys[String.fromCharCode(e.which).toUpperCase()];
+                        var key = t.keys[String.fromCharCode(e.which).toUpperCase()];
 
                         try {
-                            t.execCmd(k.fn, k.param);
+                            t.execCmd(key.fn, key.param);
                             return false;
                         } catch (c) {
                         }
                     }
                 })
-                .on('keyup input', function (e) {
-                    if (e.which >= 37 && e.which <= 40) {
+                .on('compositionstart compositionupdate', function () {
+                    composition = true;
+                })
+                .on(updateEventName + ' compositionend', function (e) {
+                  if (e.type === 'compositionend') {
+                        composition = false;
+                    } else if(composition) {
                         return;
                     }
 
-                    if (e.ctrlKey && (e.which === 89 || e.which === 90)) {
+                    var keyCode = e.which;
+
+                    if (keyCode >= 37 && keyCode <= 40) {
+                        return;
+                    }
+
+                    if (e.ctrlKey && (keyCode === 89 || keyCode === 90)) {
                         t.$c.trigger('tbwchange');
-                    } else if (!ctrl && e.which !== 17 && !composition) {
-                        t.semanticCode(false, e.which === 13);
+                    } else if (!ctrl && keyCode !== 17) {
+                        t.semanticCode(false, keyCode === 13);
                         t.$c.trigger('tbwchange');
+                    } else if (typeof e.which === 'undefined') {
+                        t.semanticCode(false, false, true);
                     }
 
                     setTimeout(function () {
@@ -18312,7 +18438,7 @@ jQuery.trumbowyg = {
                     }, 0);
                 });
             t.$ta.on('keyup paste', function () {
-                t.$c.trigger('tbwchange');
+              t.$c.trigger('tbwchange');
             });
 
             t.$box.on('keydown', function (e) {
@@ -18381,7 +18507,9 @@ jQuery.trumbowyg = {
                 $btn = $('<button/>', {
                     type: 'button',
                     class: prefix + btnName + '-button ' + (btn.class || '') + (!hasIcon ? ' ' + prefix + 'textual-button' : ''),
-                    html: t.hasSvg && hasIcon ? '<svg><use xlink:href="' + t.svgPath + '#' + prefix + (btn.ico || btnName).replace(/([A-Z]+)/g, '-$1').toLowerCase() + '"/></svg>' : (btn.text || btn.title || t.lang[btnName] || btnName),
+                    html: t.hasSvg && hasIcon ?
+                      '<svg><use xlink:href="' + t.svgPath + '#' + prefix + (btn.ico || btnName).replace(/([A-Z]+)/g, '-$1').toLowerCase() + '"/></svg>' :
+                      t.hideButtonTexts ? '' : (btn.text || btn.title || t.lang[btnName] || btnName),
                     title: (btn.title || btn.text || textDef) + ((btn.key) ? ' (Ctrl + ' + btn.key + ')' : ''),
                     tabindex: -1,
                     mousedown: function () {
@@ -18647,10 +18775,12 @@ jQuery.trumbowyg = {
 
                 $(window).trigger('scroll');
 
-                $('body', d).on('mousedown.'+t.eventNamespace, function () {
-                    $('.' + prefix + 'dropdown', d).hide();
-                    $('.' + prefix + 'active', d).removeClass(prefix + 'active');
-                    $('body', d).off('mousedown.'+t.eventNamespace);
+                $('body', d).on('mousedown.'+t.eventNamespace, function (e) {
+                    if (!$dropdown.is(e.target)) {
+                        $('.' + prefix + 'dropdown', d).hide();
+                        $('.' + prefix + 'active', d).removeClass(prefix + 'active');
+                        $('body', d).off('mousedown.'+t.eventNamespace);
+                    }
                 });
             }
         },
@@ -18690,7 +18820,8 @@ jQuery.trumbowyg = {
         // Analyse and update to semantic code
         // @param force : force to sync code from textarea
         // @param full  : wrap text nodes in <p>
-        semanticCode: function (force, full) {
+        // @param keepRange  : leave selection range as it is
+        semanticCode: function (force, full, keepRange) {
             var t = this;
             t.saveRange();
             t.syncCode(force);
@@ -18739,7 +18870,9 @@ jQuery.trumbowyg = {
                     t.$ed.find('p:empty').remove();
                 }
 
-                t.restoreRange();
+                if (!keepRange) {
+                    t.restoreRange();
+                }
 
                 t.syncTextarea();
             }
@@ -18890,7 +19023,7 @@ jQuery.trumbowyg = {
                 } catch (e2) {
                     if (cmd === 'insertHorizontalRule') {
                         param = undefined;
-                    } else if (cmd === 'formatBlock' && (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') !== -1)) {
+                    } else if (cmd === 'formatBlock' && t.isIE) {
                         param = '<' + param + '>';
                     }
 
@@ -19201,7 +19334,7 @@ jQuery.trumbowyg = {
         },
         getTagsRecursive: function (element, tags) {
             var t = this;
-            tags = tags || [];
+            tags = tags || (element && element.tagName ? [element.tagName] : []);
 
             if (element && element.parentNode) {
                 element = element.parentNode;
@@ -19250,7 +19383,7 @@ jQuery.trumbowyg = {
     };
 })(navigator, window, document, jQuery);
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19349,7 +19482,7 @@ var Disqus = exports.Disqus = function () {
     return Disqus;
 }();
 
-},{"jquery":21}],27:[function(require,module,exports){
+},{"jquery":21}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19403,7 +19536,7 @@ var Faq = exports.Faq = function () {
     return Faq;
 }();
 
-},{"jquery":21}],28:[function(require,module,exports){
+},{"jquery":21}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19451,7 +19584,7 @@ var Filter = exports.Filter = function () {
     return Filter;
 }();
 
-},{"jquery":21}],29:[function(require,module,exports){
+},{"jquery":21}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19494,7 +19627,7 @@ var Flash = exports.Flash = function () {
     return Flash;
 }();
 
-},{"jquery":21}],30:[function(require,module,exports){
+},{"jquery":21}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19539,7 +19672,7 @@ var Form = exports.Form = function () {
     return Form;
 }();
 
-},{"jquery":21}],31:[function(require,module,exports){
+},{"jquery":21}],32:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19641,7 +19774,7 @@ var Tab = exports.Tab = function () {
     return Tab;
 }();
 
-},{"jquery":21}],32:[function(require,module,exports){
+},{"jquery":21}],33:[function(require,module,exports){
 'use strict';
 
 var _Filter = require('./Filter.js');
@@ -19660,9 +19793,11 @@ var $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
     jQueryBridget = require('jquery-bridget'),
-    inputMask = require('jquery.inputmask');
+    inputMask = require('jquery.inputmask'),
+    svg4eferybody = require('svg4everybody');
 
 window.jQuery = window.$ = $;
+svg4eferybody();
 
 require('trumbowyg');
 require('air-datepicker');
@@ -19731,4 +19866,4 @@ $('[data-datepicker-future]').datepicker({
     minDate: new Date()
 });
 
-},{"./Disqus.js":26,"./Faq.js":27,"./Filter.js":28,"./Flash.js":29,"./Form.js":30,"./Tab.js":31,"air-datepicker":1,"imagesloaded":10,"jquery":21,"jquery-bridget":11,"jquery.inputmask":20,"masonry-layout":22,"trumbowyg":25}]},{},[32]);
+},{"./Disqus.js":27,"./Faq.js":28,"./Filter.js":29,"./Flash.js":30,"./Form.js":31,"./Tab.js":32,"air-datepicker":1,"imagesloaded":10,"jquery":21,"jquery-bridget":11,"jquery.inputmask":20,"masonry-layout":22,"svg4everybody":25,"trumbowyg":26}]},{},[33]);

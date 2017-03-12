@@ -35,8 +35,8 @@ $SEL-Exchange-border-width: .25rem;
 @mixin SEL-Exchange() {
     .exchange-list {
         .exchange {
-            width: 100%;
-            margin: 0 0 1rem 0;
+            width: calc(100% - 2em);
+            margin: 0 1em 3rem 1em;
 
             header {
                 $header-padding-top: ($SEL-Exchange-user-image-size / 2) + 1.5rem;
@@ -126,7 +126,7 @@ $SEL-Exchange-border-width: .25rem;
     @include FAST-breakpoint('medium') {
         .exchange-list {
             .exchange {
-                width: 50%;
+                width: calc(50% - 2em);
             }
         }
 
@@ -140,7 +140,7 @@ $SEL-Exchange-border-width: .25rem;
     @include FAST-breakpoint('large') {
         .exchange-list {
             .exchange {
-                width: 33.3333%;
+                width: calc(33.3333% - 2em);
             }
         }
     }
@@ -148,7 +148,7 @@ $SEL-Exchange-border-width: .25rem;
     @include FAST-breakpoint('xlarge') {
         .exchange-list {
             .exchange {
-                width: 25%;
+                width: calc(25% - 2em);
             }
         }
     }

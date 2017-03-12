@@ -9,9 +9,11 @@ let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
     jQueryBridget = require('jquery-bridget'),
-    inputMask = require('jquery.inputmask');
+    inputMask = require('jquery.inputmask'),
+    svg4eferybody = require('svg4everybody');
 
 window.jQuery = window.$ = $;
+svg4eferybody();
 
 require('trumbowyg');
 require ('air-datepicker');
