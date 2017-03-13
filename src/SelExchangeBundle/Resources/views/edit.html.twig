@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% import "Macros/icons.html.twig" as icons %}
 
+{% block title %}Modifier un échange{% endblock %}
+
 {% block header %}
     <header class="page-header angle-intro inline-heading">
         <div class="wrapper">
@@ -42,7 +44,7 @@
             </div>
             <div class="form-row">
                 {{ form_label(form.amount) }}
-                {{ form_widget(form.amount, { 'type':'number' }) }}
+                {{ form_widget(form.amount, { 'type':'text', 'attr': {'data-inputmask-regex': "[0-9]{1,3}[\.,]?(25|5|50|75|00)"} }) }}
                 {{ form_errors(form.amount) }}
             </div>
         </fieldset>

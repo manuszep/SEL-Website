@@ -64,6 +64,7 @@ class ServiceController extends Controller
 
         return $this->render('service/listForUser.html.twig', array(
             'services' => $this->getPagination($services, $request),
+            'user' => $user,
             'partial' => $partial
         ));
     }
@@ -99,6 +100,18 @@ class ServiceController extends Controller
                 'success',
                 'Le service a bien été enregistré.'
             );
+
+            $this->get('gamp.analytics')
+                ->setCustomDimension($service->getId(), 1)
+                ->setCustomDimension($service->getTitle(), 2)
+                ->setCustomDimension($service->getUser()->getUsername(), 3)
+                ->setCustomDimension($service->getType(), 4)
+                ->setCustomDimension($service->getDomain(), 5)
+                ->setCustomMetric($service->getCategory(), 6)
+                ->setCustomMetric($this->getUser()->getUsername(), 7)
+                ->setEventCategory('Services')
+                ->setEventAction('New')
+                ->sendEvent();
 
             return $this->redirectToRoute('service_show', array('id' => $service->getId()));
         }
@@ -159,6 +172,18 @@ class ServiceController extends Controller
                 'Le service a bien été enregistré.'
             );
 
+            $this->get('gamp.analytics')
+                ->setCustomDimension($service->getId(), 1)
+                ->setCustomDimension($service->getTitle(), 2)
+                ->setCustomDimension($service->getUser()->getUsername(), 3)
+                ->setCustomDimension($service->getType(), 4)
+                ->setCustomDimension($service->getDomain(), 5)
+                ->setCustomMetric($service->getCategory(), 6)
+                ->setCustomMetric($this->getUser()->getUsername(), 7)
+                ->setEventCategory('Services')
+                ->setEventAction('Edit')
+                ->sendEvent();
+
             return $this->redirectToRoute('service_show', array('id' => $service->getId()));
         }
 
@@ -183,6 +208,18 @@ class ServiceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('gamp.analytics')
+                ->setCustomDimension($service->getId(), 1)
+                ->setCustomDimension($service->getTitle(), 2)
+                ->setCustomDimension($service->getUser()->getUsername(), 3)
+                ->setCustomDimension($service->getType(), 4)
+                ->setCustomDimension($service->getDomain(), 5)
+                ->setCustomMetric($service->getCategory(), 6)
+                ->setCustomMetric($this->getUser()->getUsername(), 7)
+                ->setEventCategory('Services')
+                ->setEventAction('Delete')
+                ->sendEvent();
+
             $service_manager = $this->getServiceManager();
             $service_manager->deleteService($service);
 

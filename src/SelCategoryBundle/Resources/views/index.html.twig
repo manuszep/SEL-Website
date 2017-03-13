@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% import _self as macros %}
 
+{% block title %}Catégories{% endblock %}
+
 {% macro display_tree(level) %}
     {% import _self as macros %}
     <li>{{ level.title }} (<a href="{{ path('sel_category_edit', { 'id': level.id }) }}">edit</a>)
