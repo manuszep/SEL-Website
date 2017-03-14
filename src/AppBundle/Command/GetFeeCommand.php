@@ -30,7 +30,6 @@ class GetFeeCommand extends ContainerAwareCommand
 
         $users = $userManager->findUsers();
 
-        $total = 0;
         $admin = null;
 
         foreach ($users as $user) {
@@ -39,13 +38,13 @@ class GetFeeCommand extends ContainerAwareCommand
                 $admin = $user;
                 continue;
             }
-
-            //$user->debit(0.25);
-            //$total += 0.25;
         }
 
         foreach ($users as $user) {
             /* @var $user \AppBundle\Entity\User */
+            if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                continue;
+            }
 
             $exchange = new Exchange();
 
@@ -56,8 +55,6 @@ class GetFeeCommand extends ContainerAwareCommand
             $exchange->setHidden(true);
             $entityManager->persist($exchange);
         }
-
-        //$admin -> credit($total);
 
         $entityManager->flush();
     }
