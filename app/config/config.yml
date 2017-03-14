@@ -169,4 +169,4 @@ knp_paginator:
 ewz_recaptcha:
     public_key:  '%captcha_public_key%'
     private_key: '%captcha_private_key%'
-    locale_key:  'fr'd%
+    locale_key:  'fr'
