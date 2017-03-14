@@ -38,7 +38,12 @@ class DefaultController extends Controller
         $exchange_qb->where(
                 $exchange_qb->expr()->gt('e.updated', ':limit')
             )
-            ->setParameter('limit', $limit->format("Y-m-d H:i:s"));
+            ->andWhere(
+                'e.hide = 0 OR e.hide is null'
+            )
+            ->setParameters(array(
+                'limit' => $limit->format("Y-m-d H:i:s")
+            ));
 
         $exchanges = $exchange_qb->getQuery()->getResult();
 

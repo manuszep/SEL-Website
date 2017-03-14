@@ -81,6 +81,12 @@ class Exchange
      */
     private $updated;
 
+    /**
+     * @var bool $hide
+     * @ORM\Column(name="hide", type="boolean", nullable=true)
+     */
+    private $hide;
+
     public function getEntityName() {
         return 'Exchange';
     }
@@ -258,6 +264,20 @@ class Exchange
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden) {
+        $this->hide = $hidden;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHidden() {
+        return $this->hide;
     }
 }
 
