@@ -119,18 +119,6 @@ class ExchangeController extends Controller
                     );
                 $this->get('mailer')->send($message);
 
-                $this->get('gamp.analytics')
-                    ->setCustomDimension($exchange->getId(), 1)
-                    ->setCustomDimension($exchange->getTitle(), 2)
-                    ->setCustomDimension($exchange->getDebitUser()->getUsername(), 3)
-                    ->setCustomDimension($exchange->getCreditUser()->getUsername(), 4)
-                    ->setCustomDimension($this->getUser()->getUsername(), 5)
-                    ->setCustomMetric($exchange->getAmount(), 6)
-                    ->setEventCategory('Exchange')
-                    ->setEventAction('New')
-                    ->sendEvent()
-                ;
-
                 return $this->redirect($this->generateUrl('user_show', array('id' => $exchange->getDebitUser()->getId())) . '#section1');
             }
         }
@@ -178,17 +166,6 @@ class ExchangeController extends Controller
                     'L\'échange a bien été enregistré.'
                 );
 
-                $this->get('gamp.analytics')
-                    ->setCustomDimension($exchange->getId(), 1)
-                    ->setCustomDimension($exchange->getTitle(), 2)
-                    ->setCustomDimension($exchange->getDebitUser()->getUsername(), 3)
-                    ->setCustomDimension($exchange->getCreditUser()->getUsername(), 4)
-                    ->setCustomDimension($this->getUser()->getUsername(), 5)
-                    ->setCustomMetric($exchange->getAmount(), 6)
-                    ->setEventCategory('Exchange')
-                    ->setEventAction('Edit')
-                    ->sendEvent();
-
                 return $this->redirect($this->generateUrl('user_show', array('id' => $current_user->getId())) . '#section1');
             }
         }
@@ -212,16 +189,6 @@ class ExchangeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('gamp.analytics')
-                ->setCustomDimension($exchange->getId(), 1)
-                ->setCustomDimension($exchange->getTitle(), 2)
-                ->setCustomDimension($exchange->getDebitUser()->getUsername(), 3)
-                ->setCustomDimension($exchange->getCreditUser()->getUsername(), 4)
-                ->setCustomDimension($this->getUser()->getUsername(), 5)
-                ->setCustomMetric($exchange->getAmount(), 6)
-                ->setEventCategory('Exchange')
-                ->setEventAction('Delete')
-                ->sendEvent();
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($exchange);

@@ -215,15 +215,57 @@
 
         <script src="{{ asset('js/main.js') }}?v2.0.1"></script>
         {% block javascripts %}{% endblock %}
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-29628517-2', 'auto');
-            ga('send', 'pageview');
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['setCustomVariable',
+                // Index, the number from 1 to 5 where this custom variable name is stored for the current page view
+                1,
+                // Name, the name of the variable, for example: Category, Sub-category, UserType
+                "UserType",
+                // Value, for example: "Sports", "News", "World", "Business", etc.
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                "ROLE_SUPER_ADMIN",
+                {% elseif is_granted("ROLE_ADMIN") %}
+                "ROLE_ADMIN",
+                {% elseif is_granted("ROLE_COCO") %}
+                "ROLE_COCO",
+                {% elseif is_granted("ROLE_EDITOR") %}
+                "ROLE_EDITOR",
+                {% elseif is_granted("ROLE_USER") %}
+                "ROLE_USER",
+                {% else %}
+                "ANONYMOUS",
+                {% endif %}
+                // Scope of the custom variable, "page" means the custom variable applies to the current page view
+                "visit"
+            ]);
 
+            {% if is_granted("ROLE_USER") %}
+            _paq.push(['setCustomVariable',
+                // Index, the number from 1 to 5 where this custom variable name is stored for the current page view
+                2,
+                // Name, the name of the variable, for example: Category, Sub-category, UserType
+                "UserName",
+                // Value, for example: "Sports", "News", "World", "Business", etc.
+                "{{ app.user.username }}",
+                // Scope of the custom variable, "page" means the custom variable applies to the current page view
+                "visit"
+            ]);
+            {% endif %}
+
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="//stats.szep.be/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', '1']);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
         </script>
+        <!-- End Piwik Code -->
     </body>
 </html>

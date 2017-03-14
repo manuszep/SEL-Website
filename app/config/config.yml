@@ -169,11 +169,4 @@ knp_paginator:
 ewz_recaptcha:
     public_key:  '%captcha_public_key%'
     private_key: '%captcha_private_key%'
-    locale_key:  'fr'
-
-four_labs_gamp:
-    protocol_version: 1
-    tracking_id: UA-29628517-2
-    use_ssl: true
-    anonymize_ip: false
-    async_requests: true
+    locale_key:  'fr'd%
