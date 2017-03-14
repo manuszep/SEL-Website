@@ -50,7 +50,7 @@ class PhoneNumberTransformer implements DataTransformerInterface
         if (!$input || $input == "") {
             return "";
         }
-        $number = preg_replace('/[^0-9]+/', '', $input);
+        $number = preg_replace('/[^0-9+]/', '', $input);
 
         if (substr($number, 0, 1) != '0' && substr($number, 0, 1) != '+') {
             $number = '+32' . $number;
