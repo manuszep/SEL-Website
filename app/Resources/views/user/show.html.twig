@@ -40,10 +40,9 @@
                     {% if not user.phone and not user.mobile and not user.mobile2 and not user.address and not user.getPicture %}
                        </p>
                         <p class="lead text-center">Votre profil est bien vide. Pour le modifier, vous pouvez :</p>
-                        <ul>
-                            <li>Cliquez sur le petit crayon à droite de votre nom en haut de cette page.</li>
-                            <li>Passer la souris sur votre nom dans l'entête de la page, à droite, et choisir <strong>modifier</strong> dans le menu déroulant.</li>
-                        </ul><p>
+                        <p>Cliquez sur le petit crayon à droite de votre nom en haut de cette page.<br />
+                            Passer la souris sur votre nom dans l'entête de la page, à droite, et choisir <strong>modifier</strong> dans le menu déroulant.</p>
+                        <p>
                     {% else %}<br />{% endif %}
                     {% if user.phone %}<strong>Téléphone:</strong> <a href="tel:{{ user.phone }}">{{ user.getPhoneFormatted }}</a><br />{% endif %}
                     {% if user.mobile %}<strong>GSM:</strong> <a href="tel:{{ user.mobile }}">{{ user.getMobileFormatted }}</a><br />{% endif %}
