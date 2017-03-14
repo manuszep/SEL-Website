@@ -25,6 +25,8 @@ class GetFeeCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // Run only if it's the first day of the month
+        if ( date('j') !== '1' ) {return;}
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         $userManager = $this->getContainer()->get('fos_user.user_manager');
 

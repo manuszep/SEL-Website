@@ -25,6 +25,8 @@ class ResetBalanceCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // Run only if it's the first day of the year (0 = first day, 365 = last day of leap year)
+        if ( date('z') !== '0' ) {return;}
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         $userManager = $this->getContainer()->get('fos_user.user_manager');
 
