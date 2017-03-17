@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
             new SelCategoryBundle\SelCategoryBundle(),
+            new SelServiceBundle\SelServiceBundle(),
             new SelExchangeBundle\SelExchangeBundle(),
             new SelFaqBundle\SelFaqBundle(),
         ];

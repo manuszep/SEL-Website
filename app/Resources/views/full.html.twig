@@ -162,7 +162,7 @@
                             {% endif %}
                         </ul>
                     </li>
-                    <li><a href="{{ path('service_index') }}">Services</a></li>
+                    <li><a href="{{ path('sel_service_index') }}">Services</a></li>
                     <li><a href="{{ path('sel_faq_index') }}">Questions fréquentes</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <li><a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ icons.icon('user', 'Membre') }} {{ app.user.username }}</a>
@@ -195,7 +195,7 @@
             <div class="wrapper">
                 <a class="toggle" href="#" title="Ajouter">{{ icons.icon('plus', 'Ajouter') }}</a>
                 <ul>
-                    <li>{{ icons.iconlink('lightbulb', 'Ajouter un service', path('service_new')) }}</li>
+                    <li>{{ icons.iconlink('lightbulb', 'Ajouter un service', path('sel_service_new')) }}</li>
                     <!--
                     <li>{{ icons.iconlink('calendar', 'Ajouter un évènement', '/agenda/ajouter') }}</li>
                     <li>{{ icons.iconlink('file-text', 'Ajouter un article', '/articles/ajouter') }}</li>

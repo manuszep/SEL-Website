@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Security;
+namespace SelServiceBundle\Security;
 
-use AppBundle\Entity\Service;
+use SelServiceBundle\Entity\Service;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;

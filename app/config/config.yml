@@ -3,25 +3,12 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
-    - { resource: "@SelCategoryBundle/Resources/config/services.yml" }
-    - { resource: "@SelExchangeBundle/Resources/config/services.yml" }
-    - { resource: "@SelFaqBundle/Resources/config/services.yml" }
+    - { resource: "@SelServiceBundle/Resources/config/config.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    app_bundle.service.types:
-        1: Offre
-        2: Demande
-        3: Offre Flash
-        4: Demande Flash
-    app_bundle.service.flash_types_ids:
-        - 3 # This is a reference to app_bundle.service.types keys
-        - 4
-    app_bundle.service.domains:
-        1: Service / savoir
-        2: Preterie / donnerie
 
 framework:
     #esi:             ~

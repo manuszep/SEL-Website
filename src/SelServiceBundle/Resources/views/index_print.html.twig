@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Impression des services{% endblock %}
+
+{% block javascripts %}
+    <script>
+        (function(window) {
+            $(function() {
+                window.print();
+            })();
+        })(window);
+    </script>
+{% endblock %}
+
+{% block header %}
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Les services</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="service-list">
+        <div class="wrapper">
+            <table>
+                <tbody>{% for service in services %}
+                    <tr>
+                        <td><strong class="service-print-heading">{{ service.title }}</strong> {{ service.user.username }}</td>
+                        <td>{{ service.body|raw }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

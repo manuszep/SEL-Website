@@ -1,14 +1,13 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace SelServiceBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Service;
+use SelServiceBundle\Entity\Service;
 
 class LoadServiceData extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
@@ -172,7 +171,7 @@ class LoadServiceData extends AbstractFixture implements ContainerAwareInterface
 
         foreach($data as $s) {
             $service = new Service();
-            
+
             $service->setTitle($s["title"]);
             $service->setUser($s["user"]);
             $service->setBody($s["body"]);

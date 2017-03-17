@@ -52,6 +52,8 @@ $SEL-Service-border-width: .25rem;
  **/
 @mixin SEL-Service() {
     .service-list {
+        margin-top: 4em;
+
         .service {
             width: calc(100% - 2em);
             margin: 0 1em 3rem 1em;

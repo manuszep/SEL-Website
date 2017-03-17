@@ -1,3 +1,9 @@
+imports:
+    - { resource: "@SelCategoryBundle/Resources/config/services.yml" }
+    - { resource: "@SelExchangeBundle/Resources/config/services.yml" }
+    - { resource: "@SelFaqBundle/Resources/config/services.yml" }
+    - { resource: "@SelServiceBundle/Resources/config/services.yml" }
+
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
@@ -6,16 +12,6 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    form.type.service:
-        class: AppBundle\Form\ServiceType
-        arguments: ["@security.authorization_checker", "%app_bundle.service.types%", "%app_bundle.service.domains%"]
-        tags:
-            - { name: form.type, alias: service_type }
-    form.type.service_filter:
-        class: AppBundle\Form\ServiceFilterType
-        arguments: ["%app_bundle.service.types%", "%app_bundle.service.domains%"]
-        tags:
-            - { name: form.type, alias: service_filter_type }
     form.type.contact:
         class: AppBundle\Form\ContactType
         arguments: ["@security.authorization_checker", "@security.token_storage"]
@@ -26,34 +22,12 @@ services:
         arguments: ["@security.authorization_checker", "@security.token_storage"]
         tags:
             - { name: form.type, alias: user_profile_type }
-    app.service_voter:
-        class: AppBundle\Security\ServiceVoter
-        arguments: ['@security.access.decision_manager']
-        tags:
-            - { name: security.voter }
-        public: false
     app.user_voter:
         class: AppBundle\Security\UserVoter
         arguments: ['@security.access.decision_manager']
         tags:
             - { name: security.voter }
         public: false
-    app.manager.service:
-        class: AppBundle\Entity\ServiceManager
-        arguments:
-            em: "@doctrine.orm.default_entity_manager"
-            class: AppBundle\Entity\Service
-            filter: "@lexik_form_filter.query_builder_updater"
-            authorizationChecker: "@security.authorization_checker"
-            tokenStorage: "@security.token_storage"
-            serviceFlashTypes: "%app_bundle.service.flash_types_ids%"
-    app.subscriber.service_listener:
-        class: AppBundle\EventListener\ServiceListener
-        arguments:
-            - "%app_bundle.service.types%"
-            - "%app_bundle.service.domains%"
-        tags:
-            - { name: doctrine.event_subscriber }
     twig.extension.intl:
          class: Twig_Extensions_Extension_Intl
          tags:

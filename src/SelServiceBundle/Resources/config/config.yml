@@ -1,0 +1,13 @@
+parameters:
+    locale: fr
+    sel_service_bundle.service.types:
+        1: Offre
+        2: Demande
+        3: Offre Flash
+        4: Demande Flash
+    sel_service_bundle.service.flash_types_ids:
+        - 3 # This is a reference to app_bundle.service.types keys
+        - 4
+    sel_service_bundle.service.domains:
+        1: Service / savoir
+        2: Preterie / donnerie

@@ -1,0 +1,3 @@
+sel_service:
+    resource: "@SelServiceBundle/Controller/ServiceController.php"
+    type:     annotation

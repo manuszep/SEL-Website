@@ -1,0 +1,41 @@
+services:
+    form.type.service:
+        class: SelServiceBundle\Form\ServiceType
+        arguments: ["@security.authorization_checker", "%sel_service_bundle.service.types%", "%sel_service_bundle.service.domains%"]
+        tags:
+            - { name: form.type, alias: service_type }
+    form.type.service_filter:
+        class: SelServiceBundle\Form\ServiceFilterType
+        arguments: ["%sel_service_bundle.service.types%", "%sel_service_bundle.service.domains%"]
+        tags:
+            - { name: form.type, alias: service_filter_type }
+    sel_service.service_voter:
+        class: SelServiceBundle\Security\ServiceVoter
+        arguments: ['@security.access.decision_manager']
+        tags:
+            - { name: security.voter }
+        public: false
+    sel_service.repository.service:
+        class: SelServiceBundle\Entity\ServiceRepository
+        factory: ['@doctrine', getRepository]
+        arguments:
+            - 'SelServiceBundle\Entity\Service'
+        calls:
+             - [setFlashIds, ['%sel_service_bundle.service.flash_types_ids%']]
+    sel_service.manager.service:
+        class: SelServiceBundle\Entity\ServiceManager
+        arguments:
+            em: "@doctrine.orm.default_entity_manager"
+            class: SelServiceBundle\Entity\Service
+            filter: "@lexik_form_filter.query_builder_updater"
+            authorizationChecker: "@security.authorization_checker"
+            tokenStorage: "@security.token_storage"
+            serviceFlashTypes: "%sel_service_bundle.service.flash_types_ids%"
+            repository: "@sel_service.repository.service"
+    sel_service.subscriber.service_listener:
+        class: SelServiceBundle\EventListener\ServiceListener
+        arguments:
+            - "%sel_service_bundle.service.types%"
+            - "%sel_service_bundle.service.domains%"
+        tags:
+            - { name: doctrine.event_subscriber }

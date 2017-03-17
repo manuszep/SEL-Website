@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\ServiceManager;
+use SelServiceBundle\Entity\ServiceManager;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,7 +19,7 @@ class DefaultController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var ServiceManager $service_manager */
-        $service_manager = $this->container->get('app.manager.service');
+        $service_manager = $this->container->get('sel_service.manager.service');
         /** @var User $user */
         $user= $this->getUser();
 
@@ -30,8 +30,8 @@ class DefaultController extends Controller
             $limit = $now->modify('- 2 weeks');
         }
 
-        $flash_services = $service_manager->findAll(true, 'flash');
-        $normal_services = $service_manager->findAll(true, 'normal', $limit);
+        $flash_services = $service_manager->findAllFlash(true);
+        $normal_services = $service_manager->findAllNormal(true, $limit);
 
         $exchange_qb = $em->getRepository('SelExchangeBundle:Exchange')->createQueryBuilder('e');
 

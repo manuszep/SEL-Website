@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity;
+namespace SelServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -9,7 +9,7 @@ use AppBundle\Entity\User;
 use SelCategoryBundle\Entity\Category;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="SelServiceBundle\Entity\ServiceRepository")
  * @ORM\Table(name="service")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -25,7 +25,7 @@ class Service
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $user;
@@ -40,12 +40,12 @@ class Service
      */
     private $body;
 
-	/**
+    /**
      * @ORM\Column(type="integer")
      */
     private $type; // Offre | Demande | Offre Flash | Demande Flash
 
-	/**
+    /**
      * @ORM\Column(type="integer")
      */
     private $domain; // Service/savoir || Preterie / donnerie
@@ -101,7 +101,7 @@ class Service
 
     private $types_list;
     private $domains_list;
-    
+
     public function getEntityName() {
         return 'Service';
     }

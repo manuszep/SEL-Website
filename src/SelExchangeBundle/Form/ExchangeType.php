@@ -61,7 +61,7 @@ class ExchangeType extends AbstractType
                         ->setParameter('locked', '0');
                 }
             ));
-        }
+        };
 
         $builder
             ->add('creditUser', EntityType::class, array(

@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\EventListener;
+namespace SelServiceBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use AppBundle\Entity\Service;
+use SelServiceBundle\Entity\Service;
 
 class ServiceListener implements EventSubscriber
 {

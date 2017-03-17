@@ -60,9 +60,9 @@ default:
 sel_exchange:
     resource: "@SelExchangeBundle/Resources/config/routing.yml"
     prefix:   /
-service:
-    resource: "@AppBundle/Controller/ServiceController.php"
-    type:     annotation
+sel_service:
+    resource: "@SelServiceBundle/Resources/config/routing.yml"
+    prefix:   /
 sel_category:
     resource: "@SelCategoryBundle/Resources/config/routing.yml"
     prefix:   /

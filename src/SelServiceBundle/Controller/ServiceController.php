@@ -1,16 +1,15 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace SelServiceBundle\Controller;
 
-use AppBundle\Entity\ServiceManager;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use SelServiceBundle\Entity\ServiceManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Service;
-use AppBundle\Form\ServiceType;
-use AppBundle\Form\ServiceFilterType;
+use SelServiceBundle\Entity\Service;
+use SelServiceBundle\Form\ServiceType;
+use SelServiceBundle\Form\ServiceFilterType;
 use AppBundle\Entity\User;
 
 /**
@@ -23,13 +22,13 @@ class ServiceController extends Controller
     /**
      * Lists all Service entities.
      *
-     * @Route("/", name="service_index")
+     * @Route("/", name="sel_service_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
     {
         $print_list = $request->get('print_list');
-        $form = $this->createForm('AppBundle\Form\ServiceFilterType');
+        $form = $this->createForm('SelServiceBundle\Form\ServiceFilterType');
         $template_ext = '';
 
         $service_manager = $this->getServiceManager();
@@ -50,7 +49,7 @@ class ServiceController extends Controller
             $data = $this->getPagination($services, $request);
         }
 
-        return $this->render('service/index' . $template_ext . '.html.twig', array(
+        return $this->render('SelServiceBundle::index' . $template_ext . '.html.twig', array(
             'services' => $data,
             'filter' => $form->createView(),
             'print_list' => $print_list
@@ -62,7 +61,7 @@ class ServiceController extends Controller
 
         $services = $service_manager->findByUser($user);
 
-        return $this->render('service/listForUser.html.twig', array(
+        return $this->render('SelServiceBundle::listForUser.html.twig', array(
             'services' => $this->getPagination($services, $request),
             'user' => $user,
             'partial' => $partial
@@ -72,7 +71,7 @@ class ServiceController extends Controller
     /**
      * Creates a new Service entity.
      *
-     * @Route("/ajouter", name="service_new")
+     * @Route("/ajouter", name="sel_service_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -83,11 +82,11 @@ class ServiceController extends Controller
 
         $service = $service_manager->createService();
 
-        $form = $this->createForm('AppBundle\Form\ServiceType', $service);
+        $form = $this->createForm('SelServiceBundle\Form\ServiceType', $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $flash_services_ids = $this->container->getParameter('app_bundle.service.flash_types_ids');
+            $flash_services_ids = $this->container->getParameter('sel_service_bundle.service.flash_types_ids');
 
             if (in_array($service->getType(), $flash_services_ids) && !$service->getExpiresAt()) {
                 $now = new \DateTime();
@@ -101,10 +100,10 @@ class ServiceController extends Controller
                 'Le service a bien été enregistré.'
             );
 
-            return $this->redirectToRoute('service_show', array('id' => $service->getId()));
+            return $this->redirectToRoute('sel_service_show', array('id' => $service->getId()));
         }
 
-        return $this->render('service/new.html.twig', array(
+        return $this->render('SelServiceBundle::new.html.twig', array(
             'service' => $service,
             'form' => $form->createView(),
         ));
@@ -113,7 +112,7 @@ class ServiceController extends Controller
     /**
      * Finds and displays a Service entity.
      *
-     * @Route("/{id}", name="service_show")
+     * @Route("/{id}", name="sel_service_show")
      * @Method("GET")
      */
     public function showAction(Service $service)
@@ -124,7 +123,7 @@ class ServiceController extends Controller
 
         $deleteForm = $this->createDeleteForm($service);
 
-        return $this->render('service/show.html.twig', array(
+        return $this->render('SelServiceBundle::show.html.twig', array(
             'service' => $service,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -133,7 +132,7 @@ class ServiceController extends Controller
     /**
      * Displays a form to edit an existing Service entity.
      *
-     * @Route("/{id}/edit", name="service_edit")
+     * @Route("/{id}/edit", name="sel_service_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Service $service)
@@ -142,11 +141,11 @@ class ServiceController extends Controller
 
         $service_manager = $this->getServiceManager();
         $deleteForm = $this->createDeleteForm($service);
-        $editForm = $this->createForm('AppBundle\Form\ServiceType', $service);
+        $editForm = $this->createForm('SelServiceBundle\Form\ServiceType', $service);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $flash_services_ids = $this->container->getParameter('app_bundle.service.flash_types_ids');
+            $flash_services_ids = $this->container->getParameter('sel_service_bundle.service.flash_types_ids');
 
             if (in_array($service->getType(), $flash_services_ids) && !$service->getExpiresAt()) {
                 $now = new \DateTime();
@@ -160,10 +159,10 @@ class ServiceController extends Controller
                 'Le service a bien été enregistré.'
             );
 
-            return $this->redirectToRoute('service_show', array('id' => $service->getId()));
+            return $this->redirectToRoute('sel_service_show', array('id' => $service->getId()));
         }
 
-        return $this->render('service/edit.html.twig', array(
+        return $this->render('SelServiceBundle::edit.html.twig', array(
             'service' => $service,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -173,7 +172,7 @@ class ServiceController extends Controller
     /**
      * Deletes a Service entity.
      *
-     * @Route("/{id}", name="service_delete")
+     * @Route("/{id}", name="sel_service_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Service $service)
@@ -194,7 +193,7 @@ class ServiceController extends Controller
             );
         }
 
-        return $this->redirectToRoute('service_index');
+        return $this->redirectToRoute('sel_service_index');
     }
 
     /**
@@ -207,10 +206,10 @@ class ServiceController extends Controller
     private function createDeleteForm(Service $service)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('service_delete', array('id' => $service->getId())))
+            ->setAction($this->generateUrl('sel_service_delete', array('id' => $service->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 
     /**
@@ -218,7 +217,7 @@ class ServiceController extends Controller
      */
     protected function getServiceManager()
     {
-        return $this->container->get('app.manager.service');
+        return $this->container->get('sel_service.manager.service');
     }
 
     public function getPagination($services, $request, $limit = 10) {

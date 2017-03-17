@@ -19,13 +19,13 @@
             {% if flash_services is empty and journal is empty %}
                 {% include 'default/nothing_to_show.html.twig' %}
             {% else %}
-            <div class="grid masonry">
+            <div class="grid masonry service-list">
                 {% for service in flash_services %}
-                    {% include 'service/serviceItem.html.twig' with {'service': service} %}
+                    {% include 'SelServiceBundle::serviceItem.html.twig' with {'service': service} %}
                 {% endfor %}
                 {% for item in journal %}
                     {% if item.getEntityName == 'Service' %}
-                        {% include 'service/serviceItem.html.twig' with {'service': item} %}
+                        {% include 'SelServiceBundle::serviceItem.html.twig' with {'service': item} %}
                     {% endif %}
                     {% if item.getEntityName == 'Exchange' %}
                         {% include 'SelExchangeBundle::exchangeItem.html.twig' with {'exchange': item} %}

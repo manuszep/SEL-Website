@@ -75,7 +75,7 @@ class Category
     /**
      * @var int
      *
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Service", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="\SelServiceBundle\Entity\Service", mappedBy="category")
      * @ORM\OrderBy({"created" = "ASC"})
      */
     private $services;
