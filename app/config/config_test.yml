@@ -12,5 +12,15 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   boutsdefisel_test
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+
 swiftmailer:
     disable_delivery: true
