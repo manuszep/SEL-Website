@@ -1,0 +1,74 @@
+<script>
+
+    (function($) {
+        var parseDate = function(d) {
+            d = d.split('/');
+            return new Date(d[2],d[1] - 1,d[0]);
+        }
+
+        var formatDate = function(d) {
+            var day = ('0' + d.getDate()).slice(-2);
+            var month = ('0' + (d.getMonth() + 1)).slice(-2);
+            return day + "/" + month + "/" + d.getFullYear()
+        }
+
+        var setFieldValue = function($field, value) {
+            // Store cursor position
+            var start = $field[0].selectionStart,
+                end = $field[0].selectionEnd;
+
+            $field.val(value);
+            // Restore cursor position
+            $field[0].setSelectionRange(start, end);
+        }
+
+        var flash_default_date = parseDate('{{ flash_default_date }}');
+        var normal_default_date = parseDate('{{ normal_default_date }}');
+        var $service_type = $('#service_type');
+        var $service_expires_at = $('#service_expires_at');
+
+        var handleDateChange = function(e) {
+            var val = $service_expires_at.val();
+            val = val.replace(/\D/g, '/').substring(0, 10);
+            setFieldValue($service_expires_at, val);
+        }
+
+        var forceDate = function(type) {
+            var new_date = null;
+
+            if (type == 1 || type == 2) {
+                new_date = normal_default_date;
+            } else {
+                new_date = flash_default_date;
+            }
+
+            setFieldValue($service_expires_at, formatDate(new_date));
+        }
+
+        var checkDateIsFlash = function() {
+            var current_date = parseDate($service_expires_at.val());
+
+            if (current_date > flash_default_date) {
+                setFieldValue($service_expires_at, formatDate(flash_default_date));
+            }
+        }
+
+        // Use oninput event as it feels like onchange but without the need to loose focus
+        $service_expires_at.on('input', handleDateChange);
+        // Make backward compatible by mapping onproperty change to oninput
+        $service_expires_at.on('propertychange', handleDateChange);
+
+        $service_type.on('change.selService', function(e) {
+            var type = $service_type.val();
+            var d = parseDate($service_expires_at.val());
+            if (isNaN(d.getDate())) {
+                return forceDate(type);
+            }
+
+            if ((type == 3 || type == 4) && checkDateIsFlash()) {
+
+            }
+        });
+    })(jQuery);
+
+</script>

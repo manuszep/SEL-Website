@@ -76,11 +76,17 @@ class ServiceController extends Controller
      */
     public function newAction(Request $request)
     {
+        $now = new \DateTime();
+        $year1 = $now->modify('+ 1 year');
+        $week2 = $now->modify('+ 2 weeks');
+
         $this->denyAccessUnlessGranted('create-service');
 
         $service_manager = $this->getServiceManager();
 
         $service = $service_manager->createService();
+
+        $service->setExpiresAt($year1);
 
         $form = $this->createForm('SelServiceBundle\Form\ServiceType', $service);
         $form->handleRequest($request);
@@ -89,8 +95,7 @@ class ServiceController extends Controller
             $flash_services_ids = $this->container->getParameter('sel_service_bundle.service.flash_types_ids');
 
             if (in_array($service->getType(), $flash_services_ids) && !$service->getExpiresAt()) {
-                $now = new \DateTime();
-                $service->setExpiresAt($now->modify('+ 2 weeks'));
+                $service->setExpiresAt($week2);
             }
 
             $service_manager->saveService($service);
@@ -106,6 +111,8 @@ class ServiceController extends Controller
         return $this->render('SelServiceBundle::new.html.twig', array(
             'service' => $service,
             'form' => $form->createView(),
+            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 14 day")),
+            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 365 day"))
         ));
     }
 
@@ -166,6 +173,8 @@ class ServiceController extends Controller
             'service' => $service,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 14 day")),
+            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 365 day"))
         ));
     }
 

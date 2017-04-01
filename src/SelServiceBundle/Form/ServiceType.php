@@ -79,7 +79,8 @@ class ServiceType extends AbstractType
                 'label' => 'label.expiresAt',
                 'format' => 'dd/MM/yyyy',
                 'attr' => array(
-                    'placeholder' => 'jj/mm/aaaa'
+                    'placeholder' => 'jj/mm/aaaa',
+                    'empty_data' => date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day"))
                 )
             ))
             ->add('save', SubmitType::class, array(

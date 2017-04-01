@@ -1,7 +1,7 @@
 <?php
 namespace Tests\AppBundle\Entity;
 
-use AppBundle\Entity\Service;
+use SelServiceBundle\Entity\Service;
 use AppBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
 
