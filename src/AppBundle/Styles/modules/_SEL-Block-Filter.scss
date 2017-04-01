@@ -55,6 +55,7 @@
             }
 
             &:after{
+                pointer-events: none;
                 position: absolute;
                 right: .5em;
                 top: 50%;
