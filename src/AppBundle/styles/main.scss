@@ -22,6 +22,7 @@
 
 @import "modules/FAST-Deco.scss";
 @import "modules/FAST-Card.scss";
+@import "modules/FAST-Alert.scss";
 
 @import "modules/SEL-Wrapper";
 @import "modules/SEL-Type";
@@ -54,6 +55,7 @@ $SEL-Content-top-margin: 8rem !default;
 @include FAST-Form();
 @include FAST-Deco();
 @include FAST-Card();
+@include FAST-Alert();
 @include SEL-Wrapper();
 @include SEL-Type();
 @include SEL-Icon();
