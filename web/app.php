@@ -13,7 +13,7 @@ include_once __DIR__.'/../var/bootstrap.php.cache';
 // in order to prevent cache key conflicts with other applications
 // also using APC.
 
-$apcLoader = new Symfony\Component\ClassLoader\ApcClassLoader('BoutsDeFiSEL', $loader);
+$apcLoader = new Symfony\Component\ClassLoader\ApcClassLoader('BoutsDeFiSEL_Dev', $loader);
 $loader->unregister();
 $apcLoader->register(true);
 
