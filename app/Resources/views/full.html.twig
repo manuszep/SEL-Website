@@ -216,6 +216,7 @@
         <script src="{{ asset('js/main.js') }}?v2.0.2"></script>
         {% block javascripts %}{% endblock %}
 
+        {% if app.environment == 'prod' %}
         <!-- Piwik -->
         <script type="text/javascript">
             var _paq = _paq || [];
@@ -267,5 +268,6 @@
             })();
         </script>
         <!-- End Piwik Code -->
+        {% endif %}
     </body>
 </html>
