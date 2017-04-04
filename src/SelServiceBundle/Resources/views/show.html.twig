@@ -8,7 +8,7 @@
         <div class="wrapper">
             <h1>{{ service.title }}</h1>
 
-            {{ icons.iconlink('pencil', 'Modifier', path('sel_service_edit', { 'id': service.id }), 'btn') }}
+            {% if is_granted("edit", service) %}{{ icons.iconlink('pencil', 'Modifier', path('sel_service_edit', { 'id': service.id }), 'btn') }}{% endif %}
 
             <div class="service-author">
                 {{ service.user.username }}
