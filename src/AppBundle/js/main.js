@@ -4,6 +4,7 @@ import {Tab} from './Tab.js';
 import {Flash} from './Flash.js';
 import {Disqus} from './Disqus.js';
 import {Faq} from './Faq.js';
+import {AddTool} from './AddTool';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -22,7 +23,7 @@ require ('air-datepicker');
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
 
-$('body').addClass('js');
+$('body').removeClass('nojs').addClass('js');
 
 let $grid = $('.masonry');
 
@@ -44,12 +45,9 @@ let tab = new Tab();
 let flash = new Flash();
 let disqus = new Disqus();
 let faq = new Faq();
+let add_tool = new AddTool();
 
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
-
-$('.add-tool .toggle').on('click', function(e) {
-    e.preventDefault();
-})
 
 
 $('.wysiwyg').trumbowyg({

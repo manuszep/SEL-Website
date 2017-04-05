@@ -127,78 +127,78 @@ $SEL-Add-tool-radius: 16rem;
                 font-size: $SEL-add-tool-item-size - (2 * $SEL-add-tool-item-padding);
             }
         }
+    }
 
-        &:hover {
-            .toggle {
-                color: $FAST-Color-secondary;
-                background: $FAST-Color-white-xxl;
+    .nojs .add-tool:hover, .add-tool.active {
+        .toggle {
+            color: $FAST-Color-secondary;
+            background: $FAST-Color-white-xxl;
 
-                .icon {
-                    transform: rotate(225deg);
+            .icon {
+                transform: rotate(225deg);
 
-                    fill: $FAST-Color-secondary;
-                }
+                fill: $FAST-Color-secondary;
             }
+        }
 
-            ul {
-                visibility: visible;
+        ul {
+            visibility: visible;
 
-                a {
-                    @include FAST-Deco-shadow-2();
-                }
+            a {
+                @include FAST-Deco-shadow-2();
             }
+        }
 
-            li {
-                right: $SEL-Add-tool-radius - $SEL-add-tool-item-size;
-                transform-origin: ($SEL-Add-tool-radius - ($SEL-add-tool-item-size / 2)) ($SEL-add-tool-item-size / 2);
-                transition-delay: .2s;
+        li {
+            right: $SEL-Add-tool-radius - $SEL-add-tool-item-size;
+            transform-origin: ($SEL-Add-tool-radius - ($SEL-add-tool-item-size / 2)) ($SEL-add-tool-item-size / 2);
+            transition-delay: .2s;
+        }
+
+        li:first-child {
+
+        }
+
+        li:nth-child(2) {
+            transform: rotateZ(22.5deg);
+
+            a {
+                transform: rotateZ(-22.5deg);
             }
+        }
 
-            li:first-child {
+        li:nth-child(3) {
+            transform: rotateZ(45deg);
 
+            a {
+                transform: rotateZ(-45deg);
             }
+        }
 
-            li:nth-child(2) {
-                transform: rotateZ(22.5deg);
+        li:nth-child(4) {
+            transform: rotateZ(67.5deg);
 
-                a {
-                    transform: rotateZ(-22.5deg);
-                }
+            a {
+                transform: rotateZ(-67.5deg);
             }
+        }
 
-            li:nth-child(3) {
-                transform: rotateZ(45deg);
+        li:nth-child(5) {
+            transform: rotateZ(90deg);
 
-                a {
-                    transform: rotateZ(-45deg);
-                }
+            a {
+                transform: rotateZ(-90deg);
             }
+        }
 
-            li:nth-child(4) {
-                transform: rotateZ(67.5deg);
-
-                a {
-                    transform: rotateZ(-67.5deg);
-                }
-            }
-
-            li:nth-child(5) {
-                transform: rotateZ(90deg);
-
-                a {
-                    transform: rotateZ(-90deg);
-                }
-            }
-
-            + .dimmer {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,.4);
-                z-index: 1;
-            }
+        + .dimmer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.4);
+            z-index: 1;
         }
     }
 }
