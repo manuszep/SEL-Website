@@ -6,6 +6,7 @@ export class AddTool {
 
         this._cache.tool = $('.add-tool');
         this._cache.toggle = $('.add-tool .toggle');
+        this._cache.dimmer = $('.dimmer');
 
         this.setupEvents();
     }
@@ -16,6 +17,11 @@ export class AddTool {
         this._cache.toggle.on('click', function(e) {
             e.preventDefault();
             self._cache.tool.toggleClass("active");
-        })
+        });
+
+        this._cache.dimmer.on('click', function(e) {
+            e.preventDefault();
+            self._cache.tool.removeClass("active");
+        });
     }
 }
