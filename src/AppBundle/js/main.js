@@ -55,7 +55,7 @@ $('.wysiwyg').trumbowyg({
     closable: false,
     lang: 'fr',
     removeformatPasted: true,
-    btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'removeformat']
+    btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'link', '|', 'removeformat']
 });
 
 $('[data-inputmask-regex]').inputmask("Regex");

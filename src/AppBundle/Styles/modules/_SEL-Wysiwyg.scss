@@ -30,13 +30,13 @@
  *  Styles
  **/
 @mixin SEL-Wysiwyg() {
-    $light-color: #ecf0f1;
-    $dark-color: #222;
+    $light-color: #ecf0f1 !default;
+    $dark-color: #222 !default;
 
-    $modal-submit-color: #2ecc71;
-    $modal-reset-color: #EEE;
+    $modal-submit-color: #2ecc71 !default;
+    $modal-reset-color: #EEE !default;
 
-    $transition-duration: 150ms;
+    $transition-duration: 150ms !default;
 
     #trumbowyg-icons {
         overflow: hidden;
@@ -68,8 +68,8 @@
     .trumbowyg-editor {
         display: block;
         position: relative;
-        border: 1px solid #b0b0b0;
-        border-radius: 3px;
+        border: 1px solid #b0b0b0; // Modified color
+        border-radius: 3px; // Added
         width: 100%;
         min-height: 300px;
         margin: 17px auto;
@@ -77,7 +77,7 @@
 
     .trumbowyg-box .trumbowyg-editor {
         margin: 0 auto;
-        background: #fff;
+        background: #fff; // Added
     }
 
     .trumbowyg-box.trumbowyg-fullscreen {
@@ -156,7 +156,7 @@
         }
     }
 
-    .trumbowyg-editor[contenteditable=true]:empty::before {
+    .trumbowyg-editor[contenteditable=true]:empty:not(:focus)::before {
         content: attr(placeholder);
         color: #999;
         pointer-events: none;
@@ -174,7 +174,7 @@
         list-style-type: none;
         line-height: 10px;
         backface-visibility: hidden;
-        border-radius: 3px;
+        border-radius: 3px; // Added
 
         &::after {
             content: " ";
@@ -218,6 +218,11 @@
             cursor: pointer;
             background: none;
             transition: background-color $transition-duration, opacity $transition-duration;
+
+            &.trumbowyg-textual-button {
+                width: auto;
+                line-height: 35px;
+            }
         }
 
         &.trumbowyg-disable button:not(.trumbowyg-not-disable):not(.trumbowyg-active),
@@ -239,16 +244,28 @@
             outline: none;
         }
 
-        .trumbowyg-open-dropdown::after {
-            display: block;
-            content: " ";
-            position: absolute;
-            top: 25px;
-            right: 3px;
-            height: 0;
-            width: 0;
-            border: 3px solid transparent;
-            border-top-color: #555;
+        .trumbowyg-open-dropdown {
+            &::after {
+                display: block;
+                content: " ";
+                position: absolute;
+                top: 25px;
+                right: 3px;
+                height: 0;
+                width: 0;
+                border: 3px solid transparent;
+                border-top-color: #555;
+            }
+
+            &.trumbowyg-textual-button {
+                padding-left: 10px !important;
+                padding-right: 18px !important;
+
+                &::after {
+                    top: 17px;
+                    right: 7px;
+                }
+            }
         }
 
         .trumbowyg-right {
@@ -283,6 +300,7 @@
             text-align: left;
             font-size: 15px;
             transition: all $transition-duration;
+            margin: 0; // Added
 
             &:hover,
             &:focus {
@@ -306,7 +324,7 @@
         width: 100%;
         height: 350px;
         z-index: 11;
-        overflow: hidden;
+        //overflow: hidden;
         backface-visibility: hidden;
     }
 
@@ -317,7 +335,7 @@
         transform: translateX(-50%);
         max-width: 500px;
         width: calc(100% - 20px);
-        padding-bottom: 45px;
+        //padding-bottom: 45px;
         z-index: 1;
         background-color: #FFF;
         text-align: center;
@@ -353,8 +371,8 @@
             display: block;
             position: relative;
             margin: 15px 12px;
-            height: 27px;
-            line-height: 27px;
+            height: 29px;
+            line-height: 29px;
             overflow: hidden;
 
             .trumbowyg-input-infos {
@@ -420,7 +438,7 @@
         }
 
         .trumbowyg-modal-button {
-            position: absolute;
+            /*position: absolute;
             bottom: 10px;
             right: 0;
             text-decoration: none;
@@ -435,9 +453,12 @@
             cursor: pointer;
             font-family: "Trebuchet MS", Helvetica, Verdana, sans-serif;
             font-size: 16px;
-            transition: all $transition-duration;
+            transition: all $transition-duration;*/
 
-            &.trumbowyg-modal-submit {
+            float: right;
+            margin-right: 12px;
+
+            /*&.trumbowyg-modal-submit {
                 right: 110px;
                 background: darken($modal-submit-color, 3%);
 
@@ -449,9 +470,9 @@
                 &:active {
                     background: darken($modal-submit-color, 10%);
                 }
-            }
+            }*/
 
-            &.trumbowyg-modal-reset {
+            /*&.trumbowyg-modal-reset {
                 color: #555;
                 background: darken($modal-reset-color, 3%);
 
@@ -463,7 +484,7 @@
                 &:active {
                     background: darken($modal-reset-color, 10%);
                 }
-            }
+            }*/
         }
     }
 
