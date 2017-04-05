@@ -35,7 +35,7 @@ class PhoneNumberTransformer implements DataTransformerInterface
             if ($valid_phone_number == 'mobile') {
                 $pattern = '/^(\+\d{2})(\d{3})(\d{2})(\d{2})(\d{2})$/i';
             } else {
-                $pattern = '/^(?|(0[2349])\s?(\d{3})|(\d{3})\s?(\d{2}))\s?(\d{2})\s?(\d{2})$/i';
+                $pattern = '/^(\+\d{2})?(0?[2349])(\d{3})(\d{2})(\d{2})$/i';
             }
 
             preg_match($pattern, $number, $matches);
