@@ -45,7 +45,7 @@ let flash = new Flash();
 let disqus = new Disqus();
 let faq = new Faq();
 
-$.trumbowyg.svgPath = '/img/icons.svg';
+$.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
 
 $('.add-tool .toggle').on('click', function(e) {
     e.preventDefault();
