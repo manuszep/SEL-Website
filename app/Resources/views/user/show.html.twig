@@ -24,7 +24,7 @@
 {% block body %}
     <div class="tabbed-sections">
         {{ render(controller(
-        'AppBundle:Service:listForUser',
+        'SelServiceBundle:Service:listForUser',
         { 'request' : app.request, 'user': user.id, 'partial': true }
         )) }}
 

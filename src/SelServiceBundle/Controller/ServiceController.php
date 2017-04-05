@@ -59,7 +59,7 @@ class ServiceController extends Controller
     public function listForUserAction(Request $request, User $user, $partial) {
         $service_manager = $this->getServiceManager();
 
-        $services = $service_manager->findByUser($user);
+        $services = $service_manager->findAllByUser($user);
 
         return $this->render('SelServiceBundle::listForUser.html.twig', array(
             'services' => $this->getPagination($services, $request),
