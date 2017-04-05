@@ -15,5 +15,22 @@
             "dest": "<%= project.web_styles %>",
             "ext": ".css"
         }]
+    },
+    "dist": {
+        "options": {
+            "style": "compact",
+            "sourcemap": "file",
+            "trace": false,
+            "debugInfo": false,
+            "lineNumbers": false,
+            "bundleExec": true
+        },
+        "files": [{
+            "expand": true,
+            "cwd": "<%= project.src_styles %>",
+            "src": ["*.scss"],
+            "dest": "<%= project.web_styles %>",
+            "ext": ".css"
+        }]
     }
 }

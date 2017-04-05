@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "dist": {
     "files": [{
       "expand": true,
       "cwd": "<%= project.web_scripts %>",

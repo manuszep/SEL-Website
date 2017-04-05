@@ -18,15 +18,18 @@ module.exports = function (grunt) {
         "sass:dev",
         "autoprefixer:dev",
         "browserify:dev",
-        //"uglify:dev",
         //"bytesize:dev",
         "watch"
     ]);
 
     grunt.registerTask("build", [
-        "clean:dist",
-        "server",
-        "uglify:dist"
+        "clean:web_styles",
+        "clean:web_scripts",
+        "sass:dist",
+        "autoprefixer:dev",
+        "browserify:dev",
+        "uglify:dist",
+        "cssmin:dist"
     ]);
 
     grunt.registerTask("scsslintall", ["scsslint"])

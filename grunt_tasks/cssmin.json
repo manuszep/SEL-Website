@@ -1,0 +1,13 @@
+{
+  "dist": {
+    "options": {
+      "report": "gzip"
+    },
+    "files": [{
+      "expand": true,
+      "cwd": "<%= project.web_styles %>",
+      "src": ["*.css"],
+      "dest": "<%= project.web_styles %>"
+    }]
+  }
+}
