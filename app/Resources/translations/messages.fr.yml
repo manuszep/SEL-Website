@@ -8,7 +8,7 @@ Service / Savoir: Service / Savoir
 Preterie / Donnerie: Prêterie / Donnerie
 
 label:
-    username: Nom d'utilisateur
+    username: Pseudo
     email: Adresse email
     password: Mot de passe
     passwordRepeat: Confirmation
