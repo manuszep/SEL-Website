@@ -390,8 +390,12 @@ class UserController extends Controller
     {
         $this->denyAccessUnlessGranted('show user', $user);
 
+        $datetime1 = new \DateTime();
+        $interval = $datetime1->diff($user->getCreated());
+
         return $this->render('user/show.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'user_since' => $interval->format('%y ans %m mois et %d jours')
         ));
 
         return;

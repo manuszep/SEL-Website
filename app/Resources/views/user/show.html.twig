@@ -10,7 +10,8 @@
 
             {{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id }), 'btn') }}
 
-            <div class="user-balance">{{ user.balance }} noeuds</div>
+            <div class="user-info">Membre depuis {{ user_since }}.<br />
+                {{ user.balance }} noeuds</div>
         </div>
     </header>
 

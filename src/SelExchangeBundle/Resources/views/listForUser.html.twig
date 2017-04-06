@@ -21,7 +21,7 @@
                 <tbody>
                 {% for exchange in exchanges %}
                     <tr>
-                        <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
+                        <td><a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}">{{ exchange.creditUser }}</a> {{ icons.icon('arrow-right', 'a rendu service à') }} <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}">{{ exchange.debitUser }}</a></td>
                         <td><b>{{ exchange.title }}</b>{% if exchange.message is defined %}<br />{{ exchange.message }}{% endif %}</td>
                         <td>{{ exchange.amount }}</td>
                         <td>
