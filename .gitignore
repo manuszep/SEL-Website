@@ -19,6 +19,7 @@ node_modules
 /web/media/cache
 /web/.htaccess
 /web/uploads/services
+/web/uploads/users
 
 .idea
 htdocs
