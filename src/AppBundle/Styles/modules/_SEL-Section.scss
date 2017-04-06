@@ -76,23 +76,18 @@ $SEL-Section-angle-size: 48px;
         margin-bottom: $SEL-Section-angle-size;
         &:after {
             background-image: url('/img/angles.svg#reverse');
-            //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - #{$SEL-Section-angle-size}));
         }
     }
 
 
     .angle-top {
         margin-top: $SEL-Section-angle-size;
-
-        //clip-path: polygon(0 0, 100% #{$SEL-Section-angle-size}, 100% 100%, 0 100%);
     }
 
     .angle-top:after {
         background-image: url('/img/angles.svg#top');
         bottom: 100%;
         top: auto;
-
-        //clip-path: polygon(0 0, 100% #{$SEL-Section-angle-size}, 100% 100%, 0 100%);
     }
 
     section, .page-header {
