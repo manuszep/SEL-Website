@@ -43,6 +43,7 @@ $SEL-Section-angle-size: 48px;
             background: transparent url('/img/angles.svg#angle') no-repeat top left;
             position: absolute;
             top: 100%;
+            z-index: -1;
         }
     }
 
