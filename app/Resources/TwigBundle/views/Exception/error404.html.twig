@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}404 - Page indisponible{% endblock %}
+
+{% block header %}
+    <header class="page-header angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Erreur</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="wrapper">
+
+        <div class="grid grid-v-align-large-up">
+            <div class="grid-item-large-up grid-item-1-4-large-up text-center">
+                <p><img src="/img/404.svg" /></p>
+            </div>
+
+            <div class="grid-item-large-up grid-item-3-4-large-up">
+                <h1 class="readable grid-item-center">La page que vous cherchez n'existe pas.</h1>
+                <p class="lead readable grid-item-center">Si vous avez trouvé un lien cassé sur le site, faites-nous en part via <a href="/contact">le formulaire de contact</a></p>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

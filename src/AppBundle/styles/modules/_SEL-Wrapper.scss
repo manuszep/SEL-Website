@@ -53,7 +53,8 @@
     }
 
     .grid-v-align#{$suffix} {
-        font-size: 0;
+        display: flex;
+        align-items: center;
 
         .grid-item#{$suffix} {
             font-size: 1rem;
