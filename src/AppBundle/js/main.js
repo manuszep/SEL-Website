@@ -26,16 +26,21 @@ jQueryBridget( 'masonry', Masonry, $ );
 $('body').removeClass('nojs').addClass('js');
 
 let $grid = $('.masonry');
+let $articles = $grid.find('article');
 
 if ($grid.length) {
-    $grid.masonry({
-        itemSelector: 'article',
-        columnWidth: 'article'
-    });
+    $articles.hide();
 
     /* Relayout when images are loaded to avoid overlapping items */
     $grid.imagesLoaded( function() {
-        $grid.masonry('layout');
+        $articles.fadeIn(500);
+
+        $grid.masonry({
+            itemSelector: 'article',
+            columnWidth: 'article'
+        });
+
+        //$grid.masonry('layout');
     });
 }
 
