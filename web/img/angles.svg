@@ -1,0 +1,20 @@
+<svg preserveAspectRatio='none' version='1.1' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id='g' gradientUnits="userSpaceOnUse">
+            <stop offset='0%' stop-color='#34949D'/>
+            <stop offset='100%' stop-color='#4E8490'/>
+        </linearGradient>
+        <path id="a" d='M0 100 L100 0 L0 0' stroke-width="0"></path>
+        <path id="b" d='M0 0 L100 100 L100 0' stroke-width="0"></path>
+        <path id="c" d='M0 0 L0 100 L100 100' stroke-width="0"></path>
+        <style>
+            path{fill:url(#g);}
+            g { display: none }
+            g:target { display: inline }
+        </style>
+    </defs>
+
+    <g id="angle"><use xlink:href="#a" x="0" y="0"></use></g>
+    <g id="reverse"><use xlink:href="#b" x="0" y="0"></use></g>
+    <g id="top"><use xlink:href="#c" x="0" y="0"></use></g>
+</svg>

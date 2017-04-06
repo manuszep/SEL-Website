@@ -5,7 +5,7 @@
 /**
  *  Local variables
  **/
-$SEL-Section-angle-size: 3rem;
+$SEL-Section-angle-size: 48px;
 
 
 /**
@@ -29,12 +29,25 @@ $SEL-Section-angle-size: 3rem;
 /**
  *  Styles
  **/
+
 @mixin SEL-Section() {
-    .angle-intro {
+    .angle-intro, .angle-top, .angle-reverse {
         background: linear-gradient(to right, $FAST-Color-primary 0%, $FAST-Color-primary-alt 100%);
         color: FAST-foreground($FAST-Color-primary);
+        position: relative;
 
-        clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$SEL-Section-angle-size}), 0 100%);
+        &:after {
+            content: "";
+            width: 100%;
+            height: $SEL-Section-angle-size;
+            background: transparent url('/img/angles.svg#angle') no-repeat top left;
+            position: absolute;
+            top: 100%;
+        }
+    }
+
+    .angle-intro {
+        margin-bottom: $SEL-Section-angle-size;
 
         h1 {
             color: $FAST-Color-white-xxl;
@@ -60,14 +73,26 @@ $SEL-Section-angle-size: 3rem;
     }
 
     .angle-reverse {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - #{$SEL-Section-angle-size}));
+        margin-bottom: $SEL-Section-angle-size;
+        &:after {
+            background-image: url('/img/angles.svg#reverse');
+            //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - #{$SEL-Section-angle-size}));
+        }
     }
 
-    .angle-top {
-        background-color: $FAST-Color-primary;
-        color: FAST-foreground($FAST-Color-primary);
 
-        clip-path: polygon(0 0, 100% #{$SEL-Section-angle-size}, 100% 100%, 0 100%);
+    .angle-top {
+        margin-top: $SEL-Section-angle-size;
+
+        //clip-path: polygon(0 0, 100% #{$SEL-Section-angle-size}, 100% 100%, 0 100%);
+    }
+
+    .angle-top:after {
+        background-image: url('/img/angles.svg#top');
+        bottom: 100%;
+        top: auto;
+
+        //clip-path: polygon(0 0, 100% #{$SEL-Section-angle-size}, 100% 100%, 0 100%);
     }
 
     section, .page-header {
