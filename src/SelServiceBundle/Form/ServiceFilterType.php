@@ -25,6 +25,10 @@ class ServiceFilterType extends AbstractType
 
         $builder->add('category', Filters\EntityFilterType::class, array(
             'class' => 'SelCategoryBundle:Category',
+            'query_builder' => function ($er) {
+                return $er->createQueryBuilder('c')
+                    ->where('SIZE(c.services) > 0');
+            },
             'choice_label' => 'select_label',
             'placeholder' => 'placeholder.pleaseChoose',
             'label' => 'label.category'
