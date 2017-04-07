@@ -14,6 +14,8 @@ class ExchangeControllerTest extends WebTestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:update --force');
         self::runCommand('doctrine:fixtures:load --no-interaction');
