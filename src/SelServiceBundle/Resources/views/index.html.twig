@@ -43,11 +43,15 @@
                 <p>Il est à présent impossible d'y introduire ou d'y modifier du contenu.</p>
             </div>
             {% endif %}
+            {% if services  is empty %}
+                <p class="text-center lead">La recherche que vous avez effectuée n'a retourné aucun résultat.</p>
+            {% else %}
             <div class="grid masonry">
                 {% for service in services %}
                     {% include 'SelServiceBundle::serviceItem.html.twig' with {'service': service} %}
                 {% endfor %}
             </div>
+            {% endif %}
             {{ knp_pagination_render(services) }}
         </div>
     </section>
