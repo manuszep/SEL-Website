@@ -118,6 +118,14 @@ $SEL-Section-angle-size: 48px;
             }
         }
 
+        .btn-border {
+            border: 1px solid #fff;
+
+            &:hover {
+                border: 1px solid #fff;
+            }
+        }
+
         &.inline-heading h1 {
             display: inline-block;
         }

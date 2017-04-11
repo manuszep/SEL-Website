@@ -12,11 +12,66 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
-    {
+    private function getLimit($user, $limit = false) {
+        if (!$limit) {
+            // Set a time limit if user is anonymous
+            // Set a limit at last login otherwise
+            if ($user instanceof User && $user->getLastLogin()) {
+                return $user->getLastLogin();
+            } else {
+                $now = new \DateTime();
+                return $now->modify('- 2 weeks');
+            }
+        } else {
+            return $limit;
+        }
+    }
+
+    private function getUsers($em, $limit) {
+        $user_qb = $em->getRepository('AppBundle:User')->createQueryBuilder('u');
+
+        if ($limit instanceof \DateTime) {
+            $user_qb->where(
+                $user_qb->expr()->gt('u.created', ':limit')
+            )
+                ->setParameters(array(
+                    'limit' => $limit->format("Y-m-d H:i:s")
+                ));
+        } else {
+            $user_qb->setMaxResults($limit);
+        }
+
+        $user_qb->andWhere(
+            'u.locked = 0 OR u.locked is null'
+        )
+        ->orderBy('u.created', 'DESC');
+
+        return $user_qb->getQuery()->getResult();
+    }
+
+    private function getExchanges($em, $limit) {
+        $exchange_qb = $em->getRepository('SelExchangeBundle:Exchange')->createQueryBuilder('e');
+
+        if ($limit instanceof \DateTime) {
+            $exchange_qb->where(
+                $exchange_qb->expr()->gt('e.updated', ':limit')
+            )
+            ->setParameters(array(
+                'limit' => $limit->format("Y-m-d H:i:s")
+            ));
+        } else {
+            $exchange_qb->setMaxResults($limit);
+        }
+
+        $exchange_qb->andWhere(
+            'e.hide = 0 OR e.hide is null'
+        )
+        ->orderBy('e.updated', 'DESC');
+
+        return $exchange_qb->getQuery()->getResult();
+    }
+
+    private function getData($limit = false) {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var ServiceManager $service_manager */
@@ -24,51 +79,18 @@ class DefaultController extends Controller
         /** @var User $user */
         $user= $this->getUser();
 
-        // Set a time limit if user is anonymous
-        // Set a limit at last login otherwise
-        if ($user instanceof User && $user->getLastLogin()) {
-            $limit = $user->getLastLogin();
-        } else {
-            $now = new \DateTime();
-            $limit = $now->modify('- 2 weeks');
-        }
+        $current_limit = $this->getLimit($user, $limit);
 
         // Get list of all services grouped by flash or normal
         // Flash services are not limited
         $flash_services = $service_manager->findAllFlash(true);
-        $normal_services = $service_manager->findAllNormal(true, $limit);
+        $normal_services = $service_manager->findAllNormal(true, $current_limit);
 
         // Fetch new exchanges in the same limit
-        $exchange_qb = $em->getRepository('SelExchangeBundle:Exchange')->createQueryBuilder('e');
-
-        $exchange_qb->where(
-                $exchange_qb->expr()->gt('e.updated', ':limit')
-            )
-            ->andWhere(
-                'e.hide = 0 OR e.hide is null'
-            )
-            ->setParameters(array(
-                'limit' => $limit->format("Y-m-d H:i:s")
-            ))
-            ->orderBy('e.updated', 'DESC');
-
-        $exchanges = $exchange_qb->getQuery()->getResult();
+        $exchanges = $this->getExchanges($em, $current_limit);
 
         // Fetch new users in the same limit
-        $user_qb = $em->getRepository('AppBundle:User')->createQueryBuilder('u');
-
-        $user_qb->where(
-            $user_qb->expr()->gt('u.created', ':limit')
-        )
-        ->andWhere(
-            'u.locked = 0 OR u.locked is null'
-        )
-        ->setParameters(array(
-            'limit' => $limit->format("Y-m-d H:i:s")
-        ))
-        ->orderBy('u.created', 'DESC');
-
-        $users = $user_qb->getQuery()->getResult();
+        $users = $this->getUsers($em, $current_limit);
 
         $journal = array_merge($normal_services, $exchanges, $users);
 
@@ -79,10 +101,29 @@ class DefaultController extends Controller
             return ($a_date > $b_date) ? -1 : 1;
         });
 
-        return $this->render('default/index.html.twig', [
+        if (! $limit instanceof \DateTime) {
+            $journal = array_slice($journal, 0, 100);
+        }
+
+        return [
             'flash_services' => $flash_services,
             'journal' => $journal,
             'user' => $user
-        ]);
+        ];
+    }
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(Request $request)
+    {
+        return $this->render('default/index.html.twig', $this->getData());
+    }
+
+    /**
+     * @Route("/feed", defaults={"_format"="xml"}, name="feed")
+     */
+    public function feedAction(Request $request)
+    {
+        return $this->render('default/feed.xml.twig', $this->getData(100));
     }
 }

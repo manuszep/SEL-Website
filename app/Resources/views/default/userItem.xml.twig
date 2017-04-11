@@ -1,0 +1,8 @@
+<item>
+<title><![CDATA[[Membre] {{ user.username }}]]></title>
+<link>{{ path('user_show', { 'id': user.id }) }}</link>
+<guid>{{ path('user_show', { 'id': user.id }) }}</guid>
+<description><![CDATA[Nouveau membre]]></description>
+<dc:subject><![CDATA[Membres]]></dc:subject>
+<dc:date>{{ user.created|date("Y-m-dTG:i:sP") }}</dc:date>
+</item>

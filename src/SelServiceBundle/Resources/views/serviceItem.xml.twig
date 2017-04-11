@@ -1,0 +1,18 @@
+<item>
+    <title><![CDATA[[{{ service.typeLabel }}] {{ service.title }}]]></title>
+    <author>par <a itemprop="url" class="author" rel="author" href="{{ path('user_show', { 'id': service.user.id }) }}">{{ service.user.username }}</a></author>
+    <link>{{ path('sel_service_show', { 'id': service.id }) }}</link>
+    <guid>{{ path('sel_service_show', { 'id': service.id }) }}</guid>
+    <description><![CDATA[
+        {% if service.getPictureWebPath is not empty %}
+            <p class="picture">
+                <a href="{{ path('sel_service_show', { 'id': service.id }) }}"><img
+                            src="{{ service.getPictureWebPath | imagine_filter('service_thumb') }}"
+                            srcset="{{ service.getPictureWebPath | imagine_filter('service_thumb') }} 1x,
+                                        {{ service.getPictureWebPath | imagine_filter('service_thumb2x') }} 2x" /></a>
+            </p>
+        {% endif %}
+{{ service.body|raw }}]]></description>
+    <dc:subject><![CDATA[{{ service.typeLabel }},{{ service.domainLabel }},{% if service.category.parent %}{{ service.category.parent.title }}/{% endif %}{{ service.category.title }}]]></dc:subject>
+    <dc:date>{{ service.updated|date("Y-m-dTG:i:sP") }}</dc:date>
+</item>

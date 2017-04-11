@@ -1,0 +1,6 @@
+<item>
+    <title><![CDATA[[&Eacute;change] {{ exchange.title }}]]></title>
+    <author><a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}">{{ exchange.creditUser.username }}</a> - <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}">{{ exchange.debitUser.username }}</a></author>
+    <description><![CDATA[<p><strong>{{ exchange.amount }} noeuds</strong></p>{{ exchange.message }}]]></description>
+    <dc:date>{{ exchange.updated|date("Y-m-dTG:i:sP") }}</dc:date>
+</item>

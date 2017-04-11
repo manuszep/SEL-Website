@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
 
 {% block header %}
     <header class="page-header angle-intro">
         <div class="wrapper">
+            {{ icons.iconLink('rss', 'S\'abonner au flux RSS', path('feed'), 'btn right') }}
             <h1>Bouts de fi<strong>SEL</strong><br /><small>Le Système d'&Eacute;change Local de la région d'Ath.</small></h1>
         </div>
     </header>

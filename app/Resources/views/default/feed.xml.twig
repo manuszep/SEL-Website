@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:admin="http://webns.net/mvcb/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+    <channel>
+
+        <title><![CDATA[Bouts de fiSEL]]></title>
+        <link>http://www.boutsdefisel.be</link>
+        <description>Le système d'échange local Athois</description>
+        <dc:language>fr</dc:language>
+        <dc:creator>Les membres du Sel Athois</dc:creator>
+        <dc:rights>Copyright 2017</dc:rights>
+        <dc:date>{{ "now"|date("Y-m-dTG:i:sP") }}</dc:date>
+
+        {% for service in flash_services %}
+            {% include 'SelServiceBundle::serviceItem.xml.twig' with {'service': service} %}
+        {% endfor %}
+
+        {% for item in journal %}
+            {% if item.getEntityName == 'Service' %}
+                {% include 'SelServiceBundle::serviceItem.xml.twig' with {'service': item} %}
+            {% endif %}
+            {% if item.getEntityName == 'Exchange' %}
+                {% include 'SelExchangeBundle::exchangeItem.xml.twig' with {'exchange': item} %}
+            {% endif %}
+            {% if item.getEntityName == 'User' %}
+                {% include 'default/userItem.xml.twig' with {'user': item} %}
+            {% endif %}
+        {% endfor %}
+    </channel>
+</rss>
