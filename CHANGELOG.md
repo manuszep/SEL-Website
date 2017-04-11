@@ -26,3 +26,4 @@
 - [Ajout] Date d'inscription sur la page profil
 - [Ajout] Message lorsque les filtres ne retournent aucun résultat
 - [Ajout] Affichage d'une carte sur la page d'accueil pour les nouveaux membres.
+- [Ajout] Flux RSS sur la page d'accueil
