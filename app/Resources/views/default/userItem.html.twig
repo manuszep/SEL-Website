@@ -1,0 +1,30 @@
+{% import "Macros/icons.html.twig" as icons %}
+
+<article class="service service-user grid-item">
+    <div class="service-content">
+        <header>
+            <h3 class="user-title"><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></h3>
+            <small class="post-date">{{ user.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</small>
+
+            <div class="service-author-image">
+                <a href="{{ path('user_show', { 'id': user.id }) }}"><img
+                            src="{{ user.getPictureWebPath | imagine_filter('user_thumb') }}"
+                            srcset="{{ user.getPictureWebPath | imagine_filter('user_thumb') }} 1x,
+                            {{ user.getPictureWebPath | imagine_filter('user_thumb2x') }} 2x" /></a>
+            </div>
+        </header>
+        <div class="body">
+            <p class="text-center">Nouveau membre</p>
+        </div>
+
+        {% if is_granted("edit", user) %}
+            <div class="actions">
+                <ul>
+                    <li>
+                        {{ icons.iconlink('pencil', 'Modifier', path('user_edit', { 'id': user.id })) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</article>

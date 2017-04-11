@@ -22,7 +22,7 @@
         <header>
             <h3 class="service-title"><a href="{{ path('sel_service_show', { 'id': service.id }) }}">{{ service.title }}</a></h3>
             <small class="author"><a href="{{ path('user_show', { 'id': service.user.id }) }}">{{ service.user.username }}</a></small> -
-            <small class="post-date">{{ service.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</small>
+            <small class="post-date">{{ service.updated | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</small>
 
             <div class="service-author-image">
                 <a href="{{ path('user_show', { 'id': service.user.id }) }}"><img

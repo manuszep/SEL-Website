@@ -214,38 +214,37 @@ $SEL-Service-border-width: .25rem;
         }
 
         .service-type-1 {
-            header:before {
+            header:before, header:after, .meta:before {
                 background-color: $SEL-Service-type1-color;
             }
 
             .service-title a {
                 color: $SEL-Service-type1-color;
             }
-
-            header:after {
-                background-color: $SEL-Service-type1-color;
-            }
-
-            .meta:before {
-                background-color: $SEL-Service-type1-color;
-            }
         }
 
         .service-type-2 {
-            header:before {
+            header:before, header:after, .meta:before {
                 background-color: $SEL-Service-type2-color;
             }
 
             .service-title a {
                 color: $SEL-Service-type2-color;
             }
+        }
 
-            header:after {
-                background-color: $SEL-Service-type2-color;
+        .service-user {
+            header:before, header:after, .meta:before {
+                background-color: #fff;
             }
 
-            .meta:before {
-                background-color: $SEL-Service-type2-color;
+            h3 a {
+                color: #fff;
+            }
+
+            .service-content {
+                background: $FAST-Color-primary;
+                color: #fff;
             }
         }
 

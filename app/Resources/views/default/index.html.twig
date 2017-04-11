@@ -36,6 +36,9 @@
                     {% if item.getEntityName == 'Exchange' %}
                         {% include 'SelExchangeBundle::exchangeItem.html.twig' with {'exchange': item} %}
                     {% endif %}
+                    {% if item.getEntityName == 'User' %}
+                        {% include 'default/userItem.html.twig' with {'user': item} %}
+                    {% endif %}
                 {% endfor %}
             </div>
             {% endif %}

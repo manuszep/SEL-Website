@@ -158,6 +158,10 @@ class User extends BaseUser
         parent::__construct();
     }
 
+    public function getEntityName() {
+        return 'User';
+    }
+
     /**
      * Get id
      *
