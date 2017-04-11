@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="exchange")
  * @ORM\Entity(repositoryClass="SelExchangeBundle\Repository\ExchangeRepository")
- * @ORM\EntityListeners({"AppBundle\EventListener\BalanceKeeper"})
+ * @ORM\EntityListeners({"AppBundle\EventListener\BalanceKeeperListener"})
  * @ORM\HasLifecycleCallbacks()
  */
 class Exchange

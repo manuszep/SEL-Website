@@ -39,6 +39,7 @@
         "twig/extensions": "^1.4"
     },
     "require-dev": {
+        "liip/functional-test-bundle": "^1.7"
     },
     "scripts": {
         "post-install-cmd": [
