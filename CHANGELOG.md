@@ -25,3 +25,4 @@
 - [Ajout] Pages pour les erreurs 404 et 5xx
 - [Ajout] Date d'inscription sur la page profil
 - [Ajout] Message lorsque les filtres ne retournent aucun résultat
+- [Ajout] Affichage d'une carte sur la page d'accueil pour les nouveaux membres.
