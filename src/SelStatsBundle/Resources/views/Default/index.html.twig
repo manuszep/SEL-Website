@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block header %}
+    <header class="page-header has-block inline-heading angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Statistiques</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="wrapper">
+            <div class="grid grid-v-align-large-up">
+                <div class="grid-item-large-up grid-item-1-4-large-up text-center">
+                    content left
+                </div>
+
+                <div class="grid-item-large-up grid-item-3-4-large-up">
+                    <div id="vis"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="angle-top">
+        <div class="wrapper">
+            <h2>Section 2</h2>
+
+            <div class="grid grid-v-align-large-up">
+                <div class="grid-item-large-up grid-item-2-4-large-up text-center">
+                    Content left
+                </div>
+
+                <div class="grid-item-large-up grid-item-2-4-large-up">
+                    Content right
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <style>
+        .tooltip {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            -moz-border-radius:3px;
+            border-radius: 3px;
+            border: 2px solid #DDD;
+            background: #fff;
+            opacity: 1;
+            color: #000;
+            padding: 10px;
+            width: 300px;
+            font-size: 15px;
+            z-index: 120;
+        }
+
+        .tooltip p.main {
+            font-size: 15px;
+            text-align: center;
+            padding:0;
+            margin:0;
+        }
+
+        hr.tooltip-hr {
+            padding:3px 0 0 0;
+            margin:3px 0 3px 0;
+        }
+
+        .tooltip .title {
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        .tooltip .name {
+            font-weight:bold;
+        }
+    </style>
+    <script src="{{ asset('js/d3.v2.min.js') }}"></script>
+    <script src="{{ asset('js/tooltip.js') }}"></script>
+    <script>
+        var data = {users: [{% for user in users %}{id: {{ user.id|json_encode()|raw }}, username: {{ user.username|json_encode()|raw }}, email: {{ user.email|json_encode()|raw }}, enabled: {{ user.enabled|json_encode()|raw }}, locked: {{ user.locked|json_encode()|raw }}, roles: {{ user.roles|json_encode()|raw }}, balance: {{ user.balance|json_encode()|raw }}, address: {street: {{ user.street|json_encode()|raw }}, number: {{ user.streetNumber|json_encode()|raw }}, box: {{ user.streetBox|json_encode()|raw }}, zip: {{ user.zip|json_encode()|raw }}, city: {{ user.city|json_encode()|raw }}}, phone: {{ user.phone|json_encode()|raw }}, mobile: {{ user.mobile|json_encode()|raw }}, mobile2: {{ user.mobile2|json_encode()|raw }}, created: {{ user.created | date('Y-m-dTG:i:sP')|json_encode()|raw }}, updated: {{ user.updated | date('Y-m-dTG:i:sP')|json_encode()|raw }}}{% if not loop.last %},{% endif %}{% endfor %}], exchanges: [{% for exchange in exchanges %}{id: {{ exchange.id|json_encode()|raw }}, credit_user_id: {{ exchange.creditUser.id|json_encode()|raw }}, debit_user_id: {{ exchange.debitUser.id|json_encode()|raw }}, amount: {{ exchange.amount|json_encode()|raw }}, title: {{ exchange.title|json_encode()|raw }}, message: {{ exchange.message|json_encode()|raw }}, created: {{ exchange.created | date('Y-m-dTG:i:sP') | json_encode()|raw }}, updated: {{ exchange.updated | date('Y-m-dTG:i:sP') | json_encode()|raw }}}{% if not loop.last %},{% endif %}{% endfor %}]}
+    </script>
+
+    <script src="{{ asset('js/vis.js') }}"></script>
+{% endblock %}

@@ -66,6 +66,10 @@ sel_service:
 sel_category:
     resource: "@SelCategoryBundle/Resources/config/routing.yml"
     prefix:   /
+sel_stats:
+    resource: "@SelStatsBundle/Controller/"
+    type:     annotation
+    prefix:   /
 user:
     resource: "@AppBundle/Controller/UserController.php"
     type:     annotation

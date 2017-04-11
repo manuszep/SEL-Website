@@ -3,6 +3,7 @@ imports:
     - { resource: "@SelExchangeBundle/Resources/config/services.yml" }
     - { resource: "@SelFaqBundle/Resources/config/services.yml" }
     - { resource: "@SelServiceBundle/Resources/config/services.yml" }
+    - { resource: "@SelStatsBundle/Resources/config/services.yml" }
 
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
