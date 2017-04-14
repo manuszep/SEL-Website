@@ -40,7 +40,7 @@ SEL.initMasonry = function(fade) {
         SEL.$grid.imagesLoaded( function() {
             if (fade) $articles.fadeIn(500);
 
-            SEL.$grid.masonry({
+            var g = SEL.$grid.masonry({
                 itemSelector: 'article',
                 columnWidth: 'article'
             });

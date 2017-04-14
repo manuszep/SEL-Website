@@ -43,16 +43,12 @@
                 <p>Il est à présent impossible d'y introduire ou d'y modifier du contenu.</p>
             </div>
             {% endif %}
-            {% if services  is empty %}
-                <p class="text-center lead">La recherche que vous avez effectuée n'a retourné aucun résultat.</p>
-            {% else %}
             <div id="servicesList" class="ajax">
                 <div class="loader-wrapper"><div class="loader"></div></div>
                 <div id="servicesListWrapper">
                     {% include 'SelServiceBundle::index_ajax.html.twig' with {'services': services} %}
                 </div>
             </div>
-            {% endif %}
         </div>
     </section>
 {% endblock %}

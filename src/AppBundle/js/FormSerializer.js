@@ -27,6 +27,8 @@ export class FormSerializer {
 
     serialize($elem) {
         let self = this;
+        this.json = {};
+        this.push_counters = {};
         $.each($elem.serializeArray(), function(){
 
             // skip invalid keys
@@ -66,7 +68,11 @@ export class FormSerializer {
         return self.json;
     }
 
+    convertToRequest(data) {
+        return $.param(data);
+    }
+
     getAsRequest($elem) {
-        return $.param(this.serialize($elem));
+        return this.convertToRequest(this.serialize($elem));
     }
 }
