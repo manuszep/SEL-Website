@@ -103,7 +103,7 @@ export class Services {
             let id = $(this).attr("id");
             if (id) {
                 if(this.type == 'checkbox' || this.type == 'radio') {
-                    $(this).attr("checked", (data[id] == $(this).val()));
+                    $(this).prop("checked", (data[id] == $(this).val()));
                 } else {
                     $(this).val(data[id]);
                 }
