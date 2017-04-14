@@ -5,16 +5,18 @@ import {Flash} from './Flash.js';
 import {Disqus} from './Disqus.js';
 import {Faq} from './Faq.js';
 import {AddTool} from './AddTool';
+import {Services} from './Services';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
     jQueryBridget = require('jquery-bridget'),
     inputMask = require('jquery.inputmask'),
-    svg4eferybody = require('svg4everybody');
+    svg4everybody = require('svg4everybody'),
+    SEL = {};
 
 window.jQuery = window.$ = $;
-svg4eferybody();
+svg4everybody();
 
 require('trumbowyg');
 require ('air-datepicker');
@@ -25,24 +27,28 @@ jQueryBridget( 'masonry', Masonry, $ );
 
 $('body').removeClass('nojs').addClass('js');
 
-let $grid = $('.masonry');
-let $articles = $grid.find('article');
+SEL.initMasonry = function(fade) {
+    fade = typeof fade === 'undefined' ? true : fade;
 
-if ($grid.length) {
-    $articles.hide();
+    SEL.$grid = $('.masonry');
+    let $articles = SEL.$grid.find('article');
 
-    /* Relayout when images are loaded to avoid overlapping items */
-    $grid.imagesLoaded( function() {
-        $articles.fadeIn(500);
+    if (SEL.$grid.length) {
+        if (fade) $articles.hide();
 
-        $grid.masonry({
-            itemSelector: 'article',
-            columnWidth: 'article'
+        /* Relayout when images are loaded to avoid overlapping items */
+        SEL.$grid.imagesLoaded( function() {
+            if (fade) $articles.fadeIn(500);
+
+            SEL.$grid.masonry({
+                itemSelector: 'article',
+                columnWidth: 'article'
+            });
         });
+    }
+};
 
-        //$grid.masonry('layout');
-    });
-}
+SEL.initMasonry();
 
 let filter = new Filter();
 let form = new Form();
@@ -51,6 +57,7 @@ let flash = new Flash();
 let disqus = new Disqus();
 let faq = new Faq();
 let add_tool = new AddTool();
+let services = new Services();
 
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
 
@@ -86,3 +93,5 @@ $('[data-datepicker-future]').datepicker({
     language: 'fr',
     minDate: new Date()
 });
+
+services.init(SEL);

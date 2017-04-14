@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 use \AppBundle\Entity\User;
 
 /**
@@ -84,8 +84,9 @@ class ServiceManager
      *
      * @return array
      */
-    public function findAll($reverse_order = true, $limit = false) {
-        return $this->repo->findAll($reverse_order, $limit)->getQuery()->getResult();
+    public function findAll($reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->findAll($reverse_order, $limit)->getQuery()->getResult($hydration);
     }
 
     /**
@@ -94,8 +95,9 @@ class ServiceManager
      *
      * @return QueryBuilder
      */
-    public function findAllFlash($reverse_order = true, $limit = false) {
-        return $this->repo->findAllFlash($reverse_order, $limit)->getQuery()->getResult();
+    public function findAllFlash($reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->findAllFlash($reverse_order, $limit)->getQuery()->getResult($hydration);
     }
 
     /**
@@ -104,8 +106,9 @@ class ServiceManager
      *
      * @return QueryBuilder
      */
-    public function findAllNormal($reverse_order = true, $limit = false) {
-        return $this->repo->findAllNormal($reverse_order, $limit)->getQuery()->getResult();
+    public function findAllNormal($reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->findAllNormal($reverse_order, $limit)->getQuery()->getResult($hydration);
     }
 
     /**
@@ -115,8 +118,9 @@ class ServiceManager
      *
      * @return array
      */
-    public function findAllByUser(User $user, $reverse_order = true, $limit = false) {
-        return $this->repo->filterByUser($user, $this->repo->findAll($reverse_order, $limit))->getQuery()->getResult();
+    public function findAllByUser(User $user, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->filterByUser($user, $this->repo->findAll($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
@@ -126,8 +130,9 @@ class ServiceManager
      *
      * @return array
      */
-    public function findAllFlashByUser(User $user, $reverse_order = true, $limit = false) {
-        return $this->repo->filterByUser($user, $this->repo->findAllFlash($reverse_order, $limit))->getQuery()->getResult();
+    public function findAllFlashByUser(User $user, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->filterByUser($user, $this->repo->findAllFlash($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
@@ -137,8 +142,9 @@ class ServiceManager
      *
      * @return array
      */
-    public function findAllNormalByUser(User $user, $reverse_order = true, $limit = false) {
-        return $this->repo->filterByUser($user, $this->repo->findAllNormal($reverse_order, $limit))->getQuery()->getResult();
+    public function findAllNormalByUser(User $user, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->repo->filterByUser($user, $this->repo->findAllNormal($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
@@ -148,8 +154,9 @@ class ServiceManager
      *
      * @return mixed
      */
-    public function findFiltered($form, $reverse_order = true, $limit = false) {
-        return $this->filter->addFilterConditions($form, $this->repo->findAll($reverse_order, $limit))->getQuery()->getResult();
+    public function findFiltered($form, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->filter->addFilterConditions($form, $this->repo->findAll($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
@@ -159,8 +166,9 @@ class ServiceManager
      *
      * @return mixed
      */
-    public function findFilteredFlash($form, $reverse_order = true, $limit = false) {
-        return $this->filter->addFilterConditions($form, $this->repo->findAllFlash($reverse_order, $limit))->getQuery()->getResult();
+    public function findFilteredFlash($form, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->filter->addFilterConditions($form, $this->repo->findAllFlash($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
@@ -170,8 +178,9 @@ class ServiceManager
      *
      * @return mixed
      */
-    public function findFilteredNormal($form, $reverse_order = true, $limit = false) {
-        return $this->filter->addFilterConditions($form, $this->repo->findAllNormal($reverse_order, $limit))->getQuery()->getResult();
+    public function findFilteredNormal($form, $reverse_order = true, $limit = false, $array = false) {
+        $hydration = ($array) ? Query::HYDRATE_ARRAY : Query::HYDRATE_OBJECT;
+        return $this->filter->addFilterConditions($form, $this->repo->findAllNormal($reverse_order, $limit))->getQuery()->getResult($hydration);
     }
 
     /**
