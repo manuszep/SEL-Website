@@ -42,10 +42,14 @@ export class Services {
         this._app = app;
     }
 
+    // TODO: Masonry sometimes is not initialized. Probably when pages loads so fast that the slideDown is still going on before
+    // TODO: use masonry to add and remove items instead of replacing all content
     ajaxCall(request) {
         this._cache.listContainer.addClass('loading');
         this._cache.listWrapper.find('p, .grid').slideUp(function() {
-            this._app.$grid.masonry( 'destroy' );
+            /*try {
+                $('.masonry').masonry( 'destroy' );
+            } catch(e) {}*/
         }.bind(this));
 
         try {
@@ -58,8 +62,10 @@ export class Services {
         }).done(function( html ) {
             this._cache.listWrapper.html( html );
 
-            this._app.initMasonry(false);
-            this._cache.listWrapper.find('p, .grid').slideDown()
+            this._cache.listWrapper.find('p, .grid').slideDown(function() {
+                this._app.initMasonry(false);
+            }.bind(this));
+
             this._cache.listContainer.removeClass('loading');
 
         }.bind(this)).fail(function(e) {
