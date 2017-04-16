@@ -1,119 +1,175 @@
 var $ = require('jquery');
-import {FormSerializer} from './FormSerializer';
 
 export class Services {
     constructor() {
-        let self = this;
-        this._cache = {};
-
-        this._cache.form = $('#serviceFiltersForm');
-        this._cache.form_fields = this._cache.form.find('input, select, textarea');
-        this._cache.listContainer = $('#servicesList');
-        this._cache.listWrapper = $('#servicesListWrapper');
-        this._xhr = null;
-        this._form_data = null;
-
-        this._serializer = new FormSerializer();
-
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handlePaginationClick = this.handlePaginationClick.bind(this);
+        this.handlePopState = this.handlePopState.bind(this);
+        this.handleAjaxSuccess = this.handleAjaxSuccess.bind(this);
+        this.handleAjaxFail = this.handleAjaxFail.bind(this);
     }
 
-    init(app) {
-        if (!this._cache.form.length || !this._cache.listWrapper.length) return;
-        this._form_data = this.saveFilterFormData();
+    init() {
+        this._cache =  {
+            form: $('#serviceFiltersForm'),
+            formFields: $('#serviceFiltersForm').find('input, select, textarea'),
+            notFound: $('#ServicesNotFound'),
+            container: $('#servicesList'),
+            loader: $('#ServicesLoader'),
+            wrapper: $('#servicesListWrapper')
+        };
+
+        this.search_url = window.location.href;
+
+        if (!this._cache.form.length, !this._cache.notFound.length, !this._cache.container.length, !this._cache.loader.length, !this._cache.wrapper.length) return;
+
+        this.setupEvents();
+
         this._cache.form.find('button[type=submit]').hide();
+
+        this.saveFilterFormData();
+    }
+
+    setupEvents() {
         this._cache.form.on('change', 'input, select, textarea', this.handleFormChange);
         $('body').on('click', '.pagination a', this.handlePaginationClick);
-
-        window.addEventListener('popstate', function(e) {
-            var s = e.state;
-            var form_data = null;
-
-            if (s != null && typeof s.service_url !== 'undefined') {
-                form_data = s.form_data;
-                this.ajaxCall(s.service_url);
-            } else {
-                this.ajaxCall("/service");
-            }
-
-            this.restoreFilterFormData(form_data || this._form_data);
-        }.bind(this));
-        this._app = app;
+        window.addEventListener('popstate', this.handlePopState);
+        window.addEventListener('hashchange', this.handleUrlChange);
     }
 
-    // TODO: Masonry sometimes is not initialized. Probably when pages loads so fast that the slideDown is still going on before
-    // TODO: use masonry to add and remove items instead of replacing all content
-    ajaxCall(request) {
-        this._cache.listContainer.addClass('loading');
-        this._cache.listWrapper.find('p, .grid').slideUp(function() {
-            /*try {
-                $('.masonry').masonry( 'destroy' );
-            } catch(e) {}*/
-        }.bind(this));
+    handleFormChange(e) {
+        this.saveFilterFormData();
+        let request = "/service" + this.form_request;
 
-        try {
-            this._xhr.abort();
-        } catch (e) {}
-
-        this._xhr = $.ajax({
-            url: request,
-            cache: false
-        }).done(function( html ) {
-            this._cache.listWrapper.html( html );
-
-            this._cache.listWrapper.find('p, .grid').slideDown(function() {
-                this._app.initMasonry(false);
-            }.bind(this));
-
-            this._cache.listContainer.removeClass('loading');
-
-        }.bind(this)).fail(function(e) {
-            this._cache.listContainer.removeClass('loading');
-        });
+        history.pushState(this.form_data, null, request);
+        this.makeRequest(request);
     }
 
     handlePaginationClick(e) {
         e.preventDefault();
-        this._form_data = this._serializer.serialize(this._cache.form);
-        let request = $(e.target).attr('href');
-        history.pushState({service_url: request, form_data: this.saveFilterFormData()}, null, request);
+        this.saveFilterFormData();
 
-        this.ajaxCall(request);
+        let request = $(e.target).attr('href');
+
+        history.pushState(this.form_data, null, request);
+        this.makeRequest(request);
     }
 
-    handleFormChange(e) {
-        this._form_data = this._serializer.serialize(this._cache.form);
-        let request = "/service?" + this._serializer.convertToRequest(this._form_data);
-        history.pushState({service_url: request, form_data: this.saveFilterFormData()}, null, request);
+    handlePopState(e) {
+        e.preventDefault();
+        this.search_url = window.location.href;
 
-        this.ajaxCall(request);
+        this.makeRequest(this.search_url);
+        this.form_data = e.state;
+        this.restoreFilterFormData();
+    }
+
+    handleAjaxSuccess(html) {
+        this.unsetLoadingState();
+        // Get list of articles from html
+        let $html = $(html);
+        let items = $html.find('article');
+        let pagination = $html[2];
+
+        // Append articles to dom (and append to masonry object)
+        this._cache.wrapper.append(items);
+
+        this._cache.wrapper.slideDown(function() {
+            if (!items.length) {
+                this._cache.notFound.slideDown();
+            }
+            // wait for images loading
+            this._cache.wrapper.imagesLoaded( function() {
+                // Relayout masonry
+                this._cache.wrapper.masonry('appended', items).masonry('layout');
+                $('.pagination').remove();
+                this._cache.wrapper.after(pagination);
+            }.bind(this));
+        }.bind(this));
+    }
+
+    handleAjaxFail() {
+        this.unsetLoadingState();
+    }
+
+    convertFormDataToRequest(data) {
+        let request = "?";
+
+        for (var key in data) {
+            request += data[key].name + "=" + data[key].value + "&";
+        }
+
+        return encodeURI(request.replace(/&\s*$/, ""));
     }
 
     saveFilterFormData() {
         let data = {};
 
-        $.each(this._cache.form_fields, function() {
+        $.each(this._cache.formFields, function() {
             let id = $(this).attr("id");
-            if (id && !this.disabled && (this.checked
-                || /select|textarea/i.test(this.nodeName)
-                || /text|hidden|password/i.test(this.type))) {
-                data[id] = $(this).val();
-            }
-        });
-        return data;
-    }
+            let name = $(this).attr("name");
 
-    restoreFilterFormData(data) {
-        $.each(this._cache.form_fields, function() {
-            let id = $(this).attr("id");
-            if (id) {
-                if(this.type == 'checkbox' || this.type == 'radio') {
-                    $(this).prop("checked", (data[id] == $(this).val()));
-                } else {
-                    $(this).val(data[id]);
+            if (id && (this.checked || /select|textarea/i.test(this.nodeName) || /text|hidden|password/i.test(this.type))) {
+                data[id] = {
+                    name: name,
+                    value: $(this).val()
+                }
+            } else if (id) {
+                data[id] = {
+                    name: name,
+                    value: ""
                 }
             }
         });
+
+        this.form_data = data;
+        this.form_request = this.convertFormDataToRequest(data);
+    }
+
+    restoreFilterFormData() {
+        // Loop all form elements
+        this._cache.formFields.each(function(key, field) {
+            let id = field.id; // Get element id
+            let val = "";
+
+            // The form_data object may be null or the value may not exist.
+            // Try to use the stored data but keep null if nothing is found.
+            try {val = this.form_data[id].value;} catch(e) {}
+
+            // We don't want to alter disabled fields
+            if (field.disabled) return;
+
+            if(field.type == 'checkbox' || field.type == 'radio') {
+                $(field).prop("checked", (val == $(field).val()));
+            } else {
+                $(field).val(val);
+            }
+        }.bind(this));
+    }
+
+    makeRequest(request) {
+        // If an ajax call is running, cancel it
+        try {this._xhr.abort();} catch (e) {}
+
+        this.setLoadingState();
+        this._cache.notFound.slideUp();
+        this._cache.wrapper.slideUp(function() {
+            let articles = this._cache.wrapper.find('article');
+            this._cache.wrapper.masonry('remove',this._cache.wrapper.find('article')).masonry('layout');
+            articles.remove();
+
+            this._xhr = $.ajax({
+                url: request,
+                cache: false
+            }).done(this.handleAjaxSuccess).fail(this.handleAjaxFail);
+        }.bind(this));
+    }
+
+    setLoadingState() {
+        this._cache.container.addClass('loading');
+    }
+
+    unsetLoadingState() {
+        this._cache.container.removeClass('loading');
     }
 }

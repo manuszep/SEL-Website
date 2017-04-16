@@ -11,21 +11,26 @@ let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
     jQueryBridget = require('jquery-bridget'),
-    inputMask = require('jquery.inputmask'),
     svg4everybody = require('svg4everybody'),
+    inputMask = require('jquery.inputmask'),
     SEL = {};
 
 window.jQuery = window.$ = $;
-svg4everybody();
-
-require('trumbowyg');
-require ('air-datepicker');
-
-
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
+svg4everybody();
 
 $('body').removeClass('nojs').addClass('js');
+
+let filter = new Filter();
+let form = new Form();
+let tab = new Tab();
+let flash = new Flash();
+let disqus = new Disqus();
+let faq = new Faq();
+let add_tool = new AddTool();
+
+window.Services = new Services();
 
 SEL.initMasonry = function(fade) {
     fade = typeof fade === 'undefined' ? true : fade;
@@ -50,15 +55,7 @@ SEL.initMasonry = function(fade) {
 
 SEL.initMasonry();
 
-let filter = new Filter();
-let form = new Form();
-let tab = new Tab();
-let flash = new Flash();
-let disqus = new Disqus();
-let faq = new Faq();
-let add_tool = new AddTool();
-let services = new Services();
-
+require('trumbowyg');
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
 
 
@@ -70,6 +67,8 @@ $('.wysiwyg').trumbowyg({
     btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'link', '|', 'removeformat']
 });
 
+
+require ('air-datepicker');
 $('[data-inputmask-regex]').inputmask("Regex");
 
 $.fn.datepicker.language['fr'] = {
@@ -93,5 +92,3 @@ $('[data-datepicker-future]').datepicker({
     language: 'fr',
     minDate: new Date()
 });
-
-services.init(SEL);
