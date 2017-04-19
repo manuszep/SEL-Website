@@ -56,6 +56,15 @@ SEL.initMasonry = function(fade) {
 SEL.initMasonry();
 
 require('trumbowyg');
+$.trumbowyg.btnsGrps = {
+    design:   ['bold', 'italic', 'underline', 'strikethrough'],
+    semantic: ['strong', 'em'],
+    justify:  ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+    lists:    ['unorderedList', 'orderedList'],
+    headers: {
+        dropdown: ['h1', 'h2', 'h3', 'h4']
+    }
+};
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
 
 
@@ -64,7 +73,14 @@ $('.wysiwyg').trumbowyg({
     closable: false,
     lang: 'fr',
     removeformatPasted: true,
-    btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'link', '|', 'removeformat']
+    btns: [
+        ['viewHTML'],
+        ['undo', 'redo'],
+        'formatting',
+        'btnGrp-lists',
+        ['bold', 'italic'],
+        ['link'],
+        ['removeformat']]
 });
 
 

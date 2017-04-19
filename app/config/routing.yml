@@ -75,6 +75,10 @@ contact:
 sel_faq:
     resource: "@SelFaqBundle/Resources/config/routing.yml"
     prefix:   /
+article:
+    resource: "@ArticleBundle/Controller/"
+    type:     annotation
+    prefix:   /
 page:
     resource: "@AppBundle/Controller/PageController.php"
     type:     annotation

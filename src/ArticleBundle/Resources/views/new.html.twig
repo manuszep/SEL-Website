@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel article{% endblock %}
+
+{% block header %}
+    <header class="page-header angle-intro">
+        <div class="wrapper">
+            <h1>Nouvel article</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="add-form">
+        <div class="wrapper">
+            {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
+            <fieldset>
+                <div class="form-row">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                    {{ form_errors(form.title) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.body) }}
+                    {{ form_widget(form.body) }}
+                    {{ form_errors(form.body) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.picture) }}
+                    {{ form_widget(form.picture) }}
+                    {{ form_errors(form.picture) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.published) }}
+                    {{ form_widget(form.published) }}
+                    {{ form_errors(form.published) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.published_at) }}
+                    {{ form_widget(form.published_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
+                    {{ form_errors(form.published_at) }}
+                </div>
+                <div class="form-row">
+                    {{ form_label(form.expires_at) }}
+                    {{ form_widget(form.expires_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
+                    {{ form_errors(form.expires_at) }}
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                {{ form_widget(form.save) }}
+                <a href="{{ path('article_index') }}" class="btn">Retour à la liste</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'ArticleBundle::form_js.html.twig' %}
+{% endblock %}

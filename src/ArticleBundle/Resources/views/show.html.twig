@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ article.body }}</td>
+            </tr>
+            <tr>
+                <th>Published</th>
+                <td>{% if article.published %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Picture_path</th>
+                <td>{{ article.picturepath }}</td>
+            </tr>
+            <tr>
+                <th>Published_at</th>
+                <td>{% if article.publishedat %}{{ article.publishedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Expires_at</th>
+                <td>{% if article.expiresat %}{{ article.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if article.created %}{{ article.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if article.updated %}{{ article.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Contentchanged</th>
+                <td>{% if article.contentChanged %}{{ article.contentChanged|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('article_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('article_edit', { 'id': article.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

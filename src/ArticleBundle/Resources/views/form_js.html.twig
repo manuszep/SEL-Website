@@ -1,0 +1,40 @@
+<script>
+
+    (function($) {
+        var $pub_date = $('#articlebundle_article_published_at');
+        var $exp_date = $('#articlebundle_article_expires_at');
+
+        // Use oninput event as it feels like onchange but without the need to loose focus
+        $pub_date.on('input', handlePubDateChange);
+        // Make backward compatible by mapping onproperty change to oninput
+        $pub_date.on('propertychange', handlePubDateChange);
+
+        // Use oninput event as it feels like onchange but without the need to loose focus
+        $exp_date.on('input', handleExpDateChange);
+        // Make backward compatible by mapping onproperty change to oninput
+        $exp_date.on('propertychange', handleExpDateChange);
+
+        var handlePubDateChange = function(e) {
+            var val = $pub_date.val();
+            val = val.replace(/\D/g, '/').substring(0, 10);
+            setFieldValue($pub_date, val);
+        };
+
+        var handleExpDateChange = function(e) {
+            var val = $exp_date.val();
+            val = val.replace(/\D/g, '/').substring(0, 10);
+            setFieldValue($exp_date, val);
+        };
+
+        var setFieldValue = function($field, value) {
+            // Store cursor position
+            var start = $field[0].selectionStart,
+                end = $field[0].selectionEnd;
+
+            $field.val(value);
+            // Restore cursor position
+            $field[0].setSelectionRange(start, end);
+        }
+    })(jQuery);
+
+</script>

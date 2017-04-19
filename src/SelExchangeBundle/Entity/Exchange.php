@@ -5,7 +5,6 @@ namespace SelExchangeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use AppBundle\Entity\User;
-use SelServiceBundle\Entity\Service;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -33,7 +32,7 @@ class Exchange
     private $title;
 
     /**
-     * @var int
+     * @var \AppBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -41,7 +40,7 @@ class Exchange
     private $creditUser;
 
     /**
-     * @var int
+     * @var \AppBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -107,7 +106,7 @@ class Exchange
      *
      * @param string $title
      *
-     * @return Service
+     * @return Exchange
      */
     public function setTitle($title)
     {
@@ -172,30 +171,6 @@ class Exchange
     public function getDebitUser()
     {
         return $this->debitUser;
-    }
-
-    /**
-     * Set service
-     *
-     * @param Service $service
-     *
-     * @return Exchange
-     */
-    public function setService(Service $service)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service
-     *
-     * @return Service
-     */
-    public function getService()
-    {
-        return $this->service;
     }
 
     /**

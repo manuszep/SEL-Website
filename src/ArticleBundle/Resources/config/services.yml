@@ -1,0 +1,7 @@
+services:
+    article.service_voter:
+        class: ArticleBundle\Security\ArticleVoter
+        arguments: ['@security.access.decision_manager']
+        tags:
+            - { name: security.voter }
+        public: false

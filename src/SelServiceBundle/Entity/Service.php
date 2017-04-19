@@ -23,7 +23,7 @@ class Service
     private $id;
 
     /**
-     * @var int
+     * @var \AppBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -51,7 +51,7 @@ class Service
     private $domain; // Service/savoir || Preterie / donnerie
 
     /**
-     * @var int
+     * @var \SelCategoryBundle\Entity\Category
      *
      * @ORM\ManyToOne(targetEntity="\SelCategoryBundle\Entity\Category", inversedBy="services")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
@@ -69,7 +69,7 @@ class Service
     private $picture;
 
     /**
-     * @var datetime $created
+     * @var \DateTime $created
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -145,7 +145,7 @@ class Service
     /**
      * Set user
      *
-     * @param User $uid
+     * @param User $user
      *
      * @return Service
      */
@@ -304,6 +304,8 @@ class Service
     public function setPicture(UploadedFile $file = null)
     {
         $this->picture = $file;
+
+        return $this;
     }
 
     public function setPicturePath($path) {
@@ -367,7 +369,7 @@ class Service
     /**
      * Get contentChanged
      *
-     * @return boolean
+     * @return \DateTime
      */
     public function getContentChanged()
     {
