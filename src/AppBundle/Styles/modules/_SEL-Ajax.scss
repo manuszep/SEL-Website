@@ -1,0 +1,61 @@
+@keyframes kanan {
+  0% {transform:translateX(20px);}
+  50%{transform:translateX(-20px);}
+  100%{transform:translateX(20px);z-index:200;}
+}
+
+@keyframes kiri {
+  0% {transform:translateX(-20px); z-index:200;}
+  50%{transform:translateX(20px);}
+  100%{transform:translateX(-20px);}
+}
+
+@mixin SEL-Ajax() {
+  .ajax {
+    .loader-wrapper {
+      opacity: 0;
+      position: relative;
+      width: 100%;
+      height: 0;
+      z-index: 10;
+      transition: all .5s;
+    }
+
+    .loader {
+      display: inline-block;
+    }
+
+    .loader, .loader:before, .loader:after {
+      transition: all .5s;
+      background: #F1C40F;
+      z-index: 100;
+      content: "";
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -8px;
+      margin-left: -8px;
+    }
+
+    .loader:before {
+      background: #E84C3D;
+      animation: kiri 1.2s infinite linear;
+
+    }
+
+    .loader:after{
+      background: #2FCC71;
+      animation: kanan 1.2s infinite linear;
+    }
+  }
+
+  .ajax.loading {
+    .loader-wrapper {
+      opacity: .75;
+      height: 10rem;
+    }
+  }
+}

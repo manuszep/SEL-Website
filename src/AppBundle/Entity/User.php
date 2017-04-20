@@ -555,7 +555,7 @@ class User extends BaseUser
     {
         return null === $this->picture_path
             ? '/uploads/users/default-user.png'
-            : $this->getUploadDir().'/'.$this->picture_path;
+            : '/' . $this->getUploadDir().'/'.$this->picture_path;
     }
 
     /**

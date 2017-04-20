@@ -49,6 +49,10 @@ class ServiceController extends Controller
             $data = $this->getPagination($services, $request);
         }
 
+        if ($request->isXmlHttpRequest()) {
+            $template_ext = '_ajax';
+        }
+
         return $this->render('SelServiceBundle::index' . $template_ext . '.html.twig', array(
             'services' => $data,
             'filter' => $form->createView(),

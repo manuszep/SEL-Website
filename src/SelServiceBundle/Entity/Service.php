@@ -295,30 +295,6 @@ class Service
     }
 
     /**
-     * Set promote
-     *
-     * @param boolean $promote
-     *
-     * @return Service
-     */
-    public function setPromote($promote)
-    {
-        $this->promote = $promote;
-
-        return $this;
-    }
-
-    /**
-     * Get promote
-     *
-     * @return boolean
-     */
-    public function getPromote()
-    {
-        return $this->promote;
-    }
-
-    /**
      * Sets picture.
      *
      * @param UploadedFile $file

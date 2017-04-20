@@ -5,44 +5,22 @@ import {Flash} from './Flash.js';
 import {Disqus} from './Disqus.js';
 import {Faq} from './Faq.js';
 import {AddTool} from './AddTool';
+import {Services} from './Services';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
     imagesLoaded = require('imagesloaded'),
     jQueryBridget = require('jquery-bridget'),
+    svg4everybody = require('svg4everybody'),
     inputMask = require('jquery.inputmask'),
-    svg4eferybody = require('svg4everybody');
+    SEL = {};
 
 window.jQuery = window.$ = $;
-svg4eferybody();
-
-require('trumbowyg');
-require ('air-datepicker');
-
-
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
+svg4everybody();
 
 $('body').removeClass('nojs').addClass('js');
-
-let $grid = $('.masonry');
-let $articles = $grid.find('article');
-
-if ($grid.length) {
-    $articles.hide();
-
-    /* Relayout when images are loaded to avoid overlapping items */
-    $grid.imagesLoaded( function() {
-        $articles.fadeIn(500);
-
-        $grid.masonry({
-            itemSelector: 'article',
-            columnWidth: 'article'
-        });
-
-        //$grid.masonry('layout');
-    });
-}
 
 let filter = new Filter();
 let form = new Form();
@@ -52,6 +30,32 @@ let disqus = new Disqus();
 let faq = new Faq();
 let add_tool = new AddTool();
 
+window.Services = new Services();
+
+SEL.initMasonry = function(fade) {
+    fade = typeof fade === 'undefined' ? true : fade;
+
+    SEL.$grid = $('.masonry');
+    let $articles = SEL.$grid.find('article');
+
+    if (SEL.$grid.length) {
+        if (fade) $articles.hide();
+
+        /* Relayout when images are loaded to avoid overlapping items */
+        SEL.$grid.imagesLoaded( function() {
+            if (fade) $articles.fadeIn(500);
+
+            var g = SEL.$grid.masonry({
+                itemSelector: 'article',
+                columnWidth: 'article'
+            });
+        });
+    }
+};
+
+SEL.initMasonry();
+
+require('trumbowyg');
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
 
 
@@ -63,6 +67,8 @@ $('.wysiwyg').trumbowyg({
     btns: ['viewHTML', '|', 'undo', 'redo', '|', 'btnGrp-lists', '|', 'bold', 'italic', '|', 'link', '|', 'removeformat']
 });
 
+
+require ('air-datepicker');
 $('[data-inputmask-regex]').inputmask("Regex");
 
 $.fn.datepicker.language['fr'] = {
