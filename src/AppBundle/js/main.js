@@ -1,4 +1,3 @@
-import {Filter} from './Filter.js';
 import {Form} from './Form.js';
 import {Tab} from './Tab.js';
 import {Flash} from './Flash.js';
@@ -6,6 +5,7 @@ import {Disqus} from './Disqus.js';
 import {Faq} from './Faq.js';
 import {AddTool} from './AddTool';
 import {Services} from './Services';
+import {Stats} from './Stats';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -13,16 +13,18 @@ let $ = require('jquery'),
     jQueryBridget = require('jquery-bridget'),
     svg4everybody = require('svg4everybody'),
     inputMask = require('jquery.inputmask'),
-    SEL = {};
+    SEL = {},
+    Chart = require('chart.js');
 
 window.jQuery = window.$ = $;
+window.Chart = Chart;
 imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'masonry', Masonry, $ );
+jQueryBridget( 'dxChart', Chart, $ );
 svg4everybody();
 
 $('body').removeClass('nojs').addClass('js');
 
-let filter = new Filter();
 let form = new Form();
 let tab = new Tab();
 let flash = new Flash();
@@ -31,6 +33,7 @@ let faq = new Faq();
 let add_tool = new AddTool();
 
 window.Services = new Services();
+window.Stats = new Stats();
 
 SEL.initMasonry = function(fade) {
     fade = typeof fade === 'undefined' ? true : fade;
