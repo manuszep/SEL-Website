@@ -27,3 +27,12 @@
 - [Ajout] Message lorsque les filtres ne retournent aucun résultat
 - [Ajout] Affichage d'une carte sur la page d'accueil pour les nouveaux membres.
 - [Ajout] Flux RSS sur la page d'accueil
+
+## v2.2
+
+- [Bug] L'image de profil d'un membre dans un carte apparaissait transparente pour les gis et png. Ajout d'un arrière plan blanc.
+
+- [Amélioration] Filtrage de la page services en AJAX.
+- [Amélioration] Gestion de l'historique lorsque l'on filtre les services.
+
+- [Ajout] Module de stats accessible au COCO
