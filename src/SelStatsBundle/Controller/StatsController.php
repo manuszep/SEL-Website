@@ -76,8 +76,8 @@ GROUP BY _date;";
 
         foreach($data as $item) {
             $exchange_data["labels"][] = $item['_date'];
-            $exchange_data["data1"][] = $item['exchanges'];
-            $exchange_data["data2"][] = $item['amount'];
+            $exchange_data["data1"][] = (int)$item['exchanges'];
+            $exchange_data["data2"][] = (float)$item['amount'];
         }
 
         return $exchange_data;
@@ -121,10 +121,10 @@ GROUP BY _date";
 
         foreach($data as $item) {
             $service_data["labels"][] = $item['_date'];
-            $service_data["offre"][] = $item['offre'];
-            $service_data["demande"][] = $item['demande'];
-            $service_data["offre_flash"][] = $item['offre_flash'];
-            $service_data["demande_flash"][] = $item['demande_flash'];
+            $service_data["offre"][] = (int)$item['offre'];
+            $service_data["demande"][] = (int)$item['demande'];
+            $service_data["offre_flash"][] = (int)$item['offre_flash'];
+            $service_data["demande_flash"][] = (int)$item['demande_flash'];
         }
 
 
@@ -161,7 +161,7 @@ GROUP BY _date";
 
         foreach($data as $item) {
             $user_data["labels"][] = $item['_date'];
-            $user_data["user"][] = $item['user'];
+            $user_data["user"][] = (int)$item['user'];
         }
 
 

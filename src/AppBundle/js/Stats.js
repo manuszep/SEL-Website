@@ -98,7 +98,7 @@ export class Stats {
             options: {
                 scales: {
                     yAxes: [{
-                        stacked: true,
+                        stacked: false,
                         ticks: {
                             beginAtZero:true
                         }
