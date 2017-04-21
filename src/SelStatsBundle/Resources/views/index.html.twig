@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block header %}
+    <header class="page-header has-block inline-heading angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>Statistiques</h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="wrapper">
+            <div class="filters header-block stats-filters">
+                <form method="get" action="{{ path('sel_stats_index') }}" class="grid" id="statsForm">
+                    <div class="grid-item grid-item-2-4-medium-up">
+                        {{ form_label(filter.period) }}
+                        {{ form_widget(filter.period) }}
+                        {{ form_errors(filter.period) }}
+                    </div>
+                    <div class="grid-item grid-item-2-4-medium-up">
+                        <button id="filter_submit" type="submit" name="submit-filter">Filtrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="wrapper">
+            <h2>&Eacute;changes</h2>
+            <div class="stats-wrapper ajax">
+                <div id="exchangesLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="exchangesGraph" class="stats-graph"></canvas>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="wrapper">
+            <h2>Services</h2>
+            <div class="stats-wrapper ajax">
+                <div id="servicesLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="servicesGraph" class="stats-graph"></canvas>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="wrapper">
+            <h2>Membres</h2>
+            <div class="stats-wrapper ajax">
+                <div id="usersLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="usersGraph" class="stats-graph"></canvas>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.Stats.init();
+    </script>
+
+    <script>
+        /*var exchanges = \{\{ exchanges|raw \}\}
+        $("#chartContainer1").dxChart({
+            type: 'line',
+            data: {
+                labels: exchanges.labels,
+                datasets: [{
+                    label: 'Echanges',
+                    data: exchanges.data1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)'
+                    ],
+                    borderWidth: 1
+                },{
+                    label: 'Noeuds',
+                    data: exchanges.data2,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }});
+
+        $("#chartContainer2").dxChart({
+            type: 'bar',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }});
+
+        /*
+         http://www.bezanilla-solar.cl/libs/jscripts/DevExpressChartJS/Demos/demos/Charts/Advanced%20features/Multiple%20Series%20Selection.html?cachebusterTimestamp=1492599374655
+         */
+        /*var dataSource3 = [
+            { year: 2006, IE7: 0.011 },
+            { year: 2007, IE7: 0.192 },
+            { year: 2008, IE7: 0.265 },
+            { year: 2009, IE7: 0.213, IE8: 0.052 },
+            { year: 2010, IE7: 0.091, IE8: 0.160 },
+            { year: 2011, IE7: 0.053, IE8: 0.141, IE9: 0.031 },
+            { year: 2012, IE7: 0.021, IE8: 0.088, IE9: 0.065, IE10: 0.001},
+            { year: 2013, IE7: 0.008, IE8: 0.052, IE9: 0.039, IE10: 0.026}
+        ];
+
+        var chart3 = new Chart("chartContainer3", {
+            seriesSelectionMode: "multiple",
+            dataSource: dataSource3,
+            commonSeriesSettings: {
+                argumentField: "year",
+                type: "stackedarea"
+            },
+            commonAxisSettings: {
+                valueMarginsEnabled: false
+            },
+            argumentAxis: {
+                type: "discrete"
+            },
+            valueAxis: {
+                label: {
+                    format: "percent",
+                    precision: 2
+                }
+            },
+            series: [
+                { valueField: "IE7", name: "Internet Explorer 7" },
+                { valueField: "IE8", name: "Internet Explorer 8" },
+                { valueField: "IE9", name: "Internet Explorer 9" },
+                { valueField: "IE10", name: "Internet Explorer 10" }
+            ],
+            title: {
+                text: "Internet Explorer Statistics"
+            },
+            legend: {
+                verticalAlignment: "bottom",
+                horizontalAlignment: "center"
+            },
+            seriesClick: function(series) {
+                series.isSelected() ? series.clearSelection() : series.select();
+            }
+        });*/
+
+    </script>
+{% endblock %}

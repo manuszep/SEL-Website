@@ -43,6 +43,7 @@ label:
     faqType: Type
     published: Publié
     publishedAt: Date de publication
+    statsPeriod: Période
 
 placeholder:
     pleaseChoose: Veuillez faire un choix dans la liste

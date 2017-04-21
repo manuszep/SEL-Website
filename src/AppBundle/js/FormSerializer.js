@@ -1,78 +1,81 @@
 var $ = require('jquery');
 
 export class FormSerializer {
-    constructor() {
-        this.json = {};
-        this.push_counters = {};
-        this.patterns = {
-            "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
-            "key":      /[a-zA-Z0-9_]+|(?=\[\])/g,
-            "push":     /^$/,
-            "fixed":    /^\d+$/,
-            "named":    /^[a-zA-Z0-9_]+$/
+    constructor(form_id) {
+        let form = (form_id instanceof jQuery) ? form_id : $('#' + form_id);
+        this._cache = {
+            form: form,
+            formFields: form.find('input, select, textarea')
         };
+
+        this._cache.form.find('button[type=submit]').hide();
     }
 
-    build(base, key, value) {
-        base[key] = value;
-        return base;
-    }
+    saveFormData() {
+        let data = {};
 
-    pushCounter(key) {
-        if(this.push_counters[key] === undefined){
-            this.push_counters[key] = 0;
-        }
-        return this.push_counters[key]++;
-    }
+        $.each(this._cache.formFields, function() {
+            let id = $(this).attr("id");
+            let name = $(this).attr("name");
+            let type = $(this).attr("type");
 
-    serialize($elem) {
-        let self = this;
-        this.json = {};
-        this.push_counters = {};
-        $.each($elem.serializeArray(), function(){
-
-            // skip invalid keys
-            if(!self.patterns.validate.test(this.name)){
-                return;
-            }
-
-            var k,
-                keys = this.name.match(self.patterns.key),
-                merge = this.value,
-                reverse_key = this.name;
-
-            while((k = keys.pop()) !== undefined){
-
-                // adjust reverse_key
-                reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
-
-                // push
-                if(k.match(self.patterns.push)){
-                    merge = self.build([], self.pushCounter(reverse_key), merge);
+            if (id && (this.checked || /select|textarea/i.test(this.nodeName) || /text|hidden|password/i.test(this.type))) {
+                data[id] = {
+                    name: name,
+                    value: $(this).val()
                 }
-
-                // fixed
-                else if(k.match(self.patterns.fixed)){
-                    merge = self.build([], k, merge);
-                }
-
-                // named
-                else if(k.match(self.patterns.named)){
-                    merge = self.build({}, k, merge);
+            } else if (id && type != 'radio') {
+                data[id] = {
+                    name: name,
+                    value: ""
                 }
             }
-
-            self.json = $.extend(true, self.json, merge);
         });
 
-        return self.json;
+        this.form_data = data;
+        this.form_request = this.convertFormDataToRequest(data);
     }
 
-    convertToRequest(data) {
-        return $.param(data);
+    convertFormDataToRequest(data) {
+        let request = "?";
+
+        for (var key in data) {
+            request += data[key].name + "=" + data[key].value + "&";
+        }
+
+        return encodeURI(request.replace(/&\s*$/, ""));
     }
 
-    getAsRequest($elem) {
-        return this.convertToRequest(this.serialize($elem));
+    restoreFormData() {
+        // Loop all form elements
+        this._cache.formFields.each(function(key, field) {
+            let id = field.id; // Get element id
+            let val = "";
+
+            // The form_data object may be null or the value may not exist.
+            // Try to use the stored data but keep null if nothing is found.
+            try {val = this.form_data[id].value;} catch(e) {}
+
+            // We don't want to alter disabled fields
+            if (field.disabled) return;
+
+            if(field.type == 'checkbox' || field.type == 'radio') {
+                $(field).prop("checked", (val == $(field).val()));
+            } else {
+                $(field).val(val);
+            }
+        }.bind(this));
+    }
+
+    setFormData(data) {
+        this.form_data = data;
+    }
+
+    getFormData() {
+        return this.form_data;
+    }
+
+    getRequest() {
+        return this.form_request;
     }
 }
