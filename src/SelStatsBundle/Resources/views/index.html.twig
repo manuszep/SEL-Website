@@ -29,19 +29,28 @@
         </div>
         <div class="wrapper">
             <h2>&Eacute;changes</h2>
-            <canvas id="exchangesGraph" class="stats-graph"></canvas>
+            <div class="stats-wrapper ajax">
+                <div id="exchangesLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="exchangesGraph" class="stats-graph"></canvas>
+            </div>
         </div>
     </section>
     <section>
         <div class="wrapper">
             <h2>Services</h2>
-            <canvas id="servicesGraph" class="stats-graph"></canvas>
+            <div class="stats-wrapper ajax">
+                <div id="servicesLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="servicesGraph" class="stats-graph"></canvas>
+            </div>
         </div>
     </section>
     <section>
         <div class="wrapper">
             <h2>Membres</h2>
-            <canvas id="usersGraph" class="stats-graph"></canvas>
+            <div class="stats-wrapper ajax">
+                <div id="usersLoader" class="loader-wrapper loader-cover"><div class="loader"></div></div>
+                <canvas id="usersGraph" class="stats-graph"></canvas>
+            </div>
         </div>
     </section>
 {% endblock %}

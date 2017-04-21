@@ -13,7 +13,7 @@ export class Stats {
         this._cache = {
             form: $('#statsForm'),
             loader: $('.statsLoader'),
-            container: $('#statsContainer'),
+            container: $('.stats-wrapper'),
             exchangesGraph: $('#exchangesGraph'),
             servicesGraph: $('#servicesGraph'),
             usersGraph: $('#usersGraph')

@@ -41,6 +41,7 @@ label:
     question: Question
     answer: Réponse
     faqType: Type
+    statsPeriod: Période
 
 placeholder:
     pleaseChoose: Veuillez faire un choix dans la liste
