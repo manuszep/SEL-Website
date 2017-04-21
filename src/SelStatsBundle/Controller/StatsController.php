@@ -44,6 +44,18 @@ class StatsController extends Controller
         ));
     }
 
+    protected function getCalendarQuery() {
+        return "FROM 
+              (select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date 
+                FROM
+                  (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t0,
+                  (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1,
+                  (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2,
+                  (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3,
+                  (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4
+              ) v";
+    }
+
     protected function getExchangesStats($period) {
         if (!ctype_digit($period)) {
             return array();
@@ -58,16 +70,14 @@ class StatsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sql = "
-            select DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, COUNT(e.id) as exchanges, COALESCE(SUM(ABS(e.amount)), 0) as amount from 
-(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
- LEFT JOIN exchange as e on DATE_FORMAT(e.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
-where selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
-GROUP BY _date;";
+            SELECT 
+                DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, 
+                COUNT(e.id) as exchanges, 
+                COALESCE(SUM(ABS(e.amount)), 0) as amount 
+            {$this->getCalendarQuery()}
+            LEFT JOIN exchange as e on DATE_FORMAT(e.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
+            WHERE selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
+            GROUP BY _date;";
 
         $q = $em->getConnection()->prepare($sql);
         $q->execute();
@@ -99,20 +109,15 @@ GROUP BY _date;";
         $em = $this->getDoctrine()->getManager();
 
         $sql = "
-            select DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, 
+            SELECT DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, 
                 SUM(CASE WHEN s.type = 1 THEN 1 ELSE 0 END) AS offre, 
                 SUM(CASE WHEN s.type = 2 THEN 1 ELSE 0 END) AS demande, 
                 SUM(CASE WHEN s.type = 3 THEN 1 ELSE 0 END) AS offre_flash, 
-                SUM(CASE WHEN s.type = 4 THEN 1 ELSE 0 END) AS demande_flash from 
-(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
- LEFT JOIN service as s on DATE_FORMAT(s.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
-where selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
-GROUP BY _date";
+                SUM(CASE WHEN s.type = 4 THEN 1 ELSE 0 END) AS demande_flash 
+                {$this->getCalendarQuery()}
+            LEFT JOIN service as s on DATE_FORMAT(s.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
+            WHERE selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
+            GROUP BY _date";
 
         $q = $em->getConnection()->prepare($sql);
         $q->execute();
@@ -143,16 +148,11 @@ GROUP BY _date";
         $em = $this->getDoctrine()->getManager();
 
         $sql = "
-            select DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, COUNT(db_user.id) as user from 
-(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
- (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
- LEFT JOIN db_user on DATE_FORMAT(db_user.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
-where selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
-GROUP BY _date";
+            SELECT DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, COUNT(db_user.id) as user
+            {$this->getCalendarQuery()}
+            LEFT JOIN db_user ON DATE_FORMAT(db_user.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
+            WHERE selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
+            GROUP BY _date";
 
         $q = $em->getConnection()->prepare($sql);
         $q->execute();
