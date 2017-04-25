@@ -30,9 +30,9 @@ class FaqType extends AbstractType
             ))
             ->add('type', ChoiceType::class, array(
                 'choices'  => array(
-                    'Publique' => 0,
-                    'Réservé aux membres' => 1,
-                    'Réservé au COCO' => 2
+                    'label.public' => 0,
+                    'label.membersOnly' => 1,
+                    'label.cocoOnly' => 2
                 ),
                 'label' => 'label.faqType'
             ))

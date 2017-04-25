@@ -34,7 +34,6 @@ security:
             logout:
                 path: /deconnexion
                 target: /
-            anonymous: true
 
     access_control:
         - { path: ^/connexion$, role: IS_AUTHENTICATED_ANONYMOUSLY }

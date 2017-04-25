@@ -2,52 +2,64 @@ Next: Suivant
 Previous: Précédent
 Offre: Offre
 Demande: Demande
-Offre flash: Offre flash
-Demande flash: Demande flash
-Service / Savoir: Service / Savoir
-Preterie / Donnerie: Prêterie / Donnerie
+Offre Flash: Offre flash
+Demande Flash: Demande flash
+Service / savoir: Service / Savoir
+Preterie / donnerie: Prêterie / Donnerie
+
 
 label:
-    username: Pseudo
-    email: Adresse email
-    password: Mot de passe
-    passwordRepeat: Confirmation
-    passwordCurrent: Mot de passe actuel
-    phone: Téléphone
-    mobile: GSM
-    mobile2: GSM secondaire
-    street: Rue
-    streetNumber: N°
-    streetBox: Boite
-    zip: Code postal
-    city: Ville
-    picture: Image
+    amount: Montant
+    answer: Réponse
     author: Auteur
-    title: Titre
-    content: Contenu
-    serviceType: Type de service
-    domain: Domaine
     category: Catégorie
-    highlight: Mettre en évidence ?
-    expiresAt: Date d'expiration
-    save: Enregistrer
+    city: Ville
+    cocoOnly: Réservé au COCO
+    content: Contenu
     creditUser: Membre qui reçoit des noeuds
     debitUser: Membre qui donne des noeuds
-    targetService: Service concerné
-    message: Message
-    amount: Montant
-    parent: Parent
-    send: Envoyer
-    question: Question
-    answer: Réponse
+    documents: Documents
+    domain: Domaine
+    email: Adresse email
+    expiresAt: Date d'expiration
     faqType: Type
+    highlight: Mettre en évidence ?
+    membersOnly: Réservé aux membres
+    message: Message
+    mobile: GSM
+    mobile2: GSM secondaire
+    name: Nom
+    parent: Parent
+    password: Mot de passe
+    passwordCurrent: Mot de passe actuel
+    passwordRepeat: Confirmation
+    phone: Téléphone
+    picture: Image
+    public: Publique
     published: Publié
     publishedAt: Date de publication
+    question: Question
+    recaptcha: Je ne suis pas un robot
+    save: Enregistrer
+    send: Envoyer
+    serviceType: Type de service
     statsPeriod: Période
-    documents: Documents
+    street: Rue
+    streetBox: Boite
+    streetNumber: N°
+    subject: Sujet
+    targetService: Service concerné
+    title: Titre
+    username: Pseudo
+    zip: Code postal
 
 placeholder:
+    dateFormat: jj/mm/aaaa
+    messageSubject: Le sujet de votre message
     pleaseChoose: Veuillez faire un choix dans la liste
+    yourEmail: Votre adresse email
+    yourMessage: Votre message
+    yourName: Votre nom
 
 message:
     password:

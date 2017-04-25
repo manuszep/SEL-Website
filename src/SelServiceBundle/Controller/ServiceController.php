@@ -115,8 +115,8 @@ class ServiceController extends Controller
         return $this->render('SelServiceBundle::new.html.twig', array(
             'service' => $service,
             'form' => $form->createView(),
-            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 14 day")),
-            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 365 day"))
+            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", time()) . " + 14 day")),
+            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", time()) . " + 365 day"))
         ));
     }
 
@@ -177,8 +177,8 @@ class ServiceController extends Controller
             'service' => $service,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 14 day")),
-            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", mktime()) . " + 365 day"))
+            'flash_default_date' => date('d/m/Y',strtotime(date("Y-m-d", time()) . " + 14 day")),
+            'normal_default_date' => date('d/m/Y',strtotime(date("Y-m-d", time()) . " + 365 day"))
         ));
     }
 

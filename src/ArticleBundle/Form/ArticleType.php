@@ -69,7 +69,7 @@ class ArticleType extends AbstractType
             'label' => 'label.publishedAt',
             'format' => 'dd/MM/yyyy',
             'attr' => array(
-                'placeholder' => 'jj/mm/aaaa'
+                'placeholder' => 'placeholder.dateFormat'
             )
         ));
 
@@ -80,7 +80,7 @@ class ArticleType extends AbstractType
             'label' => 'label.expiresAt',
             'format' => 'dd/MM/yyyy',
             'attr' => array(
-                'placeholder' => 'jj/mm/aaaa'
+                'placeholder' => 'placeholder.dateFormat'
             )
         ));
 

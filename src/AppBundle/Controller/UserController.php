@@ -201,7 +201,7 @@ class UserController extends Controller
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
             $password = substr($tokenGenerator->generateToken(), 0, 12);
 

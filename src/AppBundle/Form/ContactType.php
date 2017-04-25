@@ -36,14 +36,12 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $name_attrs = array(
-            'placeholder' => 'Votre nom',
-            'label' => 'Nom',
+            'placeholder' => 'placeholder.yourName',
             'pattern'     => '.{2,}' //minlength
         );
 
         $email_attrs = array(
-            'placeholder' => 'Votre adresse email',
-            'label' => 'Adresse email'
+            'placeholder' => 'placeholder.yourEmail'
         );
 
         // If user is logged-in
@@ -58,6 +56,7 @@ class ContactType extends AbstractType
 
         $builder
             ->add('name', TextType::class, array(
+                'label' => 'label.name',
                 'attr' => $name_attrs,
                 'constraints' => array(
                     new NotBlank(array('message' => 'Le nom est obligatoire')),
@@ -65,6 +64,7 @@ class ContactType extends AbstractType
                 )
             ))
             ->add('email', EmailType::class, array(
+                'label' => 'label.email',
                 'attr' => $email_attrs,
                 'constraints' => array(
                     new NotBlank(array('message' => 'L\'email est obligatoire')),
@@ -72,9 +72,9 @@ class ContactType extends AbstractType
                 )
             ))
             ->add('subject', TextType::class, array(
+                'label' => 'label.subject',
                 'attr' => array(
-                    'placeholder' => 'Le sujet de votre message',
-                    'label' => 'Sujet',
+                    'placeholder' => 'placeholder.messageSubject',
                     'pattern'     => '.{3,}' //minlength
                 ),
                 'constraints' => array(
@@ -83,11 +83,11 @@ class ContactType extends AbstractType
                 )
             ))
             ->add('message', TextareaType::class, array(
+                'label' => 'label.message',
                 'attr' => array(
                     'cols' => 90,
                     'rows' => 10,
-                    'placeholder' => 'Votre message',
-                    'label' => 'Message',
+                    'placeholder' => 'placeholder.yourMessage',
                     'class' => "wysiwyg"
                 ),
                 'constraints' => array(
@@ -96,6 +96,7 @@ class ContactType extends AbstractType
                 )
             ))
             ->add('recaptcha', EWZRecaptchaType::class, array(
+                'label' => 'label.recaptcha',
                 'attr' => array(
                     'options' => array(
                         'theme' => 'light',
@@ -111,8 +112,8 @@ class ContactType extends AbstractType
                 )
             ))
             ->add('send', SubmitType::class, array(
-                'attr' => array('class' => 'main'),
-                    'label' => 'label.send'
+                'label' => 'label.send',
+                'attr' => array('class' => 'main')
                 )
             );
     }
