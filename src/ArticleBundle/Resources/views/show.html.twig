@@ -1,64 +1,52 @@
 {% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+{% import "@SelDocument/Default/icons.html.twig" as filetypeicons %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block header %}
+    <header class="page-header angle-intro angle-negative-reverse inline-heading article-header{% if article.picture %} has-picture{% endif %}"{% if article.picture %} style="background-image: url('{{ article.picture.getWebPath | imagine_filter('article_top2x') }}')"{% endif %}>
+        <div class="wrapper">
+            <div class="article-header__content">
+                <h1>{{ article.title }}</h1>
+                {% if is_granted("ROLE_EDITOR") %}{{ icons.iconlink('pencil', 'Modifier', path('article_edit', { 'id': article.id }), 'btn') }}{% endif %}
+            </div>
+            <div class="meta">
+                {% if article.publishedat %}<span>Publié le {{ article.publishedat | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% else %}<span>Publié le {{ article.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% endif %}
+            </div>
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ article.body }}</td>
-            </tr>
-            <tr>
-                <th>Published</th>
-                <td>{% if article.published %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Picture_path</th>
-                <td>{{ article.getPictureWebPath }}</td>
-            </tr>
-            <tr>
-                <th>Published_at</th>
-                <td>{% if article.publishedat %}{{ article.publishedat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Expires_at</th>
-                <td>{% if article.expiresat %}{{ article.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if article.created %}{{ article.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if article.updated %}{{ article.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Contentchanged</th>
-                <td>{% if article.contentChanged %}{{ article.contentChanged|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('article_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('article_edit', { 'id': article.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+<article class="article-show">
+    <div class="wrapper">
+        <div class="article-show__content">
+            {{ article.body|raw }}
+        </div>
+        {% if article.documents %}
+        <div class="article-show__documents">
+            <h2>Documents</h2>
+            <table>
+                <tbody>
+                {% for document in article.documents %}
+                    <tr>
+                        <td class="fileicon">{{ filetypeicons.icon(document.getExtension) }}</td>
+                        <td class="filename"><a href="{{ document.getWebPath }}">{{ document.path }}</a></td>
+                        <td class="filesize">{{ document.getFormattedSize }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</article>
+{% if is_granted("comment-service") %}
+    <section id="comments">
+        <div class="wrapper">
+            <div id="disqus_thread" data-shortname="boutsdefisel" data-title="{{ article.title }}"></div>
+        </div>
+    </section>
+{% endif %}
 {% endblock %}

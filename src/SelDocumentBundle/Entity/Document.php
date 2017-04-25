@@ -28,14 +28,28 @@ class Document
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     public $path;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    public $size;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=false)
+     */
+    public $extension;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $subfolder;
+
+    public function getCustomFileName() {
+        return $this->size . '_' . $this->path;
+    }
 
     /**
      * Sets file.
@@ -46,7 +60,9 @@ class Document
     {
         $this->file = $file;
 
-        $this->path = $this->getCustomFileName($file);
+        $this->size = $file->getClientSize();
+        $this->extension = $file->guessExtension();
+        $this->path = $file->getClientOriginalName();
     }
 
     /**
@@ -63,14 +79,14 @@ class Document
     {
         return null === $this->path
             ? null
-            : $this->getUploadRootDir().'/'.$this->path;
+            : $this->getUploadRootDir().'/'.$this->getCustomFileName();
     }
 
     public function getWebPath()
     {
         return null === $this->path
             ? null
-            : '/' . $this->getUploadDir().'/'.$this->path;
+            : '/' . $this->getUploadDir().'/'.$this->getCustomFileName();
     }
 
     protected function getUploadRootDir()
@@ -88,10 +104,6 @@ class Document
             return 'uploads/' . $this->subfolder;
         }
         return 'uploads';
-    }
-
-    private function getCustomFileName($file) {
-        return $this->file->getClientSize() . '_' . $file->getClientOriginalName();
     }
 
     public function fileExists() {
@@ -121,7 +133,7 @@ class Document
         }
 
         $this->file->move(
-            $this->getUploadRootDir(), $this->path
+            $this->getUploadRootDir(), $this->getCustomFileName()
         );
 
         $this->file = null;
@@ -169,6 +181,74 @@ class Document
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     *
+     * @return Document
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Get size formatted
+     *
+     * @return string
+     */
+    public function getFormattedSize()
+    {
+        if ($this->size > 1000000) {
+            $n = $this->size / 1000000;
+            return number_format($n, 2, ',', '.') . " Mb";
+        }
+
+        if ($this->size > 1000) {
+            $n = $this->size / 1000;
+            return number_format($n, 2, ',', '.'). " Kb";
+        }
+
+        return $this->size . "b";
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     *
+     * @return Document
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 
     /**

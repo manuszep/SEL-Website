@@ -51,6 +51,21 @@ $SEL-Section-angle-size: 48px;
         }
     }
 
+    .angle-negative, .angle-negative-reverse {
+        &:after {
+            background-image: url('/img/angles.svg#neg');
+            top: auto;
+            bottom: 0;
+            z-index: 1;
+        }
+    }
+
+    .angle-negative-reverse {
+        &:after {
+            background-image: url('/img/angles.svg#neg-reverse');
+        }
+    }
+
     .angle-intro {
         margin-bottom: $SEL-Section-angle-size;
 

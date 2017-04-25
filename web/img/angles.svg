@@ -7,14 +7,19 @@
         <path id="a" d='M0 100 L100 0 L0 0' stroke-width="0"></path>
         <path id="b" d='M0 0 L100 100 L100 0' stroke-width="0"></path>
         <path id="c" d='M0 0 L0 100 L100 100' stroke-width="0"></path>
+        <path id="d" d='M0 0 L0 100 L100 100' stroke-width="0"></path>
+        <path id="e" d='M0 100 L100 100 L100 0' stroke-width="0"></path>
         <style>
             path{fill:url(#g);}
             g { display: none }
             g:target { display: inline }
+            #d,#e{fill:#f2f5f7}
         </style>
     </defs>
 
     <g id="angle"><use xlink:href="#a" x="0" y="0"></use></g>
     <g id="reverse"><use xlink:href="#b" x="0" y="0"></use></g>
     <g id="top"><use xlink:href="#c" x="0" y="0"></use></g>
+    <g id="neg"><use xlink:href="#d" x="0" y="0"></use></g>
+    <g id="neg-reverse"><use xlink:href="#e" x="0" y="0"></use></g>
 </svg>
