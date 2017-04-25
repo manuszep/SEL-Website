@@ -18,7 +18,7 @@ export class DropZone {
 
         this.uploadUrl = this._cache.DropZoneWrapper.data('upload-url');
         this.removeUrl = this._cache.DropZoneWrapper.data('remove-url');
-        
+
         this.paramName = this._cache.FileInput.attr('name');
         this._cache.FileInput.remove();
 
@@ -43,20 +43,24 @@ export class DropZone {
         }.bind(this));
 
         this.DropZone.on('removedfile', function(file) {
+            this._cache.Submit.addClass('loading');
             this._cache.Submit.attr('disabled', true);
             var _xhr = $.ajax({
                 url: this.removeUrl + '&path=' + file.path,
                 cache: false
             }).complete(function() {
+                this._cache.Submit.removeClass('loading');
                 this._cache.Submit.attr('disabled', false);
             }.bind(this));
         }.bind(this));
 
         this.DropZone.on('processing', function(file) {
+            this._cache.Submit.addClass('loading');
             this._cache.Submit.attr('disabled', true);
         }.bind(this));
 
         this.DropZone.on('queuecomplete', function(file) {
+            this._cache.Submit.removeClass('loading');
             this._cache.Submit.attr('disabled', false);
         }.bind(this));
     }

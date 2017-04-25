@@ -53,7 +53,7 @@
             </fieldset>
 
             <div class="form-actions">
-                {{ form_widget(form.save) }}
+                {{ form_widget(form.save, {'attr': {'class': 'main ajax'}}) }}
                 <a href="{{ path('article_index') }}" class="btn">Retour à la liste</a>
             </div>
             {{ form_end(form) }}
