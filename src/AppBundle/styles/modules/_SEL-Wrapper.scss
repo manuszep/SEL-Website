@@ -24,8 +24,44 @@
         $suffix: '-#{$mq}';
     }
 
+    .order-1#{$suffix} {
+        order: 1;
+    }
+
+    .order-2#{$suffix} {
+        order: 2;
+    }
+
+    .order-3#{$suffix} {
+        order: 3;
+    }
+
+    .order-4#{$suffix} {
+        order: 4;
+    }
+
+    .order-5#{$suffix} {
+        order: 5;
+    }
+
     .grid-item#{$suffix} {
         margin: 1rem;
+    }
+
+    .grid-item-1-5#{$suffix} {
+        width: calc(20% - 2em);
+    }
+
+    .grid-item-2-5#{$suffix} {
+        width: calc(40% - 2em);
+    }
+
+    .grid-item-3-5#{$suffix} {
+        width: calc(60% - 2em);
+    }
+
+    .grid-item-4-5#{$suffix} {
+        width: calc(80% - 2em);
     }
 
     .grid-item-1-4#{$suffix} {

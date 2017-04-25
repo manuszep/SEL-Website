@@ -13,50 +13,62 @@
 {% block body %}
     <section>
         <div class="wrapper">
-            <p>Cette page a besoin de contenu:</p>
+            <div class="grid ">
+                <div class="grid-item-large-up grid-item-3-5-large-up order-2">
+                    {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
+                    <fieldset>
+                        <div class="form-row">
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_label(form.email) }}
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_label(form.subject) }}
+                            {{ form_widget(form.subject) }}
+                            {{ form_errors(form.subject) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_label(form.message) }}
+                            {{ form_widget(form.message) }}
+                            {{ form_errors(form.message) }}
+                        </div>
 
-            <ul>
-                <li>Un formulaire de contact</li>
-                <li>Les infos sur la manière dont on s'inscrit</li>
-                <li>Les scéances d'info</li>
-                <li>...</li>
-            </ul>
+                        <div class="form-row">
+                            {{ form_label(form.recaptcha) }}
+                            {{ form_widget(form.recaptcha) }}
+                            {{ form_errors(form.recaptcha) }}
+                        </div>
+                    </fieldset>
 
-            {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
-            <fieldset>
-                <div class="form-row">
-                    {{ form_label(form.name) }}
-                    {{ form_widget(form.name) }}
-                    {{ form_errors(form.name) }}
-                </div>
-                <div class="form-row">
-                    {{ form_label(form.email) }}
-                    {{ form_widget(form.email) }}
-                    {{ form_errors(form.email) }}
-                </div>
-                <div class="form-row">
-                    {{ form_label(form.subject) }}
-                    {{ form_widget(form.subject) }}
-                    {{ form_errors(form.subject) }}
-                </div>
-                <div class="form-row">
-                    {{ form_label(form.message) }}
-                    {{ form_widget(form.message) }}
-                    {{ form_errors(form.message) }}
+                    <div class="form-actions">
+                        {{ form_widget(form.send) }}
+                    </div>
+
+                    {{ form_end(form) }}
                 </div>
 
-                <div class="form-row">
-                    {{ form_label(form.recaptcha) }}
-                    {{ form_widget(form.recaptcha) }}
-                    {{ form_errors(form.recaptcha) }}
-                </div>
-            </fieldset>
+                <div class="grid-item-large-up grid-item-2-5-large-up order-1 order-3-large-up">
+                    <h3>Séances d'infos</h3>
+                    <p>Une fois par mois, Mandarine accueille les futurs membres du Bouts de FiSel pour leur expliquer le fonctionnement du SEL , la valorisation de leurs compétences, leur donner des idées d'offres & demandes.</p>
 
-            <div class="form-actions">
-                {{ form_widget(form.send) }}
+                    <p>Les séances ont lieu à Bouvignies, de 18h30 à 19h30</p>
+
+                    <p>Intéressé(e)s ? N'hésitez pas à en parler autour de vous !</p>
+
+                    <p>Voici les dates des prochaines séances :</p>
+
+                    <ul>
+                        <li>Le mardi 14 mars 2017 à 18h30</li>
+                        <li>Le mercredi 19 avril 2017 à 18h30</li>
+                    </ul>
+                    <p>Merci de signaler votre venue via le formulaire de contact.</p>
+                </div>
             </div>
-
-            {{ form_end(form) }}
         </div>
     </section>
 {% endblock %}
