@@ -47,12 +47,10 @@ class Article
     private $published;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture_path;
-
-    /**
-     * @Assert\File(maxSize="6000000")
+     * @var Document $picture
+     *
+     * @ORM\ManyToOne(targetEntity="SelDocumentBundle\Entity\Document", cascade={"persist"})
+     * @ORM\JoinColumn(name="picture_id", referencedColumnName="id", nullable=true)
      */
     private $picture;
 
@@ -223,22 +221,9 @@ class Article
      *
      * @return Article
      */
-    public function setPicture(UploadedFile $file = null)
+    public function setPicture(Document $document = null)
     {
-        $this->picture = $file;
-
-        return $this;
-    }
-
-    /**
-     * Sets picture path.
-     *
-     * @param string $path
-     *
-     * @return Article
-     */
-    public function setPicturePath($path) {
-        $this->picture_path = $path;
+        $this->picture = $document;
 
         return $this;
     }
@@ -251,83 +236,6 @@ class Article
     public function getPicture()
     {
         return $this->picture;
-    }
-
-    /**
-     * Get absolute image path
-     *
-     * @return null|string
-     */
-    public function getAbsolutePath()
-    {
-        return null === $this->picture_path
-            ? null
-            : $this->getUploadRootDir().'/'.$this->picture_path;
-    }
-
-    /**
-     * Get image web path
-     *
-     * @return null|string
-     */
-    public function getPictureWebPath()
-    {
-        return null === $this->picture_path
-            ? null
-            : '/' . $this->getUploadDir().'/'.$this->picture_path;
-    }
-
-    /**
-     * Get dir path for upload
-     *
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Get relative upload directory
-     *
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'uploads/articles';
-    }
-
-    /**
-     * Send file to server
-     *
-     * @return Article
-     */
-    public function upload()
-    {
-        // the file property can be empty if the field is not required
-        if (null === $this->getPicture()) {
-            return $this;
-        }
-
-        $uuid = uniqid() . '.' . $this->getPicture()->guessExtension();
-
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->getPicture()->move(
-            $this->getUploadRootDir(),
-            $uuid
-        );
-
-        // set the path property to the filename where you've saved the file
-        $this->picture_path = $uuid;
-
-        // clean up the file property as you won't need it anymore
-        $this->picture = null;
-
-        return $this;
     }
 
     public function addDocument(Document $document)

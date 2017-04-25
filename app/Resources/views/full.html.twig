@@ -52,6 +52,7 @@
                     <li><a href="#">Le SEL</a>
                         <ul>
                             <li><a href="/le-sel-athois">Le SEL Athois</a></li>
+                            <li><a href="{{ path('article_index') }}">L'info du SEL</a></li>
                             <!--<li><a href="/articles">La vie du SEL</a></li>
                             <li><a href="/agenda">Agenda</a></li>-->
                             <li><a href="/contact">Contact</a></li>
@@ -96,8 +97,11 @@
                     <li>{{ icons.iconlink('lightbulb', 'Ajouter un service', path('sel_service_new')) }}</li>
                     <!--
                     <li>{{ icons.iconlink('calendar', 'Ajouter un évènement', '/agenda/ajouter') }}</li>
-                    <li>{{ icons.iconlink('file-text', 'Ajouter un article', '/articles/ajouter') }}</li>
                     -->
+                    {% if is_granted("ROLE_EDITOR") %}
+                    <li>{{ icons.iconlink('file-text', 'Ajouter un article', path('article_new')) }}</li>
+                    {% endif %}
+
                     <li>{{ icons.iconlink('exchange', 'Ajouter un échange', path('sel_exchange_new')) }}</li>
                     {% if is_granted("create user") %}
                     <li>{{ icons.iconlink('user', 'Ajouter un membre', path('user_new')) }}</li>

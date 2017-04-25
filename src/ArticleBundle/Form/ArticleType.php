@@ -30,6 +30,7 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $documentTransformer = new DocumentTransformer($this->manager, 'documents');
+        $pictureTransformer = new DocumentTransformer($this->manager, 'articles');
 
         $builder->add('title', TextType::class, array(
             'label' => 'label.title'
@@ -50,7 +51,15 @@ class ArticleType extends AbstractType
 
         $builder->add('picture', FileType::class, array(
             'label' => 'label.picture',
+            'data_class' => null,
             'required' => false
+        ));
+
+        $builder->add('documents', FileType::class, array(
+            'multiple' => true,
+            'data_class' => null,
+            'required' => false,
+            'label' => 'label.documents',
         ));
 
         $builder->add('published_at', DateType::class, array(
@@ -75,13 +84,6 @@ class ArticleType extends AbstractType
             )
         ));
 
-        $builder->add('documents', FileType::class, array(
-            'multiple' => true,
-            'data_class' => null,
-            'required' => false,
-            'label' => 'label.documents',
-        ));
-
         /*$builder->add('documents', CollectionType::class, array(
             'entry_type' => IntegerType::class,
             'allow_add' => true
@@ -92,6 +94,7 @@ class ArticleType extends AbstractType
             'label' => 'label.save'
         ));
 
+        $builder->get('picture')->addModelTransformer($pictureTransformer);
         $builder->get('documents')->addModelTransformer($documentTransformer);
     }
     

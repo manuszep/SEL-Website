@@ -1,10 +1,4 @@
 services:
-    article.service_voter:
-        class: ArticleBundle\Security\ArticleVoter
-        arguments: ['@security.access.decision_manager']
-        tags:
-            - { name: security.voter }
-        public: false
     article.form.article:
         class: ArticleBundle\Form\ArticleType
         arguments: ["@doctrine.orm.entity_manager"]

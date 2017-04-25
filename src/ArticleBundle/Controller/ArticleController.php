@@ -35,12 +35,12 @@ class ArticleController extends Controller
     /**
      * Creates a new article entity.
      *
-     * @Route("/new", name="article_new")
+     * @Route("/ajouter", name="article_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('write-article');
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
         $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
@@ -84,7 +84,7 @@ class ArticleController extends Controller
      */
     public function editAction(Request $request, Article $article)
     {
-        $this->denyAccessUnlessGranted('write-article');
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
 
         $deleteForm = $this->createDeleteForm($article);
         $editForm = $this->createForm('ArticleBundle\Form\ArticleType', $article);
@@ -111,7 +111,7 @@ class ArticleController extends Controller
      */
     public function deleteAction(Request $request, Article $article)
     {
-        $this->denyAccessUnlessGranted('write-article');
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
 
         $form = $this->createDeleteForm($article);
         $form->handleRequest($request);

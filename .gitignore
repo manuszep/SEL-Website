@@ -20,6 +20,8 @@ node_modules
 /web/.htaccess
 /web/uploads/services
 /web/uploads/users
+/web/uploads/articles
+/web/uploads/documents
 
 .idea
 htdocs

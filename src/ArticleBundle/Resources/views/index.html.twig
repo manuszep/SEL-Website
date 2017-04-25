@@ -1,55 +1,46 @@
 {% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+
+{% block title %}L'info du SEL{% endblock %}
+
+{% block header %}
+    <header class="page-header has-block inline-heading angle-intro angle-reverse">
+        <div class="wrapper">
+            <h1>L'info du SEL</h1>
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
-    <h1>Articles list</h1>
+<section class="article-list">
+    <div class="wrapper">
+    {% if articles is empty %}
+        <p class="lead text-center">Il n'y a aucun article disponible.</p>
+    {% endif %}
+    {% for article in articles %}
+        <article>
+            {% if article.picture %}
+            <div class="picture">
+                <img src="{{ article.picture.getWebPath }}" alt="" />
+            </div>
+            {% endif %}
+            <header>
+                <h1><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.title }}</a></h1>
+                <div class="meta">
+                    {% if article.publishedat %}<span>Publié le {{ article.publishedat | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% else %}<span>Publié le {{ article.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% endif %}
+                </div>
+            </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Published</th>
-                <th>Picture_path</th>
-                <th>Published_at</th>
-                <th>Expires_at</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Contentchanged</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.body }}</td>
-                <td>{% if article.published %}Yes{% else %}No{% endif %}</td>
-                <td>{{ article.picturepath }}</td>
-                <td>{% if article.publishedat %}{{ article.publishedat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if article.expiresat %}{{ article.expiresat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if article.created %}{{ article.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if article.updated %}{{ article.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if article.contentChanged %}{{ article.contentChanged|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('article_show', { 'id': article.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('article_edit', { 'id': article.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="intro">
+                {{ article.body|raw }}
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('article_new') }}">Create a new article</a>
-        </li>
-    </ul>
+            <div class="actions">
+                <a class="btn edit" href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
+                <a class="btn main read-more" href="{{ path('article_show', { 'id': article.id }) }}">Lire la suite</a>
+            </div>
+        </article>
+    {% endfor %}
+    </div>
+</section>
 {% endblock %}
