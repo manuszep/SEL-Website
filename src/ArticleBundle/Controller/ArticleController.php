@@ -21,11 +21,11 @@ class ArticleController extends Controller
      * @Route("/", name="article_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('ArticleBundle:Article')->findAll();
+        $articles = $this->getPagination($em->getRepository('ArticleBundle:Article')->findAll(), $request);
 
         return $this->render('ArticleBundle::index.html.twig', array(
             'articles' => $articles,
@@ -98,7 +98,7 @@ class ArticleController extends Controller
 
         return $this->render('ArticleBundle::edit.html.twig', array(
             'article' => $article,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -139,5 +139,14 @@ class ArticleController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    public function getPagination($articles, $request, $limit = 5) {
+        $paginator  = $this->get('knp_paginator');
+        return $paginator->paginate(
+            $articles,
+            $request->query->getInt('page', 1),
+            $limit
+        );
     }
 }

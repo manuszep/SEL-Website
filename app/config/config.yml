@@ -141,6 +141,16 @@ liip_imagine:
             animated: true
             filters:
                 thumbnail: { size: [300, 300], mode: outbound }
+        article_top:
+            quality: 75
+            animated: true
+            filters:
+                thumbnail: { size: [960, 300], mode: outbound }
+        article_top2x:
+            quality: 75
+            animated: true
+            filters:
+                thumbnail: { size: [1920, 600], mode: outbound }
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -66,7 +66,7 @@ $.trumbowyg.btnsGrps = {
     justify:  ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
     lists:    ['unorderedList', 'orderedList'],
     headers: {
-        dropdown: ['h1', 'h2', 'h3', 'h4']
+        dropdown: ['h2', 'h3', 'h4']
     }
 };
 $.trumbowyg.svgPath = '/img/icons-wysiwyg.svg';
@@ -77,10 +77,17 @@ $('.wysiwyg').trumbowyg({
     closable: false,
     lang: 'fr',
     removeformatPasted: true,
+    btnsDef: {
+        // Customizables dropdowns
+        formattingLight: {
+            dropdown: ['p', 'h2', 'h3', 'h4', 'h5'],
+            ico: 'p'
+        }
+    },
     btns: [
         ['viewHTML'],
         ['undo', 'redo'],
-        'formatting',
+        'formattingLight',
         'btnGrp-lists',
         ['bold', 'italic'],
         ['link'],

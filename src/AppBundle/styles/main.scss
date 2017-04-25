@@ -45,6 +45,7 @@
 @import "modules/SEL-DatePicker";
 @import "modules/SEL-Ajax";
 @import "modules/SEL-DropZone";
+@import "modules/SEL-Article";
 
 $FAST-Global-flexbox: true !global;
 
@@ -77,5 +78,6 @@ $SEL-Content-top-margin: 8rem !default;
 @include SEL-Faq();
 @include SEL-Ajax();
 @include SEL-DropZone();
+@include SEL-Article();
 
 @include SEL-Print();

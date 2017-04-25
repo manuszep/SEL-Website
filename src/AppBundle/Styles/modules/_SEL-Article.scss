@@ -1,0 +1,110 @@
+@mixin SEL-Article() {
+  .article-list {
+    article {
+      max-width: 60rem;
+      margin: 0 auto;
+
+      &:after {
+        content: "";
+        width: 50%;
+        margin: 2rem auto;
+        display: block;
+        height: FAST-rem-calc(1px);
+        background: $FAST-Color-black-xl;
+      }
+    }
+
+    header {
+      position: relative;
+      margin-bottom: 2rem;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .head-picture {
+      border: 2px solid $FAST-Color-white-xl;
+      @include FAST-Deco-shadow-2();
+      margin-bottom: 2rem;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    @include FAST-breakpoint(medium) {
+      article:after {
+        margin: 4rem auto;
+      }
+
+      header {
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .head-picture {
+        margin-bottom: 0;
+
+        + .head-text {
+          position: absolute;
+          bottom: 1rem;
+          left: .5rem;
+          right: .5rem;
+
+          h1 a, .meta {
+            color: #fff;
+            background: rgba(#000, .75);
+            display: inline-block;
+            padding: 0 .5rem;
+          }
+        }
+      }
+    }
+
+    @include FAST-breakpoint(large) {
+      .head-picture {
+        + .head-text {
+          left: 1.5rem;
+          right: 1.5rem;
+          bottom: 2rem;
+        }
+      }
+    }
+
+    .meta {
+      font-size: .875rem;
+      color: rgba(#000, .5);
+    }
+
+    .intro {
+      max-height: 30rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      position: relative;
+
+      &:after {
+        content: "";
+        width: 100%;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2.5rem;
+        background: linear-gradient(to bottom, rgba($FAST-Color-body-background,0) 0%, rgba($FAST-Color-body-background,.75) 50%, rgba($FAST-Color-body-background,1) 100%);
+      }
+    }
+
+    .actions {
+      margin: 4rem auto 0;
+      text-align: center;
+    }
+  }
+}

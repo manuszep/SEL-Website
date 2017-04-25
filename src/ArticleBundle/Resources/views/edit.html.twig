@@ -1,21 +1,65 @@
 {% extends 'base.html.twig' %}
+{% import "Macros/icons.html.twig" as icons %}
+
+{% block title %}Modifier un article{% endblock %}
+
+{% block header %}
+    <header class="page-header angle-intro inline-heading">
+        <div class="wrapper">
+            <h1>Modifier un article</h1>
+            {{ form_start(delete_form, {'attr': {'class': 'delete-form'}}) }}
+            <button type="submit" class="btn-delete" data-confirm-message="Êtes-vous sûr de vouloir supprimer cet article&nbsp;?">{{ icons.icon('trash', 'Supprimer') }}</button>
+            {{ form_end(delete_form) }}
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
-    <h1>Article edit</h1>
+<section class="edit-form">
+    <div class="wrapper">
+        {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
+        <fieldset>
+            <div class="form-row">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.body) }}
+                {{ form_widget(form.body) }}
+                {{ form_errors(form.body) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.picture) }}
+                {{ form_widget(form.picture) }}
+                {{ form_errors(form.picture) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.published) }}
+                {{ form_widget(form.published) }}
+                {{ form_errors(form.published) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.published_at) }}
+                {{ form_widget(form.published_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
+                {{ form_errors(form.published_at) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(form.expires_at) }}
+                {{ form_widget(form.expires_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
+                {{ form_errors(form.expires_at) }}
+            </div>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('article_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            <div class="form-row" id="DropZoneWrapper" data-upload-url="{{path('ajax_file_upload', {'subfolder':'documents'})}}" data-remove-url="{{ path('ajax_file_delete', {'subfolder':'documents'}) }}" >
+                {{ form_label(form.documents) }}
+                {{ form_widget(form.documents) }}
+            </div>
+        </fieldset>
+        <div class="form-actions">
+            {{ form_widget(form.save, {'attr': {'class': 'main ajax'}}) }}
+            <a href="{{ path('article_index') }}" class="btn">Retour à la liste</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
 {% endblock %}

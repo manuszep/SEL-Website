@@ -19,15 +19,19 @@
     {% endif %}
     {% for article in articles %}
         <article>
-            {% if article.picture %}
-            <div class="picture">
-                <img src="{{ article.picture.getWebPath }}" alt="" />
-            </div>
-            {% endif %}
             <header>
-                <h1><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.title }}</a></h1>
-                <div class="meta">
-                    {% if article.publishedat %}<span>Publié le {{ article.publishedat | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% else %}<span>Publié le {{ article.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% endif %}
+                {% if article.picture %}
+                    <div class="head-picture">
+                        <img src="{{ article.picture.getWebPath | imagine_filter('article_top') }}"
+                             srcset="{{ article.picture.getWebPath | imagine_filter('article_top') }} 1x,
+                          {{ article.picture.getWebPath | imagine_filter('article_top2x') }} 2x" />
+                    </div>
+                {% endif %}
+                <div class="head-text">
+                    <h1><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.title }}</a></h1>
+                    <div class="meta">
+                        {% if article.publishedat %}<span>Publié le {{ article.publishedat | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% else %}<span>Publié le {{ article.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% endif %}
+                    </div>
                 </div>
             </header>
 
@@ -37,10 +41,11 @@
 
             <div class="actions">
                 <a class="btn edit" href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
-                <a class="btn main read-more" href="{{ path('article_show', { 'id': article.id }) }}">Lire la suite</a>
+                <a class="btn primary read-more" href="{{ path('article_show', { 'id': article.id }) }}">Lire la suite</a>
             </div>
         </article>
     {% endfor %}
+        {{ knp_pagination_render(articles) }}
     </div>
 </section>
 {% endblock %}
