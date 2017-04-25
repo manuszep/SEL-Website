@@ -3,6 +3,7 @@
 namespace ArticleBundle\Controller;
 
 use ArticleBundle\Entity\Article;
+use ArticleBundle\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -40,13 +41,13 @@ class ArticleController extends Controller
     public function newAction(Request $request)
     {
         $this->denyAccessUnlessGranted('write-article');
+        $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
-        $form = $this->createForm('ArticleBundle\Form\ArticleType', $article);
+        $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush($article);
 

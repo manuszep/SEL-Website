@@ -22,4 +22,16 @@ export class Flash {
             }, 5000);
         });
     }
+
+    addFlash(type, message) {
+        var $message = $('<div class="flash-messages"><div class="wrapper"><div class="message ' + type + '">' + message + '</div></div></div>');
+        $('.header').prepend($message);
+        console.log(message)
+
+        $message.slideDown(200, function() {
+            setTimeout(function() {
+                $message.slideUp(200);
+            }, 5000);
+        });
+    }
 }

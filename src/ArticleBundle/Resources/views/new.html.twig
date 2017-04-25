@@ -45,6 +45,11 @@
                     {{ form_widget(form.expires_at, { 'type':'text', 'attr': {'data-datepicker-future': ""} }) }}
                     {{ form_errors(form.expires_at) }}
                 </div>
+
+                <div class="form-row" id="DropZoneWrapper" data-upload-url="{{path('ajax_file_upload', {'subfolder':'documents'})}}" data-remove-url="{{ path('ajax_file_delete', {'subfolder':'documents'}) }}" >
+                    {{ form_label(form.documents) }}
+                    {{ form_widget(form.documents) }}
+                </div>
             </fieldset>
 
             <div class="form-actions">
@@ -54,8 +59,4 @@
             {{ form_end(form) }}
         </div>
     </section>
-{% endblock %}
-
-{% block javascripts %}
-    {% include 'ArticleBundle::form_js.html.twig' %}
 {% endblock %}

@@ -5,6 +5,7 @@ imports:
     - { resource: "@SelServiceBundle/Resources/config/services.yml" }
     - { resource: "@ArticleBundle/Resources/config/services.yml" }
     - { resource: "@SelStatsBundle/Resources/config/services.yml" }
+    - { resource: "@SelDocumentBundle/Resources/config/services.yml" }
 
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html

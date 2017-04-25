@@ -44,6 +44,7 @@ label:
     published: Publié
     publishedAt: Date de publication
     statsPeriod: Période
+    documents: Documents
 
 placeholder:
     pleaseChoose: Veuillez faire un choix dans la liste

@@ -2,6 +2,7 @@
 
 namespace ArticleBundle\Form;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,15 +11,26 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use SelDocumentBundle\DataTransformer\DocumentTransformer;
 
 class ArticleType extends AbstractType
 {
+    private $manager;
+
+    public function __construct(EntityManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $documentTransformer = new DocumentTransformer($this->manager, 'documents');
+
         $builder->add('title', TextType::class, array(
             'label' => 'label.title'
         ));
@@ -63,10 +75,24 @@ class ArticleType extends AbstractType
             )
         ));
 
+        $builder->add('documents', FileType::class, array(
+            'multiple' => true,
+            'data_class' => null,
+            'required' => false,
+            'label' => 'label.documents',
+        ));
+
+        /*$builder->add('documents', CollectionType::class, array(
+            'entry_type' => IntegerType::class,
+            'allow_add' => true
+        ));*/
+
         $builder->add('save', SubmitType::class, array(
             'attr' => array('class' => 'main'),
             'label' => 'label.save'
         ));
+
+        $builder->get('documents')->addModelTransformer($documentTransformer);
     }
     
     /**

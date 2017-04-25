@@ -83,6 +83,10 @@ article:
     resource: "@ArticleBundle/Controller/"
     type:     annotation
     prefix:   /
+sel_document:
+    resource: "@SelDocumentBundle/Controller/DocumentController.php"
+    type:     annotation
+    prefix:   /
 page:
     resource: "@AppBundle/Controller/PageController.php"
     type:     annotation

@@ -6,6 +6,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
+use SelDocumentBundle\Entity\Document;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -55,6 +57,15 @@ class Article
     private $picture;
 
     /**
+     * @ORM\ManyToMany(targetEntity="SelDocumentBundle\Entity\Document", cascade={"persist"})
+     * @ORM\JoinTable(name="articles_documents",
+     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")}
+     *      )
+     */
+    private $documents;
+
+    /**
      * @var \DateTime $published_at
      *
      * @ORM\Column(type="datetime", nullable=true)
@@ -91,6 +102,11 @@ class Article
      * @Gedmo\Timestampable(on="change", field={"title", "body"})
      */
     private $contentChanged;
+
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
 
     public function getEntityName() {
         return 'Article';
@@ -312,6 +328,20 @@ class Article
         $this->picture = null;
 
         return $this;
+    }
+
+    public function addDocument(Document $document)
+    {
+        $this->documents[] = $document;
+        return $this;
+    }
+
+    public function setDocuments(ArrayCollection $documents = null) {
+        $this->documents = $documents;
+    }
+
+    public function getDocuments() {
+        return $this->documents;
     }
 
     /**

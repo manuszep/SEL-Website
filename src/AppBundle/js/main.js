@@ -6,6 +6,7 @@ import {Faq} from './Faq.js';
 import {AddTool} from './AddTool';
 import {Services} from './Services';
 import {Stats} from './Stats';
+import {DropZone} from './DropZone';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -27,7 +28,7 @@ $('body').removeClass('nojs').addClass('js');
 
 let form = new Form();
 let tab = new Tab();
-let flash = new Flash();
+window.Flash = new Flash();
 let disqus = new Disqus();
 let faq = new Faq();
 let add_tool = new AddTool();
@@ -111,3 +112,5 @@ $('[data-datepicker-future]').datepicker({
     language: 'fr',
     minDate: new Date()
 });
+
+let dropzone = new DropZone();

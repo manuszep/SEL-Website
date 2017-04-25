@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new SelExchangeBundle\SelExchangeBundle(),
             new SelFaqBundle\SelFaqBundle(),
             new ArticleBundle\ArticleBundle(),
-            new SelStatsBundle\SelStatsBundle()
+            new SelStatsBundle\SelStatsBundle(),
+            new SelDocumentBundle\SelDocumentBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
