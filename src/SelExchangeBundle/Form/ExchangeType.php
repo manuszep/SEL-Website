@@ -61,10 +61,8 @@ class ExchangeType extends AbstractType
                         ->setParameter('locked', '0');
                 }
             ));
-        };
-
-        $builder
-            ->add('creditUser', EntityType::class, array(
+        } else {
+            $builder->add('creditUser', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'username',
                 'placeholder' => 'placeholder.pleaseChoose',
@@ -77,8 +75,11 @@ class ExchangeType extends AbstractType
                         ->setParameter('locked', '0')
                         ->setParameter('id', $this->tokenStorage->getToken()->getUser()->getId());
                 }
-            ))
-            ->add('message', TextareaType::class, array(
+            ));
+        }
+
+
+            $builder->add('message', TextareaType::class, array(
                 'required' => false,
                 'label' => 'label.message'
             ))
