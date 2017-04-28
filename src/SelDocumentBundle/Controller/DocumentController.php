@@ -2,6 +2,7 @@
 
 namespace SelDocumentBundle\Controller;
 
+use SelServiceBundle\Entity\ServiceManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,19 +18,14 @@ class DocumentController extends Controller
      */
     public function fileUploadAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $document_manager = $this->getDocumentManager();
         $key = $request->files->keys()[0];
-
-        $document = new Document();
-        $media = $request->files->get($key)['documents'][0];
-
+        $media = $request->files->get($key)['documents']['__name__']['file'][0];
         $subfolder = $request->query->get('subfolder');
 
-        $document->setSubfolder($subfolder);
-        $document->setFile($media);
+        $document = $document_manager->createDocument($media, $subfolder);
 
-        $em->persist($document);
-        $em->flush();
+        $document_manager->saveDocument($document);
 
         return new JsonResponse(array(
             'url' => $document->getWebPath(),
@@ -43,6 +39,7 @@ class DocumentController extends Controller
      */
     public function fileDeleteAction(Request $request) {
         $path = $request->query->get('path');
+        $index = $request->query->get('index');
         $subFolder = $request->query->get('subfolder');
 
         $em = $this->getDoctrine()->getManager();
@@ -53,7 +50,15 @@ class DocumentController extends Controller
         $em->flush();
 
         return new JsonResponse(array(
-            'success' => "Success"
+            'index' => $index
         ));
+    }
+
+    /**
+     * @return DocumentManager
+     */
+    protected function getDocumentManager()
+    {
+        return $this->container->get('seldocument.manager');
     }
 }

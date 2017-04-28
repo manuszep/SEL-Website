@@ -120,4 +120,7 @@ $('[data-datepicker-future]').datepicker({
     minDate: new Date()
 });
 
-let dropzone = new DropZone();
+$('.drop-zone-collection').each(function() {
+    $(this).data('dropzone', new DropZone($(this)));
+})
+

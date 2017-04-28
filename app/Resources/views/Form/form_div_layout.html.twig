@@ -293,6 +293,26 @@
     {{ block('button_widget') }}
 {% endblock reset_widget %}
 
+{% block file_widget %}
+    {% spaceless %}
+        {% if image_path is not null %}
+            <div class="uploaded-file">
+                <a href="{{ image_path }}">{{ image_path }}</a>
+                {% set attr = attr|merge({'data-path': image_path }) %}
+                {{ block('form_widget') }}
+            </div>
+        {% else %}
+            {% if attr.multiple is defined and attr.multiple is not null %}
+            <div class="drop-zone-wrapper" data-upload-url="{{path('ajax_file_upload', {'subfolder':'documents'})}}" data-remove-url="{{ path('ajax_file_delete', {'subfolder':'documents'}) }}" >
+                {{ block('form_widget') }}
+            </div>
+            {% else %}
+                {{ block('form_widget') }}
+            {% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
 {# Labels #}
 
 {% block form_label %}
@@ -331,7 +351,6 @@
 
 {% block form_row %}
     {% if is_fieldset is not defined or is_fieldset == false %}<div class="form-row">{% endif %}
-        {{ form_label(form) }}
         {{ form_errors(form) }}
         {{ form_widget(form) }}
     {% if is_fieldset is not defined or is_fieldset == false %}</div>{% endif %}

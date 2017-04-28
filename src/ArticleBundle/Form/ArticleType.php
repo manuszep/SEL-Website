@@ -2,36 +2,24 @@
 
 namespace ArticleBundle\Form;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use SelDocumentBundle\DataTransformer\DocumentTransformer;
+use SelDocumentBundle\Form\DocumentType;
 
 class ArticleType extends AbstractType
 {
-    private $manager;
-
-    public function __construct(EntityManager $manager)
-    {
-        $this->manager = $manager;
-    }
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $documentTransformer = new DocumentTransformer($this->manager, 'documents');
-        $pictureTransformer = new DocumentTransformer($this->manager, 'articles');
-
         $builder->add('title', TextType::class, array(
             'label' => 'label.title'
         ));
@@ -49,17 +37,24 @@ class ArticleType extends AbstractType
             'required' => false,
         ));
 
-        $builder->add('picture', FileType::class, array(
+        $builder->add('picture', DocumentType::class, array(
             'label' => 'label.picture',
-            'data_class' => null,
-            'required' => false
+            'required' => false,
+            'subfolder' => 'article'
         ));
 
-        $builder->add('documents', FileType::class, array(
-            'multiple' => true,
-            'data_class' => null,
-            'required' => false,
-            'label' => 'label.documents',
+        $builder->add('documents', CollectionType::class, array(
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type'   => DocumentType::class,
+            'by_reference' => false,
+            'entry_options'  => array(
+                'multiple' => true,
+                'required' => false,
+                'label' => 'label.documents',
+                'subfolder' => 'documents'
+            ),
         ));
 
         $builder->add('published_at', DateType::class, array(
@@ -93,9 +88,6 @@ class ArticleType extends AbstractType
             'attr' => array('class' => 'main'),
             'label' => 'label.save'
         ));
-
-        $builder->get('picture')->addModelTransformer($pictureTransformer);
-        $builder->get('documents')->addModelTransformer($documentTransformer);
     }
     
     /**
@@ -115,6 +107,4 @@ class ArticleType extends AbstractType
     {
         return 'articlebundle_article';
     }
-
-
 }

@@ -101,11 +101,6 @@ class Article
      */
     private $contentChanged;
 
-    public function __construct()
-    {
-        $this->documents = new ArrayCollection();
-    }
-
     public function getEntityName() {
         return 'Article';
     }
@@ -240,11 +235,16 @@ class Article
 
     public function addDocument(Document $document)
     {
-        $this->documents[] = $document;
+        $this->documents->add($document);
         return $this;
     }
 
-    public function setDocuments(ArrayCollection $documents = null) {
+    public function removeDocument(Document $document) {
+        $this->documents->remove($document);
+        return $this;
+    }
+
+    public function setDocuments($documents = null) {
         $this->documents = $documents;
     }
 

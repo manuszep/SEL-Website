@@ -1,6 +1,1 @@
 services:
-    article.form.article:
-        class: ArticleBundle\Form\ArticleType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type }

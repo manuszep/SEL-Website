@@ -2,16 +2,24 @@ var $ = require('jquery');
 var DZ = require("./Lib/DropZone");
 
 export class DropZone {
-    constructor() {
-        var dzw = $("#DropZoneWrapper");
+    constructor($source) {
+        var $proto = $($source.find('[data-prototype]').data('prototype'));
+        var $input = $proto.find('input[type=file]').detach();
+
+        this.input_index = 0;
+
+        this.setupMarkup($source, $proto);
+
+        var dzw = $source.find(".drop-zone-wrapper");
 
         if (!dzw.length) return;
 
         DZ.autoDiscover = false;
 
         this._cache = {
+            Source: $source,
             DropZoneWrapper: dzw,
-            FileInput: dzw.find('input[type=file]'),
+            FileInput: $input,
             DropZoneElement: $('<div class="dropzone"></div>').appendTo(dzw),
             Submit: $('[type=submit]')
         };
@@ -20,10 +28,23 @@ export class DropZone {
         this.removeUrl = this._cache.DropZoneWrapper.data('remove-url');
 
         this.paramName = this._cache.FileInput.attr('name');
-        this._cache.FileInput.remove();
+        //this._cache.FileInput.remove();
 
         this.setupDropZone();
         this.setupEvents();
+    }
+
+    setupMarkup($source, $proto) {
+        var $inputs = $source.find('input[type=file]');
+        $inputs.each(function() {
+            var path = $(this).data('path');
+            $(this).attr('type', 'hidden');
+            $(this).val(path);
+        });
+
+        this.input_index = $inputs.length;
+
+        $source.append($proto);
     }
 
     setupDropZone() {
@@ -38,17 +59,26 @@ export class DropZone {
 
     setupEvents() {
         this.DropZone.on("success", function(file, data) {
+            console.log(data);
+            var new_input = this.createInput(data.path);
+
             file.path = data.path;
-            this._cache.DropZoneWrapper.append('<input type="hidden" name="' + this.paramName + '" value="' + data.path + '"/>');
+            file.field_id = new_input.index;
+
+            this._cache.DropZoneWrapper.append(new_input.markup);
         }.bind(this));
 
         this.DropZone.on('removedfile', function(file) {
             this._cache.Submit.addClass('loading');
             this._cache.Submit.attr('disabled', true);
+
             var _xhr = $.ajax({
-                url: this.removeUrl + '&path=' + file.path,
+                url: this.removeUrl + '&path=' + file.path + '&index=' + file.field_id,
                 cache: false
-            }).complete(function() {
+            }).complete(function(data) {
+                var field_name = this.paramName.replace(/__name__/g, data.responseJSON.index);
+                this._cache.Source.find('[name="' + field_name + '"]').remove();
+
                 this._cache.Submit.removeClass('loading');
                 this._cache.Submit.attr('disabled', false);
             }.bind(this));
@@ -63,6 +93,14 @@ export class DropZone {
             this._cache.Submit.removeClass('loading');
             this._cache.Submit.attr('disabled', false);
         }.bind(this));
+    }
+
+    createInput(path) {
+        var name = this.paramName.replace(/__name__/g, this.input_index);
+        return {
+            markup: '<input type="hidden" name="' + name + '" value="' + path + '"/>',
+            index: this.input_index++
+        };
     }
 }
 

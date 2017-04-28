@@ -1,4 +1,15 @@
 services:
-#    sel_document.example:
-#        class: SelDocumentBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    seldocument.form.document:
+        class: SelDocumentBundle\Form\DocumentType
+        arguments: ["@seldocument.manager"]
+        tags:
+            - { name: form.type }
+    seldocument.file_type_extension:
+        class: SelDocumentBundle\Form\Extension\FileTypeExtension
+        tags:
+          - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+    seldocument.manager:
+        class: SelDocumentBundle\Entity\DocumentManager
+        arguments:
+            em: "@doctrine.orm.default_entity_manager"
+            class: SelDocumentBundle\Entity\Document

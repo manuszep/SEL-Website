@@ -2,13 +2,15 @@
 namespace SelDocumentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="document")
+ * @ORM\Table(name="document", uniqueConstraints={@UniqueConstraint(name="file_unique", columns={"path", "subfolder"})})
  * @ORM\HasLifecycleCallbacks
  */
 class Document
@@ -54,10 +56,30 @@ class Document
     /**
      * Sets file.
      *
-     * @param UploadedFile $file
+     * @param UploadedFile|Document|string $file
+     * @throws \Exception
      */
-    public function setFile(UploadedFile $file)
+    public function setFile($file)
     {
+        if ($file instanceof Document) {
+            $this->id = $file->id;
+            $this->path = $file->path;
+            $this->size = $file->size;
+            $this->extension = $file->extension;
+            $this->subfolder = $file->subfolder;
+
+            return;
+        }
+
+        if (is_string($file)) {
+            $this->path = $file;
+            return;
+        }
+
+        if (! $file instanceof UploadedFile) {
+            throw new \Exception('SelDocumentBundle\Entity\Document::setFile can only accept UploadedFile | Document | String. ' . get_class($file) . ' given.');
+        }
+
         $this->file = $file;
 
         $this->size = $file->getClientSize();

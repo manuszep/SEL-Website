@@ -78,23 +78,21 @@ class ExchangeType extends AbstractType
             ));
         }
 
-
-            $builder->add('message', TextareaType::class, array(
-                'required' => false,
-                'label' => 'label.message'
-            ))
-            ->add('amount', NumberType::class, array(
-                'scale' => 2,
-                'attr' => array(
-                    'step' => 0.25
-                ),
-                'label' => 'label.amount'
-            ))
-            ->add('save', SubmitType::class, array(
-                'attr' => array('class' => 'main'),
-                'label' => 'label.save'
-            ))
-        ;
+        $builder->add('message', TextareaType::class, array(
+            'required' => false,
+            'label' => 'label.message'
+        ))
+        ->add('amount', NumberType::class, array(
+            'scale' => 2,
+            'attr' => array(
+                'step' => 0.25
+            ),
+            'label' => 'label.amount'
+        ))
+        ->add('save', SubmitType::class, array(
+            'attr' => array('class' => 'main'),
+            'label' => 'label.save'
+        ));
 
         $builder->get('amount')->addModelTransformer(new CommaToDotTransformer());
     }
