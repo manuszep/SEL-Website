@@ -25,10 +25,16 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $this->getPagination($em->getRepository('ArticleBundle:Article')->findAll(), $request);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            $articles = $em->getRepository('ArticleBundle:Article')->findBy(array(), array('created' => 'DESC'));;
+        } else {
+            $articles = $em->getRepository('ArticleBundle:Article')->findPublished();
+        }
+
+        $paged_articles = $this->getPagination($articles, $request);
 
         return $this->render('ArticleBundle::index.html.twig', array(
-            'articles' => $articles,
+            'articles' => $paged_articles,
         ));
     }
 

@@ -10,7 +10,7 @@ use SelDocumentBundle\Entity\Document;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="ArticleBundle\Entity\ArticleRepository")
  * @ORM\Table(name="article")
  * @ORM\HasLifecycleCallbacks()
  */

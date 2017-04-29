@@ -35,7 +35,7 @@ class ArticleType extends AbstractType
         ));
 
         $builder->add('body', TextareaType::class, array(
-            'required' => false,
+            'required' => true,
             'label' => 'label.content',
             'attr' => array(
                 'class' => "wysiwyg"
