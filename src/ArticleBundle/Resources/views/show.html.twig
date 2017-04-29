@@ -24,7 +24,7 @@
         <div class="article-show__content">
             {{ article.body|raw }}
         </div>
-        {% if article.documents %}
+        {% if article.documents|length %}
         <div class="article-show__documents">
             <h2>Documents</h2>
             <table>
