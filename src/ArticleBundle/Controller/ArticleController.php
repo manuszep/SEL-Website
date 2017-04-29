@@ -6,7 +6,9 @@ use ArticleBundle\Entity\Article;
 use ArticleBundle\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Article controller.
@@ -74,6 +76,10 @@ class ArticleController extends Controller
      */
     public function showAction(Article $article)
     {
+        if (!$article->isPublished() && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw new NotFoundHttpException('Cet article n\'existe pas');
+        }
+
         $deleteForm = $this->createDeleteForm($article);
 
         return $this->render('ArticleBundle::show.html.twig', array(
