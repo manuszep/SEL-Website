@@ -296,8 +296,11 @@
 {% block file_widget %}
     {% spaceless %}
         {% if image_path is not null %}
-            <div class="uploaded-file">
-                <a href="{{ image_path }}">{{ image_path }}</a>
+            <div class="uploaded-file {% if attr.multiple is defined and attr.multiple is not null %}multiple-file{% else %}single-file{% endif %}">
+                <div class="file-row">
+                    <a class="file-name" href="{{ image_path }}">{{ image_path }}</a>
+                    <a class="btn file-delete" href="#"><svg class="icon icon-trash"><title>Supprimer</title><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/icons.svg#icon-trash"></use></svg></a>
+                </div>
                 {% set attr = attr|merge({'data-path': image_path }) %}
                 {{ block('form_widget') }}
             </div>

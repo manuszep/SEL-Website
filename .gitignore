@@ -20,6 +20,7 @@ node_modules
 /web/.htaccess
 /web/uploads/services
 /web/uploads/users
+/web/uploads/article
 /web/uploads/articles
 /web/uploads/documents
 

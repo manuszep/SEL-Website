@@ -1,1 +1,6 @@
 services:
+    article.form.article:
+        class: ArticleBundle\Form\ArticleType
+        arguments: ["@seldocument.manager"]
+        tags:
+            - { name: form.type }

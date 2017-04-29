@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use SelDocumentBundle\DataTransformer\DocumentTransformer;
 use Symfony\Component\Form\FormEvents;
 
@@ -39,6 +40,10 @@ class DocumentType extends AbstractType
             'required' => $options['required'],
             "image_path" => "path",
             "by_reference" => false
+        ));
+
+        $builder->add('subfolder', HiddenType::class, array(
+            'data' => $subfolder,
         ));
 
         $builder->get('file')->addModelTransformer($documentTransformer);

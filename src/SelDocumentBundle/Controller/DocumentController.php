@@ -38,7 +38,7 @@ class DocumentController extends Controller
      * @Method({"GET", "POST"})
      */
     public function fileDeleteAction(Request $request) {
-        $path = $request->query->get('path');
+        /*$path = $request->query->get('path');
         $index = $request->query->get('index');
         $subFolder = $request->query->get('subfolder');
 
@@ -51,7 +51,7 @@ class DocumentController extends Controller
 
         return new JsonResponse(array(
             'index' => $index
-        ));
+        ));*/
     }
 
     /**

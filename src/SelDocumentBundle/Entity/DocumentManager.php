@@ -52,7 +52,7 @@ class DocumentManager
             if ($doc) {
                 return $doc;
             } else {
-                throw new \Exception('Can\'t create Document from string');
+                return null;
             }
         }
 

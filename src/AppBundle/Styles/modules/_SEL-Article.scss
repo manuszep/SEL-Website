@@ -124,19 +124,6 @@
       opacity: .8;
     }
 
-    .btn {
-      margin: 0 0 0 1rem;
-      vertical-align: bottom;
-      color: #fff;
-      background: rgba(#000, .75);
-      opacity: 1;
-      border-radius: 50%;
-      width: 2.1rem;
-      height: 2.1rem;
-      padding: .5rem 0 .6rem;
-      text-align: center;
-    }
-
     &.has-picture {
       h1, .meta {
         color: #fff;
@@ -149,6 +136,19 @@
       .meta {
         color: rgba(#fff, .75);
         opacity: 1;
+      }
+
+      .btn {
+        margin: 0 0 0 1rem;
+        vertical-align: bottom;
+        color: #fff;
+        background: rgba(#000, .75);
+        opacity: 1;
+        border-radius: 50%;
+        width: 2.1rem;
+        height: 2.1rem;
+        padding: .5rem 0 .6rem;
+        text-align: center;
       }
     }
   }

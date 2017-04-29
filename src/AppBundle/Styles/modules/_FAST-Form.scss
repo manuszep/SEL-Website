@@ -57,6 +57,11 @@ $FAST-Form-spacing: FAST-rem-calc(16) !default;
         &:last-child, &.last {
             border-bottom: none;
         }
+
+        .form-row {
+            border: none;
+            padding: 0;
+        }
     }
 
     .small-form {

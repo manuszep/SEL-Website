@@ -61,6 +61,10 @@ class Document
      */
     public function setFile($file)
     {
+        if ($file == null) {
+            return;
+        }
+
         if ($file instanceof Document) {
             $this->id = $file->id;
             $this->path = $file->path;

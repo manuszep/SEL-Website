@@ -240,7 +240,7 @@ class Article
     }
 
     public function removeDocument(Document $document) {
-        $this->documents->remove($document);
+        $this->documents->removeElement($document);
         return $this;
     }
 

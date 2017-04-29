@@ -8,7 +8,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use SelDocumentBundle\Entity\DocumentManager;
 use SelDocumentBundle\Entity\Document;
 
-class DocumentTransformer implements DataTransformerInterface
+class DocumentsCollectionTransformer implements DataTransformerInterface
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -22,7 +22,7 @@ class DocumentTransformer implements DataTransformerInterface
     /**
      * @param ObjectManager $om
      */
-    public function __construct(DocumentManager $em, $subFolder)
+    public function __construct($em, $subFolder)
     {
         $this->em = $em;
         $this->setEntityClass("SelDocumentBundle\\Entity\\Document");
@@ -36,9 +36,9 @@ class DocumentTransformer implements DataTransformerInterface
      *
      * @return integer
      */
-    public function transform($entity)
+    public function transform($files)
     {
-        return $entity;
+        return $files;
     }
 
     /**
@@ -48,35 +48,25 @@ class DocumentTransformer implements DataTransformerInterface
      *
      * @return mixed|object
      */
-    public function reverseTransform($file)
+    public function reverseTransform($files)
     {
-        if (!$file || !count($file)) {
-            return null;
-        }
+        foreach ($files as $key => $file) {
+            if (!$file->getFile()) {
+                $files->remove($key);
 
-        if ($file instanceof Document) {
-            if ($file->getSubfolder() == 'delete' || !$file->getPath()) {
-                return null;
+                $doc = $this->em->createDocument($file->getPath(), $this->subFolder);
+
+                if ($doc) {
+                    $files->add($doc);
+                }
+
+                if (!$file->getPath()) {
+                    $files->remove($key);
+                }
             }
-
-            $doc = $this->em->createDocument($file->getPath(), $this->subFolder);
-
-            if ($doc) {
-                return $doc;
-            }
-
-            return $file;
         }
 
-        if (is_array($file)) {
-            return $file[0];
-            $doc = $this->em->createDocument($file[0], $this->subFolder);
-            return $doc;
-        } else {
-            return $file;
-            $doc = $this->em->createDocument($file, $this->subFolder);
-            return $doc;
-        }
+        return $files;
     }
 
     public function setEntityType($entityType)

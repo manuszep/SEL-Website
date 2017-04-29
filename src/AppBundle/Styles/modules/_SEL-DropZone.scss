@@ -384,4 +384,45 @@
       }
     }
   }
+
+  .file-row {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    padding: .5rem .5rem;
+    transition: all .3s;
+
+    &:hover {
+      background: #fff;
+    }
+
+    .file-name {
+      flex-grow: 1;
+    }
+
+    .file-delete {
+      margin: 0;
+      padding: .5rem;
+      color: $FAST-Color-alert;
+      background: transparent;
+
+      &:hover {
+        color: #fff;
+        background: $FAST-Color-alert;
+      }
+    }
+  }
+
+  .uploaded-file {
+    input {
+      margin-top: 1rem;
+    }
+  }
+
+  .drop-zone-collection {
+    div .form-row {
+      border: none;
+      padding: 0;
+    }
+  }
 }

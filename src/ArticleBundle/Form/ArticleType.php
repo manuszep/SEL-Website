@@ -12,9 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use SelDocumentBundle\Form\DocumentType;
+use SelDocumentBundle\DataTransformer\DocumentsCollectionTransformer;
+use SelDocumentBundle\DataTransformer\DocumentTransformer;
+use SelDocumentBundle\Entity\DocumentManager;
 
 class ArticleType extends AbstractType
 {
+    private $manager;
+
+    public function __construct(DocumentManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -43,6 +53,9 @@ class ArticleType extends AbstractType
             'subfolder' => 'article'
         ));
 
+        $picture_transformer = new DocumentTransformer($this->manager, 'article');
+        $builder->get('picture')->addModelTransformer($picture_transformer);
+
         $builder->add('documents', CollectionType::class, array(
             'allow_add' => true,
             'allow_delete' => true,
@@ -56,6 +69,9 @@ class ArticleType extends AbstractType
                 'subfolder' => 'documents'
             ),
         ));
+
+        $transformer = new DocumentsCollectionTransformer($this->manager, 'documents');
+        $builder->get('documents')->addModelTransformer($transformer);
 
         $builder->add('published_at', DateType::class, array(
             'required' => false,
