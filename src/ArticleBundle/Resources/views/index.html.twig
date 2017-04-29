@@ -40,7 +40,7 @@
             </div>
 
             <div class="actions">
-                <a class="btn edit" href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
+                {% if is_granted("ROLE_EDITOR") %}<a class="btn edit" href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>{% endif %}
                 <a class="btn primary read-more" href="{{ path('article_show', { 'id': article.id }) }}">Lire la suite</a>
             </div>
         </article>

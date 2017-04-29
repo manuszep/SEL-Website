@@ -1,0 +1,8 @@
+<item>
+    <title><![CDATA[[Article] {{ article.title }}]]></title>
+    <link>{{ path('article_show', { 'id': article.id }) }}</link>
+    <guid>{{ path('article_show', { 'id': article.id }) }}</guid>
+    <description><![CDATA[{{ article.body|raw }}]]></description>
+    <dc:subject><![CDATA[Articles]]></dc:subject>
+    <dc:date>{{ article.getCreatedOrPublished|date("Y-m-dTG:i:sP") }}</dc:date>
+</item>

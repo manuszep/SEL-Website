@@ -41,6 +41,9 @@
                     {% if item.getEntityName == 'User' %}
                         {% include 'default/userItem.html.twig' with {'user': item} %}
                     {% endif %}
+                    {% if item.getEntityName == 'Article' %}
+                        {% include 'default/articleItem.html.twig' with {'article': item} %}
+                    {% endif %}
                 {% endfor %}
             </div>
             {% endif %}

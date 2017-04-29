@@ -30,6 +30,9 @@
             {% if item.getEntityName == 'User' %}
                 {% include 'default/userItem.xml.twig' with {'user': item} %}
             {% endif %}
+            {% if item.getEntityName == 'Article' %}
+                {% include 'default/articleItem.xml.twig' with {'article': item} %}
+            {% endif %}
         {% endfor %}
     </channel>
 </rss>

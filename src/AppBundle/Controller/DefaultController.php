@@ -71,6 +71,24 @@ class DefaultController extends Controller
         return $exchange_qb->getQuery()->getResult();
     }
 
+    private function getArticles($em, $limit) {
+        $articles_qb = $em->getRepository('ArticleBundle:Article')->findPublished('a', false);
+
+        if ($limit instanceof \DateTime) {
+            $articles_qb->andWhere(
+                $articles_qb->expr()->orX(
+                    $articles_qb->expr()->gt('a.updated', ':limit'),
+                    $articles_qb->expr()->gt('a.published_at', ':limit')
+                )
+            )
+            ->setParameter('limit', $limit->format("Y-m-d H:i:s"));
+        } else {
+            $articles_qb->setMaxResults($limit);
+        }
+
+        return $articles_qb->getQuery()->getResult();
+    }
+
     private function getData($limit = false) {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -92,7 +110,9 @@ class DefaultController extends Controller
         // Fetch new users in the same limit
         $users = $this->getUsers($em, $current_limit);
 
-        $journal = array_merge($normal_services, $exchanges, $users);
+        $articles = $this->getArticles($em, $current_limit);
+
+        $journal = array_merge($normal_services, $exchanges, $users, $articles);
 
         uasort($journal, function ($a, $b) {
             $a_date = (method_exists($a,'getUsername')) ? $a->getCreated() : $a->getUpdated();

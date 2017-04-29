@@ -357,4 +357,14 @@ class Article
         }
         return null;
     }
+
+    public function getCreatedOrPublished() {
+        $now = new \DateTime();
+
+        if ($this->published_at < $now) {
+            return $this->published_at;
+        }
+
+        return $this->created;
+    }
 }
