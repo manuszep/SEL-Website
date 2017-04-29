@@ -334,4 +334,27 @@ class Article
     {
         return $this->contentChanged;
     }
+
+    public function isPublished() {
+        $now = new \DateTime();
+
+        return ($this->published && (!$this->published_at || $this->published_at < $now) && (!$this->expires_at || $this->expires_at > $now));
+    }
+
+    public function getWhyNotPublished() {
+        $now = new \DateTime();
+
+        if (!$this->published) {
+            return "Non publié";
+        }
+
+        if ($this->published_at && $this->published_at > $now) {
+            return "Pas encore publié";
+        }
+
+        if ($this->expires_at && $this->expires_at <= $now) {
+            return "Expiré";
+        }
+        return null;
+    }
 }

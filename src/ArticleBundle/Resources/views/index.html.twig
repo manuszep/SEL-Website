@@ -18,7 +18,7 @@
         <p class="lead text-center">Il n'y a aucun article disponible.</p>
     {% endif %}
     {% for article in articles %}
-        <article>
+        <article{% if article.isPublished %} class="published"{% else %} class="unpublished"{% endif %}>
             <header>
                 {% if article.picture %}
                     <div class="head-picture">
@@ -28,7 +28,7 @@
                     </div>
                 {% endif %}
                 <div class="head-text">
-                    <h1><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.title }}</a></h1>
+                    <h1><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.title }}</a>{% if not article.isPublished %} <small>({{ article.getWhyNotPublished }})</small>{% endif %}</h1>
                     <div class="meta">
                         {% if article.publishedat %}<span>Publié le {{ article.publishedat | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% else %}<span>Publié le {{ article.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</span>{% endif %}
                     </div>
