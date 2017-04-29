@@ -52,12 +52,22 @@ class DocumentsCollectionTransformer implements DataTransformerInterface
     {
         foreach ($files as $key => $file) {
             if (!$file->getFile()) {
-                $files->remove($key);
+
+                if (is_array($files)) {
+                    unset($files[$key]);
+                } else {
+                    $files->remove($key);
+                }
 
                 $doc = $this->em->createDocument($file->getPath(), $this->subFolder);
 
                 if ($doc) {
-                    $files->add($doc);
+                    if (is_array($files)) {
+                        $files[] = $doc;
+                    } else {
+                        $files->add($doc);
+                    }
+
                 }
 
                 if (!$file->getPath()) {

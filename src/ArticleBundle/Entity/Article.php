@@ -101,6 +101,11 @@ class Article
      */
     private $contentChanged;
 
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
+
     public function getEntityName() {
         return 'Article';
     }
