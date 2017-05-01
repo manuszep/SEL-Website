@@ -122,7 +122,7 @@ class DefaultController extends Controller
         });
 
         if (! $limit instanceof \DateTime) {
-            $journal = array_slice($journal, 0, 100);
+            $journal = array_slice($journal, 0, $limit);
         }
 
         return [
@@ -136,7 +136,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('default/index.html.twig', $this->getData());
+        return $this->render('default/index.html.twig', $this->getData(20));
     }
 
     /**
