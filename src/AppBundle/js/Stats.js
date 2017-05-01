@@ -109,7 +109,6 @@ export class Stats {
     }
 
     updateServicesGraph(data) {
-        console.log(data);
         try {this.servicesChart.destroy()} catch(e) {}
 
         var ctx = this._cache.servicesGraph[0].getContext("2d");
@@ -186,6 +185,13 @@ export class Stats {
                 elements: {
                     line: {
                         tension: 0.1,
+                    }
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, chart_data) {
+                            return data.usernames[tooltipItem.index];
+                        }
                     }
                 }
             }

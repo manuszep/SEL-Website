@@ -148,7 +148,7 @@ class StatsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sql = "
-            SELECT DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, COUNT(db_user.id) as user
+            SELECT DATE_FORMAT(selected_date,\"%Y-%m-%d\") AS _date, COUNT(db_user.id) as user, GROUP_CONCAT(db_user.username SEPARATOR ', ') as usernames
             {$this->getCalendarQuery()}
             LEFT JOIN db_user ON DATE_FORMAT(db_user.created,\"%Y-%m-%d\") = DATE_FORMAT(selected_date,\"%Y-%m-%d\")
             WHERE selected_date BETWEEN CURDATE() - INTERVAL $period DAY AND CURDATE() + INTERVAL 1 DAY
@@ -162,6 +162,7 @@ class StatsController extends Controller
         foreach($data as $item) {
             $user_data["labels"][] = $item['_date'];
             $user_data["user"][] = (int)$item['user'];
+            $user_data["usernames"][] = $item['usernames'];
         }
 
 
