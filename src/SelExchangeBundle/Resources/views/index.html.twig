@@ -27,7 +27,7 @@
                 {% for exchange in exchanges %}
                     <tr>
                         <td>{{ exchange.creditUser }} {{ icons.icon('arrow-right', 'a rendu service à') }} {{ exchange.debitUser }}</td>
-                        <td>{{ exchange.message }}</td>
+                        <td><p><strong>{{ exchange.title }}</strong></p>{{ exchange.message }}<p><small>Le {{ exchange.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}</small></p></td>
                         <td>{{ exchange.amount }}</td>
                         <td>
                             <ul class="table-actions">
@@ -40,6 +40,8 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            {{ knp_pagination_render(exchanges) }}
         </div>
     </section>
 {% endblock %}

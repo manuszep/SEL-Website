@@ -23,14 +23,16 @@ class ExchangeController extends Controller
      * @Route("/", name="sel_exchange_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $exchanges = $em->getRepository('SelExchangeBundle:Exchange')->findAll();
+        $exchanges = $em->getRepository('SelExchangeBundle:Exchange')->findBy([], ['created' => 'DESC']);
+
+        $data = $this->getPagination($exchanges, $request);
 
         return $this->render('SelExchangeBundle::index.html.twig', array(
-            'exchanges' => $exchanges,
+            'exchanges' => $data,
         ));
     }
 
@@ -217,5 +219,14 @@ class ExchangeController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function getPagination($services, $request, $limit = 20) {
+        $paginator  = $this->get('knp_paginator');
+        return $paginator->paginate(
+            $services,
+            $request->query->getInt('page', 1),
+            $limit
+        );
     }
 }
