@@ -2,7 +2,6 @@
 
 namespace SelServiceBundle\Form;
 
-use SelServiceBundle\Form\Type\ServiceFilterItemType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,13 +33,13 @@ class ServiceFilterType extends AbstractType
             'placeholder' => 'placeholder.pleaseChoose',
             'label' => 'label.category'
         ));
-        $builder->add('type', ServiceFilterItemType::class, array(
+        $builder->add('type', Filters\ChoiceFilterType::class, array(
             'choices'  => $types,
             'multiple' => true,
             'expanded' => true,
             'label' => 'label.serviceType'
         ));
-        $builder->add('domain', ServiceFilterItemType::class, array(
+        $builder->add('domain', Filters\ChoiceFilterType::class, array(
             'choices'  => $domains,
             'multiple' => true,
             'expanded' => true,

@@ -48,89 +48,69 @@
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock textarea_widget %}
 
-{% block service_filter_item_widget %}
-    <div class="service-filter-item">
-        <div class="service-filter-item__toggle">
-            {{ toggle_text }}
-        </div>
-
-        <ul class="service-filter-item__list" {{ block('widget_container_attributes') }}>
-            {% for child in form %}
-                <li class="service-filter-item__item">
-                    {% set value = child.vars.value %}
-                    {% set id = child.vars.id %}
-                    {% set name = child.vars.name %}
-                    {% set label = child.vars.label %}
-                    {% set label_format = child.vars.label_format %}
-                    {% set translation_domain = child.vars.translation_domain %}
-                    {% set required = child.vars.required %}
-                    {% set label_attr = child.vars.label_attr %}
-                    {% set compound = child.vars.compound %}
-                    {% set checked = child.vars.checked %}
-
-                    {% if not compound %}
-                        {% set label_attr = label_attr|merge({'for': id}) %}
-                    {% endif %}
-                    {% if required %}
-                        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-                    {% endif %}
-                    {% if label is empty %}
-                        {% if label_format is not empty %}
-                            {% set label = label_format|replace({
-                            '%name%': name,
-                            '%id%': id,
-                            }) %}
-                        {% else %}
-                            {% set label = name|humanize %}
-                        {% endif %}
-                    {% endif %}
-
-                    <input type="{% if multiple %}checkbox{% else %}radio{% endif %}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-                    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endblock service_filter_item_widget %}
-
 {% block filter_choice_widget %}
     {% if expanded %}
-        <ul class="button-choice" {{ block('widget_container_attributes') }}>
-        {% for child in form %}
-            <li>
-                {% set value = child.vars.value %}
-                {% set id = child.vars.id %}
-                {% set name = child.vars.name %}
-                {% set label = child.vars.label %}
-                {% set label_format = child.vars.label_format %}
-                {% set translation_domain = child.vars.translation_domain %}
-                {% set required = child.vars.required %}
-                {% set label_attr = child.vars.label_attr %}
-                {% set compound = child.vars.compound %}
-                {% set checked = child.vars.checked %}
+        {% import "Macros/icons.html.twig" as icons %}
+        <div class="service-filter-item-wrapper">
+            <div class="service-filter-item">
+                <div class="service-filter-item__toggle">
+                    <span class="service-filter-item__toggle__label">Tous</span>
+                    {{ icons.icon('angle-down') }}
+                </div>
 
-                {% if not compound %}
-                    {% set label_attr = label_attr|merge({'for': id}) %}
-                {% endif %}
-                {% if required %}
-                    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-                {% endif %}
-                {% if label is empty %}
-                    {% if label_format is not empty %}
-                        {% set label = label_format|replace({
-                        '%name%': name,
-                        '%id%': id,
-                        }) %}
-                    {% else %}
-                        {% set label = name|humanize %}
-                    {% endif %}
-                {% endif %}
+                <ul class="service-filter-item__list" {{ block('widget_container_attributes') }}>
+                    {% for child in form %}
+                        <li class="service-filter-item__item">
+                            {% set value = child.vars.value %}
+                            {% set attr = child.vars.attr %}
+                            {% set form = child.vars.form %}
+                            {% set id = child.vars.id %}
+                            {% set name = child.vars.name %}
+                            {% set full_name = child.vars.full_name %}
+                            {% set disabled = child.vars.disabled %}
+                            {% set label = child.vars.label %}
+                            {% set label_format = child.vars.label_format %}
+                            {% set multipart = child.vars.multipart %}
+                            {% set block_prefixes = child.vars.block_prefixes %}
+                            {% set unique_block_prefix = child.vars.unique_block_prefix %}
+                            {% set translation_domain = child.vars.translation_domain %}
+                            {% set cache_key = child.vars.cache_key %}
+                            {% set errors = child.vars.errors %}
+                            {% set valid = child.vars.valid %}
+                            {% set data = child.vars.data %}
+                            {% set required = child.vars.required %}
+                            {% set size = child.vars.size %}
+                            {% set label_attr = child.vars.label_attr %}
+                            {% set compound = child.vars.compound %}
+                            {% set method = child.vars.method %}
+                            {% set action = child.vars.action %}
+                            {% set submitted = child.vars.submitted %}
+                            {% set checked = child.vars.checked %}
 
-                <input type="{% if multiple %}checkbox{% else %}radio{% endif %}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-                <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
-            </li>
-        {% endfor %}
-        </ul>
+                            {% if not compound %}
+                                {% set label_attr = label_attr|merge({'for': id}) %}
+                            {% endif %}
+                            {% if required %}
+                                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+                            {% endif %}
+                            {% if label is empty %}
+                                {% if label_format is not empty %}
+                                    {% set label = label_format|replace({
+                                    '%name%': name,
+                                    '%id%': id,
+                                    }) %}
+                                {% else %}
+                                    {% set label = name|humanize %}
+                                {% endif %}
+                            {% endif %}
+
+                            <input type="{% if multiple %}checkbox{% else %}radio{% endif %}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+                            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     {% else %}
         {{ block('choice_widget_collapsed') }}
     {% endif %}

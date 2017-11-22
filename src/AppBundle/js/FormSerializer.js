@@ -7,8 +7,6 @@ export class FormSerializer {
             form: form,
             formFields: form.find('input, select, textarea')
         };
-
-        this._cache.form.find('button[type=submit]').hide();
     }
 
     saveFormData() {

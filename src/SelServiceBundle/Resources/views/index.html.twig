@@ -17,22 +17,23 @@
         <div class="wrapper">
             <div class="filters header-block service-filters">
                 <form method="get" action="{{ path('sel_service_index') }}" class="grid" id="serviceFiltersForm">
-                    <div class="grid-item grid-item-2-4-medium-up">
+                    <div class="grid-item grid-item-grow">
                         {{ form_label(filter.type) }}
                         {{ form_widget(filter.type) }}
                         {{ form_errors(filter.type) }}
                     </div>
-                    <div class="grid-item grid-item-2-4-medium-up">
+                    <div class="grid-item grid-item-grow">
                         {{ form_label(filter.domain) }}
                         {{ form_widget(filter.domain) }}
                         {{ form_errors(filter.domain) }}
                     </div>
-                    <div class="grid-item grid-item-2-4-medium-up">
+                    <div class="flex-break"></div>
+                    <div class="grid-item grid-item-grow">
                         {{ form_label(filter.category) }}
                         {{ form_widget(filter.category) }}
                         {{ form_errors(filter.category) }}
                     </div>
-                    <div class="grid-item grid-item-2-4-medium-up">
+                    <div class="grid-item grid-item-submit">
                         <button id="filter_submit" type="submit" name="submit-filter">Filtrer</button>
                     </div>
                 </form>

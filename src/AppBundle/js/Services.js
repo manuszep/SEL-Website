@@ -8,6 +8,7 @@ export class Services {
         this.handlePopState = this.handlePopState.bind(this);
         this.handleAjaxSuccess = this.handleAjaxSuccess.bind(this);
         this.handleAjaxFail = this.handleAjaxFail.bind(this);
+        this.handleSubmitClick = this.handleSubmitClick.bind(this);
     }
 
     init() {
@@ -16,7 +17,9 @@ export class Services {
             notFound: $('#ServicesNotFound'),
             container: $('#servicesList'),
             loader: $('#ServicesLoader'),
-            wrapper: $('#servicesListWrapper')
+            wrapper: $('#servicesListWrapper'),
+            items: $('.service-filter-item'),
+            checks: $('.service-filter-item__item input[type="checkbox"]')
         };
 
         this.serializer = new FormSerializer(this._cache.form);
@@ -32,16 +35,40 @@ export class Services {
 
     setupEvents() {
         this._cache.form.on('change', 'input, select, textarea', this.handleFormChange);
+        this._cache.items.on('click', this.handleToggleClick);
+        $('body').on('click', this.handleBodyClick);
         $('body').on('click', '.pagination a', this.handlePaginationClick);
         window.addEventListener('popstate', this.handlePopState);
+        this._cache.form.find('button[type=submit]').on('click', this.handleSubmitClick);
     }
 
     handleFormChange(e) {
+        this.updateServiceFilterItems();
+    }
+
+    handleSubmitClick(e) {
+        e.preventDefault();
         this.serializer.saveFormData();
         let request = "/service" + this.serializer.getRequest();
 
         history.pushState(this.serializer.getFormData(), null, request);
         this.makeRequest(request);
+    }
+
+    handleToggleClick(e) {
+        e.stopPropagation();
+        var $this = $(this);
+
+        $('.service-filter-item').not(this).removeClass('active');
+        if ($(e.target).hasClass('service-filter-item__toggle') || $(e.target).hasClass('service-filter-item__toggle__label')) {
+            $this.toggleClass("active");
+        } else if (!$this.hasClass("active")) {
+            $this.addClass("active");
+        }
+    }
+
+    handleBodyClick() {
+        $('.service-filter-item').removeClass('active');
     }
 
     handlePaginationClick(e) {
@@ -89,6 +116,21 @@ export class Services {
 
     handleAjaxFail() {
         this.unsetLoadingState();
+    }
+
+    updateServiceFilterItems() {
+        $('.service-filter-item').each(function() {
+            var value = [],
+                $label = $(this).find('.service-filter-item__toggle__label'),
+                $checkboxes = $(this).find('input[type="checkbox"]');
+
+            $(this).find('input[type="checkbox"]:checked + label').each(function() {
+                value.push($(this).text());
+            });
+
+            if (!value.length || $checkboxes.length == value.length) {$label.text('Tous'); return;};
+            $label.text(value.join(', '));
+        });
     }
 
     makeRequest(request) {
