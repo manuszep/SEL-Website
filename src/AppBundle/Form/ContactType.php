@@ -104,7 +104,8 @@ class ContactType extends AbstractType
                         'size' => 'invisible',
                         'defer' => true,
                         'async' => true,
-                        'bind' => 'contact_send'
+                        'bind' => 'contact_send',
+                        'callback' => 'SelonReCaptchaSuccess',
                     )
                 ),
                 'mapped'      => false,

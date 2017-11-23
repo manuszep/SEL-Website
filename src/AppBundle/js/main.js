@@ -124,3 +124,27 @@ $('.drop-zone-collection').each(function() {
     $(this).data('dropzone', new DropZone($(this)));
 })
 
+// Recaptcha
+
+
+window.SelonReCaptchaSuccess = function() {
+    var errorDivs = document.getElementsByClassName('recaptcha-error');
+    if (errorDivs.length) {
+        errorDivs[0].className = '';
+    }
+
+    var errorMsgs = document.getElementsByClassName('recaptcha-error-message');
+    if (errorMsgs.length) {
+        errorMsgs[0].parentNode.removeChild(errorMsgs[0]);
+    }
+
+    var forms = document.getElementsByClassName('recaptcha-form');
+    if (forms.length) {
+        var recaptchaSubmitEvent = document.createEvent('Event');
+        recaptchaSubmitEvent.initEvent('submit', true, true);
+        forms[0].addEventListener('submit', function (e) {
+            e.target.submit();
+        }, false);
+        forms[0].dispatchEvent(recaptchaSubmitEvent);
+    }
+};
