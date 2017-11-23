@@ -135,12 +135,12 @@
         max-height: 3.5rem;
         overflow-y: visible;
         position: relative;
-        z-index: 5;
     }
 
     .service-filter-item {
         background: #fff;
         box-shadow: 0 0 3px rgba(0,0,0,.2);
+        position: relative;
     }
 
     .service-filter-item__toggle {
@@ -207,6 +207,8 @@
     }
 
     .service-filter-item.active {
+        z-index: 5;
+
         .service-filter-item__item {
             border-width: 1px 0;
             max-height: 5rem;
