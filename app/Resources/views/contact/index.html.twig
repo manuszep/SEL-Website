@@ -15,7 +15,7 @@
         <div class="wrapper">
             <div class="grid ">
                 <div class="grid-item-large-up grid-item-3-5-large-up order-2">
-                    {{ form_start(form, {'attr': {'class': 'medium-form'}}) }}
+                    {{ form_start(form, {'attr': {'class': 'medium-form recaptcha-form'}}) }}
                     <fieldset>
                         <div class="form-row">
                             {{ form_label(form.name) }}
@@ -38,11 +38,8 @@
                             {{ form_errors(form.message) }}
                         </div>
 
-                        <div class="form-row">
-                            {{ form_label(form.recaptcha) }}
                             {{ form_widget(form.recaptcha) }}
                             {{ form_errors(form.recaptcha) }}
-                        </div>
                     </fieldset>
 
                     <div class="form-actions">

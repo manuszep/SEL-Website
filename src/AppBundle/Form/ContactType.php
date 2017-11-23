@@ -101,9 +101,10 @@ class ContactType extends AbstractType
                     'options' => array(
                         'theme' => 'light',
                         'type'  => 'image',
-                        'size'  => 'normal',
+                        'size' => 'invisible',
                         'defer' => true,
-                        'async' => true
+                        'async' => true,
+                        'bind' => 'contact_send'
                     )
                 ),
                 'mapped'      => false,
