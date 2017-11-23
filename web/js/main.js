@@ -38511,6 +38511,7 @@ var Services = exports.Services = function () {
             this.setupEvents();
 
             this.serializer.saveFormData();
+            this.updateServiceFilterItems();
         }
     }, {
         key: 'setupEvents',

@@ -31,6 +31,7 @@ export class Services {
         this.setupEvents();
 
         this.serializer.saveFormData();
+        this.updateServiceFilterItems();
     }
 
     setupEvents() {
