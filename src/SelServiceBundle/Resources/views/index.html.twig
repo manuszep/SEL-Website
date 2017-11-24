@@ -39,13 +39,6 @@
                 </form>
             </div>
 
-            {% if is_granted('ROLE_USER') %}
-            <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 4em;margin-top:-2em;">
-                <p><strong>Accès à l'ancien site</strong> : Vous pouvez consulter la liste de vos offres et demandes sur l'ancien site à l'adresse <a href="http://retro.boutsdefisel.be">retro.boutsdefisel.be</a></p>
-                <p>Il est à présent impossible d'y introduire ou d'y modifier du contenu.</p>
-            </div>
-            {% endif %}
-
             <p id="ServicesNotFound" class="text-center lead"{% if services is not empty %} style="display:none"{% endif %}>La recherche que vous avez effectuée n'a retourné aucun résultat.</p>
 
             <div id="servicesList" class="ajax">
