@@ -1,9 +1,12 @@
 {% if pageCount > 1 %}
+    {%  if anchor is not defined %}
+        {% set anchor = '' %}
+    {% endif %}
     <nav class="pagination">
         <ul>
         {% if previous is defined %}
             <li class="previous">
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo; {{ 'Previous'|trans }}</a>
+                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}{{ anchor }}">&laquo; {{ 'Previous'|trans }}</a>
             </li>
         {% else %}
             <li class="previous unavailable">
@@ -15,11 +18,11 @@
 
         {% if startPage > 1 %}
             <li>
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}{{ anchor }}">1</a>
             </li>
             {% if startPage == 3 %}
                 <li>
-                    <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                    <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): 2})) }}{{ anchor }}">2</a>
                 </li>
             {% elseif startPage != 2 %}
                 <li class="page unavailable">
@@ -31,7 +34,7 @@
         {% for page in pagesInRange %}
             {% if page != current %}
                 <li class="page">
-                    <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">
+                    <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}{{ anchor }}">
                         {{ page }}
                     </a>
                 </li>
@@ -51,20 +54,20 @@
                     </li>
                 {% else %}
                     <li>
-                        <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">
+                        <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}{{ anchor }}">
                             {{ pageCount -1 }}
                         </a>
                     </li>
                 {% endif %}
             {% endif %}
             <li>
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}{{ anchor }}">{{ pageCount }}</a>
             </li>
         {% endif %}
 
         {% if next is defined %}
             <li class="next">
-                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                <a class="pagination-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}{{ anchor }}">
                     {{ 'Next'|trans }} &nbsp;&raquo;
                 </a>
             </li>

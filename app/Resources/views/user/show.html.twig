@@ -31,7 +31,7 @@
 
         {{ render(controller(
             'SelExchangeBundle:Exchange:listForUser',
-            { 'user': user.id, 'partial': true}
+            { 'request' : app.request, 'user': user.id, 'partial': true}
         )) }}
 
         <section class="user-profile" data-tab-title="Infos de contact">

@@ -25,6 +25,7 @@ class ExchangeController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_COCO');
         $em = $this->getDoctrine()->getManager();
 
         $exchanges = $em->getRepository('SelExchangeBundle:Exchange')->findBy([], ['created' => 'DESC']);
@@ -39,11 +40,12 @@ class ExchangeController extends Controller
     /**
      * Lists all Exchange entities for a user.
      *
+     * @param Request $request
      * @param User $user
      * @param boolean $partial
      * @Method("GET")
      */
-    public function listForUserAction(User $user, $partial) {
+    public function listForUserAction(Request $request, User $user, $partial) {
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->getRepository('SelExchangeBundle:Exchange')->createQueryBuilder('e');
@@ -57,9 +59,15 @@ class ExchangeController extends Controller
             ->getQuery()
             ->getResult();
 
+        $pagination = $this->getPagination($exchanges, $request);
+
+        $pagination->setCustomParameters(array(
+            'anchor' => '#section1'
+        ));
+
         return $this->render('SelExchangeBundle::listForUser.html.twig', array(
             'user' => $user,
-            'exchanges' => $exchanges,
+            'exchanges' => $pagination,
             'partial' => $partial
         ));
     }
@@ -72,6 +80,7 @@ class ExchangeController extends Controller
      */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $exchange = new Exchange();
         $form = $this->createForm('SelExchangeBundle\Form\ExchangeType', $exchange);
         $form->handleRequest($request);
@@ -139,6 +148,7 @@ class ExchangeController extends Controller
      */
     public function editAction(Request $request, Exchange $exchange)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $deleteForm = $this->createDeleteForm($exchange);
         $editForm = $this->createForm('SelExchangeBundle\Form\ExchangeType', $exchange);
         $editForm->handleRequest($request);
@@ -187,6 +197,7 @@ class ExchangeController extends Controller
      */
     public function deleteAction(Request $request, Exchange $exchange)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createDeleteForm($exchange);
         $form->handleRequest($request);
 
@@ -221,12 +232,14 @@ class ExchangeController extends Controller
         ;
     }
 
-    public function getPagination($services, $request, $limit = 20) {
+    public function getPagination($exchanges, $request, $limit = 20) {
         $paginator  = $this->get('knp_paginator');
+
         return $paginator->paginate(
-            $services,
-            $request->query->getInt('page', 1),
-            $limit
+            $exchanges,
+            $request->query->getInt('exchanges_page', 1),
+            $limit,
+            array('pageParameterName' => 'exchanges_page', 'sortDirectionParameterName' => 'exchanges_dir')
         );
     }
 }

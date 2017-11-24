@@ -9,33 +9,39 @@
             {% if exchanges|length < 1 %}
                 <p class="lead text-center">Vous n'avez encore fait aucun échange. Si vous avez bénéficié des services d'un autre membre, cliquez sur le <strong>+</strong> en bas, à droite de cette page pour encoder un échange.</p>
             {% else %}
-            <table>
-                <thead>
-                <tr>
-                    <th><i>A</i> a rendu service à <i>B</i></th>
-                    <th>{{ 'label.message'|trans }}</th>
-                    <th>{{ 'label.amount'|trans }}</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
+                <div class="exchange-list">
                 {% for exchange in exchanges %}
-                    <tr>
-                        <td><a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}">{{ exchange.creditUser }}</a> {{ icons.icon('arrow-right', 'a rendu service à') }} <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}">{{ exchange.debitUser }}</a></td>
-                        <td><b>{{ exchange.title }}</b>{% if exchange.message is defined %}<br />{{ exchange.message }}{% endif %}</td>
-                        <td>{{ exchange.amount }}</td>
-                        <td>
-                            <ul class="table-actions">
+                    <div class="exchange-list__item">
+                        <div class="exchange-list__authors">
+                            <a href="{{ path('user_show', { 'id': exchange.creditUser.id }) }}">{{ exchange.creditUser }}</a>
+                            {{ icons.icon('arrow-right', 'a rendu service à') }}
+                            <a href="{{ path('user_show', { 'id': exchange.debitUser.id }) }}">{{ exchange.debitUser }}</a>
+                        </div>
+                        <div class="exchange-list__amount">
+                            {{ exchange.amount }} noeuds
+                        </div>
+                        <div class="exchange-list__date">
+                            {{ exchange.created | localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}
+                        </div>
+                        <div class="exchange-list__message">
+                            <div class="exchange-list__message__title">{{ exchange.title }}</div>
+                            {% if exchange.message is defined and exchange.message|length %}<div class="exchange-list__message__text">{{ exchange.message }}</div>{% endif %}
+                        </div>
+                        {% if is_granted("edit", exchange) %}
+                        <div class="exchange-list__actions">
+                            <ul>
                                 <li>
                                     {{ icons.iconlink('pencil', 'Modifier', path('sel_exchange_edit', { 'id': exchange.id })) }}
                                 </li>
                             </ul>
-                        </td>
-                    </tr>
+                        </div>
+                        {% endif %}
+                    </div>
                 {% endfor %}
-                </tbody>
-            </table>
-                {% endif %}
+                </div>
+
+            {{ knp_pagination_render(exchanges) }}
+            {% endif %}
         </div>
     </section>
 {% endblock %}

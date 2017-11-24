@@ -124,6 +124,74 @@ $SEL-Exchange-border-width: .25rem;
         }
     }
 
+    .exchange-list__item {
+        background: #fff;
+        padding: 1.5rem 5rem 1.5rem 1.5rem;
+        margin-bottom: .25rem;
+        display: flex;
+        position: relative;
+    }
+
+    .exchange-list__authors {
+        margin-right: 1.5rem;
+        flex-basis: 25%;
+    }
+
+    .exchange-list__amount {
+        font-weight: bold;
+        position: absolute;
+        right: 1.5rem;
+        top: .25rem;
+    }
+
+    .exchange-list__date {
+        font-style: italic;
+        opacity: .5;
+        position: absolute;
+        right: 0;
+        top: .25rem;
+        left: 1.5rem;
+        font-size: .85rem;
+    }
+
+    .exchange-list__message {
+        flex-basis: 100%;
+    }
+
+    .exchange-list__message__title {
+        font-weight: bold;
+    }
+
+    .exchange-list__actions {
+        position: absolute;
+        right: 1.5rem;
+        bottom: .5rem;
+
+        ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: .3rem;
+            border-radius: 3px;
+            margin: .2rem;
+            color: $FAST-Color-black-m;
+
+            &:hover {
+                background: $FAST-Color-primary;
+                color: $FAST-Color-white;
+            }
+
+            .text {
+                display: none;
+            }
+        }
+    }
+
     @include FAST-breakpoint('medium') {
         .exchange-list {
             .exchange {
