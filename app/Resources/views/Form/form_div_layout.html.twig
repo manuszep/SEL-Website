@@ -305,7 +305,7 @@
 
 {% block file_widget %}
     {% spaceless %}
-        {% if image_path is not null %}
+        {% if image_path is defined and image_path is not null %}
             <div class="uploaded-file {% if attr.multiple is defined and attr.multiple is not null %}multiple-file{% else %}single-file{% endif %}">
                 <div class="file-row">
                     <a class="file-name" href="{{ image_path }}">{{ image_path }}</a>
