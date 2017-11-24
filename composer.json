@@ -37,7 +37,7 @@
         "symfony/phpunit-bridge": "^3.0",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "twig/extensions": "^1.4",
-        "liip/functional-test-bundle": "^1.7"
+        "liip/functional-test-bundle": "^1.8"
     },
     "scripts": {
         "post-install-cmd": [
