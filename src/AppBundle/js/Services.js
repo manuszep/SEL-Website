@@ -3,7 +3,6 @@ import {FormSerializer} from './FormSerializer';
 
 export class Services {
     constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
         this.handlePaginationClick = this.handlePaginationClick.bind(this);
         this.handlePopState = this.handlePopState.bind(this);
         this.handleAjaxSuccess = this.handleAjaxSuccess.bind(this);
@@ -31,20 +30,12 @@ export class Services {
         this.setupEvents();
 
         this.serializer.saveFormData();
-        this.updateServiceFilterItems();
     }
 
     setupEvents() {
-        this._cache.form.on('change', 'input, select, textarea', this.handleFormChange);
-        this._cache.items.on('click', this.handleToggleClick);
-        $('body').on('click', this.handleBodyClick);
         $('body').on('click', '.pagination a', this.handlePaginationClick);
         window.addEventListener('popstate', this.handlePopState);
         this._cache.form.find('button[type=submit]').on('click', this.handleSubmitClick);
-    }
-
-    handleFormChange(e) {
-        this.updateServiceFilterItems();
     }
 
     handleSubmitClick(e) {
@@ -54,22 +45,6 @@ export class Services {
 
         history.pushState(this.serializer.getFormData(), null, request);
         this.makeRequest(request);
-    }
-
-    handleToggleClick(e) {
-        e.stopPropagation();
-        var $this = $(this);
-
-        $('.service-filter-item').not(this).removeClass('active');
-        if ($(e.target).hasClass('service-filter-item__toggle') || $(e.target).hasClass('service-filter-item__toggle__label')) {
-            $this.toggleClass("active");
-        } else if (!$this.hasClass("active")) {
-            $this.addClass("active");
-        }
-    }
-
-    handleBodyClick() {
-        $('.service-filter-item').removeClass('active');
     }
 
     handlePaginationClick(e) {
@@ -117,21 +92,6 @@ export class Services {
 
     handleAjaxFail() {
         this.unsetLoadingState();
-    }
-
-    updateServiceFilterItems() {
-        $('.service-filter-item').each(function() {
-            var value = [],
-                $label = $(this).find('.service-filter-item__toggle__label'),
-                $checkboxes = $(this).find('input[type="checkbox"]');
-
-            $(this).find('input[type="checkbox"]:checked + label').each(function() {
-                value.push($(this).text());
-            });
-
-            if (!value.length || $checkboxes.length == value.length) {$label.text('Tous'); return;};
-            $label.text(value.join(', '));
-        });
     }
 
     makeRequest(request) {

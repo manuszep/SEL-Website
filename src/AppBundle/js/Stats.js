@@ -16,7 +16,8 @@ export class Stats {
             container: $('.stats-wrapper'),
             exchangesGraph: $('#exchangesGraph'),
             servicesGraph: $('#servicesGraph'),
-            usersGraph: $('#usersGraph')
+            usersGraph: $('#usersGraph'),
+            submitBtn: $('#filter_submit')
         };
 
         this.serializer = new FormSerializer(this._cache.form);
@@ -31,11 +32,12 @@ export class Stats {
     }
 
     setupEvents() {
-        this._cache.form.on('change', 'input, select, textarea', this.handleFormChange);
+        this._cache.submitBtn.on('click', this.handleFormChange);
         window.addEventListener('popstate', this.handlePopState);
     }
 
     handleFormChange(e) {
+        e.preventDefault();
         this.serializer.saveFormData();
         let request = "/stats" + this.serializer.getRequest();
 

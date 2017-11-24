@@ -7,6 +7,7 @@ import {AddTool} from './AddTool';
 import {Services} from './Services';
 import {Stats} from './Stats';
 import {DropZone} from './DropZone';
+import {FilterForm} from './FilterForm';
 
 let $ = require('jquery'),
     Masonry = require('masonry-layout'),
@@ -32,6 +33,7 @@ window.Flash = new Flash();
 let disqus = new Disqus();
 let faq = new Faq();
 let add_tool = new AddTool();
+let filter_form = new FilterForm();
 
 window.Services = new Services();
 window.Stats = new Stats();
@@ -123,6 +125,8 @@ $('[data-datepicker-future]').datepicker({
 $('.drop-zone-collection').each(function() {
     $(this).data('dropzone', new DropZone($(this)));
 })
+
+filter_form.init();
 
 // Recaptcha
 

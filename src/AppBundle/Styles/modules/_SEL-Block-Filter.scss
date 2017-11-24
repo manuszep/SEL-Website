@@ -191,7 +191,7 @@
             height: 3px;
         }
 
-        input[type="checkbox"] {
+        input[type="checkbox"], input[type="radio"] {
             position: absolute;
             left: .5rem;
             top: 50%;
